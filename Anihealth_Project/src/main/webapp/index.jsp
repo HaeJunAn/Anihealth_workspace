@@ -9,6 +9,6 @@
 <body>
 
 	<jsp:forward page="WEB-INF/views/main.jsp"></jsp:forward>
-
+	<!-- 5-29 index.jsp 테스트 -->
 </body>
 </html>
