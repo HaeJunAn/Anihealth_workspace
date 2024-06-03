@@ -171,7 +171,7 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">고객센터</a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">FAQ</a>
+                                <a class="dropdown-item" href="faq.bo">FAQ</a>
                                 <a class="dropdown-item" href="#">1:1 문의</a>
     						</div>
                         </li>
