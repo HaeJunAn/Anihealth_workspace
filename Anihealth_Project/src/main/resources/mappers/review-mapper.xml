@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
+<mapper namespace="reviewMapper">
+
+	<!-- 더미데이터 넣고 꼭 커밋합시다 -->
+
+	<resultMap id="reviewResultSet"
+			   type="review">
+		<result column="REVIEW_NO" property="reviewNo" />
+		<result column="RATING" property="rating" />
+		<result column="REVIEW_TITLE" property="reviewTitle" />
+		<result column="REVIEW_CONTENT" property="reviewContent" />
+		<result column="REVIEW_FILE_PATH" property="reviewFilePath" />
+		<result column="REVIEW_DATE" property="reviewDate" />
+		<result column="REVIEW_STATUS" property="reviewStatus" />
+		<result column="ORDER_PRODUCT_NO" property="orderProductNo" />
+		<result column="USER_NO" property="userNo" />
+		<result column="PRODUCT_NO" property="productNo" />
+	</resultMap>
+	
+	<select id="selectRatingCount" parameterType="_int" resultType="hashmap"> 
+		SELECT RATING, COUNT(RATING) "COUNT"
+		  FROM REVIEW R
+		  JOIN ORDER_PRODUCT O ON (R.ORDER_PRODUCT_NO = O.ORDER_PRODUCT_NO)
+		 WHERE PRODUCT_NO = #{productNo} AND REVIEW_STATUS = 'Y'
+		 GROUP BY RATING 
+		 ORDER BY RATING DESC
+	</select>
+	
+	<select id="selectCountReview" parameterType="review" resultType="_int">
+		SELECT COUNT(*)
+		  FROM REVIEW R
+		  JOIN ORDER_PRODUCT O ON (R.ORDER_PRODUCT_NO = O.ORDER_PRODUCT_NO)
+		 WHERE PRODUCT_NO = #{productNo} AND (RATING = #{rating} OR #{rating} = 0) AND REVIEW_STATUS = 'Y' 
+	</select>
+	
+	<select id="selectProductReview" parameterType="review" resultMap="reviewResultSet">
+		SELECT REVIEW_NO, RATING, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_FILE_PATH, USER_NO, TO_CHAR(REVIEW_DATE, 'YY/MM/DD HH:MI:SS') "REVIEW_DATE"
+		  FROM REVIEW R
+		  JOIN ORDER_PRODUCT O ON (R.ORDER_PRODUCT_NO = O.ORDER_PRODUCT_NO)
+		 WHERE PRODUCT_NO = #{productNo} AND (RATING = #{rating} OR #{rating} = 0) AND REVIEW_STATUS = 'Y' 
+		 ORDER BY REVIEW_NO DESC
+	</select>
+  
+</mapper>

@@ -148,7 +148,7 @@
             <div id="header">
     
                 <div id="header_1" align="center">
-                    <a href="#">
+                    <a href="${pageContext.request.contextPath}/">
                         <img src="resources/img/image (4).png" id="logo">
                     </a>
                 </div>
@@ -156,7 +156,7 @@
                 <div id="header_2" align="center">
                     <ul class="nav justify-content-center">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">영양제</a>
+                            <a class="nav-link" href="list.re">영양제</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">건강체크</a>
