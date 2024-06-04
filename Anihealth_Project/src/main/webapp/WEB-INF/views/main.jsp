@@ -7,8 +7,8 @@
 <title>Insert title here</title>
 
     <style>
-      .header-background {
-
+      
+        .header-background {
             width: 100%;
             height: 750px;
             background-image: url(resources/img/maincat.jpg);
@@ -16,17 +16,8 @@
             background-repeat: no-repeat;
             background-position: center;
             padding: 1px;
-            position: relative;        
+            position: relative;         
         }
-
-        .header-background video {
-            width: 100%;
-            height: 100%;
-            object-fit: fill;
-            
-
-        }
-
 
         .header-btn {
             width: 22%;
@@ -53,7 +44,6 @@
             color: white;
         }
 
-
         .container {
             display: flex;
             justify-content: space-between;
@@ -71,7 +61,8 @@
 
 
        .table-container {
-            width: 80%;
+            width: 73%;
+            /* 매거진과 동물병원찾기 가로 길이 조정 */
             margin: 0 auto;
         }
 
@@ -108,9 +99,11 @@
 
 
         .slide-container {
-            width: 80%;
+            width: 70%;
+            height: auto;
             margin: 0 auto;
             text-align: center;
+            margin-top: 70px;
         }
 
         .slide-table {
@@ -120,12 +113,7 @@
             margin-bottom: 40px;
         }
 
-        .slide-table td {
-        text-align: center;
-        height: 300px; /* 부모 요소의 높이를 설정 */
-       }
-
-        .slide-table h3{
+        .slide-container h3 {
             text-align: left;
             white-space: nowrap; /* 줄 바꿈 없이 한 줄로 유지 */
             margin: 11px;
@@ -133,20 +121,63 @@
             color: rgb(88, 86, 86);
         }
 
-        .slide-image {
-            width: 100%; 
-            height: 80%;
+        .product-wrapper {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 20px;
+            border: 1px solid rgb(141, 174, 157);
+            height: 460px;   
+            /* 전체 칸의 높이 */
+            margin-bottom: 80px;
+        }
+
+        .product-wrapper a{
+            text-decoration: none;
+            color: inherit;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+        .product {
+            text-align: center;
+            width: 35%;
+            height: 85%;
+            padding-top: 25px;
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        .product img {
+            width: 55%; 
+            height: 55%; 
             cursor: pointer;
             object-fit: cover; /* 이미지 비율을 유지하면서 크기 조정 */
-            border: 1px solid rgb(141, 174, 157);
+            border-radius: 50%;
         }
+
+        .product span {
+            display: block;
+            margin-top: 10px;
+            color: rgb(121, 120, 120);
+            padding-top: 10px;
+            font-size: large;
+        }
+        .pd-name{
+            font-weight: bold;
+            padding-top: 10px;
+        }
+        .pd-price{
+            margin-top: 0;
+        }
+
+
 
         .review-title{
             width: 100%;
             text-align: center;
             margin: 20px;
-            margin-bottom: 30px;
-           
+            margin-bottom: 20px;       
         }
 
         .review-title h3{
@@ -156,27 +187,54 @@
 
         .review-container {
             width: 100%;
+            height: 400px;
             display: flex;
             justify-content: center;
             background-color: rgb(228, 236, 232);
+            padding: 0; /* 패딩 제거 */
         }
 
-        .review-table {
+        .review-row {
+            display: flex;
             width: 80%;
-            border-collapse: collapse;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .product-rw {
+            width: 22%; /* 각 디브가 일정한 너비를 가지도록 설정 */
             text-align: center;
-            margin-top: 40px;
-            margin-bottom: 40px;
-        }
-
-        .review-table td {
-            padding: 10px;
-        }
-
-        .review-table img {
-            width: 100%;
-            height: auto;
+            background-color: white;
             border-radius: 20px;
+            box-sizing: border-box;
+            padding-top: 30px;
+            padding-bottom: 30px;
+        }
+
+         .product-rw img {
+            width: 60%;
+            height: auto; 
+            cursor: pointer;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .product-rw a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .product-rw span {
+            display: block;
+            margin-top: 10px;
+            color: rgb(121, 120, 120);
+            padding-top: 10px;
+        }
+
+        .product-rw .pd-title1 {
+            margin-top: 0;
+            font-weight: bold;
+            font-size: large;
         }
         
          .hidden {
@@ -222,46 +280,69 @@
                     </table>
                 </div>
                 <div class="slide-container  main-section hidden animate__animated animate__slower" data-animate="animate__fadeInRight">
-                    <table class="slide-table">
-                    	<tr>
-                        <td>
-                            <h3>BestPick!</h3>
-                            <a href="">
-                                <img src="resources/img/slide-img.png" alt=""  class="slide-image">
-                            </a>
-                        </td>
-                        </tr>
-                    </table>
-                </div>
+                     <div class="slide-table">
+                <h3>BestPick!</h3>
+                <div class="product-wrapper">
+
+                    <div class="product">
+                        <a href="">
+                            <img src="resources/img/skin-hair.png" alt="Product Image 1">
+                            <span class="pd-name">코텍스 블리스터</span>
+                            <span class="pd-price">25,000원</span>
+                        </a>
+                    </div>
+                    <div class="product">
+                        <a href="">
+                            <img src="resources/img/skin-hair.png" alt="Product Image 1">
+                            <span class="pd-name">코텍스 블리스터</span>
+                            <span class="pd-price">25,000원</span>
+                        </a>
+                    </div>
+                    <div class="product">
+                        <a href="">
+                            <img src="resources/img/skin-hair.png" alt="Product Image 1">
+                            <span class="pd-name">코텍스 블리스터</span>
+                            <span class="pd-price">25,000원</span>
+                        </a>
+                    </div>
+                </div> 
+           </div>
+    		</div> 
                 <div class="review-title  main-section hidden animate__animated animate__slower" data-animate="animate__fadeInLeft">
                     <h3>ANIHEALTH 와 함께하는 고객 후기</h3>
                 </div>
                 <div class="review-container main-section hidden animate__animated animate__slower" data-animate="animate__fadeInUp">
-                    <table class="review-table">
-                        <tr>
-                            <td>
-                                <a href="">
-                                    <img src="resources/img/review-img.png" alt="">
-                                </a>
-                            </td>
-                            <td>
-                                <a href="">
-                                    <img src="resources/img/review-img.png" alt="">
-                                </a>
-                            </td>
-                            <td>
-                                <a href="">
-                                    <img src="resources/img/review-img.png" alt="">
-                                </a>
-                            </td>
-                            <td>
-                                <a href="">
-                                    <img src="resources/img/review-img.png" alt="">
-                                </a>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
+                    <div class="review-row">
+            <div class="product-rw">
+                <a href="">
+                    <img src="resources/img/review-img.png" alt="Product Image 1">           
+                    <span class="pd-name1">코텍스 블리스터</span>
+                    <span class="pd-title1">금방 와요!</span>
+                </a>
+            </div>
+            <div class="product-rw">
+                <a href="">
+                    <img src="resources/img/review-img.png" alt="Product Image 1">           
+                    <span class="pd-name1">코텍스 블리스터</span>
+                    <span class="pd-title1">금방 와요!</span>
+                </a>
+            </div>
+            <div class="product-rw">
+                <a href="">
+                    <img src="resources/img/review-img.png" alt="Product Image 1">           
+                    <span class="pd-name1">코텍스 블리스터</span>
+                    <span class="pd-title1">금방 와요!</span>
+                </a>
+            </div>
+            <div class="product-rw">
+                <a href="">
+                    <img src="resources/img/review-img.png" alt="Product Image 1">           
+                    <span class="pd-name1">코텍스 블리스터</span>
+                    <span class="pd-title1">금방 와요!</span>
+                </a>
+            </div>
+        </div>
+    </div>
     </div>
      
       <script>
@@ -290,7 +371,9 @@
      
     <br><br><br>
     
+    
+    
     <jsp:include page="common/footer.jsp" />
-
+	
 </body>
 </html>
