@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 
 <style>
+
 	        /*영양제 후기 메인 영역 시작*/
         .parent-container-rw {
             width: 100%;
@@ -58,7 +59,7 @@
             /* 양옆 여백 추가 */
         }
 
-        .progress-wrapper {
+         .progress-wrapper {
             margin: 10px 0;
             position: relative;
             background-color: #f6f6f6;
@@ -267,6 +268,59 @@
             color: rgb(83, 88, 88);
             font-weight: 600;
         }
+        
+        /* 페이지 처리*/
+        .paging-btns li {
+		    display: inline-block;
+		    border: none;
+		    background-color: #f0f0f0; 
+		    color: #202020; 
+		    padding: 10px 15px; 
+		    margin: 0 5px; 
+		    cursor: pointer;
+		    border-radius: 10px; 
+		    border: 1px solid rgb(82, 166, 121);
+		}
+		
+		.paging-btns li:hover {
+		    background-color: rgb(198, 228, 212);
+		}
+		
+		.paging-area li.active {
+		    background-color: rgb(198, 228, 212);
+		    color: #202020; 
+		    cursor: default;
+		}
+		.paging-area li.active:hover {
+            background-color: (198, 228, 212);
+            color: #202020;
+        }
+        .paging-btns li {
+            background-color:rgb(249, 246, 246);
+        }
+		
+		.paging-area {
+		    text-align: center;
+		    display: flex;
+		    justify-content: center; 
+		    align-items: center;
+		    margin-top: 60px; 
+		}
+		
+		.paging-btns {
+		    display: flex;
+		    justify-content: center; /* 페이지 버튼을 가운데 정렬 */
+		}
+		
+		.paging-btns li {
+		    font-size: 105%;
+		    font-weight: 600;
+		}
+		
+		.current-page {
+		    background-color: #007bff;
+		} 
+
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
@@ -326,13 +380,13 @@
 				
 			</table> 
 			<br>
-			<div class="page-rw">
-				<nav aria-label="Page navigation example">
-				  <ul class="pagination justify-content-center">
-				   
-				  </ul>
-				</nav>	
-			</div>	
+    	<div class="page-rw paging-area">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center paging-btns">
+                
+                </ul>
+            </nav>    
+        </div>    
 		</div>
 	</div>
 
@@ -438,6 +492,7 @@
        	});
        	
        	function selectReviewList(pageNum) {
+
        		$.ajax({
        			url : "plist.re",
        			type : "get",
@@ -447,66 +502,83 @@
        				currentPage: pageNum
        			},
        			success: function(result) {
-       				let ratinglist = result.ratinglist;
+       				
+       				let ratingList = result.ratingList;
+       				ratingList.sort(function(a, b) {
+       				    return b.RATING - a.RATING;
+       				}); //정렬 콜백함수 정의
+   
        				let rlist = result.list;
        				let rpi = result.pi;
        				
-       				console.log(ratinglist[0].COUNT);
-       				console.log(result);
+       				//console.log(ratinglist[0].COUNT);
+       				//console.log(result);
        				
        				
        				let ratingStr = "";
-       				
-       				for (let i  = 5; i > 0 ; i--) {
+       				let sumRating = 0;
+       				let countRating = 0;
+       				let avgRating = 0;
+       				for (let i  = ratingList.length; i > 0 ; i--) {
        					ratingStr += "<div class='progress-wrapper'> <div class='progress'>";
        					ratingStr += "<span class='progress-text'>" + i + "점 </span>";
        					ratingStr += "<div class='progress-bar star-pgr' style='width:" + 20 * (i-1) + "%;'></div>"
-       					ratingStr +=  "<span class='progress-label'>" + ratinglist[5-i].COUNT + "</span> </div> </div>"
+       					ratingStr +=  "<span class='progress-label'>" + ratingList[5-i].COUNT + "</span> </div> </div>"
        					//console.log(ratinglist[i].COUNT);
+       					sumRating += ratingList[5-i].RATING * ratingList[5-i].COUNT;
+       					countRating += ratingList[5-i].COUNT;
 					}
+       				avgRating = sumRating/countRating;
+					let roundedRating = Math.round(avgRating*10)/ 10;
        				
        				$(".left-header-rw>span").text(rpi.listCount);
     				
        				let listStr = "";
-       				
-       				for(let i = 0; i < rlist.length; i++){
-       					listStr += "<tbody> <tr class='table-line'> <td class='text-column'> <div class='info-content-rw'>" ;
-       					listStr += "<div> <span class='info-title1'>" + rlist[i].userNo + "</span>";
-       					listStr += "<span class='info-title2'>" + rlist[i].reviewDate + "</span>";
-       					listStr += "<div class='stars rw-star'>" ;
-       				    
-       				    for(let k = 0; k < rlist[i].rating; k++){
-       				    	listStr += "<i class='fa-solid fa-star'></i>";
-       				    }
-       				    listStr += "<span class='star-score'>" + rlist[i].rating+ "</span> </div> </div> </div>";
-       				    listStr += "<div style='margin-top: 10px;'> <span class='info-title3'>" + rlist[i].reviewTitle  + "</span> </div>";
-       				    listStr += "<div class='text-column review-content'> <div> <p>" + rlist[i].reviewContent + "</p> </div> </td>" ;
-       				    listStr += "<td class='image-column' rowspan='2' colspan='2'> <div class='image-box'>" ;
-       				    listStr += "<img src='" + rlist[i].reviewFilePath + "'class='slide-image'> </div> </td> </tr> </tbody>"
-       				}
-       				
        				let pageStr = "";
-       				
-   					if(rpi.currentPage != 1){
-   						pageStr += "<li class='page-item'> <a class='page-link' onclick='selectReviewList("+ (rpi.currentPage - 1) +");'><</a></li>";
-   					} else {
-   						pageStr += "<li class='page-item disabled'><a class='page-link'><</a></li>";
-   					} 
-   					
-       				for (let i = rpi.startPage; i <= rpi.endPage; i++) {
-       					if (rpi.currentPage != i) {
-       						pageStr += "<li class='page-item'><a class='page-link' onclick='selectReviewList("+ i +");'>" + i + "</a></li>";
-						} else {
-							pageStr += "<li class='page-item active'><a class='page-link'>" + i + "</a></li>";
-						}			
+       				if (rlist.length != 0) {
+       					
+						for(let i = 0; i < rlist.length; i++){
+	       					listStr += "<tbody> <tr class='table-line'> <td class='text-column'> <div class='info-content-rw'>" ;
+	       					listStr += "<div> <span class='info-title1'>" + rlist[i].userNo + "</span>";
+	       					listStr += "<span class='info-title2'>" + rlist[i].reviewDate + "</span>";
+	       					listStr += "<div class='stars rw-star'>" ;
+	       				    
+	       				    for(let k = 0; k < rlist[i].rating; k++){
+	       				    	listStr += "<i class='fa-solid fa-star'></i>";
+	       				    }
+	       				    listStr += "<span class='star-score'>" + rlist[i].rating+ "</span> </div> </div> </div>";
+	       				    listStr += "<div style='margin-top: 10px;'> <span class='info-title3'>" + rlist[i].reviewTitle  + "</span> </div>";
+	       				    listStr += "<div class='text-column review-content'> <div> <p>" + rlist[i].reviewContent + "</p> </div> </td>" ;
+	       				    listStr += "<td class='image-column' rowspan='2' colspan='2'> <div class='image-box'>" ;
+	       				    listStr += "<img src='" + rlist[i].reviewFilePath + "'class='slide-image'> </div> </td> </tr> </tbody>"
+	       				}
+						
+												
+	   					if(rpi.currentPage != 1){
+	   						pageStr += "<li class='page-item ' onclick='selectReviewList("+ (rpi.currentPage - 1) +");'><</li>";
+	   					} else {
+	   						pageStr += "<li class='page-item disabled'><</li>";
+	   					} 
+	   					
+	       				for (let i = rpi.startPage; i <= rpi.endPage; i++) {
+	       					if (rpi.currentPage != i) {
+	       						pageStr += "<li class='page-item' onclick='selectReviewList("+ i +");'>" + i + "</li>";
+							} else {
+								pageStr += "<li class='page-item active'>" + i + "</li>";
+							}			
+						}
+	       				
+	   					if(rpi.currentPage != rpi.maxPage){
+	   						pageStr += "<li class='page-item' onclick='selectReviewList("+ (rpi.currentPage + 1) +");'>></li>";
+	   					} else {
+	   						pageStr += "<li class='page-item disabled'>></li>";
+	   					} 
+	   					
+					} else {
+						listStr += "<span align='center'><h2>작성된 후기가 없습니다</h2></span>";
 					}
-       				
-   					if(rpi.currentPage != rpi.endPage){
-   						pageStr += "<li class='page-item'><a class='page-link' onclick='selectReviewList("+ (rpi.currentPage + 1) +");'>></a></li>";
-   					} else {
-   						pageStr += "<li class='page-item disabled'><a class='page-link'>></a></li>";;
-   					} 
-   					
+       					
+       				$(".rating>p").eq(1).html(roundedRating);
    					$(".progress-container").html(ratingStr);
        				$(".info-table-rw").html(listStr);
        				$(".pagination").html(pageStr);
