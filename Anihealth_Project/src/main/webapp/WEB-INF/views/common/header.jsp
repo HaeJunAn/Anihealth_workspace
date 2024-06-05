@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,6 +26,22 @@
 	 <link
 	 rel="stylesheet"
 	 href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+	 
+ 	<!-- alertify 연동 구문 -->
+   	<!-- JavaScript -->
+	<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/alertify.min.js"></script>
+	
+	<!-- CSS -->
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/alertify.min.css"/>
+	<!-- Default theme -->
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/themes/default.min.css"/>
+	<!-- Semantic UI theme -->
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/themes/semantic.min.css"/>
+  
+  	<!-- 부트스트랩에서 제공하고 있는 스타일 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- 부트스트랩에서 제공하고 있는 스크립트 -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <style>
         @font-face {
@@ -84,19 +101,14 @@
             margin-right: 30px;
         }
 
-        #header_2 a,
-        #header_3 a {
+        #header_2 a {
             color: gray;
             text-decoration: none;
             font-size: 120%;
         }
 
-        #header_3 a {
-            font-weight: bold;
-        }
 
-        #header_2,
-        #header_3 {
+        #header_2{
             height: 100%;
             display: flex;
             align-items: center;
@@ -137,13 +149,39 @@
             width: 100%;
             margin: auto;
         }
+        
+        .my {
+        	color: gray;
+        }
+        
+        .my:hover {
+			color: rgb(191, 216, 175);
+			text-decoration: none;
+		}
+		
+		#text1,
+		#text1 span {
+			color: rgb(153, 188, 133);
+			font-size: medium;
+		}
+		
+		#text2 span {
+			color: rgb(153, 188, 133);
+			font-size: x-large;
+		}
 
         /* 헤더 영역 끝 */
     </style>
 </head>
     
     <body>
-    
+    	
+    	<script>
+		<c:if test="${ not empty sessionScope.alertMsg }">
+				alertify.alert('알림', '${ sessionScope.alertMsg }'/* , function(){ alertify.success('Ok'); } */);
+			<c:remove var="alertMsg" scope="session" />
+		</c:if>
+		</script>
         <div class="wrap">
     
             <div id="header">
@@ -180,11 +218,26 @@
                     </ul>
                 </div>
     
-                <div id="header_3">
-                    <div id="text">
-                        <a href="" id="sign">로그인</a> &nbsp;&nbsp;|&nbsp; &nbsp;
-                        <a href="">회원가입</a>
+                 <div id="header_3">
+                
+                <c:choose>
+                	<c:when test="${ empty sessionScope.loginUser }">
+                	<!-- 로그인 전 -->
+                    <div id="text1">
+                        <a href="loginPage.me" id="sign"><span>로그인</span></a> &nbsp;&nbsp;|&nbsp; &nbsp;
+                        <a href="enrollForm.me"><span>회원가입</span></a>
                     </div>
+                    </c:when>
+                    <c:otherwise>
+						<div id="text2">
+						<label><span>${ sessionScope.loginUser.userNick }</span> 님</label> <br>
+                        <a href="" class="my">마이페이지</a>
+                        <a href="logout.me" class="my">&nbsp;&nbsp; 로그아웃</a>
+                    	</div>
+					             
+                    </c:otherwise>
+                    
+                </c:choose>
                 </div>
     
             </div>
