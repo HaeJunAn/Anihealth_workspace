@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
+<mapper namespace="magaMapper">
+	
+	<resultMap id="magaResultSet" type="maga">
+		<result column="MAGAZINE_NO" property="magazineNo" />
+		<result column="MAGAZINE_TITLE" property="magazineTitle" />
+		<result column="MAGAZINE_CONTENT" property="magazineContent" />
+		<result column="MAGAZINE_CREATE" property="magazineCreate" />
+		<result column="MAGAZINE_COUNT" property="magazineCount" />
+		<result column="MAGAZINE_STATUS" property="magazineStatus" />
+		<result column="MAGAZINE_PATH" property="magazinePath" />
+	</resultMap>
+	
+	<!-- 매거진 갯수 구하는 쿼리문 해준 -->
+	<select id="selectMagaListCount" resultType="_int">
+		SELECT COUNT(*)
+		  FROM MAGAZINE
+		WHERE MAGAZINE_STATUS = 'Y'  
+	</select>
+	
+	<!-- 매거진 목록을 구하는 쿼리문 해준 -->
+	<select id="selectMagaList" resultMap="magaResultSet">
+		SELECT MAGAZINE_NO,MAGAZINE_TITLE,TO_CHAR(MAGAZINE_CREATE, 'YYYY-MM-DD') AS "MAGAZINE_CREATE",
+		MAGAZINE_COUNT,MAGAZINE_PATH
+		  FROM MAGAZINE
+          JOIN MAGAZINE_ATTACHMENT USING (MAGAZINE_NO)
+		WHERE MAGAZINE_STATUS = 'Y'
+        AND MAGAZINE_IMG_LEVEL = 1
+		ORDER BY MAGAZINE_CREATE DESC   			
+	</select>
+
+</mapper>

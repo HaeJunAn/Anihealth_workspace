@@ -204,7 +204,7 @@
                             <a class="nav-link" href="#">동물병원 찾기</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">매거진</a>
+                            <a class="nav-link" href="maga.re">매거진</a>
                         </li>
     
                         <li class="nav-item dropdown">
