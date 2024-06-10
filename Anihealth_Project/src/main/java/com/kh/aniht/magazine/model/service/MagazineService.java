@@ -2,6 +2,8 @@ package com.kh.aniht.magazine.model.service;
 
 import java.util.ArrayList;
 
+import org.springframework.stereotype.Service;
+
 import com.kh.aniht.common.movel.vo.PageInfo;
 import com.kh.aniht.magazine.model.vo.Magazine;
 

@@ -43,6 +43,12 @@
     <!-- 부트스트랩에서 제공하고 있는 스크립트 -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
+	<!-- 부트스트랩 연동 - 정민 -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
     <style>
         @font-face {
             font-family: 'WavvePADO-Regular';
@@ -121,6 +127,43 @@
             padding: 0;
             /* 리스트의 기본 패딩 제거 */
         }
+        
+       /* 관리자 스타일 영역 시작  */
+       #headerAd_2 {
+            width: 80%;
+            justify-content: center;
+            /* 가운데 정렬 */
+            margin-right: 30px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            /* 수직 가운데 정렬 */
+        }
+        
+        #headerAd_2 a {
+            color: gray;
+            text-decoration: none;
+            font-size: 120%;
+        }
+        
+        #headerAd_2 ul {
+            margin: 0;
+            /* 리스트의 기본 마진 제거 */
+            padding: 0;
+            /* 리스트의 기본 패딩 제거 */
+        }
+        
+        #headerAd_2 .nav-item {
+            margin-right: 50px;
+            /* 각 네비게이션 아이템 간격 설정 */
+        }
+
+        #headerAd_2 .nav-item:last-child {
+            margin-right: 0;
+            /* 마지막 네비게이션 아이템의 마진 제거 */
+        }
+
+		/* 관리자 스타일 영역 종료 */
 
         #header_3 {
             width: 20%;
@@ -174,15 +217,84 @@
     </style>
 </head>
     
-    <body>
-    	
-    	<script>
-		<c:if test="${ not empty sessionScope.alertMsg }">
-				alertify.alert('알림', '${ sessionScope.alertMsg }'/* , function(){ alertify.success('Ok'); } */);
-			<c:remove var="alertMsg" scope="session" />
-		</c:if>
-		</script>
-        <div class="wrap">
+<body>
+
+    <script>
+        <c:if test="${ not empty sessionScope.alertMsg }">
+                alertify.alert('알림', '${ sessionScope.alertMsg }'/* , function(){ alertify.success('Ok'); } */);
+            <c:remove var="alertMsg" scope="session" />
+        </c:if>
+    </script>
+    
+	<c:choose>
+		<c:when test="${ not empty sessionScope.loginUser && sessionScope.loginUser.userId eq 'admin' }">
+		
+		<div class="wrap">
+
+          <div id="header">
+  
+              <div id="header_1" align="center">
+                  <a href="${pageContext.request.contextPath}/">
+                      <img src="resources/img/image (4).png" id="logo">
+                  </a>
+              </div>
+  
+              <div id="headerAd_2" align="center">
+                  <ul class="nav justify-content-center">
+                  	<li class="nav-item">
+                          <a class="nav-link" href="member.ad">MEMBER</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" href="product.ad">PRODUCT</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" href="order.ad">ORDER</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" href="magazine.ad">MAGAZINE</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" href="review.ad">REVIEW</a>
+                      </li>
+  
+                      <li class="nav-item dropdown">
+                          <a class="nav-link dropdown-toggle" data-toggle="dropdown">CUSTOMER SERVICE</a>
+                          <div class="dropdown-menu">
+                              <a class="dropdown-item" href="faq.ad">FAQ</a>
+                              <a class="dropdown-item" href="inquriy.ad">INQUIRY</a>
+  						</div>
+                      </li>
+  
+                  </ul>
+              </div>
+  
+              <div id="header_3">
+	                 <c:choose>
+	                     <c:when test="${ empty sessionScope.loginUser }">
+	                     <!-- 로그인 전 -->
+	                     <div id="text1">
+	                         <a href="loginPage.me" id="sign"><span>로그인</span></a> &nbsp;&nbsp;|&nbsp; &nbsp;
+	                         <a href="enrollForm.me"><span>회원가입</span></a>
+	                     </div>
+	                     </c:when>
+	                     <c:otherwise>
+	                         <div id="text2">
+		                         <label><span>${ sessionScope.loginUser.userNick }</span> 님</label>
+		                         <!--  <a href="" class="my">마이페이지</a> -->
+		                         <a href="logout.me" class="my">&nbsp;&nbsp; 로그아웃</a>
+	                         </div>
+	                                  
+	                     </c:otherwise>
+	                 </c:choose>
+                 </div>
+          </div>
+      </div>
+		
+		</c:when>
+		
+		<c:otherwise>
+		
+		<div class="wrap">
     
             <div id="header">
     
@@ -242,6 +354,9 @@
     
             </div>
         </div>
-    
-    </body>
+		
+		</c:otherwise>
+	</c:choose>
+
+</body>
 </html>
