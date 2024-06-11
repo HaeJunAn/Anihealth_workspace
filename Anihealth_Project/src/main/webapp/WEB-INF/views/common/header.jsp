@@ -95,7 +95,11 @@
             margin-left: 150px;
             /* 로고 이미지와 다음 요소 사이 간격 설정 */
         }
-
+		
+		   #cart {
+        	width: 30px;
+        	height: auto;
+        }
         #header_1 {
             width: 30%;
         }
@@ -340,10 +344,13 @@
                         <a href="enrollForm.me"><span>회원가입</span></a>
                     </div>
                     </c:when>
-                    <c:otherwise>
+                     <c:otherwise>
 						<div id="text2">
-						<label><span>${ sessionScope.loginUser.userNick }</span> 님</label> <br>
-                        <a href="" class="my">마이페이지</a>
+						<label><span>${ sessionScope.loginUser.userNick }</span> 님</label>&nbsp;
+						<a href="cart.re">
+                        	<img src="resources/img/cart.png" id="cart">
+                    	</a> <br>
+                        <a href="myPage.me" class="my">마이페이지</a>
                         <a href="logout.me" class="my">&nbsp;&nbsp; 로그아웃</a>
                     	</div>
 					             

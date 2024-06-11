@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.aniht.common.movel.vo.PageInfo;
 import com.kh.aniht.question.model.dao.AdQuestionDao;
@@ -35,6 +36,7 @@ public class AdQuestionServiceImpl implements AdQuestionService { // 클래스 �
 	}
 	
 	// FAQ 작성
+	@Transactional
 	@Override
 	public int insertQuestion(Question question) {
 		
@@ -43,6 +45,7 @@ public class AdQuestionServiceImpl implements AdQuestionService { // 클래스 �
 	}
 
 	// FAQ 수정
+	@Transactional
 	@Override
 	public int updateQuestion(Question question) {
 		
@@ -51,6 +54,7 @@ public class AdQuestionServiceImpl implements AdQuestionService { // 클래스 �
 	}
 
 	// FAQ 삭제
+	@Transactional
 	@Override
 	public int deleteQuestion(Question question) {
 		
