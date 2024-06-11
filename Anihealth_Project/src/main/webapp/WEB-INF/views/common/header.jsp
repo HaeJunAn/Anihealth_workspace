@@ -311,10 +311,10 @@
                 <div id="header_2" align="center">
                     <ul class="nav justify-content-center">
                         <li class="nav-item">
-                            <a class="nav-link" href="list.re">영양제</a>
+                            <a class="nav-link" href="#">영양제</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">건강체크</a>
+                            <a class="nav-link" href="survey.su">건강체크</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">동물병원 찾기</a>
@@ -329,6 +329,12 @@
                                 <a class="dropdown-item" href="faq.bo">FAQ</a>
                                 <a class="dropdown-item" href="#">1:1 문의</a>
     						</div>
+                        </li>
+                        <li>
+                        	<a href="list.re">리뷰</a>
+                        	<a href="insertForm.re">리뷰작성</a>
+                        	<a href="updateForm.re">리뷰수정</a>
+                        	<a href="delete.re">리뷰삭제</a>
                         </li>
     
                     </ul>

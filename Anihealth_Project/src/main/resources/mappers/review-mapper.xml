@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
 <mapper namespace="reviewMapper">
 
 	<!-- 더미데이터 넣고 꼭 커밋합시다 -->
@@ -17,7 +18,7 @@
 		<result column="USER_NO" property="userNo" />
 		<result column="PRODUCT_NO" property="productNo" />
 	</resultMap>
-	
+	<!-- 별점별 개수 -->
 	<select id="selectRatingCount" parameterType="_int" resultType="hashmap"> 
 		SELECT RATING, COUNT(RATING) "COUNT"
 		  FROM REVIEW R
@@ -26,14 +27,14 @@
 		 GROUP BY RATING 
 		 ORDER BY RATING DESC
 	</select>
-	
+	<!-- 안씀 -->
 	<select id="selectCountReview" parameterType="review" resultType="_int">
 		SELECT COUNT(*)
 		  FROM REVIEW R
 		  JOIN ORDER_PRODUCT O ON (R.ORDER_PRODUCT_NO = O.ORDER_PRODUCT_NO)
 		 WHERE PRODUCT_NO = #{productNo} AND (RATING = #{rating} OR #{rating} = 0) AND REVIEW_STATUS = 'Y' 
 	</select>
-	
+	<!-- 상품별 리뷰 리스트 조회 -->
 	<select id="selectProductReview" parameterType="review" resultMap="reviewResultSet">
 		SELECT REVIEW_NO, RATING, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_FILE_PATH, USER_NO, TO_CHAR(REVIEW_DATE, 'YY/MM/DD HH:MI:SS') "REVIEW_DATE"
 		  FROM REVIEW R
@@ -41,5 +42,46 @@
 		 WHERE PRODUCT_NO = #{productNo} AND (RATING = #{rating} OR #{rating} = 0) AND REVIEW_STATUS = 'Y' 
 		 ORDER BY REVIEW_NO DESC
 	</select>
+
+	<!-- 리뷰작성 -->
+	<insert id="insertReview" parameterType="review">
+		INSERT INTO REVIEW(REVIEW_NO
+	            , RATING
+	            , REVIEW_TITLE
+	            , REVIEW_CONTENT
+	            , REVIEW_FILE_PATH
+	            , ORDER_PRODUCT_NO
+	            , USER_NO)
+	      VALUES (SEQ_REVIEW_NO.NEXTVAL
+         		, #{rating}
+                , #{reviewTitle}
+                , #{reviewContent}
+                , #{reviewFilePath}
+                , #{orderProductNo}
+                , #{userNo})     
+	</insert>
+	<!-- 리뷰하나 조회 -->
+	<select id="selectReview" parameterType="_int" resultMap="reviewResultSet">
+		SELECT REVIEW_NO, RATING, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_FILE_PATH, REVIEW_DATE
+		  FROM REVIEW
+	     WHERE REVIEW_STATUS = 'Y' AND REVIEW_NO = #{reviewNo}
+	</select>
+	
+	
+	<update id="updateReview" parameterType="review">
+		UPDATE REVIEW
+		   SET RATING = #{rating}
+		     , REVIEW_TITLE = #{reviewTitle}
+		     , REVIEW_CONTENT = #{reviewContent}
+		     , REVIEW_FILE_PATH = #{reviewFilePath}
+		 WHERE REVIEW_NO = #{reviewNo} AND REVIEW_STATUS = 'Y'
+	</update>
+	
+	<update id="deleteReview" parameterType="_int">
+		UPDATE REVIEW
+		   SET REVIEW_STATUS = 'N'
+		 WHERE REVIEW_NO = #{reviewNo} AND REVIEW_STATUS = 'Y'
+	</update>
+
   
 </mapper>

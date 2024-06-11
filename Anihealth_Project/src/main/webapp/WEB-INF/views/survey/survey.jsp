@@ -1,12 +1,555 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+    <!DOCTYPE html>
+    <html>
 
-</body>
-</html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Insert title here</title>
+        <style>
+            @font-face {
+                font-family: 'WavvePADO-Regular';
+                src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2404@1.0/WavvePADO-Regular.woff2') format('woff2');
+                font-style: normal;
+            }
+
+            * {
+                font-family: 'WavvePADO-Regular';
+                box-sizing: border-box;
+                font-size: 20px;
+                font-weight: 100;
+            }
+
+            div {
+                /* border: 1px solid black; */
+                box-sizing: border-box;
+            }
+
+            label {
+                box-shadow: 0px 0px 7px rgba(26, 26, 26, 0.2);
+                border-radius: 10px;
+                width: 100%;
+                line-height: 1.5em;
+                padding: 10px;
+                transition: all 0.3s ease;
+                box-sizing: border-box;
+            }
+
+            input {
+                border-radius: 10px;
+                margin: 10px;
+                width: 100px;
+                border: 1px solid #969696;
+                text-align: center;
+            }
+
+            input:focus {
+                outline: none;
+            }
+
+            input::placeholder {
+                font-size: 15px;
+                text-align: center;
+            }
+
+            input::-webkit-outer-spin-button,
+            input::-webkit-inner-spin-button {
+                -webkit-appearance: none;
+                margin: 0;
+            }
+
+            .survey-wrap {
+                width: 1200px;
+                margin: auto;
+            }
+
+            .survey-container {
+                width: 50%;
+                margin: auto;
+            }
+
+            .survey-item {
+                width: 100%;
+                text-align: center;
+            }
+
+            .survey-item>*:not(label) {
+                margin-bottom: 10px;
+            }
+
+            .survey-item>div>img {
+                width: 70px;
+            }
+
+            .breed {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-evenly;
+                padding-left: 0;
+                margin-top: 20px;
+            }
+
+            .breed img {
+                width: 140px;
+            }
+
+            .breed img:hover {
+                opacity: 70%;
+            }
+            .breed-active {
+                opacity: 70%;
+                box-shadow: 0px 0px 7px rgba(14, 14, 14, 0.2);
+                border-radius: 15px;
+            }
+
+
+            .bcs>label>div {
+                display: flex;
+            }
+
+            .bcs>label>img {
+                width: 150px;
+                float: left;
+                margin-right: 10px;
+
+            }
+
+            .bcs p {
+                margin-left: 20px;
+                font-size: 18px;
+                line-height: 1.7em;
+                text-align: left;
+            }
+
+            ul {
+                list-style: none;
+            }
+
+            input[type=radio] {
+                display: none;
+            }
+
+            .progress {
+                height: 10px;
+                margin-bottom: 20px;
+            }
+
+            .progress-bar {
+                transition: width 0.8s ease;
+                background-color: #9ac5ab !important;
+                /* background-color: #508dc3 */
+            }
+
+            label:hover {
+                background-color: #f0f0f0;
+            }
+
+            label.active {
+                background-color: #9ac5ab;
+                color: white;
+                /* border-color: #789c78;  */
+            }
+
+            button {
+                border-radius: 10px !important;
+                font-size: 4px;
+                font-weight: 100;
+                padding: 5px 10px;
+                background-color: #9ac5ab;
+                /*background-color: transparent;*/
+                cursor: pointer;
+                border: none;
+                color: white;
+                margin-top: 30px !important;
+            }
+
+            .animal {
+                display: flex;
+                justify-content: space-evenly;
+            }
+
+            .animal img {
+                width: 250px;
+            }
+
+            p {
+                height: 40px;
+                margin-bottom: 0px;
+                opacity: 0.9;
+                line-height: 3.2em;
+            }
+
+            .icon-container {
+                margin-bottom: 0px !important;
+            }
+            .animal {
+                margin-top: 30px;
+            }
+            .animal>div:hover {
+                opacity: 80%;
+                box-shadow: 0px 0px 7px rgba(26, 26, 26, 0.2);
+                border-radius: 15px;
+                overflow: hidden;
+            }
+            .animal-active {
+                opacity: 80%;
+                box-shadow: 0px 0px 7px rgba(26, 26, 26, 0.2);
+                transform: scale(1.1);
+                border-radius: 15px;
+                overflow: hidden;
+            }
+
+            /*background-color: rgb(115, 201, 115);  */
+        </style>
+    </head>
+
+    <body>
+        <jsp:include page="../common/header.jsp" />
+        <br> <br>
+        <main class="survey-wrap">
+            <form action="surveyResult.su" class="survey-container" method="post">
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0"
+                        aria-valuemax="100"></div>
+                </div>
+                <div class="survey-item" align="center">
+                    <h3>동물선택</h3>
+                    <p>우리 아이는 강아지인가요? 고양이인가요?</p>
+                    <div class="animal">
+                        <div>
+                            <img src="resources/simg/dog2.png" alt="강아지">
+                            <br><span>강아지</span>
+                        </div>
+                        <div>
+                            <img src="resources/simg/cat2.png" alt="고양이">
+                            <br><span>고양이</span>
+                        </div>
+                    </div>
+                    <input type="hidden" name="animal">
+                    <button class="next" type="button" onclick="next(this);">다음</button>
+                </div>
+                <div class="survey-item" align="center" style="display: none;">
+                    <h3 style="margin-bottom: 15px;">견종과 나이를 선택해주세요</h3>
+                    나이 <input type="number" placeholder="나이 입력">
+                    <ul class="breed">
+                        <li><img src="resources/simg/닥스훈트.png" alt="닥스훈트"></li>
+                        <li><img src="resources/simg/포메라니안.png" alt="포메라니안"></li>
+                        <li><img src="resources/simg/치와와.png" alt="치와와"></li>
+                        <li><img src="resources/simg/요크셔테리어.png" alt="요크셔테리어"></li>
+                        <li><img src="resources/simg/푸들.png" alt="푸들"></li>
+                        <li><img src="resources/simg/도베르만.png" alt="도베르만"></li>
+                        <li><img src="resources/simg/닥스훈트.png" alt="닥스훈트"></li>
+                        <li><img src="resources/simg/래브라도.png" alt="래브라도"></li>
+                        <li><img src="resources/simg/치와와.png" alt="치와와"></li>
+                        <li><img src="resources/simg/불독.png" alt="불독"></li>
+                        <li><img src="resources/simg/푸들.png" alt="푸들"></li>
+                        <li><img src="resources/simg/닥스훈트.png" alt="닥스훈트"></li>
+                        <li><img src="resources/simg/포메라니안.png" alt="포메라니안"></li>
+                        <li><img src="resources/simg/치와와.png" alt="치와와"></li>
+                        <li><img src="resources/simg/래브라도.png" alt="래브라도"></li>
+                        <li><img src="resources/simg/도베르만.png" alt="도베르만"></li>
+                    </ul>
+                    <input type="hidden" name="breed">
+                    <button class="prev" type="button" onclick="prev(this);">이전</button>
+                    <button class="next" type="button" onclick="next(this);">다음</button>
+                </div>
+                <div class="survey-item bcs" style="display: none;">
+                    <div class="icon-container"><img src="resources/simg/obesity.png"></div>
+                    <h3 style="margin-bottom: 15px;">체중/체지방</h3>
+                    몸무게 <input type="number" placeholder="몸무게 입력" name="weight" required style="margin-bottom: 20px;"> Kg
+                    <label for="bcs1">
+                        <input type="radio" name="bcs" value="9" id="bcs1" required>
+                        <img src="resources/simg/bcs-icon-dog-9.png">
+                        <h5>비만이에요</h5>
+                        <p>매우 많은 지방이 몸 전체에 축적되어 있어요. 목, 가슴, 허리의 구분이 어렵고 몸 어디에서도 뼈를 만지기가 힘들어요..</p>
+                    </label><br>
+                    <label for="bcs2">
+                        <input type="radio" name="bcs" value="7" id="bcs2">
+                        <img src="resources/simg/bcs-icon-dog-7.png">
+                        <h5>무거워요</h5>
+                        <p>갈비뼈의 굴곡이 거의 느껴지지 않아요. 허리와 복부에 지방이 많아 위에서 보았을 때 허리를 구분하기 힘들어요.</p>
+                    </label><br>
+                    <label for="bcs3">
+                        <input type="radio" name="bcs" value="5" id="bcs3">
+                        <img src="resources/simg/bcs-icon-dog-5.png">
+                        <h5>이상적이에요</h5>
+                        <p>갈비뼈 사이사이가 적당한 양의 지방으로 덮여 있어요. 허리가 구분되고 복부는 약간 들어가 있어요.</p>
+                    </label><br>
+                    <label for="bcs4">
+                        <input type="radio" name="bcs" value="3" id="bcs4">
+                        <img src="resources/simg/bcs-icon-dog-3.png">
+                        <h5>말랐어요</h5>
+                        <p>갈비뼈를 만졌을 때 뼈 사이사이가 매우 잘 느껴져요. 허리가 잘 구분되고 복부가 잘록해요.</p>
+                    </label><br>
+                    <label for="bcs5">
+                        <input type="radio" name="bcs" value="1" id="bcs5">
+                        <img src="resources/simg/bcs-icon-dog-1.png">
+                        <h5>수척해요</h5>
+                        <p>모든 뼈의 돌출부가 뚜렷하게 보여요. 몸 어디에서도 체지방과 근육을 확인할 수 없어요.</p>
+                    </label><br>
+                    <button class="prev" type="button" onclick="prev(this);">이전</button>
+                    <button class="next" type="button" onclick="next(this);">다음</button>
+                </div>
+                <div class="survey-item" style="display: none;">
+                    <div class="icon-container"><img src="resources/simg/skin.png"></div>
+                    <h3>피부</h3>
+                    <label for="skin1">
+                        <input type="radio" name="skin" value="5" id="skin1" required>
+                        <p>피부에 딱지나 뾰루지, 각질이 생겨요.</p>
+                    </label>
+                    <label for="skin2">
+                        <input type="radio" name="skin" value="4" id="skin2">
+                        <p>피부가 빨갛고 열이 나는 경우가 있어요.</p>
+                    </label><br>
+                    <label for="skin3">
+                        <input type="radio" name="skin" value="3" id="skin3">
+                        <p>귀를 만지면 뒷발로 긁으려는 행동을 해요.</p>
+                    </label><br>
+                    <label for="skin4">
+                        <input type="radio" name="skin" value="2" id="skin4">
+                        <p>발바닥 사이 피부가 붉어요.</p>
+                    </label><br>
+                    <label for="skin5">
+                        <input type="radio" name="skin" value="1" id="skin5">
+                        <p>없어요.</p>
+                    </label><br>
+                    <button class="prev" type="button" onclick="prev(this);">이전</button>
+                    <button class="next" type="button" onclick="next(this);">다음</button>
+                </div>
+                <div class="survey-item" style="display: none;">
+                    <div class="icon-container"><img src="resources/simg/teeth.png"></div>
+                    <h3>치아</h3>
+                    <label for="teeth1">
+                        <input type="radio" name="teeth" value="5" id="teeth1" required>
+                        <p>갈수록 구취가 심해져요.</p>
+                    </label><br>
+                    <label for="teeth2">
+                        <input type="radio" name="teeth" value="4" id="teeth2">
+                        <p>어금니쪽에 치석이 눈에 띄게 보여요.</p>
+                    </label><br>
+                    <label for="teeth3">
+                        <input type="radio" name="teeth" value="3" id="teeth3">
+                        <p>치아와 잇몸 경계면이 빨갛게 부어있어요.</p>
+                    </label><br>
+                    <label for="teeth4">
+                        <input type="radio" name="teeth" value="2" id="teeth4">
+                        <p>입 주변을 만지면 불편해해요.</p>
+                    </label><br>
+                    <label for="teeth5">
+                        <input type="radio" name="teeth" value="1" id="teeth5">
+                        <p>없어요</p>
+                    </label><br>
+                    <button class="prev" type="button" onclick="prev(this);">이전</button>
+                    <button class="next" type="button" onclick="next(this);">다음</button>
+                </div>
+                <div class="survey-item" style="display: none;">
+                    <div class="icon-container"><img src="resources/simg/eye.png"></div>
+                    <h3>눈</h3>
+                    <label for="eye1">
+                        <input type="radio" name="eye" value="5" id="eye1" required>
+                        <p>양쪽 눈이 모두 전체적으로 뿌옇게 보여요.</p>
+                    </label><br>
+                    <label for="eye2">
+                        <input type="radio" name="eye" value="4" id="eye2">
+                        <p>흰자위에 실핏줄이 두드러져보여요.</p>
+                    </label><br>
+                    <label for="eye3">
+                        <input type="radio" name="eye" value="3" id="eye3">
+                        <p>눈 주변이 빨갛게 충혈됐어요.</p>
+                    </label><br>
+                    <label for="eye4">
+                        <input type="radio" name="eye" value="2" id="eye4">
+                        <p>눈 주변 털이 갈색으로 착색됐어요.</p>
+                    </label><br>
+                    <label for="eye5">
+                        <input type="radio" name="eye" value="1" id="eye5">
+                        <p>없어요.</p>
+                    </label><br>
+                    <button class="prev" type="button" onclick="prev(this);">이전</button>
+                    <button class="next" type="button" onclick="next(this);">다음</button>
+                </div>
+                <div class="survey-item" style="display: none;">
+                    <div class="icon-container"><img src="resources/simg/bone.png"></div>
+                    <h3>뼈/관절</h3>
+                    <label for="bone1">
+                        <input type="radio" name="bone" value="5" id="bone1" required>
+                        <p>다리에서 뚝뚝거리는 느낌을 받은 적이 있어요.</p>
+                    </label><br>
+                    <label for="bone2">
+                        <input type="radio" name="bone" value="4" id="bone2">
+                        <p>관절을 만졌을 때 뻣뻣함이 느껴져요.</p>
+                    </label><br>
+                    <label for="bone3">
+                        <input type="radio" name="bone" value="3" id="bone3">
+                        <p>걷는 속도가 느려졌어요.</p>
+                    </label><br>
+                    <label for="bone4">
+                        <input type="radio" name="bone" value="2" id="bone4">
+                        <p>활동량이 적고 걷다가 주저앉아요.</p>
+                    </label><br>
+                    <label for="bone5">
+                        <input type="radio" name="bone" value="1" id="bone5">
+                        <p>없어요</p>
+                    </label><br>
+                    <button class="prev" type="button" onclick="prev(this);">이전</button>
+                    <button class="next" type="button" onclick="next(this);">다음</button>
+                </div>
+                <div class="survey-item" style="display: none;">
+                    <div class="icon-container"><img src="resources/simg/heart.png"></div>
+                    <h3>심장</h3>
+                    <label for="heart1">
+                        <input type="radio" name="heart" value="5" id="heart1" required>
+                        <p>저녁 시간대에 기침을 자주 해요.</p>
+                    </label><br>
+                    <label for="heart2">
+                        <input type="radio" name="heart" value="4" id="heart2">
+                        <p>갑작스럽게 실신하듯 쓰러지는 경우가 있어요.</p>
+                    </label><br>
+                    <label for="heart3">
+                        <input type="radio" name="heart" value="3" id="heart3">
+                        <p>운동을 하면 금방 지쳐요.</p>
+                    </label><br>
+                    <label for="heart4">
+                        <input type="radio" name="heart" value="2" id="heart4">
+                        <p>자거나 쉬고 있을 때 숨을 빠르게 쉬어요.</p>
+                    </label><br>
+                    <label for="heart5">
+                        <input type="radio" name="heart" value="1" id="heart5">
+                        <p>없어요.</p>
+                    </label><br>
+                    <button class="prev" type="button" onclick="prev(this);">이전</button>
+                    <button class="next" type="button" onclick="next(this);">다음</button>
+                </div>
+                <div class="survey-item" style="display: none;">
+                    <div class="icon-container"><img src="resources/simg/immunity.png"></div>
+                    <h3>호흡기/면역</h3>
+                    <label for="immunity1">
+                        <input type="radio" name="immunity" value="5" id="immunity1" required>
+                        <p>켁켁거리는 기침을 자주 해요.</p>
+                    </label><br>
+                    <label for="immunity2">
+                        <input type="radio" name="immunity" value="4" id="immunity2">
+                        <p>가을, 겨울에 기침이 잦아요.</p>
+                    </label><br>
+                    <label for="immunity3">
+                        <input type="radio" name="immunity" value="3" id="immunity3">
+                        <p>콧물을 흘리는 경우가 있어요.</p>
+                    </label><br>
+                    <label for="immunity4">
+                        <input type="radio" name="immunity" value="2" id="immunity4">
+                        <p>눈곱이 많이 끼는 편이에요.</p>
+                    </label><br>
+                    <label for="immunity5">
+                        <input type="radio" name="immunity" value="1" id="immunity5">
+                        <p>없어요.</p>
+                    </label><br>
+                    <button class="prev" type="button" onclick="prev(this);">이전</button>
+                    <button class="next" type="button" onclick="next(this);">다음</button>
+                </div>
+                <div class="survey-item" style="display: none;">
+                    <div class="icon-container"><img src="resources/simg/stomach.png"></div>
+                    <h3>소화기계</h3>
+                    <label for="stomach1">
+                        <input type="radio" name="stomach" value="5" id="stomach1" required>
+                        <p>음식물이나 위액을 토하는 경우가 있어요.</p>
+                    </label><br>
+                    <label for="stomach2">
+                        <input type="radio" name="stomach" value="4" id="stomach2">
+                        <p>동그랗고 딱딱한 변을 보는 경우가 있어요.</p>
+                    </label><br>
+                    <label for="stomach3">
+                        <input type="radio" name="stomach" value="3" id="stomach3">
+                        <p>공복토를 종종 하는 편인에요.</p>
+                    </label><br>
+                    <label for="stomach4">
+                        <input type="radio" name="stomach" value="2" id="stomach4">
+                        <p>점액질이 섞인 변을 보는 경우가 있어요.</p>
+                    </label><br>
+                    <label for="stomach5">
+                        <input type="radio" name="stomach" value="1" id="stomach5">
+                        <p>없어요</p>
+                    </label><br>
+                    <button class="prev" type="button" onclick="prev(this);">이전</button>
+                    <button class="next" type="button" onclick="next(this);">다음</button>
+                </div>
+                <div class="survey-item" style="display: none;">
+                    <div class="icon-container"><img src="resources/simg/kidney.png"></div>
+                    <h3>신장/방광</h3>
+                    <label for="kidney1">
+                        <input type="radio" name="kidney" value="5" id="kidney1" required>
+                        <p>평소와 다른 장소에 소변을 보는 경우가 있어요.</p>
+                    </label><br>
+                    <label for="kidney2">
+                        <input type="radio" name="kidney" value="4" id="kidney2">
+                        <p>식욕이 줄고 체중이 감소했어요.</p>
+                    </label><br>
+                    <label for="kidney3">
+                        <input type="radio" name="kidney" value="3" id="kidney3">
+                        <p>혈액이 섞인 소변을 보는 경우가 있어요.</p>
+                    </label><br>
+                    <label for="kidney4">
+                        <input type="radio" name="kidney" value="2" id="kidney4">
+                        <p>소변을 볼 때 아파하는 모습을 보여요.</p>
+                    </label><br>
+                    <label for="kidney5">
+                        <input type="radio" name="kidney" value="1" id="kidney5">
+                        <p>없어요.</p>
+                    </label><br>
+                    <button class="prev" type="button" onclick="prev(this);">이전</button>
+                    <button type="submit">제출</button>
+                </div>
+            </form>
+        </main>
+        <script>
+            $(function () {
+                $("label").on("click", function () {
+                    //$(this).css({"opacity": "1", 'background-color': 'rgb(115, 201, 115)'});
+                    //$(this).find("p").css("color", "white");
+                    $(this).css("opacity", "0.8");
+                    $(this).parent().find("label").not(this).css("opacity", "1");
+                    //$("label").not(this).css({"opacity": "1", 'background-color': 'transparent'});
+                    //$(this).find("p").css("color", "black");
+                    $(this).addClass('active');
+                    $(this).parent().find("label").not(this).removeClass('active');
+                });
+                $(".animal>div").on("click", function () {
+                    $(this).addClass("animal-active");
+                    $(this).parent().find("div").not(this).removeClass("animal-active");
+                    let aniVal = $(this).find("img").attr("alt");
+                    $("input[name=animal]").val(aniVal);
+                });
+                $(".breed img").on("click", function () {
+                    $(this).addClass("breed-active");
+                    $(this).parent().parent().find("img").not(this).removeClass("breed-active");
+                    let breedVal = $(this).attr("alt");
+                    $("input[name=breed]").val(breedVal);
+                });
+
+            });
+            let proBar = 0;
+            function next(element) {
+                let currentItem = $(element).parent();
+                currentItem.css('display', 'none'); // 또는 hide(애니메이션);
+                proBar += 10;
+                setTimeout(function () {
+                    $(".progress-bar").width(proBar + "%");
+                }, 10);
+                currentItem.next().show();
+            }
+
+            function prev(element) {
+                let currentItem = $(element).parent();
+                currentItem.css('display', 'none');
+                if (proBar != 0) {
+                    proBar -= 10;
+                    setTimeout(function () {
+                        $(".progress-bar").width(proBar + "%");
+                    }, 10);
+                }
+                currentItem.prev().show();
+            }
+
+        </script>
+ 
+    </body>
+
+    </html>

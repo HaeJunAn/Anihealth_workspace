@@ -19,6 +19,9 @@
 		 <typeAlias type="com.kh.aniht.magazine.model.vo.Magazine" alias="maga"/>
 		 <typeAlias type="com.kh.aniht.cart.model.vo.Cart" alias="cart"/>
 		 <typeAlias type="com.kh.aniht.order.model.vo.Order" alias="order"/>
+		 <typeAlias type="com.kh.aniht.product.model.vo.Product" alias="product"/>
+		 <typeAlias type="com.kh.aniht.product.model.vo.Effect" alias="effect"/>
+		 
 	</typeAliases>
 	
 	<mappers>
@@ -31,6 +34,7 @@
 		 <mapper resource="/mappers/maga-mapper.xml"/>
 		 <mapper resource="/mappers/cart-mapper.xml"/>
 		 <mapper resource="/mappers/order-mapper.xml"/>
+		 <mapper resource="/mappers/survey-mapper.xml"/>
 	</mappers>
 
 

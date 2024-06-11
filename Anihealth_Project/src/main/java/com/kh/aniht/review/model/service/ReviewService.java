@@ -5,6 +5,7 @@ import java.util.HashMap;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.aniht.common.movel.vo.PageInfo;
 import com.kh.aniht.review.model.dao.ReviewDao;
@@ -35,6 +36,30 @@ public class ReviewService {
 		
 		return reviewDao.selectProductReview(sqlSession, r, pi);
 	}
+
+	@Transactional
+	public int insertReview(Review r) {
+		
+		return reviewDao.insertReview(sqlSession, r);
+	}
+
+	public Review selectReview(int reviewNo) {
+		
+		return reviewDao.selectReview(sqlSession, reviewNo);
+	}
+	
+	@Transactional
+	public int updateReview(Review r) {
+		
+		return reviewDao.updateReview(sqlSession, r);
+	}
+
+	public int deleteReview(int reviewNo) {
+		
+		return reviewDao.deleteReview(sqlSession, reviewNo);
+	}
+	
+	
 
 
 }

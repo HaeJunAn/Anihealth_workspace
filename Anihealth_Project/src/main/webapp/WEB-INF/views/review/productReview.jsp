@@ -584,6 +584,7 @@
        				$(".pagination").html(pageStr);
        			},
        			error : function() {
+       				
        				console.log("리뷰 조회 실패!");
        			}
        			

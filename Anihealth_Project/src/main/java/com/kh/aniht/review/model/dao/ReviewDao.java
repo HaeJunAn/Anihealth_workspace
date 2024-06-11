@@ -32,6 +32,26 @@ public class ReviewDao {
 		return (ArrayList)sqlSession.selectList("reviewMapper.selectProductReview", r, rowBounds);
 	}
 
+	public int insertReview(SqlSessionTemplate sqlSession, Review r) {
+		//System.out.println(r);
+		return sqlSession.insert("reviewMapper.insertReview", r);
+	}
+
+	public Review selectReview(SqlSessionTemplate sqlSession, int reviewNo) {
+		
+		return sqlSession.selectOne("reviewMapper.selectReview", reviewNo);
+	}
+
+	public int updateReview(SqlSessionTemplate sqlSession, Review r) {
+		
+		return sqlSession.update("reviewMapper.updateReview", r);
+	}
+
+	public int deleteReview(SqlSessionTemplate sqlSession, int reviewNo) {
+		
+		return sqlSession.update("reviewMapper.deleteReview", reviewNo);
+	}
+
 
 
 }
