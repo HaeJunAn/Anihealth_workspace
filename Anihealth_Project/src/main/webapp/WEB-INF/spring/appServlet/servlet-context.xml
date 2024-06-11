@@ -27,6 +27,7 @@
 	<interceptors>
 		<interceptor>
 			<mapping path="/cart.re" />
+			<mapping path="/order.re"/>
 			<beans:bean class="com.kh.aniht.common.interceptor.LoginInterceptor" id="loginInterceptor" />
 		</interceptor>
 	</interceptors>

@@ -232,7 +232,6 @@
     
 </head>
 <body>
-<body>
 <jsp:include page="../common/header.jsp" />
   
    <div class="parent">
@@ -301,6 +300,7 @@
         </div>
         <br>
         <form id="orderForm" method="post" action="order.re">
+         <input type="hidden" id="userNo" name="userNo" value="${sessionScope.loginUser.userNo}" />
             <button type="submit" class="btn btn-lg right-button" id="checkout-button">결제하기</button>
         </form>
     </div>
@@ -312,11 +312,13 @@
         $('#checkAll').prop('checked', true);
         $('input:checkbox').not('#checkAll').prop('checked', true);
         updateTotalPrice();
+        toggleCheckoutButton();
 
         // 전체선택 체크박스 클릭 시
         $('#checkAll').click(function() {
             $('input:checkbox').not(this).prop('checked', this.checked);
             updateTotalPrice();
+            toggleCheckoutButton();
         });
 
         // 선택삭제 버튼 클릭 시
@@ -331,7 +333,8 @@
                         if (result.success) {
                             $('input:checkbox[data-cart-no="' + cartNo + '"]').closest('tr').remove();
                             updateTotalPrice();
-                            alert("장바구니 삭제 성공")
+                            toggleCheckoutButton();
+                            alert("장바구니 삭제 성공");
                         } else {
                             console.log("삭제 실패");
                         }
@@ -370,6 +373,7 @@
         // 개별 체크박스 클릭 시 총 가격 업데이트
         $(document).on('change', '.custom-checkbox', function() {
             updateTotalPrice();
+            toggleCheckoutButton();
         });
 
         // 항목별 가격 업데이트
@@ -393,6 +397,12 @@
             $('.grand-total').text('₩ ' + totalPrice.toLocaleString() + ' 원');
         }
 
+        // 결제하기 버튼 상태 업데이트
+        function toggleCheckoutButton() {
+            var anyChecked = $('.custom-checkbox:checked').not('#checkAll').length > 0;
+            $('#checkout-button').prop('disabled', !anyChecked);
+        }
+
         // 수량 업데이트를 DB에 반영하는 함수
         function updateQuantityInDb(cartNo, newQuantity) {
             $.ajax({
@@ -410,6 +420,7 @@
                 }
             });
         }
+
         // orderForm 제출 전에 선택된 항목을 추가하는 함수
         $('#orderForm').submit(function(event) {
             event.preventDefault(); // 기본 제출 동작 방지
@@ -433,12 +444,14 @@
 
         // 초기 총 가격 설정
         updateTotalPrice();
+        toggleCheckoutButton();
         
     });
 </script>
 
-    
 <jsp:include page="../common/footer.jsp" />
 </body>
+    
+<jsp:include page="../common/footer.jsp" />
 </body>
 </html>

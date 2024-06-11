@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
+<mapper namespace="orderMapper">
+	
+	<resultMap id="orderResultSet" type="order">
+		<result column="ORDER_NO" property="orderNo"/>
+		<result column="PAY_CODE" property="payCode"/>
+		<result column="ORDER_PRICE" property="orderPrice"/>
+		<result column="ORDER_REQUEST" property="orderRequest"/>
+		<result column="ORDER_DATE" property="orderDate"/>
+		<result column="ORDER_CANCLE" property="orderCancle"/>
+		<result column="DELIVERY_STATUS" property="deliveryStatus"/>
+		<result column="ORDER_PHONE" property="orderPhone"/>
+		<result column="ORDER_ADDRESS" property="orderAddress"/>
+		<result column="ORDER_ZIPCODE" property="orderZipcode"/>
+		<result column="CART_NO" property="cartNo"/>
+		<result column="CART_QUANTITY" property="cartQuantity"/>
+		<result column="CART_PRICE" property="cartPrice"/>
+		<result column="USER_NO" property="userNo"/>
+		<result column="PRODUCT_NO" property="productNo"/>
+		<result column="EFFECT_NAME" property="effectName"/>
+		<result column="PRODUCT_THUMBNAIL_PATH" property="productThumbnailPath"/>
+		<result column="PRODUCT_NAME" property="productName"/>
+		<result column="USER_ID" property="userId" />
+		<result column="USER_NAME" property="userName" />
+		<result column="PHONE" property="phone" />
+		<result column="EMAIL" property="email" />
+		<result column="DELIVERY_NO" property="deliveryNo" />
+		<result column="DELIVERY_NAME" property="deliveryName" />
+		<result column="DELIVERY_ADDRESS" property="deliveryAddress" />
+		<result column="DELIVERY_ZIPCODE" property="deliveryZipcode" />
+	</resultMap>
+	
+	<!-- 결제하기 장바구니 넘기기 -->
+	 <select id="cartOrder" resultMap="orderResultSet" parameterType="map">
+        SELECT CART_NO, CART_QUANTITY, CART_PRICE, USER_NO, PRODUCT_NO, EFFECT_NAME, PRODUCT_THUMBNAIL_PATH, PRODUCT_NAME
+        ,USER_NAME,PHONE,EMAIL
+        FROM CART
+        JOIN PRODUCT USING (PRODUCT_NO)
+        JOIN SIDE_EFFECT USING (PRODUCT_NO)
+        JOIN EFFECT USING (EFFECT_NO)
+        JOIN MEMBER USING (USER_NO)
+        WHERE CART_NO IN 
+        <foreach item="cartNos" collection="cartNosList" open="(" separator="," close=")">
+            #{cartNos}
+        </foreach>
+         AND USER_NO = #{userNo}
+    </select>
+	
+	<!-- 배송지 정보 가져오기 -->
+	<select id="getDeliveryList" resultMap="orderResultSet">
+    SELECT DELIVERY_NO, DELIVERY_NAME, DELIVERY_ADDRESS, DELIVERY_ZIPCODE, USER_ID
+    FROM DELIVERY
+    WHERE USER_ID = #{userId}
+</select>
+	<!-- ajax주문정보 넣기 -->
+	<insert id="orderInsert" parameterType="order">
+    INSERT INTO `ORDER` (ORDER_NO, PAY_CODE, ORDER_PRICE, ORDER_REQUEST, ORDER_PHONE, ORDER_ADDRESS, ORDER_ZIPCODE, USER_NO)
+    VALUES (#{orderNo}, #{payCode}, #{orderPrice}, #{orderRequest}, #{orderPhone}, #{orderAddress}, #{orderZipcode}, #{userNo})
+</insert>
+</mapper>

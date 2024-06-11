@@ -14,7 +14,7 @@ import lombok.ToString;
 @ToString
 public class Delivery {
 
-	private int delyveryNo;			//	DELIVERY_NO	NUMBER
+	private int deliveryNo;			//	DELIVERY_NO	NUMBER
 	private String deliveryName; 	//	DELIVERY_NAME	VARCHAR2(50 BYTE)
 	private String deliveryAddress;	//	DELIVERY_ADDRESS	VARCHAR2(500 BYTE)
 	private String deliveryZipcode;	//	DELIVERY_ZIPCODE	VARCHAR2(10 BYTE)
