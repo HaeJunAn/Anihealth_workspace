@@ -311,7 +311,7 @@
                 <div id="header_2" align="center">
                     <ul class="nav justify-content-center">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">영양제</a>
+                            <a class="nav-link" href="list.pd">영양제</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="survey.su">건강체크</a>
@@ -327,7 +327,7 @@
                             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">고객센터</a>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="faq.bo">FAQ</a>
-                                <a class="dropdown-item" href="#">1:1 문의</a>
+                                <a class="dropdown-item" href="list.iq">1:1 문의</a>
     						</div>
                         </li>
                         <li>

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="productMapper">
+
+    <resultMap id="productResultSet" type="product">
+        <result column="PRODUCT_NO" property="productNo"/>
+        <result column="PRODUCT_NAME" property="productName"/>
+        <result column="PRICE" property="price"/>
+        <result column="CATEGORY" property="category"/>
+        <result column="PRODUCT_THUMBNAIL_PATH" property="productThumbnailPath"/>
+        <result column="PRODUCT_DETAIL_PATH" property="productDetailPath"/>
+        <result column="PRODUCT_COUNT" property="productCount"/>
+        <result column="PRODUCT_STATUS" property="productStatus"/>
+         <result column="PRODUCT_STOCK" property="productStock"/> 
+         <result column="EFFECT_NAME" property="effectName"/>
+          <result column="RATING" property="rating"/>
+        <!-- <result column="EFFECT_NAME" property="effectName"/> --> <!-- 주석 처리된 부분 -->
+        <!-- <result column="RATING" property="rating"/> --> <!-- 주석 처리된 부분 -->
+    </resultMap>
+
+    <!-- 제품 목록을 조회하는 쿼리 -->
+    <select id="selectProductList" parameterType="map" resultMap="productResultSet">
+        SELECT P.PRODUCT_NO,
+               P.PRODUCT_NAME,
+               P.PRICE,
+               P.CATEGORY,
+               P.PRODUCT_THUMBNAIL_PATH,
+               P.PRODUCT_DETAIL_PATH,
+               P.PRODUCT_COUNT,
+               P.PRODUCT_STATUS
+               <!-- ,E.EFFECT_NAME --> <!-- 주석 처리된 부분 -->
+               <!-- ,NVL(AVG(R.RATING), 0) AS RATING --> <!-- 주석 처리된 부분 -->
+        FROM PRODUCT P
+        <!--
+        LEFT JOIN EFFECT E ON P.PRODUCT_NO = E.EFFECT_NO
+        LEFT JOIN ORDER_PRODUCT OP ON P.PRODUCT_NO = OP.PRODUCT_NO
+        LEFT JOIN REVIEW R ON OP.ORDER_PRODUCT_NO = R.ORDER_PRODUCT_NO
+        -->
+        WHERE P.PRODUCT_STATUS = 'Y'
+        GROUP BY P.PRODUCT_NO, P.PRODUCT_NAME, P.PRICE, P.CATEGORY, P.PRODUCT_THUMBNAIL_PATH, P.PRODUCT_DETAIL_PATH, P.PRODUCT_COUNT, P.PRODUCT_STATUS
+        ORDER BY
+    <choose>
+        <when test="order == 'newest'">
+            P.PRODUCT_NO DESC
+        </when>
+        <when test="order == 'priceDesc'">
+            P.PRICE DESC
+        </when>
+        <when test="order == 'priceAsc'">
+            P.PRICE ASC
+        </when>
+        <otherwise>
+            P.PRODUCT_NO DESC
+        </otherwise>
+    </choose>
+        
+    </select>
+
+    <!-- 검색 조건에 따른 제품 리스트 조회 쿼리 -->
+    <select id="selectFilteredProductList" parameterType="map" resultMap="productResultSet">
+        SELECT P.PRODUCT_NO,
+               P.PRODUCT_NAME,
+               P.PRICE,
+               P.CATEGORY,
+               P.PRODUCT_THUMBNAIL_PATH,
+               P.PRODUCT_DETAIL_PATH,
+               P.PRODUCT_COUNT,
+               P.PRODUCT_STATUS
+               <!-- ,E.EFFECT_NAME --> <!-- 주석 처리된 부분 -->
+               <!-- ,NVL(AVG(R.RATING), 0) AS RATING --> <!-- 주석 처리된 부분 -->
+        FROM PRODUCT P
+        <!--
+        LEFT JOIN EFFECT E ON P.PRODUCT_NO = E.EFFECT_NO
+        LEFT JOIN ORDER_PRODUCT OP ON P.PRODUCT_NO = OP.PRODUCT_NO
+        LEFT JOIN REVIEW R ON OP.ORDER_PRODUCT_NO = R.ORDER_PRODUCT_NO
+        -->
+        WHERE P.PRODUCT_STATUS = 'Y'
+          <if test="category != null and category != ''">
+              AND P.CATEGORY = #{category}
+          </if>
+          <if test="keyword != null and keyword != ''">
+              AND (P.PRODUCT_NAME LIKE '%' || #{keyword} || '%')
+                   <!-- OR E.EFFECT_NAME LIKE '%' || #{keyword} || '%' --> <!-- 조건 수정 -->
+          </if>
+        GROUP BY P.PRODUCT_NO, P.PRODUCT_NAME, P.PRICE, P.CATEGORY, P.PRODUCT_THUMBNAIL_PATH, P.PRODUCT_DETAIL_PATH, P.PRODUCT_COUNT, P.PRODUCT_STATUS
+        ORDER BY P.CATEGORY,
+        <choose>
+            <when test="order == 'newest'">
+                P.PRODUCT_NO DESC
+            </when>
+            <when test="order == 'priceDesc'">
+                P.PRICE DESC
+            </when>
+            <when test="order == 'priceAsc'">
+                P.PRICE ASC
+            </when>
+            <otherwise>
+                P.PRODUCT_NO DESC
+            </otherwise>
+        </choose>
+    </select>
+
+    <!-- 제품 목록의 개수를 조회하는 쿼리 -->
+    <select id="selectProductListCount" parameterType="map" resultType="int">
+        SELECT COUNT(*)
+        FROM PRODUCT P
+        <!--
+        LEFT JOIN EFFECT E ON P.PRODUCT_NO = E.EFFECT_NO
+        LEFT JOIN ORDER_PRODUCT OP ON P.PRODUCT_NO = OP.PRODUCT_NO
+        LEFT JOIN REVIEW R ON OP.ORDER_PRODUCT_NO = R.ORDER_PRODUCT_NO
+        -->
+        WHERE P.PRODUCT_STATUS = 'Y'
+          <if test="category != null and category != ''">
+              AND P.CATEGORY = #{category}
+          </if>
+          <if test="keyword != null and keyword != ''">
+              AND (P.PRODUCT_NAME LIKE '%' || #{keyword} || '%')
+                   <!-- OR E.EFFECT_NAME LIKE '%' || #{keyword} || '%' --> <!-- 조건 수정 -->
+          </if>
+    </select>
+
+ <!-- 제품 상세 정보를 조회하는 쿼리 -->
+    <select id="selectProductDetail" parameterType="int" resultMap="productResultSet">
+        SELECT P.PRODUCT_NO,
+               P.PRODUCT_NAME,
+               P.PRICE,
+               P.CATEGORY,
+               P.PRODUCT_THUMBNAIL_PATH,
+               P.PRODUCT_DETAIL_PATH,
+               P.PRODUCT_COUNT,
+               P.PRODUCT_STATUS,
+               PRODUCT_STOCK
+   
+               <!-- ,E.EFFECT_NAME --> <!-- 주석 처리된 부분 -->
+               <!-- ,NVL(AVG(R.RATING), 0) AS RATING --> <!-- 주석 처리된 부분 -->
+        FROM PRODUCT P
+
+        <!--
+        LEFT JOIN EFFECT E ON P.PRODUCT_NO = E.EFFECT_NO
+        LEFT JOIN ORDER_PRODUCT OP ON P.PRODUCT_NO = OP.PRODUCT_NO
+        LEFT JOIN REVIEW R ON OP.ORDER_PRODUCT_NO = R.ORDER_PRODUCT_NO
+        -->
+        WHERE P.PRODUCT_NO = #{productNo}
+    
+    </select>
+    
+      <!-- 평점 조회 -->
+    <select id="selectRating" parameterType="_int" resultType="_double">
+    	SELECT AVG(RATING)
+		 FROM REVIEW R
+		 JOIN ORDER_PRODUCT OP ON (R.ORDER_PRODUCT_NO = OP.ORDER_PRODUCT_NO)
+		WHERE OP.PRODUCT_NO = ${productNo}
+    </select>
+
+</mapper>

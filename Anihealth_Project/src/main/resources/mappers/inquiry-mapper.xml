@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
+<mapper namespace="inquiryMapper">
+
+	<resultMap id="inquiryResultSet" type="inquiry">
+	
+	   <result column="INQUIRY_NO" property="inquiryNo" />
+	   <result column="INQUIRY_TITLE" property="inquiryTitle" />
+	   <result column="INQUIRY_CONTENT" property="inquiryContent" />
+	   <result column="INQUIRY_CREATE" property="inquiryCreate" />
+	   <result column="INQUIRY_ANSWER" property="inquiryAnswer" />
+	   <result column="INQUIRY_ANSWER_CONTENT" property="inquiryAnswerContent" />
+	   <result column="INQUIRY_STATUS" property="inquiryStatus" />
+	   <result column="USER_NO" property="userNo" />
+	   
+	</resultMap>
+	
+	<!-- 게시글 갯수 구하는 쿼리문 -->
+	<select id="selectListCount"
+			resultType="_int">
+		SELECT COUNT(*)
+		  FROM INQUIRY
+		 WHERE INQUIRY_STATUS = 'Y'
+	</select>
+	
+	<!-- 게시글 목록을 구하는 쿼리문 -->
+	<select id="selectList"
+			resultMap="inquiryResultSet">
+		SELECT INQUIRY_NO
+		     , INQUIRY_TITLE
+		     , INQUIRY_CREATE
+		     , INQUIRY_ANSWER
+		     <!-- 답변내용이 널인지 아닌지로 판단인거같은디,,-->
+		  FROM INQUIRY
+		 WHERE INQUIRY_STATUS = 'Y'
+		 ORDER BY INQUIRY_NO DESC
+	</select>
+
+		<!-- 게시글 상세조회용 쿼리문 -->
+	<select id="selectInquiry"
+			parameterType="_int"
+			resultMap="inquiryResultSet">
+		SELECT INQUIRY_NO
+		     , INQUIRY_TITLE
+		     , INQUIRY_CREATE
+		     , INQUIRY_CONTENT
+		     , INQUIRY_ANSWER
+		  FROM INQUIRY
+		 WHERE INQUIRY_NO = #{inquiryNo}
+		   AND INQUIRY_STATUS = 'Y'
+	</select>
+	
+		<!-- 게시글 삭제용 쿼리문 -->
+	<update id="deleteInquiry"
+			parameterType="_int">
+		UPDATE INQUIRY
+		   SET INQUIRY_STATUS = 'N'
+		 WHERE INQUIRY_NO = #{inquiryNo}
+		   AND INQUIRY_STATUS = 'Y'
+	</update>
+	
+	<!-- 게시글 수정용 쿼리문 -->
+	<update id="updateInquiry"
+			parameterType="inquiry">
+		UPDATE INQUIRY
+		   SET INQUIRY_TITLE = #{inquiryTitle}
+		     , INQUIRY_CONTENT = #{inquiryContent}
+		   WHERE INQUIRY_NO = #{inquiryNo}
+		   AND INQUIRY_STATUS = 'Y'
+	</update>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</mapper>
