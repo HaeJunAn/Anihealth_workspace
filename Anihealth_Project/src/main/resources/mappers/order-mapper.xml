@@ -55,7 +55,7 @@
 </select>
 	<!-- ajax주문정보 넣기 -->
 	<insert id="orderInsert" parameterType="order">
-    INSERT INTO `ORDER` (ORDER_NO, PAY_CODE, ORDER_PRICE, ORDER_REQUEST, ORDER_PHONE, ORDER_ADDRESS, ORDER_ZIPCODE, USER_NO)
+    INSERT INTO "ORDER" (ORDER_NO, PAY_CODE, ORDER_PRICE, ORDER_REQUEST, ORDER_PHONE, ORDER_ADDRESS, ORDER_ZIPCODE, USER_NO)
     VALUES (#{orderNo}, #{payCode}, #{orderPrice}, #{orderRequest}, #{orderPhone}, #{orderAddress}, #{orderZipcode}, #{userNo})
 </insert>
 </mapper>
