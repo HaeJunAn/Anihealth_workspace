@@ -53,7 +53,7 @@
             white-space: nowrap; 
         }
   
-        img {
+        .img-thumb {
             display: block;
             margin: 0 auto;
             width: 80%;
@@ -225,7 +225,9 @@
        				 	<input type="hidden" name="price" value="${product.price}">
                     <tr>
                     <td rowspan="8" style="width: 60%;">
-                        <img src="${pageContext.request.contextPath}/${product.productThumbnailPath}" alt="${product.productName}">
+                        <img src="${pageContext.request.contextPath}/${product.productThumbnailPath}" 
+                             alt="${product.productName}"
+                             class="img-thumb">
                     </td>
                     </tr>
                     <tr>
@@ -289,6 +291,7 @@
                         error: function() {
                             console.log("장바구니 담기 실패");
                             alert("장바구니 담기 실패");
+
                         }
                     });
                 } else {
@@ -338,54 +341,7 @@
 
 
 <jsp:include page="../common/footer.jsp" />
-<style> 
-    @media (max-width: 950px) {
-       .container {
-           flex-direction: column;
-           align-items: center;
-       }
-   
-       .left, .right {
-           text-align: center;
-       }
-   
-       .info p, .right p {
-           font-size: 14px;
-       }
-   
-       .left-line1 {
-           font-size: 12px;
-       }
-   
-       .parent-info {
-           width: 90%; /* 작은 화면에서는 너비를 90%로 설정 */
-       }
-   
-       .info-table {
-           width: 100%;
-       }
-   
-       .td-left {
-           padding: 5px;
-           font-size: 14px; /* 글자 크기 조정 */
-       }
-   
-       .quantity-container {
-           flex-direction: column;
-           align-items: flex-start;
-       }
-   
-       .quantity {
-           flex-direction: column; /* 수량 선택 버튼을 세로로 배치 */
-           align-items: flex-start;
-       }
-   
-       .quantity-content button {
-           margin: 5px 0;
-       }
-   }
-   
-   </style>
+
 
 <script>
     //탭전환 버튼 영역
