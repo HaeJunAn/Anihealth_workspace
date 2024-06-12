@@ -145,7 +145,7 @@
             /* 여러 줄로 감싸기 */
             justify-content: flex-start;
             /* 자식 요소들을 왼쪽 정렬 */
-            width: 100%;
+            width: 1350px;
             /* 부모 요소의 너비를 100%로 설정 */
             margin: 0 auto;
             /* 부모 요소를 중앙에 배치 */

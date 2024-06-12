@@ -259,7 +259,8 @@
                 </form>
                </tbody>
             </table>
-        </div> <br><br>
+        </div>
+         <br><br>
 
         <script>
     document.getElementById("cart1").addEventListener("click", function() {
