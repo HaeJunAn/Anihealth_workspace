@@ -33,4 +33,15 @@ public class OrderDao {
 		  return sqlSession.insert("orderMapper.orderInsert", o);
 	  }
 	  
+	  public int orderItemInsert(Order o) {
+	        return sqlSession.insert("orderMapper.orderItemInsert", o);
+	    }
+
+	public int cartDelete(int cartNo) {
+		
+		return sqlSession.delete("cartMapper.cartDelete",cartNo);
+	}
+
+	
+	  
 }	

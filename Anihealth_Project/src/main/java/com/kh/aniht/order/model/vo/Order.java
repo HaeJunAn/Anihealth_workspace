@@ -1,5 +1,7 @@
 package com.kh.aniht.order.model.vo;
 
+import java.util.List;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -39,6 +41,7 @@ public class Order {
 	private String userName;
 	private String phone;
 	private String email;
-	
+	//
+	private List<Order> orderItems;
 
 }

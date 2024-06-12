@@ -22,9 +22,9 @@ public class CartServiceImpl implements CartService {
 	
 	// 해준 장바구니 리스트
 	@Override
-	public ArrayList<Cart> selectCartList() {
+	public ArrayList<Cart> selectCartList(int userNo) {
 		
-		return cartDao.selectCartList(sqlSession);
+		return cartDao.selectCartList(sqlSession,userNo);
 	}
 	// 해준 장바구니 수량업데이트 에이쟉스
 	 	@Override

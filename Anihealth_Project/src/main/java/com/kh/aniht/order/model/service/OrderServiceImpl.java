@@ -43,5 +43,20 @@ public class OrderServiceImpl implements OrderService{
         o.setUserNo(userNo);
         return orderDao.orderInsert(o);
     }
+
+	 @Override
+	 @Transactional
+	    public int orderItemInsert(Order o) {
+	        return orderDao.orderItemInsert(o);
+	    }
+
+	@Override
+	@Transactional
+	public int cartDelete(int cartNo) {
+		
+		return orderDao.cartDelete(cartNo);
+	}
+
+	
 	 
 }

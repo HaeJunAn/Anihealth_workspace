@@ -58,4 +58,20 @@
     INSERT INTO "ORDER" (ORDER_NO, PAY_CODE, ORDER_PRICE, ORDER_REQUEST, ORDER_PHONE, ORDER_ADDRESS, ORDER_ZIPCODE, USER_NO)
     VALUES (#{orderNo}, #{payCode}, #{orderPrice}, #{orderRequest}, #{orderPhone}, #{orderAddress}, #{orderZipcode}, #{userNo})
 </insert>
+	<!-- ajax 상세정보 넣기 -->
+	<insert id="orderItemInsert" parameterType="order">
+    INSERT INTO ORDER_PRODUCT (
+        ORDER_PRODUCT_NO, 
+        ORDER_QUANTITY, 
+        ORDER_PRODUCT_PRICE, 
+        ORDER_NO, 
+        PRODUCT_NO
+    ) VALUES (
+        SEQ_ORDER_PRODUCT_NO.NEXTVAL, 
+        #{cartQuantity}, 
+        #{cartQuantity} * #{cartPrice},  
+        #{orderNo}, 
+        #{productNo}
+    )
+    </insert>
 </mapper>

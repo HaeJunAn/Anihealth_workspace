@@ -12,4 +12,11 @@ public interface OrderService {
 	List<Delivery> getDeliveryList(String userId);
 	
 	int orderInsert(Order o,int userNo);
+	
+	int orderItemInsert(Order o);
+
+	int cartDelete(int cartNo);
+
+	
+	
 }

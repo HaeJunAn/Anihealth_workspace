@@ -1,7 +1,8 @@
 package com.kh.aniht.cart.controller;
 
 import java.util.ArrayList;
-import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,10 +25,10 @@ public class CartController {
 	
 	// 해준 장바구니 리스트
 	@GetMapping("cart.re")
-	public String selectCartList(Model model) {
-		
-		ArrayList<Cart> list = cartService.selectCartList();
-		//System.out.println(list);
+	public String selectCartList(Model model,HttpSession session) {
+		 int userNo = ((Member)session.getAttribute("loginUser")).getUserNo();	
+		ArrayList<Cart> list = cartService.selectCartList(userNo);
+		System.out.println("카트리스트 : "  + list);
 		model.addAttribute("list", list);
 		
 		return "cart/cartListView";

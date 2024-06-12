@@ -18,9 +18,9 @@ public class CartDao {
     private SqlSessionTemplate sqlSession;
 	
 	// 장바구니 카트 리스트 가져오기  해준
-	public ArrayList<Cart> selectCartList(SqlSessionTemplate sqlSession){
+	public ArrayList<Cart> selectCartList(SqlSessionTemplate sqlSession,int userNo){
 		
-		return (ArrayList)sqlSession.selectList("cartMapper.selectCartList");
+		return (ArrayList)sqlSession.selectList("cartMapper.selectCartList",userNo);
 		
 	}
 	// 장바구니 수량변경 쟉스 해준

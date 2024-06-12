@@ -8,7 +8,7 @@ import com.kh.aniht.cart.model.vo.Cart;
 public interface CartService {
 	
 	// 카트 리스트 조회 해준
-	ArrayList<Cart> selectCartList();
+	ArrayList<Cart> selectCartList(int userNo);
 	
 	// 에이작스 장바구니수량업데이트 해준 
 	 int ajaxUpdateCart(int cartNo, int newQuantity);

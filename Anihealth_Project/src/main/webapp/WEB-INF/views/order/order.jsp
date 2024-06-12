@@ -190,6 +190,7 @@ function checkFormCompletion() {
         document.getElementById("checkout-button").disabled = true;
     }
 }
+
 </script>
 <body>
 	<jsp:include page="../common/header.jsp" />
@@ -314,6 +315,7 @@ function checkFormCompletion() {
                     </tr>
                 </tbody>
             </table>
+             <input type="hidden" id="productNos" value="<c:forEach var='oi' items='${requestScope.orderItems}'>${oi.productNo},</c:forEach>" />
         </div>
         <button class="btn btn-lg right-button" id="checkout-button" onclick="payment()" disabled>결제하기</button>
         <br><br><br>
@@ -323,69 +325,74 @@ function checkFormCompletion() {
         
        
         function payment() {
-      	  /**/
-      	  console.log("test");
-      	  const address = document.getElementById("address-details").value;
-          const zipCode = document.getElementById("zipCode").value;
-          const phone = document.getElementById("phone").value;
-  		  const delivery = document.getElementById("delivery-request").value;	
-  		  
-  			let random = Math.floor(Math.random() * 90000000 + 10000000);
-         
-  	      const IMP = window.IMP; // 생략 가능
-  	      IMP.init("imp70105832"); // Example: imp00000000
-  	      IMP.request_pay(
-  	        {
-  	          // param
-  	          pg: "html5_inicis",
-  	          pay_method: "card",
-  	          merchant_uid: random, //주문번호
-  	          name: "영양제",
-  	          amount: 100,
-  	        buyer_email: "${requestScope.orderItems[0].email}",
-            buyer_name: "${requestScope.orderItems[0].userName}",
-            buyer_tel: phone,
-            buyer_addr: address,
-            buyer_postcode: zipCode,
-  	          //m_redirect_url: "", // 모바일 결제후 리다이렉트될 주소!!
-  	        },
-  	        async (rsp) => {
-  	          // callback
-  	          if (rsp.success) {
-  	            // 결제 성공시
-  	            console.log("결제성공");
-  	            console.log(rsp);
-  	          $.ajax({
-	            	url: "order.in",
-	            	type: "post",
-	            	data: {
-	            		orderNo : rsp.merchant_uid, //주문번호
-	            		payCode: rsp.pg_tid, //결제코드 (환불 시 필요)
-	            		orderPrice: 100, 
-	      	            orderRequest: delivery, 
-	      	            orderPhone : phone, 
-	      	            orderAddress : address, 
-	      	            orderZipcode : zipCode
-	            	},
-	            	success: function(result) {
-	            		if(result == "success") {
-	            			console.log("결제정보 저장 성공");
-	            		} else {
-	            			console.log("결제정보 저장 실패");
-	            		}
-	            	},
-	            	error: function() {
-	            		console.log("결제정보 저장 AJAX 통신 실패");
-	            	}
-	            });
-  	          } else {
-  	            // 결제 실패시
-  	            console.log("결제실패");
-  	          }
-  	        }
-  	      );
-      	  /**/
-        }
+        	  console.log("test");
+        	  const address = document.getElementById("address-details").value;
+        	  const zipCode = document.getElementById("zipCode").value;
+        	  const phone = document.getElementById("phone").value;
+        	  const delivery = document.getElementById("delivery-request").value;
+
+        	  let random = Math.floor(Math.random() * 90000000 + 10000000);
+
+        	  const IMP = window.IMP;
+        	  IMP.init("imp70105832");
+        	  IMP.request_pay(
+        	    {
+        	      pg: "html5_inicis",
+        	      pay_method: "card",
+        	      merchant_uid: random,
+        	      name: "영양제",
+        	      amount: 100,
+        	      buyer_email: "${requestScope.orderItems[0].email}",
+        	      buyer_name: "${requestScope.orderItems[0].userName}",
+        	      buyer_tel: phone,
+        	      buyer_addr: address,
+        	      buyer_postcode: zipCode,
+        	    },
+        	    async (rsp) => {
+        	      if (rsp.success) {
+        	        console.log("결제성공");
+        	        console.log(rsp);
+
+        	        let orderItems = [];
+        	        <c:forEach var="oi" items="${requestScope.orderItems}">
+        	          orderItems.push({
+        	            productNo: "${oi.productNo}",
+        	            cartQuantity: "${oi.cartQuantity}",
+        	            cartPrice: "${oi.cartPrice}",
+        	            cartNo : "${oi.cartNo}"
+        	          });
+        	        </c:forEach>
+
+        	        const orderData = {
+        	          orderNo: rsp.merchant_uid,
+        	          payCode: rsp.pg_tid,
+        	          orderPrice: 100,
+        	          orderRequest: delivery,
+        	          orderPhone: phone,
+        	          orderAddress: address,
+        	          orderZipcode: zipCode,
+        	          orderItems: orderItems
+        	        };
+
+        	        $.ajax({
+                        url: "order.in",
+                        type: "post",
+                        contentType: "application/json",
+                        data: JSON.stringify(orderData),
+                        success: function(result) {
+                            console.log("결제저장 성공");
+                            window.location.href = "${pageContext.request.contextPath}"; 
+                        },
+                        error: function() {
+                            console.log("결제저장 실패");
+                        }
+                    });
+                } else {
+                    console.log("결제실패");
+                }
+            }
+        );
+    }
         
 	</script>
 <jsp:include page="../common/footer.jsp" />

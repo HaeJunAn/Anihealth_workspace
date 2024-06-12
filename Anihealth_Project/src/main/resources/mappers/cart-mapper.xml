@@ -20,6 +20,7 @@
 		  JOIN PRODUCT USING (PRODUCT_NO)
 		  JOIN SIDE_EFFECT USING (PRODUCT_NO)
 		  JOIN EFFECT USING (EFFECT_NO)
+		  WHERE USER_NO =#{userNo}
 	</select>
 	
 	<!-- 장바구니 수량변경 쿼리문  해준-->
@@ -33,6 +34,13 @@
 		DELETE 
 		  FROM CART
 		WHERE CART_NO = #{cartNo} 
+	</delete>
+	
+	<!-- 결제후 장바구니 삭제 쿼리문 -->
+	<delete id="cartDelete" parameterType="_int">
+		DELETE 
+		  FROM CART
+		WHERE CART_NO = #{cartNo} 	
 	</delete>
 	
 </mapper>
