@@ -76,7 +76,6 @@
 
         .order-options li a {
             text-decoration: none;
-            /* 밑줄 제거 */
             color: #6c757d;
         }
 
@@ -131,6 +130,14 @@
             display: inline-block;
         }
 
+		.card-custom a {
+		    text-decoration: none; /* 밑줄 제거 */
+		    color: inherit; /* 부모 요소의 색상 상속 */
+		}
+		.card-custom a:hover {
+		    text-decoration: none; /* 호버 시에도 밑줄 제거 */
+		    color: inherit; /* 호버 시에도 부모 요소의 색상 상속 */
+		}
         .row-custom-product-list {
             display: flex;
             /* flexbox를 사용하여 자식 요소들을 정렬 */
@@ -138,7 +145,7 @@
             /* 여러 줄로 감싸기 */
             justify-content: flex-start;
             /* 자식 요소들을 왼쪽 정렬 */
-            width: 1350px;
+            width: 100%;
             /* 부모 요소의 너비를 100%로 설정 */
             margin: 0 auto;
             /* 부모 요소를 중앙에 배치 */
@@ -205,12 +212,18 @@
             text-align: right;
             margin-left: 50px;
         }
+        .stars i{
+        	 color: rgb(255, 222, 36);
+        	  font-weight: bold;
+        }
         .star-rating {
             color: gold;
             font-size: 16px; /* 적절한 크기로 설정 */
             margin-left: 10px; /* 가격과 별점 사이 여백 */
             margin-right: 1px;
         }
+        
+        
         /* 영양제 영역 끝 */
 
 
@@ -272,6 +285,7 @@
         /* 메인컨텐츠 영역 끌 */
 
 
+
 </style>
 
 </head>
@@ -301,39 +315,40 @@
 					        var order = urlParams.get('order');
 					
 					        if(order === 'newest') {
-					            $('#order-latest').css('color', 'blue');
+					            $('#order-latest').css('color', 'green');
 					        } else if(order === 'priceDesc') {
-					            $('#order-highest').css('color', 'blue');
+					            $('#order-highest').css('color', 'green');
 					        } else if(order === 'priceAsc') {
-					            $('#order-lowest').css('color', 'blue');
+					            $('#order-lowest').css('color', 'green');
 					        }
 					
 					        $("#order-latest, #order-highest, #order-lowest").click(function() {
 					            $("#order-latest, #order-highest, #order-lowest").css("color", "");
-					            $(this).css("color", "blue");
+					            $(this).css("color", "green");
 					        });
 					    });
 					</script>
-                <div class="search-container">
-                    <nav class="navbar">
-                        <form class="form-inline" action="list.pd" method="get">
-                            <select class="form-control" name="category" required>
-                                <option value="공통">공통</option>
-                                <option value="강아지">강아지</option>
-                                <option value="고양이">고양이</option>
-                            </select>
-                            <input class="form-control" 
-                                   type="text"
-                                   placeholder="검색어를 입력해주세요" 
-                                   name="keyword" required>
-                            <button class="btn btn-search" id="btn-search" type="submit">검색</button>
-                        </form>
-                    </nav>
-                </div>
+					
+		                <div class="search-container">
+		                    <nav class="navbar">
+		                        <form class="form-inline" action="list.pd" method="get">
+		                            <select class="form-control" name="category" required>
+		                                <option value="공통">공통</option>
+		                                <option value="강아지">강아지</option>
+		                                <option value="고양이">고양이</option>
+		                            </select>
+		                            <input class="form-control" 
+		                                   type="text"
+		                                   placeholder="검색어를 입력해주세요" 
+		                                   name="keyword" required>
+		                            <button class="btn btn-search" id="btn-search" type="submit">검색</button>
+		                        </form>
+		                    </nav>
+		                </div>
             </div>
         </div>
 
-        <div class="outer-container">
+       <div class="outer-container">
             <div class="container-custom">
                 <div class="row-custom-product-list">
                     <c:forEach var="p" items="${list}">

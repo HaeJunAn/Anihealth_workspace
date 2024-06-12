@@ -157,63 +157,58 @@
             margin-right: 10px;
             /* 로그인 구역의 우측 여백을 10px로 조정 */
         }
+       }
 
 
-	 @media (max-width: 950px) {
-		    .container {
-		        flex-direction: column;
-		        align-items: center;
-		    }
-		
-		    .left, .right {
-		        text-align: center;
-		    }
-		
-		    .info p, .right p {
-		        font-size: 14px;
-		    }
-		
-		    .left-line1 {
-		        font-size: 12px;
-		    }
-		
-		    .parent-info {
-		        width: 90%; /* 작은 화면에서는 너비를 90%로 설정 */
-		    }
-		
-		    .info-table {
-		        width: 100%;
-		    }
-		
-		    .td-left {
-		        padding: 5px;
-		        font-size: 14px; /* 글자 크기 조정 */
-		    }
-		
-		    .quantity-container {
-		        flex-direction: column;
-		        align-items: flex-start;
-		    }
-		
-		    .quantity {
-		        flex-direction: column; /* 수량 선택 버튼을 세로로 배치 */
-		        align-items: flex-start;
-		    }
-		
-		    .quantity-content button {
-		        margin: 5px 0;
-		    }
-		
-		    #cart, #heart {
-		        width: 100%; /* 버튼 너비를 100%로 설정 */
-		        margin: 10px 0; /* 버튼 간격 조정 */
-		    }
-		
-		    #cart {
-		        margin-right: 0; /* 마진 제거 */
-		    }
-		}
-	 }
+	@media (max-width: 950px) {
+    .container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .left, .right {
+        text-align: center;
+    }
+
+    .info p, .right p {
+        font-size: 14px;
+    }
+
+    .left-line1 {
+        font-size: 12px;
+    }
+
+    .parent-info {
+        width: 90%; /* 작은 화면에서는 너비를 90%로 설정 */
+    }
+
+    .info-table {
+        width: 100%;
+    }
+
+    .td-left {
+        padding: 5px;
+        font-size: 14px; /* 글자 크기 조정 */
+    }
+
+    .quantity-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .quantity {
+        flex-direction: column; /* 수량 선택 버튼을 세로로 배치 */
+        align-items: flex-start;
+    }
+
+    .quantity-content button {
+        margin: 5px 0;
+    }
+
+
+}
+
+	 
 	 
 	 @media (max-width: 950px) {
 	.inner-container-rw {
