@@ -21,6 +21,19 @@
 		<result column="STATUS" property="status"/>
 	</resultMap>
 	
+	<resultMap type="orderProduct" id="orderProductResultSet">
+		<result column="ORDER_PRODUCT_NO" property="orderProductNo"/>
+		<result column="ORDER_QUANTITY" property="orderQuantity"/>
+		<result column="ORDER_PRODUCT_PRICE" property="orderProductPrice"/>
+		<result column="ORDER_NO" property="orderNo"/>
+		<result column="PRODUCT_NO" property="productNo"/>
+		<result column="PRODUCT_THUMBNAIL_PATH" property="productThumbnailPath" />
+		<result column="PRODUCT_NAME" property="productName" />
+		<result column="DELIVERY_STATUS" property="deliveryStatus" />
+		<result column="ORDER_DATE" property="orderDate" />
+		
+	</resultMap>
+	
 	<!-- 로그인용 쿼리문 -->
 	<select id="loginMember" 
 			parameterType="member"
@@ -84,6 +97,100 @@
 		  FROM MEMBER
 		 WHERE USER_ID = #{checkId}
 	</select>
+	
+	<!-- 닉네임 중복확인용 쿼리문 -->
+	<select id="nickCheck"
+			parameterType="string"
+			resultType="_int">
+		SELECT COUNT(*)
+		  FROM MEMBER
+		 WHERE USER_NICK = #{checkNick}
+	</select>
+	
+	<!-- 이메일 중복확인용 쿼리문 -->
+	<select id="emailCheck"
+			parameterType="string"
+			resultType="_int">
+		SELECT COUNT(*)
+		  FROM MEMBER
+		 WHERE EMAIL = #{checkEmail}
+	</select>
+	
+	<!-- 아이디 찾기 쿼리문 -->
+	<select id="findIdEmail"
+			parameterType="string"
+			resultType="string">
+		SELECT USER_ID
+		  FROM MEMBER
+		 WHERE USER_NAME = #{userName}
+		   AND EMAIL = #{email}
+	</select>
+	
+	
+	<!-- 비밀번호 찾기 쿼리문 -->
+	<select id="findPwdEmail"
+			parameterType="string"
+			resultType="string">	
+		SELECT USER_ID
+		  FROM MEMBER
+		 WHERE USER_ID = #{userId}
+	   AND EMAIL = #{email}
+	</select>
+	
+	<update id="updateFindPwd"
+			parameterType="member">
+		UPDATE MEMBER
+		   SET USER_PWD = #{userPwd}
+		 WHERE USER_ID = #{userId}
+		   AND STATUS = 'Y'
+	</update>
+	
+	<!-- 회원 수정 쿼리문 -->
+	<update id="updateMember"
+			parameterType="member">
+		UPDATE MEMBER
+		   SET USER_NAME = #{userName}
+		     , PHONE = #{phone}
+		     , USER_BIRTHDAY = #{userBirthday}
+		 WHERE USER_ID = #{userId}
+	</update>
+	
+	<!-- 주문내역 조회 쿼리문 -->
+	<select id="selectOrderList"
+			resultMap="orderProductResultSet">
+		SELECT OP.ORDER_PRODUCT_NO
+		     , OP.ORDER_QUANTITY
+		     , OP.ORDER_PRODUCT_PRICE
+		     , OP.ORDER_NO
+		     , OP.PRODUCT_NO
+		     , P.PRODUCT_THUMBNAIL_PATH
+		     , P.PRODUCT_NAME
+		     , O.DELIVERY_STATUS
+		     , TO_CHAR(O.ORDER_DATE, 'YYYY-MM-DD') AS ORDER_DATE
+		  FROM ORDER_PRODUCT OP
+		  JOIN "ORDER" O ON (OP.ORDER_NO = O.ORDER_NO)
+		  JOIN PRODUCT P ON (OP.PRODUCT_NO = P.PRODUCT_NO)
+		 WHERE USER_NO = #{userNo}
+	</select>
+	
+	<!-- 회원탈퇴 -->
+	<update id="deleteMember"
+			parameterType="string">
+		UPDATE MEMBER
+		   SET STATUS = 'N'
+		 WHERE USER_ID = #{userId}
+		   AND STATUS = 'Y'
+	</update>
+	
+	<!-- 비밀번호 변경 -->
+	<update id="updatePwd"
+			parameterType="string">
+		UPDATE MEMBER
+		   SET USER_PWD = #{userPwd}
+		 WHERE USER_ID = #{userId}
+		   AND STATUS = 'Y'
+	</update>
+	
 
 </mapper>
 	

@@ -124,10 +124,6 @@
             padding: 10px;
         }
         
-		.agreement-text:hover {
-		    color: rgb(158, 188, 133); 
-		    cursor: pointer; 
-		}
         .agreement-content {
             margin-bottom: 20px;
         }
@@ -200,7 +196,7 @@
 						<input type="text" id="userId" name="userId" class="form-control" minlength="5" maxlength="11"
 							placeholder="아이디(5~11자 영문,숫자 조합)" required >
 						<div id="idCheckResult" class="result"
-							 style="font-size : 0.8em; display : none;"></div>
+							 style="font-size: 0.8em;" display : none;"></div>
 					</div> <br>
 					</td>
 				</tr>
@@ -289,10 +285,10 @@
 				<tr>
 					<td>
 						<input type="password" id="pw1" name="userPwd" class="form-control" maxlength="30" 
-							placeholder="비밀번호 (8~30자 영문, 숫자 조합)" onChange="validatePassword()" required>
+							placeholder="비밀번호 (8~30자 영문, 숫자 조합)" onKeydown="validatePassword()" required>
 							
 						<input type="password" id="pw2" class="form-control" maxlength="30"
-							placeholder="비밀번호 확인" required onChange="validatePassword()">
+							placeholder="비밀번호 확인" required onKeyup="validatePassword()">
 						<div id="result" class="result"></div>
 							<script>
 							function validatePassword() {
@@ -307,21 +303,24 @@
 							        if (pw1 === pw2) {
 							            resultDiv.innerHTML = '비밀번호가 일치합니다.';
 							            resultDiv.style.color = 'green';
+							            resultDiv.style.fontSize = '0.8em';
 							            enrollBtn.disabled = false; // 비밀번호가 일치하고 유효성 검사를 통과하면 버튼 활성화
 							        } else {
 							            resultDiv.innerHTML = '비밀번호가 일치하지 않습니다.';
 							            resultDiv.style.color = 'red';
+							            resultDiv.style.fontSize = '0.8em'; // font-size를 0.8em으로 설정
 							            enrollBtn.disabled = true; // 비밀번호가 일치하지 않으면 버튼 비활성화
 							        }
 							    } else {
 							        resultDiv.innerHTML = '비밀번호 (8~30자 영문, 숫자 조합)';
 							        resultDiv.style.color = 'red';
+							        resultDiv.style.fontSize = '0.8em';
 							        enrollBtn.disabled = true; // 비밀번호 유효성 검사를 통과하지 못하면 버튼 비활성화
 							    }
-							}
+							} 
 							</script>
 							<div style="position: relative;">
-							</div>
+							</div><br>
 
 					</td>
 				</tr>
@@ -334,7 +333,7 @@
 						<input type="text" id="userNick" name="userNick" class="form-control" minlength="2" maxlength="11"
 							placeholder="닉네임(2~11자 한글/영문) " required >
 						<div id="nickCheckResult"
-							 style="font-size : 0.8em; display : none;"></div>
+							 style="font-size: 0.8em;" display : none;"></div>
 					</div>
 					
 					<!-- 닉네임 중복체크 ajax -->	
@@ -363,7 +362,7 @@
 				       					url : "nickCheck.me",
 				       					type : "get",
 				       					data : {
-				       						checkId : $nickInput.val()
+				       						checkNick : $nickInput.val()
 				       					},
 				       					success : function(result) {
 				       						
@@ -374,8 +373,8 @@
 				       							
 				       							// 빨간색 메세지로 출력
 				       							$("#nickCheckResult").show()
-				       											 .css("color", "red")
-				       											 .text("이미 사용중인 닉네임입니다. 다시 입력해주세요.");
+					       											 .css("color", "red")
+					       											 .text("이미 사용중인 닉네임입니다. 다시 입력해주세요.");
 				       							
 				       							// 회원가입버튼 비활성화
 				       							$("#enroll-form button[type=submit]").attr("disabled", true);
@@ -400,7 +399,7 @@
 				       				});
 				       				
 				       			} else {
-				       				// 5글자 미만일 때	
+				       				// 2글자 미만
 				       				
 				       				// 회원가입버튼 비활성화
 				       				$("#enroll-form button[type=submit]").attr("disabled", true);
@@ -414,7 +413,7 @@
 						});
 			       		</script>				
 
-
+						<br>
 					</td>
   				</tr>
 				
@@ -424,7 +423,7 @@
 				<tr>
 					<td>
 						<input type="text" name="userName" class="form-control" maxlength="6" placeholder="이름을 입력해주세요"
-							required>
+							required><br>
 					</td>
 					<td></td>
 				</tr>
@@ -433,7 +432,7 @@
 				</tr>
 				<tr>
 					<td>
-						<input type="text" name="phone" class="form-control" maxlength="13" placeholder="- 포함해서 입력해주세요" required>
+						<input type="text" name="phone" class="form-control" maxlength="13" placeholder="- 포함해서 입력해주세요" required><br>
 					</td>
 					<td></td>
 				</tr>
@@ -443,7 +442,7 @@
 				<tr>
 					<td>
 						<div id="email-check-container">
-						<input type="email" name="email" id="email" class="form-control" placeholder="이메일 주소를 입력해주세요" required>
+						<input type="email" name="email" id="email" name="email" class="form-control" placeholder="이메일 주소를 입력해주세요" required>
 						<button type="button" class="btn" id="emailCheckBtn"
 									onclick="cert();">
 							인증번호 발송
@@ -459,12 +458,92 @@
 										onclick="validate();" disabled>
 								인증번호 확인
 							</button>
+							
 						</div>
 						
 					</td>
 				</tr>
+				<tr>
+					<td colspan="1">
+						<div id="emailCheckResult"
+							 style="font-size: 0.8em;" display : none;"></div><br>
+					</td>
+					
+				</tr>
 				
+					
 				<script>
+				<!-- 이메일 중복체크 ajax -->
+					$(function(){
+						
+						// 아이디를 입력하는 input 요소 객체를 변수에 담아두기
+			       		const $emailInput = $("#enroll-form input[name=email]");
+			      		
+			       		// 아이디를 입력할때마다 실시간으로 아이디 중복 체크
+			       		// > "keyup" 이벤트 활용
+			       		$emailInput.keyup(function() {
+			       			
+			       			// console.log($idInput.val());
+			       			// > 사용자가 실시간으로 입력한 아이디값을 중복체크 시 요청값으로 넘기기
+			       			
+			       			// 우선, 아이디값이 최소 5글자 이상으로 입력되어 있을 때에만
+			       			// ajax 를 요청해서 중복체크 하기!!
+			       			
+			       			if($emailInput.val().length >= 5) {
+			       				// 5글자 이상일 때
+			       				// > ajax 로 아이디 중복복확인 요청 보내기
+			       				
+			       				$.ajax({
+			       					url : "emailCheck.me",
+			       					type : "get",
+			       					data : {
+			       						checkEmail : $emailInput.val()
+			       					},
+			       					success : function(result) {
+			       						
+			       						// console.log(result);
+			       						
+			       						if(result == "NNNNN") {
+			       							// 사용 불가능한 아이디일 경우
+			       							
+			       							// 빨간색 메세지로 출력
+			       							$("#emailCheckResult").show()
+				       											  .css("color", "red")
+				       											  .text("이미 사용중인 이메일입니다. 다시 입력해주세요.");
+			       							
+			       							// 회원가입버튼 비활성화
+			       							$("#enroll-form button[type=submit]").attr("disabled", true);
+			       							
+			       						} else {
+			       							// 사용 가능한 아이디일 경우
+			       							
+			       							// 회원가입버튼 활성화
+			       							$("#enroll-form button[type=submit]").attr("disabled", false);
+			       							
+			       						}
+			       						
+			       					},
+			       					error : function() {
+			       						console.log("이메일 중복 체크용 ajax 통신 실패!");
+			       					}
+			       				});
+			       				
+			       			} else {
+			       				// 5글자 미만
+			       				
+			       				// 회원가입버튼 비활성화
+			       				$("#enroll-form button[type=submit]").attr("disabled", true);
+			       				
+			       				// 메세지 숨기기
+			       				$("#nickCheckResult").hide();
+			       				
+			       			}
+			       			
+			       		});
+					});
+			       		
+				
+				
 				function cert() {
 					
 					// ajax 요청 보내기
@@ -538,7 +617,7 @@
 				</tr>
 				<tr>
 					<td>
-						<input type="date" id="userBirthday" class="form-control" name="userBirthday" placeholder="YY-MM-DD 형식" required>
+						<input type="date" id="userBirthday" class="form-control" name="userBirthday" placeholder="YY-MM-DD 형식" required><br>
 					</td>
 				</tr>
 				<tr>
@@ -550,12 +629,12 @@
 						<input type="text" id="sample6_postcode" name="deliveryZipcode"  placeholder="&nbsp;&nbsp;우편번호" readonly required>
 						<input type="button" id="post-btn" class="btn" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
 						<input type="text" id="address1" name="address1" placeholder="&nbsp;&nbsp;주소" readonly required><br>
-						<input type="text" id="address2" name="address2" class="form-control" placeholder="상세주소" required>
+						<input type="text" id="address2" name="address2" class="form-control" placeholder="상세주소" required><br>
 						<input type="hidden" id="sample6_extraAddress" placeholder="참고항목">
 					</td>
 					<td></td>
 				</tr>
-				
+			
 				<script>
 				// 다음 주소 api
 				    function sample6_execDaumPostcode() {
@@ -607,78 +686,76 @@
 				    }
 				</script>
 				
-				
 				<table width="600px">
 				<tr>
 				    <td>
 				        <input type="checkbox" id="checkAll" onclick="checkAllCheckboxes()" required>
-				         약관 전체 동의하기
+				         <label for="checkAll">약관 전체 동의하기</label>
 				    </td>
 				</tr>
 				
 				<tr>
                     <td>
-                        <input type="checkbox" class="subCheckbox" onchange="checkSubCheckboxes()">
+                        <input type="checkbox" id="check1" class="subCheckbox" onchange="checkSubCheckboxes()">
                         <span class="agreement-text" onclick="toggleDetails('ageAgreementDetails')">
-                            [ 필수 ] 만 14세 이상입니다.
+                            <label for="check1">[ 필수 ] 만 14세 이상입니다.</label>
                         </span>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <input type="checkbox" class="subCheckbox" onchange="checkSubCheckboxes()">
+                        <input type="checkbox" id="check2" class="subCheckbox" onchange="checkSubCheckboxes()">
                         <span class="agreement-text" onclick="toggleDetails('privacyAgreementDetails')">
-                            [ 필수 ] 개인정보 수집 및 이용 동의
+                            <label for="check2">[ 필수 ] 개인정보 수집 및 이용 동의</label>
                         </span>
                     </td>
                 </tr>
                 
-			</table>
+				</table>
 		
        		
-       		<script>
-	       	    function checkAllCheckboxes() {
-	       	        var checkAllCheckbox = document.getElementById("checkAll");
-	       	        var subCheckboxes = document.querySelectorAll(".subCheckbox");
-	
-	       	        // "checkAll" 체크박스가 선택되었는지 확인
-	       	        if (checkAllCheckbox.checked) {
-	       	            // 모든 하위 체크박스 선택
-	       	            subCheckboxes.forEach(function(checkbox) {
-	       	                checkbox.checked = true;
-	       	            });
-	       	        } else {
-	       	            // 모든 하위 체크박스 해제
-	       	            subCheckboxes.forEach(function(checkbox) {
-	       	                checkbox.checked = false;
-	       	            });
-	       	        }
-	       	    }
-	
-	       	    function checkSubCheckboxes() {
-	       	        var subCheckboxes = document.querySelectorAll(".subCheckbox");
-	       	        var allChecked = true;
-	
-	       	        // 모든 하위 체크박스가 선택되었는지 확인
-	       	        subCheckboxes.forEach(function(checkbox) {
-	       	            if (!checkbox.checked) {
-	       	                allChecked = false;
-	       	            }
-	       	        });
-	
-	       	        // 모든 하위 체크박스가 선택되었으면 "checkAll" 체크박스도 선택
-	       	        if (allChecked) {
-	       	            document.getElementById("checkAll").checked = true;
-	       	        } else {
-	       	            document.getElementById("checkAll").checked = false;
-	       	        }
-	       	    }
-	       	</script>
-       		
+	       		<script>
+	       		// 체크박스 전체 선택 & 해제
+		       	    function checkAllCheckboxes() {
+		       	        var checkAllCheckbox = document.getElementById("checkAll");
+		       	        var subCheckboxes = document.querySelectorAll(".subCheckbox");
 		
+		       	        // "checkAll" 체크박스가 선택되었는지 확인
+		       	        if (checkAllCheckbox.checked) {
+		       	            // 모든 하위 체크박스 선택
+		       	            subCheckboxes.forEach(function(checkbox) {
+		       	                checkbox.checked = true;
+		       	            });
+		       	        } else {
+		       	            // 모든 하위 체크박스 해제
+		       	            subCheckboxes.forEach(function(checkbox) {
+		       	                checkbox.checked = false;
+		       	            });
+		       	        }
+		       	    }
 		
+		       	    function checkSubCheckboxes() {
+		       	        var subCheckboxes = document.querySelectorAll(".subCheckbox");
+		       	        var allChecked = true;
 		
-						
+		       	        // 모든 하위 체크박스가 선택되었는지 확인
+		       	        subCheckboxes.forEach(function(checkbox) {
+		       	            if (!checkbox.checked) {
+		       	                allChecked = false;
+		       	            }
+		       	        });
+		
+		       	        // 모든 하위 체크박스가 선택되었으면 "checkAll" 체크박스도 선택
+		       	        if (allChecked) {
+		       	            document.getElementById("checkAll").checked = true;
+		       	         	document.getElementById("enrollBtn").disabled = false; // 회원가입 버튼 활성화
+		       	        } else {
+		       	            document.getElementById("checkAll").checked = false;
+		       	         	document.getElementById("enrollBtn").disabled = true; // 회원가입 버튼 비활성화
+		       	        }
+		       	    }
+		       	</script>
+	       			
 			</table>
 
 			<br>

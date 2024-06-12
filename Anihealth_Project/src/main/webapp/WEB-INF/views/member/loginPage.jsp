@@ -157,8 +157,10 @@
 	
 
     <script>
-		<%-- 나중에 일회성 알람문구 처리 script 구문 넣기 --%>
-
+    <c:if test="${ not empty sessionScope.alertMsg }">
+		alertify.alert('알림', '${ sessionScope.alertMsg }'/* , function(){ alertify.success('Ok'); } */);
+	<c:remove var="alertMsg" scope="session" />
+	</c:if>	
     </script>
     <div class="loginPage_wrap">
         <div id="content">
@@ -198,7 +200,10 @@
             <div id="login_form_etc">
                 <a href=enrollForm.me>회원가입</a>
                 &nbsp;&nbsp; | &nbsp;
-                <a href="findId.me">ID/PWD 찾기</a>
+                <a href="findId.me">ID 찾기</a>
+                &nbsp;&nbsp; | &nbsp;
+                <a href="findPwd.me">PWD 찾기</a>
+                
             </div>
             
         </div>

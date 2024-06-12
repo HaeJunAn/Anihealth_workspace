@@ -1,5 +1,6 @@
 package com.kh.aniht.member.controller;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -21,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.aniht.member.model.service.MemberService;
 import com.kh.aniht.member.model.vo.Member;
+import com.kh.aniht.order.model.vo.OrderProduct;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -105,9 +107,10 @@ public class MemberController {
 	} else {
 		// 로그인 실패
 		
-		mv.addObject("errorMsg", "로그인 실패");
+		session.setAttribute("alertMsg", "로그인을 실패하였습니다. 다시 확인해주세요.");
 		
-		mv.setViewName("common/errorPage");
+		mv.setViewName("member/loginPage");
+		
 	}
 	
 	return mv;
@@ -121,13 +124,130 @@ public class MemberController {
 		return "member/memberEnrollForm";
 	}
 	
+	// 아이디찾기 이동
+	@GetMapping("findId.me")
+	public String findId() {
+		
+		return "member/findId";
+	}
+	
+	// 비밀번호찾기 이동
+	@GetMapping("findPwd.me")
+	public String findPwd() {
+		
+		return "member/findPwd";
+	}
+	
+	// 아이디 찾기 (이메일 전송)
+	@PostMapping(value="findIdEmail.me", produces = "text/html; charset=UTF-8")
+	public String findIdEmail(Member m,
+							  Model model,
+							  HttpSession session) {
+		
+		// System.out.println(m);
+		
+		String findId = memberService.findIdEmail(m);
+		
+		// System.out.println(findId);
+		
+		if(findId == null) {
+			// 이름 or 이메일을 잘못 입력해서 찾는 아이디가 나오지 않았을 경우
+			
+			session.setAttribute("alertMsg", "계정을 찾을 수 없습니다. 이름/이메일 정보를 다시 입력해주세요.");
+			
+			return "member/findId";
+			
+		} else {
+			
+			// 사용자에게 이메일 보내기
+			SimpleMailMessage message = new SimpleMailMessage();
+			
+			message.setSubject("[ANIHEALTH] 아이디 찾기");
+			message.setText("아이디 : " + findId);
+			message.setTo(m.getEmail());
+			
+			mailSender.send(message);
+			
+			session.setAttribute("alertMsg", "회원님의 이메일로 아이디를 전송해드렸습니다.");
+			
+			return "member/loginPage";
+			
+		}
+		
+	}
+	
+	// 비밀번호 찾기 (이메일 전송)
+	@PostMapping(value="findPwdEmail.me", produces = "text/html; charset=UTF-8")
+	public String findPwdEmail(Member m,
+							  Model model,
+							  HttpSession session) {
+		
+		// System.out.println(m);
+		
+		// 영어 랜덤값 뽑기
+		String firstText = (char)((int)(Math.random() * 26) + 65) + "";
+		// System.out.println(firstText);
+		// 7자리 랜덤값 뽑기 (1000000 ~ 9999999)
+		int random = (int)(Math.random() * 9000000 + 1000000);
+		
+		String findId = memberService.findPwdEmail(m);
+		
+		// System.out.println(findId);
+		
+		if(findId != null) {
+
+			// 랜덤 비밀번호 생성
+			String randomPwd = firstText + random;
+			
+			// System.out.println(randomPwd);
+			
+			// 사용자에게 이메일 보내기
+			SimpleMailMessage message = new SimpleMailMessage();
+			
+			message.setSubject("[ANIHEALTH] 비밀번호 찾기");
+			message.setText("비밀번호 : " + randomPwd);
+			message.setTo(m.getEmail());
+			
+			mailSender.send(message);
+			
+			String encPwd
+				= bcryptPasswordEncoder.encode(randomPwd);
+			
+			m.setUserPwd(encPwd);
+			
+			int result = memberService.updateFindPwd(m);
+			
+			if(result > 0) {
+				
+				session.setAttribute("alertMsg", "회원님의 이메일로 비밀번호를 전송해드렸습니다.");
+				
+				return "member/loginPage";
+			} else {
+				
+				session.setAttribute("alertMsg", "비밀번호 찾기를 실패하였습니다.");
+				
+				return "member/findPwd";
+			}
+			
+		} else {
+			
+			// 이름 or 이메일을 잘못 입력해서 찾는 아이디가 나오지 않았을 경우
+			
+			session.setAttribute("alertMsg", "계정을 찾을 수 없습니다. 아이디/이메일 정보를 다시 입력해주세요.");
+			
+			return "member/findPwd";
+			
+		}
+		
+	}				
+	
 	// 회원가입
 	@PostMapping("insert.me")
 	public String insertMember(Member m,
 							   Model model,
 							   HttpSession session) {
 		
-		System.out.println(m);
+		// System.out.println(m);
 		
 		// 암호화
 		String encPwd
@@ -160,7 +280,7 @@ public class MemberController {
 		
 	}
 	
-	// 아이디 체크
+	// 아이디 중복 체크
 	@ResponseBody
 	@GetMapping(value="idCheck.me", produces = "text/html; charset=UTF-8")
 	public String idCheck(String checkId) {
@@ -172,12 +292,22 @@ public class MemberController {
 		return (count > 0) ? "NNNNN" : "NNNNY";
 	}
 	
-	// 아이디 체크
+	// 닉네임 중복 체크
 	@ResponseBody
 	@GetMapping(value="nickCheck.me", produces = "text/html; charset=UTF-8")
 	public String nickCheck(String checkNick) {
 		
-		int count = memberService.idCheck(checkNick);
+		int count = memberService.nickCheck(checkNick);
+		
+		return (count > 0) ? "NNNNN" : "NNNNY";
+	}
+	
+	// 이메일 중복 체크
+	@ResponseBody
+	@GetMapping(value="emailCheck.me", produces = "text/html; charset=UTF-8")
+	public String emailCheck(String checkEmail) {
+		
+		int count = memberService.emailCheck(checkEmail);
 		
 		return (count > 0) ? "NNNNN" : "NNNNY";
 	}
@@ -207,7 +337,7 @@ public class MemberController {
 		
 		certNoList.put(email, String.valueOf(random));
 		
-		System.out.println(certNoList);
+		// System.out.println(certNoList);
 		
 		// 사용자에게 이메일 보내기
 		SimpleMailMessage message = new SimpleMailMessage();
@@ -242,15 +372,230 @@ public class MemberController {
 		return result;
 	}
 	
+	// 마이페이지 이동
+	@GetMapping("myPage.me")
+	public String myPage() {
+		
+		return "member/myPageMain";
+		
+	}
+	
+	// 마이페이지 - 회원탈퇴
+	@PostMapping("delete.me")
+	public String deleteMember(Member m,
+							   HttpSession session,
+							   Model model) {
+		
+		String encPwd = ((Member)session.getAttribute("loginUser")).getUserPwd();
+		
+		if(bcryptPasswordEncoder.matches(m.getUserPwd(), encPwd)) {
+			
+			int result = memberService.deleteMember(m.getUserId());
+			
+			if(result > 0) { // 탈퇴 성공
+				
+				session.setAttribute("alertMsg", "탈퇴 완료되었습니다. 그동안 이용해주셔서 감사합니다.");
+				
+				session.removeAttribute("loginUser");
+				
+				return "redirect:/";
+				
+			} else { // 탈퇴 실패
+				
+				session.setAttribute("alertMsg", "탈퇴가 정상적으로 처리되지 않았습니다.");
+				
+				return "redirect:/";
+				
+			}
+			
+		} else { // 비밀번호 틀릴 경우
+			
+			session.setAttribute("alertMsg", "비밀번호를 잘못 입력했습니다. 다시 확인해주세요.");
+			
+			return "redirect:/myPage.me";
+			
+		}
+		
+		
+	}
+	
+	// 마이페이지 배송지 이동
+	@GetMapping("myPageDelivery.me")
+	public String myPageDelivery() {
+		
+		return "member/myPageDelivery";
+		
+	}
+	
+	// 마이페이지 주문내역 이동
+	@GetMapping("myPageOrder.me")
+	public String myPageOrder(Member m,
+							  HttpSession session,
+							  Model model) {
+		
+		m.setUserNo(((Member)session.getAttribute("loginUser")).getUserNo());
+		// System.out.println(userNo);
+		
+		ArrayList<OrderProduct> list = memberService.selectOrderList(m);
+		
+		/*
+		for(OrderProduct op : list) {
+			System.out.println(op);
+		}
+		*/
+		
+		model.addAttribute("list", list);
+		
+		return "member/myPageOrder";
+		
+	}
+	
+	// 마이페이지 리뷰 이동
+	@GetMapping("myPageReview.me")
+	public String myPageReview() {
+		
+		return "member/myPageReview";
+		
+	}
+	
+	// 마이페이지 찜 이동
+	@GetMapping("myPageWish.me")
+	public String myPageWish() {
+		
+		return "member/myPageWish";
+		
+	}
+	
+	// 마이페이지 문의 이동
+	@GetMapping("myPageQuestion.me")
+	public String myPageQuestion() {
+		
+		return "member/myPageQuestion";
+		
+	}
+	
+	// 마이페이지 비밀번호 변경 이동
+	@GetMapping("myPagePassword.me")
+	public String myPagePassword() {
+		
+		return "member/myPagePassword";
+		
+	}
+	
+	// 회원 수정
+	@GetMapping("update.me")
+	public String updateMember(Member m,
+							   Model model,
+							   HttpSession session) {
+		
+		// System.out.println(m);
+		
+		int result = memberService.updateMember(m);
+		
+		if(result > 0) {
+			
+			Member updateMem = memberService.loginMember(m);
+			
+			session.setAttribute("loginUser", updateMem);
+			
+			session.setAttribute("alertMsg", "회원정보가 성공적으로 변경되었습니다.");
+			
+			return "redirect:/myPage.me";
+		}
+		
+		return "";
+		
+	}
+	
+	// 마이페이지 - 비번 변경 시 기존 비번 확인
+	@PostMapping("checkPwd.me")
+	public String checkPwd(Member m,
+						   HttpSession session,
+						   Model model) {
+		
+		String encPwd = ((Member)session.getAttribute("loginUser")).getUserPwd();
+		
+		if(bcryptPasswordEncoder.matches(m.getUserPwd(), encPwd)) {
+			
+			// 기존 비번 일치
+				
+			return "redirect:/myPagePassword.me";
+				
+			
+		} else { // 비밀번호 틀릴 경우
+			
+			session.setAttribute("alertMsg", "비밀번호를 잘못 입력했습니다. 다시 확인해주세요.");
+			
+			return "redirect:/myPage.me";
+			
+		}
+		
+		
+	}
+	
+	// 마이페이지 - 새로운 비번 받아서 업데이트
+	@PostMapping("updatePwd.me")
+	public String updatePwd(Member m,
+							String newPwd, 
+							String checkNewPwd,
+							HttpSession session) {
+		
+		// System.out.println(newPwd);
+		// System.out.println(checkNewPwd);
+		
+		String encPwd = ((Member)session.getAttribute("loginUser")).getUserPwd();
+		
+		if(newPwd.equals(checkNewPwd)) {
+			// 비밀번호와 비밀번호 확인 두개 일치 비교
+			
+			if(bcryptPasswordEncoder.matches(newPwd, encPwd)) {
+				// 기존 비번과 일치할 시 
+				
+				session.setAttribute("alertMsg", "기존과 동일한 비밀번호로 변경하실 수 없습니다. 다시 입력해주세요.");
+				
+				return "redirect:/myPagePassword.me";
+				
+			} else {
+				// 기존 비번과 일치하지 않을 시
+				
+				// 암호화
+				String changePwd = bcryptPasswordEncoder.encode(newPwd);
+				
+				// 전달값 userId 뽑기
+				String userId = ((Member)session.getAttribute("loginUser")).getUserId();
+				
+				m.setUserPwd(changePwd);
+				m.setUserId(userId);
+				
+				int result = memberService.updatePwd(m);
+				
+				if(result > 0) { // 비번 변경 성공
+					
+					session.setAttribute("alertMsg", "비밀번호가 변경되었습니다.");
+					
+					((Member)session.getAttribute("loginUser")).setUserPwd(changePwd);
 
-	
-	
-	
-	
-	
-	
-	
-	
+					return "redirect:/myPage.me";
+					
+				} else { // 비번 변경 실패
+					
+					session.setAttribute("alertMsg", "비밀번호가 변경되지 않았습니다. 다시 시도해주세요.");
+					
+					return "redirect:/myPage.me";
+				}
+				
+				
+			}
+			
+		} else { // 전달값 두개가 일치하지 않을 시
+			
+			session.setAttribute("alertMsg", "비밀번호가 일치하지 않습니다. 다시 입력해주세요");
+			
+			return "redirect:/myPagePassword.me";
+			
+		}
+		
+	} // updatePwd 클래스 영역 끝
 	
 	
 	
