@@ -9,12 +9,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.aniht.cart.model.service.CartService;
 import com.kh.aniht.cart.model.vo.Cart;
 import com.kh.aniht.member.model.vo.Member;
+import com.kh.aniht.product.model.vo.Product;
 
 
 @Controller
@@ -63,6 +65,33 @@ public class CartController {
             }
 	 		
 	 	}
-	 	
-	
+	 // 장바구니 넣기
+	 @ResponseBody
+	 @PostMapping(value="cart.ad",produces="application/json; charset=UTF-8")	
+	 public String ajaxInsertCart(@RequestBody Product p,HttpSession session) {
+		 int userNo = ((Member)session.getAttribute("loginUser")).getUserNo();
+		 // 중복검사
+		 Product pc = cartService.ajaxInsertCart(p,userNo);
+		 // 장바구니 추가 
+		 if(pc == null) {
+			 int result = cartService.ajaxCartInsert(p,userNo);
+			 return "{\"success\": true, \"message\": \"장바구니 에 상품추가 완료\"}";
+		 }else {
+			 
+			 return "{\"success\": false, \"message\": \"장바구니에 이미있는 상품입니다\"}";
+			 
+		 }
+	 }
+	 
+	 // 로그인 확인여부
+	 @ResponseBody
+	 @GetMapping(value="checkLogin", produces="application/json; charset=UTF-8")
+	 public String checkLogin(HttpSession session) {
+	     Member loginUser = (Member) session.getAttribute("loginUser");
+	     if (loginUser != null) {
+	         return "{\"loggedIn\": true}";
+	     } else {
+	         return "{\"loggedIn\": false}";
+	     }
+	 }
 }

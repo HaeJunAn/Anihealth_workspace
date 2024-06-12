@@ -266,7 +266,7 @@
                         <tr>
                             <td>
                             <h3>매거진</h3>
-                            <a href="">
+                            <a href="maga.re">
                                 <img src="resources/img/cat111.png" alt="매거진 이미지" class="content-image">
                                 </a>
                             </td>

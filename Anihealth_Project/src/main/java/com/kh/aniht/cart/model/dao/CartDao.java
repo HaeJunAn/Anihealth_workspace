@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.aniht.cart.model.vo.Cart;
+import com.kh.aniht.product.model.vo.Product;
 
 @Repository
 public class CartDao {
@@ -44,5 +45,22 @@ public class CartDao {
     public List<Cart> cartOrder(List<Integer> cartNos) {
         return sqlSession.selectList("cartMapper.cartOrder", cartNos);
     }
+
+	public Product ajaxInsertCart(Product p, int userNo) {
+		
+		Map<String, Object> paramMap = new HashMap<>();
+		 paramMap.put("productNo", p.getProductNo());
+	    paramMap.put("userNo", userNo);
+		return sqlSession.selectOne("productMapper.ajaxInsertCart",paramMap);
+	}
+
+	public int ajaxCartInsert(Product p, int userNo) {
+		Map<String, Object> paramMap = new HashMap<>();
+		 paramMap.put("productNo", p.getProductNo());
+		 paramMap.put("price", p.getPrice());
+	    paramMap.put("userNo", userNo);
+		return sqlSession.insert("cartMapper.ajaxCartInsert",paramMap);
+	}
+	
 	
 }

@@ -269,7 +269,7 @@
                                     <div class="item-container">
                                         <img class="img-size" src="${ca.productThumbnailPath}" alt="영양제이미지">
                                         <div class="item-text">
-                                            <p class="item-subtitle">${ca.effectName}</p>
+                                            <p class="item-subtitle">${ca.category} 영양제</p>
                                             <p class="item-title" style="font-size: large;">${ca.productName}</p>
                                         </div>
                                     </div>

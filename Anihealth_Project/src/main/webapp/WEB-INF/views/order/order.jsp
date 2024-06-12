@@ -289,7 +289,7 @@ function checkFormCompletion() {
                                 <div class="item-container">
                                     <img class="img-size" src="${oi.productThumbnailPath}" alt="영양제이미지">
                                     <div class="item-text">
-                                        <p class="item-subtitle">${oi.effectName} 영양제 </p>
+                                        <p class="item-subtitle">${oi.category} 영양제 </p>
                                         <p class="item-title" style="font-size: large; font-weight: bold;">${oi.productName}</p>
                                     </div>
                                 </div>

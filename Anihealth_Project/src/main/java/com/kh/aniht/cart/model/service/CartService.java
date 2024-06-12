@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.kh.aniht.cart.model.vo.Cart;
+import com.kh.aniht.product.model.vo.Product;
 
 public interface CartService {
 	
@@ -15,5 +16,9 @@ public interface CartService {
 	
 	 // 에이쟉스 장바구니삭제 해준
 	 int ajaxDeleteCart(int cartNo);
+	 // 장바구니 추가전 중복확인 
+	Product ajaxInsertCart(Product p,int userNo);
+	// 장바구니 추가
+	int ajaxCartInsert(Product p,int userNo);
 	
 }

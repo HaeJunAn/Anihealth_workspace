@@ -15,6 +15,7 @@
          <result column="PRODUCT_STOCK" property="productStock"/> 
          <result column="EFFECT_NAME" property="effectName"/>
           <result column="RATING" property="rating"/>
+          <result column="USER_NO" property="userNo"/>
         <!-- <result column="EFFECT_NAME" property="effectName"/> --> <!-- 주석 처리된 부분 -->
         <!-- <result column="RATING" property="rating"/> --> <!-- 주석 처리된 부분 -->
     </resultMap>
@@ -152,5 +153,13 @@
 		 JOIN ORDER_PRODUCT OP ON (R.ORDER_PRODUCT_NO = OP.ORDER_PRODUCT_NO)
 		WHERE OP.PRODUCT_NO = ${productNo}
     </select>
-
+	
+	<!-- 장바구니 넣기전 상품 중복검사 해준 -->
+	<select id="ajaxInsertCart" parameterType="map" resultMap="productResultSet">
+			SELECT PRODUCT_NO
+			  FROM CART
+			  JOIN PRODUCT USING (PRODUCT_NO)
+			 WHERE PRODUCT_NO = #{productNo}
+			   AND USER_NO = #{userNo}
+	</select>
 </mapper>

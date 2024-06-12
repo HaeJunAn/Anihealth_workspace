@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.aniht.cart.model.dao.CartDao;
 import com.kh.aniht.cart.model.vo.Cart;
+import com.kh.aniht.product.model.vo.Product;
 
 @Service
 public class CartServiceImpl implements CartService {
@@ -38,6 +39,18 @@ public class CartServiceImpl implements CartService {
 		public int ajaxDeleteCart(int cartNo) {
 			
 			return cartDao.ajaxDeleteCart(cartNo);
+		}
+		// 장바구니 추가전 중복확인 
+		@Override
+		public Product ajaxInsertCart(Product p,int userNo) {
+			
+			return cartDao.ajaxInsertCart(p,userNo);
+		}
+		@Override
+		@Transactional
+		public int ajaxCartInsert(Product p,int userNo) {
+			
+			return cartDao.ajaxCartInsert(p,userNo);
 		}
 		
 		

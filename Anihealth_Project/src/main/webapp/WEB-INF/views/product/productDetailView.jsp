@@ -221,11 +221,8 @@
             <tbody>
                 <form id="addToCartForm">
                     <!-- Hidden field for product number -->
-                    <input type="hidden" name="productNo" value="${product.productNo}">
-                    <input type="hidden" name="productName" value="${product.productName}">
-                    <input type="hidden" name="price" value="${product.price}">
-                    <input type="hidden" name="productStock" value="${product.productStock}">
-                    <input type="hidden" name="productCount" value="${product.productCount}"> <!-- productCount로 설정 -->
+                      <input type="hidden" name="productNo" value="${product.productNo}">
+       				 	<input type="hidden" name="price" value="${product.price}">
                     <tr>
                     <td rowspan="8" style="width: 60%;">
                         <img src="${pageContext.request.contextPath}/${product.productThumbnailPath}" alt="${product.productName}">
@@ -263,35 +260,48 @@
         </div> <br><br>
 
         <script>
-        $(document).ready(function() {
-            $('#cart').click(function() { // id="cart" 사용
-            var form = $('#addToCartForm');
-            var formData = form.serialize();
-
-            $.ajax({
-                url: '${pageContext.request.contextPath}/add-to-cart',
-                method: 'POST',
-                data: formData,
-                success: function(response) {
-                    if (response.success) {
-                        alert('장바구니에 추가되었습니다!');
-                        window.location.href = '${pageContext.request.contextPath}/cart-page'; // 성공 시 장바구니 페이지로 리디렉션
-                    } else {
-                        if (response.message === "로그인이 필요합니다.") {
-                        alert('로그인이 필요합니다.');
-                        window.location.href = '${pageContext.request.contextPath}/login'; // 로그인 페이지로 리디렉션
-                        } else {
-                        alert('장바구니 추가에 실패했습니다.');
+    document.getElementById("cart1").addEventListener("click", function() {
+        $.ajax({
+            url: "checkLogin",
+            type: "get",
+            success: function(response) {
+                if (response.loggedIn) {
+                    // Proceed with adding to cart
+                    const form = document.getElementById("addToCartForm");
+                    const formData = {
+                        productNo: form.productNo.value,
+                        price: form.price.value,
+                    };
+                    $.ajax({
+                        url: "cart.ad",
+                        type: "post",
+                        contentType: "application/json",
+                        data: JSON.stringify(formData),
+                        success: function(result) {
+                            if (result.success) {
+                                console.log(result.message);
+                                alert(result.message);
+                            } else {
+                                console.log(result.message);
+                                alert(result.message);
+                            }
+                        },
+                        error: function() {
+                            console.log("장바구니 담기 실패");
+                            alert("장바구니 담기 실패");
                         }
-                    }
-                    },
-                    error: function() {
-                    alert('장바구니 추가에 실패했습니다.');
-                    }
-                });
-                });
-            });
-        </script>
+                    });
+                } else {
+                    alert("로그인이 필요합니다.");
+                }
+            },
+            error: function() {
+                console.log("로그인 상태 확인 실패");
+                alert("로그인 상태 확인 실패");
+            }
+        });
+    });
+    </script>
           
             <div class="cont">
                 <ul class="list">

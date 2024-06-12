@@ -29,11 +29,12 @@
 		<result column="DELIVERY_NAME" property="deliveryName" />
 		<result column="DELIVERY_ADDRESS" property="deliveryAddress" />
 		<result column="DELIVERY_ZIPCODE" property="deliveryZipcode" />
+		<result column="CATEGORY" property="category" />
 	</resultMap>
 	
 	<!-- 결제하기 장바구니 넘기기 -->
 	 <select id="cartOrder" resultMap="orderResultSet" parameterType="map">
-        SELECT CART_NO, CART_QUANTITY, CART_PRICE, USER_NO, PRODUCT_NO, EFFECT_NAME, PRODUCT_THUMBNAIL_PATH, PRODUCT_NAME
+        SELECT CART_NO, CART_QUANTITY, CART_PRICE, USER_NO, PRODUCT_NO, CATEGORY, PRODUCT_THUMBNAIL_PATH, PRODUCT_NAME
         ,USER_NAME,PHONE,EMAIL
         FROM CART
         JOIN PRODUCT USING (PRODUCT_NO)

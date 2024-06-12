@@ -31,7 +31,7 @@ public class Product {
     private String productDetailPath;       
     private int productCount;             
     private String productStatus;
-    
+    private int userNo;
     //설문조사,별점 정유상
     private int totalWeight;
     private int rating;

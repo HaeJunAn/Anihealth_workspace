@@ -20,5 +20,6 @@ public class Cart {
 	public String effectName;
 	public String productThumbnailPath;
 	public String productName;
+	public String category;
 	
 }

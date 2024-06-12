@@ -32,6 +32,7 @@ public class Order {
 	public String effectName;
 	public String productThumbnailPath;
 	public String productName;
+	public String category;
 	// 추가  배송지 셀렉용
 	private int deliveryNo;			
 	private String deliveryName; 	

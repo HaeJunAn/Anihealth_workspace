@@ -7,6 +7,7 @@
 		<result column="CART_QUANTITY" property="cartQuantity"/>
 		<result column="CART_PRICE" property="cartPrice"/>
 		<result column="USER_NO" property="userNo"/>
+		<result column="CATEGORY" property="category" />
 		<result column="PRODUCT_NO" property="productNo"/>
 		<result column="EFFECT_NAME" property="effectName"/>
 		<result column="PRODUCT_THUMBNAIL_PATH" property="productThumbnailPath"/>
@@ -15,7 +16,7 @@
 
 	<!-- 카트 리스트 구하는 쿼리문  해준-->
 	<select id="selectCartList" resultMap="cartResultSet">
-		SELECT CART_NO,CART_QUANTITY,CART_PRICE,USER_NO,PRODUCT_NO,EFFECT_NAME,PRODUCT_THUMBNAIL_PATH,PRODUCT_NAME
+		SELECT CART_NO,CART_QUANTITY,CART_PRICE,USER_NO,PRODUCT_NO,CATEGORY,PRODUCT_THUMBNAIL_PATH,PRODUCT_NAME
 		  FROM CART
 		  JOIN PRODUCT USING (PRODUCT_NO)
 		  JOIN SIDE_EFFECT USING (PRODUCT_NO)
@@ -42,6 +43,13 @@
 		  FROM CART
 		WHERE CART_NO = #{cartNo} 	
 	</delete>
+	
+	<!-- 장바구니 추가 -->
+	<insert id="ajaxCartInsert" parameterType="_int">
+			INSERT INTO CART(CART_NO,CART_QUANTITY,CART_PRICE,USER_NO,PRODUCT_NO)
+			VALUES (SEQ_CART_NO.NEXTVAL,1,#{price},#{userNo},#{productNo})
+	</insert>	
+
 	
 </mapper>
 
