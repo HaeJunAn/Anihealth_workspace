@@ -13,7 +13,7 @@ import lombok.ToString;
 @ToString
 public class Order {
 	
-	public int orderNo;
+	public String orderNo;
 	public String payCode;
 	public int orderPrice;
 	public String orderRequest;

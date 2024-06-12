@@ -18,7 +18,7 @@ public class OrderProduct {
 		private int orderProductNo;		//	ORDER_PRODUCT_NO	NUMBER
 		private int orderQuantity;		//	ORDER_QUANTITY	NUMBER
 		private int orderProductPrice;	//	ORDER_PRODUCT_PRICE	NUMBER
-		private int orderNo;			//	ORDER_NO	NUMBER
+		private String orderNo;			//	ORDER_NO	NUMBER
 		private int productNo;			//	PRODUCT_NO	NUMBER
 	
 		// 추가

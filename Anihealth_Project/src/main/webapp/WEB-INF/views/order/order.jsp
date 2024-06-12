@@ -330,16 +330,17 @@ function checkFormCompletion() {
         	  const zipCode = document.getElementById("zipCode").value;
         	  const phone = document.getElementById("phone").value;
         	  const delivery = document.getElementById("delivery-request").value;
-
-        	  let random = Math.floor(Math.random() * 90000000 + 10000000);
-
+				
+        	  let random = Math.floor(Math.random() * 900000 + 100000);
+        	  let random2 = Number(""+new Date().getTime() + random);
+        	  console.log(random2);
         	  const IMP = window.IMP;
         	  IMP.init("imp70105832");
         	  IMP.request_pay(
         	    {
         	      pg: "html5_inicis",
         	      pay_method: "card",
-        	      merchant_uid: random,
+        	      merchant_uid: random2,
         	      name: "영양제",
         	      amount: 100,
         	      buyer_email: "${requestScope.orderItems[0].email}",
@@ -352,7 +353,7 @@ function checkFormCompletion() {
         	      if (rsp.success) {
         	        console.log("결제성공");
         	        console.log(rsp);
-
+					
         	        let orderItems = [];
         	        <c:forEach var="oi" items="${requestScope.orderItems}">
         	          orderItems.push({
