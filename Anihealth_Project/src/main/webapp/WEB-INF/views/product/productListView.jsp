@@ -349,36 +349,39 @@
         </div>
 
        <div class="outer-container">
-            <div class="container-custom">
-                <div class="row-custom-product-list">
-                    <c:forEach var="p" items="${list}">
-                        <div class="card-custom">
-                            <a href="detail.pd?pno=${p.productNo}">
-                                <div class="card">
-                                    <img class="fixed-img rounded" src="${p.productThumbnailPath}" alt="Product Image">
-                                    <div class="card-footer">
-                                    	  <small class="drug-dose" style="font-weight: bold; color: gray;">
-                                                        ${p.category} 영양제</small>
-                                        <h6 class="drug-name" style="font-weight: bold;">
-                                            ${p.productName}                           
-                                        </h6>
-                                        <h6 class="drug-price">₩ ${p.price}
-                                            <div class="stars">
-                                                <span class="star-rating${p.productNo}">
-                                                    <i class="fa-solid fa-star fa-sm"></i>
-                                                </span>
-                                                <span class="star-score${p.productNo}">5</span>
-                                            </div>
-                                        </h6>
+    <div class="container-custom">
+        <div class="row-custom-product-list">
+            <c:forEach var="p" items="${list}">
+                <div class="card-custom">
+                    <a href="detail.pd?pno=${p.productNo}">
+                        <div class="card">
+                            <img class="fixed-img rounded" src="${p.productThumbnailPath}" alt="Product Image">
+                            <div class="card-footer">
+                                <small class="drug-dose" style="font-weight: bold; color: gray;">
+                                    ${p.category} 영양제
+                                </small>
+                                <h6 class="drug-name" style="font-weight: bold;">
+                                    ${p.productName}
+                                </h6>
+                                <h6 class="drug-price">₩ ${p.price}
+                                    <div class="stars">
+                                        <span class="star-rating-container star-rating-container${p.productNo}" style="display: none;">
+                                            <i class="fa-solid fa-star fa-sm"></i>
+                                            <span class="star-score star-score${p.productNo}"></span>
+                                        </span>
+                                        <span class="review-none review-none${p.productNo}" style="display: none;">리뷰 없음</span>
                                     </div>
-                                </div>
-                            </a>   
+                                </h6>
+                            </div>
                         </div>
-                        <input type="hidden" value="${p.productNo}" class="ratingList">
-                    </c:forEach>
+                    </a>
                 </div>
-            </div>
+                <input type="hidden" value="${p.productNo}" class="ratingList">
+            </c:forEach>
         </div>
+    </div>
+</div>
+
 
         <!-- 페이징바 -->
         <div align="center" class="paging-area">
@@ -426,34 +429,44 @@
 </c:if>
 
 <jsp:include page="../common/footer.jsp" />
+
 <script>
-	$(function () {
-		let productNoArr = [];
-		
-		$(".ratingList").each(function () {
-			productNoArr.push($(this).val());
-		});
+    $(function () {
+        let productNoArr = [];
+        
+        $(".ratingList").each(function () {
+            productNoArr.push($(this).val());
+        });
 
-		$.ajax({
-			url: "rating.pd",
-			method: "get",
-			data:{productNoArr: productNoArr},
-			traditional: true, // 요청값이 배열일때
-			success: function(rList) {
-				//console.log(rList);
-				rList.forEach(function(rMap) {
-					$(".star-score"+rMap.productNo).html(Math.round((rMap.rating)*10) / 10.0);
-				});
-				
-			},
-			error: function() {
-				console.log("통신실패");
-			}
-		})
+        $.ajax({
+            url: "rating.pd",
+            method: "get",
+            data: { productNoArr: productNoArr },
+            traditional: true, // 요청값이 배열일 때
+            success: function(rList) {
+                // 모든 제품에 대해 초기 설정
+                productNoArr.forEach(function(productNo) {
+                    $(".star-rating-container" + productNo).hide(); // 별 아이콘 영역 숨기기
+                    $(".review-none" + productNo).show(); // 리뷰 없음 문구 보이기
+                });
 
-	})
-
+                // 서버로부터 받은 데이터로 별점 갱신
+                rList.forEach(function(rMap) {
+                    if (rMap.rating) {
+                        $(".star-score" + rMap.productNo).html(Math.round((rMap.rating) * 10) / 10.0);
+                        $(".star-rating-container" + rMap.productNo).show(); // 별 아이콘 영역 보이기
+                        $(".review-none" + rMap.productNo).hide(); // 리뷰 없음 문구 숨기기
+                    }
+                });
+            },
+            error: function() {
+                console.log("통신실패");
+            }
+        });
+    });
 </script>
+
+
 
 
 
