@@ -31,7 +31,27 @@
 		<result column="PRODUCT_NAME" property="productName" />
 		<result column="DELIVERY_STATUS" property="deliveryStatus" />
 		<result column="ORDER_DATE" property="orderDate" />
-		
+		<result column="ORDER_CANCLE" property="orderCancle" />
+	</resultMap>
+	
+	<resultMap type="delivery" id="DeliveryResultSet">
+		<result column="DELIVERY_NO" property="deliveryNo" />
+		<result column="DELIVERY_NAME" property="deliveryName" />
+		<result column="DELIVERY_ADDRESS" property="deliveryAddress" />
+		<result column="DELIVERY_ZIPCODE" property="deliveryZipcode" />
+		<result column="USER_ID" property="userId" />
+	</resultMap>
+	
+	<resultMap type="review" id="reviewResultSet">
+		<result column="REVIEW_NO" property="reviewNo" />
+		<result column="RATING" property="rating" />
+		<result column="REVIEW_TITLE" property="reviewTitle" />
+		<result column="REVIEW_CONTENT" property="reviewContent" />
+		<result column="REVIEW_FILE_PATH" property="reviewFilePath" />
+		<result column="REVIEW_DATE" property="reviewDate" />
+		<result column="REVIEW_STATUS" property="reviewStatus" />
+		<result column="ORDER_PRODUCT_NO" property="orderProductNo" />
+		<result column="USER_NO" property="userNo" />
 	</resultMap>
 	
 	<!-- 로그인용 쿼리문 -->
@@ -155,24 +175,6 @@
 		 WHERE USER_ID = #{userId}
 	</update>
 	
-	<!-- 주문내역 조회 쿼리문 -->
-	<select id="selectOrderList"
-			resultMap="orderProductResultSet">
-		SELECT OP.ORDER_PRODUCT_NO
-		     , OP.ORDER_QUANTITY
-		     , OP.ORDER_PRODUCT_PRICE
-		     , OP.ORDER_NO
-		     , OP.PRODUCT_NO
-		     , P.PRODUCT_THUMBNAIL_PATH
-		     , P.PRODUCT_NAME
-		     , O.DELIVERY_STATUS
-		     , TO_CHAR(O.ORDER_DATE, 'YYYY-MM-DD') AS ORDER_DATE
-		  FROM ORDER_PRODUCT OP
-		  JOIN "ORDER" O ON (OP.ORDER_NO = O.ORDER_NO)
-		  JOIN PRODUCT P ON (OP.PRODUCT_NO = P.PRODUCT_NO)
-		 WHERE USER_NO = #{userNo}
-	</select>
-	
 	<!-- 회원탈퇴 -->
 	<update id="deleteMember"
 			parameterType="string">
@@ -191,7 +193,100 @@
 		   AND STATUS = 'Y'
 	</update>
 	
-
+	<!-- 주문내역 조회 쿼리문 -->
+	<select id="selectOrderList"
+			resultMap="orderProductResultSet">
+		SELECT OP.ORDER_PRODUCT_NO
+		     , OP.ORDER_QUANTITY
+		     , OP.ORDER_PRODUCT_PRICE
+		     , OP.ORDER_NO
+		     , OP.PRODUCT_NO
+		     , P.PRODUCT_THUMBNAIL_PATH
+		     , P.PRODUCT_NAME
+		     , O.DELIVERY_STATUS
+		     , TO_CHAR(O.ORDER_DATE, 'YYYY-MM-DD') AS ORDER_DATE
+		  FROM ORDER_PRODUCT OP
+		  JOIN "ORDER" O ON (OP.ORDER_NO = O.ORDER_NO)
+		  JOIN PRODUCT P ON (OP.PRODUCT_NO = P.PRODUCT_NO)
+		 WHERE USER_NO = #{userNo}
+		   AND ORDER_CANCLE = 'Y'
+	</select>
+	
+	<!-- 배송지 조회 쿼리문 -->
+	<select id="selectDeliveryList"
+			resultMap="DeliveryResultSet">
+		SELECT DELIVERY_NO
+		     , DELIVERY_NAME
+		     , DELIVERY_ZIPCODE
+		     , DELIVERY_ADDRESS
+		     , USER_ID
+		  FROM DELIVERY
+		 WHERE USER_ID = #{userId}
+		 ORDER BY CASE 
+           WHEN DELIVERY_NAME = '집' THEN 1
+           WHEN DELIVERY_NAME = '회사' THEN 2
+           WHEN DELIVERY_NAME = '기타' THEN 3
+           ELSE 4
+         END
+	</select>
+	
+	<!-- 배송지 수정 쿼리문 -->
+	<update id="updateDelivery"
+			parameterType="delivery">
+		UPDATE DELIVERY
+		   SET DELIVERY_ADDRESS = #{deliveryAddress}
+		     , DELIVERY_ZIPCODE = #{deliveryZipcode}
+		 WHERE DELIVERY_NO = #{deliveryNo}
+	</update>
+	
+	<!-- 배송지 삭제 쿼리문 -->
+	<delete id="deleteDelivery"
+			parameterType="delivery">
+		DELETE 
+		  FROM DELIVERY
+		 WHERE DELIVERY_NO = #{deliveryNo}
+	</delete>
+	
+	<!-- 배송지 이름만 뽑는 쿼리문 -->
+	<select id="DeliList"  resultType="String" parameterType="delivery">
+		SELECT DELIVERY_NAME
+		  FROM DELIVERY
+		 WHERE USER_ID = #{userId}
+	</select>
+	
+	<!-- 배송지 추가 쿼리문 -->
+	<insert id="insertDelivery"
+			parameterType="delivery">
+		INSERT INTO DELIVERY(DELIVERY_NO
+						   , DELIVERY_NAME
+						   , DELIVERY_ADDRESS
+						   , DELIVERY_ZIPCODE
+						   , USER_ID)
+					  VALUES(SEQ_DELIVERY_NO.NEXTVAL
+					  	   , #{deliveryName}
+					  	   , #{deliveryAddress}
+					  	   , #{deliveryZipcode}
+					  	   , #{userId})
+	</insert>
+	
+	<!-- 리뷰조회 쿼리문 -->
+	<select id="selectReviewList"
+			resultMap="reviewResultSet">
+		SELECT REVIEW_NO
+		     , RATING
+		     , REVIEW_TITLE
+		     , REVIEW_CONTENT
+		     , REVIEW_FILE_PATH
+		     , TO_CHAR(REVIEW_DATE, 'YYYY-MM-DD') AS REVIEW_DATE
+		     , REVIEW_STATUS
+		     , ORDER_PRODUCT_NO
+		     , USER_NO
+		  FROM REVIEW R
+		 WHERE USER_NO = #{userNo}
+	</select>
+	
+	
+	
 </mapper>
 	
 	

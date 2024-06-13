@@ -228,7 +228,7 @@
                 </nav-my>
             </div>
             <div class="content-my">
-                <h2>회원 정보 관리</h2>
+                <h2>회원 정보 관리 <img src="resources/img/memIcon.png" width="40px"></h2>
                 
                 <form action="update.me">
                     <table id="myPage_tb">

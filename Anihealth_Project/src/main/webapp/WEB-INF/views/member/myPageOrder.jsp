@@ -223,7 +223,7 @@
                 </nav-my>
             </div>
             <div class="content-my">
-                    <h2>주문 내역</h2>
+                    <h2>주문 내역 <img src="resources/img/orderIcon.png" width="40px"></h2>
                     <br>
                     
                     <div class="cart-background">

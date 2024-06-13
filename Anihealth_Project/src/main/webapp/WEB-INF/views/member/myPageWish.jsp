@@ -234,7 +234,7 @@
                 </nav-my>
             </div>
             <div class="content-my">
-                    <h2>찜한 상품</h2>
+                    <h2>찜한 상품 <img src="resources/img/likeIcon.png" width="40px"></h2>
                     <br>
                     
                     <div class="cart-background">

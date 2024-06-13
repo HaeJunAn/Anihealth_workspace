@@ -23,6 +23,7 @@
 		 <typeAlias type="com.kh.aniht.product.model.vo.Effect" alias="effect"/>
 		 <typeAlias type="com.kh.aniht.inquiry.model.vo.Inquiry" alias="inquiry" />
 		 <typeAlias type="com.kh.aniht.order.model.vo.OrderProduct" alias="orderProduct"/>
+		 <typeAlias type="com.kh.aniht.member.model.vo.Delivery" alias="delivery"/>
 	</typeAliases>
 	
 	<mappers>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -234,44 +235,57 @@
                 </nav-my>
             </div>
             <div class="content-my">
-                    <h2>후기 내역</h2>
+                    <h2>후기 내역 <img src="resources/img/reviewIcon.png" width="40px"></h2>
                     <br>
                     
                     <div class="cart-background">
+                    	<c:choose>
+                           	<c:when test="${not empty requestScope.list }">
+                           	<!-- 주문내역이 있을 경우 -->
+                    
                         <table class="cart-table">
                         	<thead>
                                 <tr>
-                                    <th class="cart-table-item" colspan="2" width="150px;">후기내역</th>
-                                    <th>작성일</th>
-                                    <th>삭제</th>
+                                    <th class="cart-table-item" colspan="2">후기내역</th>
+                                    <th width="130px">작성일</th>
+                                    <th>수정  / 삭제</th>
                                     
                                 </tr>
                             </thead>
+                            
                             <tbody class="cart-table-content">
-                                <tr class="cart-table-inner">
-                                    <td colspan="2">
-                                        <div class="item-container">
-                                            <img class="img-size" src="resources/img/skin-hair.png" alt="영양제이미지">
-                                            <div class="item-text">
-                                                <p class="item-title">강아지가 좋아해요!!</p>
-                                                <div class="item-details">
-                                                    <span class="item-subtitle">다른 영양제는 잘 안 먹으려고 하는데 이거는...</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="item-text">
-                                            2024-06-06(작성일)
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <button class="btn btn-sm">삭제</button>
-                                    </td>
-                                </tr>
-
+                            	<c:forEach var="r" items="${ requestScope.list }">
+	                                <tr class="cart-table-inner">
+	                                    <td colspan="2">
+	                                        <div class="item-container">
+	                                            <img class="img-size" src="${ r.reviewFilePath }" alt="영양제이미지">
+	                                            <div class="item-text">
+	                                                <p class="item-title">${ r.reviewTitle }</p>
+	                                                <div class="item-details">
+	                                                    <span class="item-subtitle" align="left">${ r.reviewContent }</span>
+	                                                </div>
+	                                            </div>
+	                                        </div>
+	                                    </td>
+	                                    <td>
+	                                        <div class="item-text">
+	                                            ${ r.reviewDate }
+	                                        </div>
+	                                    </td>
+	                                    <td>
+	                                    	<button class="btn btn-sm">수정</button>
+	                                        <button class="btn btn-sm">삭제</button>
+	                                    </td>
+	                                </tr>
+								</c:forEach>
                             </tbody>
                         </table>
+                        </c:when>
+	                    	<c:otherwise>
+	                    		<h4 align="center" style="color: gray">후기내역이 존재하지 않습니다.</h4>
+	                    	</c:otherwise>
+                        </c:choose>
+                        
                     </div>
                     <br><br>
                     <div class="gray-line"></div> 

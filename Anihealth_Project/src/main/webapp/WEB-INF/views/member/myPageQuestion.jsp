@@ -235,7 +235,7 @@
                 </nav-my>
             </div>
             <div class="content-my">
-                    <h2>1:1 문의</h2>
+                    <h2>1:1 문의 <img src="resources/img/questionIcon.png" width="40px"></h2>
                     <br>
                     
                     <div class="cart-background">

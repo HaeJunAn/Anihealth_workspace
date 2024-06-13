@@ -8,8 +8,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.aniht.member.model.dao.MemberDao;
+import com.kh.aniht.member.model.vo.Delivery;
 import com.kh.aniht.member.model.vo.Member;
 import com.kh.aniht.order.model.vo.OrderProduct;
+import com.kh.aniht.review.model.vo.Review;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -81,12 +83,6 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public ArrayList<OrderProduct> selectOrderList(Member m) {
-		
-		return memberDao.selectOrderList(sqlSession, m);
-	}
-
-	@Override
 	public int updatePwd(Member m) {
 		
 		return memberDao.updatePwd(sqlSession, m);
@@ -104,7 +100,48 @@ public class MemberServiceImpl implements MemberService {
 		return memberDao.emailCheck(sqlSession, checkEmail);
 	}
 
+	@Override
+	public ArrayList<OrderProduct> selectOrderList(Member m) {
+		
+		return memberDao.selectOrderList(sqlSession, m);
+	}
 	
+	@Override
+	public ArrayList<Delivery> selectDeliveryList(Member m) {
+		
+		return memberDao.selectDeliveryList(sqlSession, m);
+	}
+
+	@Override
+	public int updateDelivery(Delivery d) {
+		
+		return memberDao.updateDelivery(sqlSession, d);
+	}
+
+	@Override
+	public int deleteDelivery(Delivery d) {
+		
+		return memberDao.deleteDelivery(sqlSession, d);
+	}
+
+	@Override
+	public ArrayList<String> DeliList(Member m) {
+		
+		return memberDao.DeliList(sqlSession, m);
+	}
+
+	@Override
+	public int insertDelivery(Delivery d) {
+		
+		return memberDao.insertDelivery(sqlSession, d);
+	}
+
+	@Override
+	public ArrayList<Review> selectReviewList(Member m) {
+		
+		return memberDao.selectReviewList(sqlSession, m);
+	}
+
 	
 
 

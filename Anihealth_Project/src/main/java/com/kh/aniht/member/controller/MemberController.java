@@ -21,8 +21,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.aniht.member.model.service.MemberService;
+import com.kh.aniht.member.model.vo.Delivery;
 import com.kh.aniht.member.model.vo.Member;
 import com.kh.aniht.order.model.vo.OrderProduct;
+import com.kh.aniht.review.model.vo.Review;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -421,7 +423,33 @@ public class MemberController {
 	
 	// 마이페이지 배송지 이동
 	@GetMapping("myPageDelivery.me")
-	public String myPageDelivery() {
+	public String myPageDelivery(Member m,
+								 HttpSession session,
+								 Model model) {
+		
+		m.setUserId(((Member)session.getAttribute("loginUser")).getUserId());
+		
+		ArrayList<Delivery> list = memberService.selectDeliveryList(m);
+		
+		ArrayList<String> deliList = memberService.DeliList(m);
+		
+		/*
+		 * for (String string : DeliList) { System.out.println(string); }
+		 */
+		
+		/*
+		for(Delivery d : list) {
+			System.out.println(d);
+		}
+		*/
+		
+		
+		// System.out.println(list.size());
+		int deliverySize = list.size();
+		
+		model.addAttribute("list", list);
+		model.addAttribute("deliList", deliList);
+		model.addAttribute("deliverySize", deliverySize);
 		
 		return "member/myPageDelivery";
 		
@@ -452,7 +480,15 @@ public class MemberController {
 	
 	// 마이페이지 리뷰 이동
 	@GetMapping("myPageReview.me")
-	public String myPageReview() {
+	public String myPageReview(Member m,
+							   HttpSession session,
+							   Model model) {
+		
+		m.setUserNo(((Member)session.getAttribute("loginUser")).getUserNo());
+		
+		ArrayList<Review> list = memberService.selectReviewList(m);
+		
+		model.addAttribute("list", list);
 		
 		return "member/myPageReview";
 		
@@ -575,6 +611,8 @@ public class MemberController {
 					
 					((Member)session.getAttribute("loginUser")).setUserPwd(changePwd);
 
+					System.out.println(((Member)session.getAttribute("loginUser")).getUserPwd());
+					
 					return "redirect:/myPage.me";
 					
 				} else { // 비번 변경 실패
@@ -597,10 +635,94 @@ public class MemberController {
 		
 	} // updatePwd 클래스 영역 끝
 	
+	// 배송지 수정
+	@PostMapping("updateDelivery.me")
+	public String updateDelivery(Delivery d,
+								 String address1,
+								 String address2,
+								 String updateDeliveryNo,
+								 HttpSession session) {
+		
+		String addressAll = address1 + " " + address2;
+		int dNo = Integer.parseInt(updateDeliveryNo);
+		
+		d.setDeliveryAddress(addressAll);
+		d.setDeliveryNo(dNo);
+		// System.out.println(d);
+		// System.out.println(updateDeliveryNo);
+		
+		int result = memberService.updateDelivery(d);
+		
+		if(result > 0) { // 수정 성공
+			
+			session.setAttribute("alertMsg", "주소지가 변경되었습니다.");
+			return "redirect:/myPageDelivery.me";
+			
+		} else {
+			
+			session.setAttribute("alertMsg", "주소지 변경이 되지 않았습니다. 다시 시도해주세요.");
+			return "redirect:/myPageDelivery.me";
+			
+		}
+		
+	}
+	
+	// 배송지 삭제
+	@PostMapping("deleteDelivery.me")
+	public String deleteDelivery(String deletedeliveryNo,
+								 Delivery d,
+								 HttpSession session) {
+		
+		// System.out.println(deletedeliveryNo);
+		int dNo = Integer.parseInt(deletedeliveryNo);
+		d.setDeliveryNo(dNo);
+		
+		int result = memberService.deleteDelivery(d);
+		
+		if(result > 0) { // 삭제 성공
+			
+			session.setAttribute("alertMsg", "주소지가 삭제되었습니다.");
+			return "redirect:/myPageDelivery.me";
+			
+		} else {
+			
+			session.setAttribute("alertMsg", "주소지가 삭제되지 않았습니다. 다시 시도해주세요.");
+			return "redirect:/myPageDelivery.me";
+		}
+	
+	}
+	
+	// 배송지 추가
+	@PostMapping("insertDelivery.me")
+	public String insertDelivery(Delivery d,
+								 String insertAddress1,
+								 String insertAddress2,
+								 HttpSession session) {
+		
+		d.setDeliveryAddress(insertAddress1 + " " + insertAddress2);
+		d.setUserId(((Member)session.getAttribute("loginUser")).getUserId());
+		
+		// System.out.println(d);
+		
+		int result = memberService.insertDelivery(d);
+		
+		if(result > 0) {
+			
+			session.setAttribute("alertMsg", "주소지가 추가되었습니다.");
+			return "redirect:/myPageDelivery.me";
+			
+		} else {
+			
+			session.setAttribute("alertMsg", "주소지가 추가가 실패하였습니다. 다시 시도해주세요.");
+			return "redirect:/myPageDelivery.me";
+			
+		}
+		
+		
+	}
 	
 	
 	
-	
-}
+} // 클래스 영역 끝
 
 
