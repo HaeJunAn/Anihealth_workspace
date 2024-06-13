@@ -25,22 +25,25 @@
 	</select>
 	
 	
-	<!-- 정민 -->
+	<!-- ******** 정민 : 관리자 ********** -->
 	<!-- FAQ 총 개수 쿼리문 -->
-	<select id="selectQuestionListCount" resultType="_int">
+	<select id="selectAdQuestionListCount" resultType="_int">
 		SELECT COUNT(*)
 		  FROM FAQ
 	</select>
 	
 	<!-- FAQ 리스트 조회 쿼리문 -->
-	<select id="selectQuestionList" resultMap="faqResultSet">
-		SELECT FAQ_NO,FAQ_TITLE,FAQ_CONTENT,FAQ_STATUS
+	<select id="selectAdQuestionList" resultMap="faqResultSet">
+		SELECT FAQ_NO
+			  ,FAQ_TITLE
+			  ,FAQ_CONTENT
+			  ,FAQ_STATUS
 		  FROM FAQ
 		ORDER BY FAQ_NO DESC  
 	</select>
 	
 	<!-- FAQ 작성용 쿼리문 -->
-	<insert id="insertQuestion" parameterType="faq">
+	<insert id="insertAdQuestion" parameterType="faq">
 		INSERT INTO FAQ (FAQ_NO
                        , FAQ_TITLE
                        , FAQ_CONTENT)
@@ -50,7 +53,7 @@
 	</insert>
 	
 	<!-- FAQ 수정용 쿼리문 -->
-	<update id="updateQuestion" parameterType="faq" >
+	<update id="updateAdQuestion" parameterType="faq" >
 		UPDATE FAQ
 	       SET FAQ_TITLE = #{faqTitle}
 	         , FAQ_CONTENT = #{faqContent}
@@ -58,10 +61,12 @@
 	</update>
 	
 	<!-- FAQ 삭제용 쿼리문 -->
-	<update id="deleteQuestion" parameterType="faq">
+	<update id="deleteAdQuestion" parameterType="faq">
 		UPDATE FAQ
 	       SET FAQ_STATUS = 'N'
 	     WHERE FAQ_NO = #{faqNo}
 	       AND FAQ_STATUS = 'Y'
 	</update>
+	<!-- *********** 정민 : 관리자 ********* -->
+	
 </mapper>

@@ -15,7 +15,7 @@ public class AdQuestionDao { // 클래스 영역 시작
 	// FAQ 리스트 조회 : 총 개수 조회
 	public int selectQuestionListCount(SqlSessionTemplate sqlSession) {
 		
-		return sqlSession.selectOne("faqMapper.selectQuestionListCount");
+		return sqlSession.selectOne("faqMapper.selectAdQuestionListCount");
 		
 	}
 
@@ -27,28 +27,28 @@ public class AdQuestionDao { // 클래스 영역 시작
 		
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		
-		return (ArrayList)sqlSession.selectList("faqMapper.selectQuestionList", null, rowBounds);
+		return (ArrayList)sqlSession.selectList("faqMapper.selectAdQuestionList", null, rowBounds);
 		
 	}
 	
 	// FAQ 작성
 	public int insertQuestion(SqlSessionTemplate sqlSession, Question question) {
 		
-		return sqlSession.insert("faqMapper.insertQuestion", question);
+		return sqlSession.insert("faqMapper.insertAdQuestion", question);
 		
 	} 
 
 	// FAQ 수정
 	public int updateQuestion(SqlSessionTemplate sqlSession, Question question) {
 		
-		return sqlSession.update("faqMapper.updateQuestion", question);
+		return sqlSession.update("faqMapper.updateAdQuestion", question);
 		
 	}
 
 	// FAQ 삭제
 	public int deleteQuestion(SqlSessionTemplate sqlSession, Question question) {
 		
-		return sqlSession.update("faqMapper.deleteQuestion", question);
+		return sqlSession.update("faqMapper.deleteAdQuestion", question);
 		
 	}
 

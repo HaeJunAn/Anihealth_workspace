@@ -12,13 +12,19 @@
         <result column="PRODUCT_DETAIL_PATH" property="productDetailPath"/>
         <result column="PRODUCT_COUNT" property="productCount"/>
         <result column="PRODUCT_STATUS" property="productStatus"/>
-         <result column="PRODUCT_STOCK" property="productStock"/> 
-         <result column="EFFECT_NAME" property="effectName"/>
-          <result column="RATING" property="rating"/>
-          <result column="USER_NO" property="userNo"/>
+        <result column="PRODUCT_STOCK" property="productStock"/> 
+        <result column="EFFECT_NAME" property="effectName"/>
+        <result column="RATING" property="rating"/>
+        <result column="USER_NO" property="userNo"/>
         <!-- <result column="EFFECT_NAME" property="effectName"/> --> <!-- 주석 처리된 부분 -->
         <!-- <result column="RATING" property="rating"/> --> <!-- 주석 처리된 부분 -->
     </resultMap>
+    
+    <resultMap type="effect" id="effectResultSet">
+		<result column="EFFECT_NO" property="effectNo" />
+		<result column="EFFECT_NAME" property="effectName" />
+		<result column="EFFECT_FILE_PATH" property="effectFilePath" />
+	</resultMap>
 
     <!-- 제품 목록을 조회하는 쿼리 -->
     <select id="selectProductList" parameterType="map" resultMap="productResultSet">
@@ -162,4 +168,139 @@
 			 WHERE PRODUCT_NO = #{productNo}
 			   AND USER_NO = #{userNo}
 	</select>
+	
+	<!-- *********** 정민 : 관리자 ********* -->
+	<!-- 영양제 총 개수 쿼리문 -->
+	<select id="selectAdProductListCount" resultType="_int">
+		SELECT COUNT(*)
+		  FROM PRODUCT
+	</select>
+	
+	<!-- 영양제 목록조회용 쿼리문 -->
+	<select id="selectAdProductList" resultMap="productResultSet">
+		SELECT PRODUCT_NO
+	         , PRODUCT_NAME
+	         , PRODUCT_THUMBNAIL_PATH
+	         , CATEGORY
+	         , PRICE
+	         , PRODUCT_STOCK
+	         , PRODUCT_COUNT
+	         , PRODUCT_STATUS
+		  FROM PRODUCT
+		 ORDER BY PRODUCT_NO DESC
+	</select>
+	
+	<!-- 영양제 상세조회용 쿼리문 -->
+	<select id="selectAdProduct" parameterType="_int" resultMap="productResultSet">
+		SELECT PRODUCT_NO
+	         , PRODUCT_NAME
+	         , PRODUCT_THUMBNAIL_PATH
+	         , PRODUCT_DETAIL_PATH
+	         , CATEGORY
+	         , PRICE
+	         , PRODUCT_STOCK
+	         , PRODUCT_COUNT
+	         , PRODUCT_STATUS
+		  FROM PRODUCT
+		 WHERE PRODUCT_NO = #{productNo}
+	</select>
+	
+	<!-- 영양제 효능 조회용 쿼리문 -->
+	<select id="selectAdEffect" parameterType="_int" resultMap="effectResultSet">
+		SELECT *
+		  FROM PRODUCT_EFFECT
+		  JOIN EFFECT USING (EFFECT_NO)
+		 WHERE PRODUCT_NO = #{productNo}
+	</select>
+	
+	<!-- 영양제 부작용 조회용 쿼리문 -->
+	<select id="selectAdSideEffect" parameterType="_int" resultMap="effectResultSet">
+		SELECT *
+		  FROM SIDE_EFFECT
+		  JOIN EFFECT USING (EFFECT_NO)
+		 WHERE PRODUCT_NO = #{productNo}
+	</select>
+	
+	<!-- 영양제 등록용 쿼리문 -->
+	<insert id="insertAdProduct" parameterType="product">
+		INSERT INTO PRODUCT (PRODUCT_NO
+                           , PRODUCT_NAME
+                           , PRODUCT_STOCK
+                           , PRICE
+                           , CATEGORY
+                           , PRODUCT_THUMBNAIL_PATH
+                           , PRODUCT_DETAIL_PATH)
+			         VALUES (SEQ_PRODUCT_NO.NEXTVAL
+		                   , #{productName}
+		                   , #{productStock}
+		                   , #{price}
+		                   , #{category}
+		                   , #{productThumbnailPath}
+		                   , #{productDetailPath})
+	</insert>
+	
+	<!-- 영양제 상품번호 조회용 쿼리문 -->
+	<select id="selectAdProductNo" resultType="_int">
+		SELECT *
+		  FROM (
+		        SELECT PRODUCT_NO
+		          FROM PRODUCT
+		         ORDER BY PRODUCT_NO DESC 
+		        ) 
+		 WHERE ROWNUM =1
+	</select>
+	
+	<!-- 영양제 효과 등록용 쿼리문 -->
+	<insert id="insertAdEffect" parameterType="map">
+		INSERT INTO PRODUCT_EFFECT (PRODUCT_NO
+							      , EFFECT_NO)
+	                        VALUES (#{productNo}
+	                    	      , #{itemEffect}) 
+		</insert>
+	
+	
+	<!-- 영양제  부작용 등록용 쿼리문 -->
+	<insert id="insertAdSideEffect" parameterType="map">
+		INSERT INTO SIDE_EFFECT (PRODUCT_NO
+							   , EFFECT_NO)
+                         VALUES (#{productNo}
+                        	   , #{itemSideEffect}) 
+	</insert>
+	
+	<!-- 영양제 삭제용 쿼리문 -->
+	<update id="deleteAdProduct" parameterType="_int">
+		UPDATE PRODUCT
+	       SET PRODUCT_STATUS = 'N'
+	     WHERE PRODUCT_NO = #{productNo}
+	       AND PRODUCT_STATUS = 'Y'
+	</update>
+	
+	<!-- 영양제 수정용 쿼리문 -->
+	<update id="updateAdProduct" parameterType="product">
+		UPDATE PRODUCT
+	       SET PRODUCT_NAME = #{productName}
+	         , PRODUCT_STOCK = #{productStock}
+	         , PRICE = #{price}
+	         , CATEGORY = #{category}
+	         , PRODUCT_THUMBNAIL_PATH = #{productThumbnailPath}
+	         , PRODUCT_DETAIL_PATH = #{productDetailPath}
+		 WHERE PRODUCT_NO = #{productNo}
+		   AND PRODUCT_STATUS = 'Y'
+	</update>
+	
+	<!-- 효과 삭제용 쿼리문 -->
+	<delete id="deleteAdEffect" parameterType="_int">
+		 DELETE
+           FROM PRODUCT_EFFECT
+           WHERE PRODUCT_NO = #{productNo} 
+	</delete>
+	
+	<!-- 부작용 삭제용 쿼리문 -->
+	<delete id="deleteAdSideEffect" parameterType="_int">
+		 DELETE
+           FROM SIDE_EFFECT
+          WHERE PRODUCT_NO = #{productNo}
+	</delete>
+	<!-- *********** 정민 : 관리자 ********* -->
+	
 </mapper>
