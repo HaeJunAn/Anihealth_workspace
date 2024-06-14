@@ -273,9 +273,16 @@
 	                                        </div>
 	                                    </td>
 	                                    <td>
-	                                    	<button class="btn btn-sm">수정</button>
-	                                        <button class="btn btn-sm">삭제</button>
-	                                    </td>
+	                                    <form action="updateForm.re" method="post">
+	                                    	<button class="btn btn-sm"">수정</button>
+	                                    	<input type='hidden' name="reviewNo" value="${r.reviewNo}">
+	                                    </form>
+	                                    <form action="delete.re" method="post">
+	                                    	<button class="btn btn-sm">삭제</button>
+	                                    	<input type='hidden' name="reviewNo" value="${r.reviewNo}">
+	                                    </form>
+	                                    
+	                                    </td>          
 	                                </tr>
 								</c:forEach>
                             </tbody>

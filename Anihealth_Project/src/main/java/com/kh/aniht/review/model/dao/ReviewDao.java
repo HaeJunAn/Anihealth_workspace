@@ -52,6 +52,16 @@ public class ReviewDao {
 		return sqlSession.update("reviewMapper.deleteReview", reviewNo);
 	}
 
+	public int selectReviewCount(SqlSessionTemplate sqlSession, int orderProductNo) {
+		
+		return sqlSession.selectOne("reviewMapper.selectReviewCount", orderProductNo);
+	}
+
+	public ArrayList<Review> selectMainReview(SqlSessionTemplate sqlSession) {
+		
+		return (ArrayList) sqlSession.selectList("reviewMappe.selectMainReview");
+	}
+
 
 
 }

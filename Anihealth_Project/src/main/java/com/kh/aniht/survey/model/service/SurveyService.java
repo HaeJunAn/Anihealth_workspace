@@ -36,9 +36,9 @@ public class SurveyService {
 		return result;
 	}
 	// 추천상품 조회
-	public ArrayList<Product> selectTopProuduct() {
+	public ArrayList<Product> selectTopProuduct(String animal) {
 		
-		return surveyDao.selectTopProuduct(sqlSession);
+		return surveyDao.selectTopProuduct(sqlSession, animal);
 	}
 	// 설문결과 삭제
 	@Transactional

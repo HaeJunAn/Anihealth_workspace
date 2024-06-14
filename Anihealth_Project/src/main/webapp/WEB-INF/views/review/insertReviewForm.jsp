@@ -107,7 +107,7 @@
 	                <i class="fa fa-star" style="font-size:36px; "></i>
 	                <i class="fa fa-star" style="font-size:36px; display: none;"></i>
 	                <span><span>별점선택</span></span>
-	                <input type="hidden" name="rating" required id="">
+	                <input type="hidden" name="rating" required id="rating">
 	            </div>
 	            <div class="input-group mb-3 review-title">
 	                <input type="text" name="reviewTitle" class="form-control" placeholder="제목을 입력해주세요" aria-label="제목을 입력해주세요" required>
@@ -121,7 +121,8 @@
 	                </div>
 	            </div>
 	            <input type="file" name="upfile" class="inputFile" style="display: none;" onchange="loadImg(this);" required>
-	            <div class="button-area"><button type="submit">리뷰등록</button> <button type="button" onclick="location.href='${pageContext.request.contextPath}'">작성취소</button> </div> 
+	            <div class="button-area"><button type="submit">리뷰등록</button> <button type="button" onclick="location.href='${pageContext.request.contextPath}'">작성취소</button> </div>
+	            <input type="hidden" name="orderProductNo" value="${orderProductNo}"> 
 	        </form>
 	    </main>
 	    <br> <br> <br>
@@ -136,9 +137,21 @@
 	            });
 	            
 	            $("form").on("submit", function() {
-					if ($("#rating").val() == null) {
-						alert("별점을 입력해주세요");
-						//sessionStorage.setItem("alertMsg", "별점을 입력해주세요");
+					if (!$("#rating").val()) {
+						//alertify.alert("알람", "별점을 입력해주세요");
+
+						alertify.alert().set({
+						    'onshow': function() {
+						        this.elements.dialog.style.width = '400px'; 
+						    },
+						    'message': '별점을 입력해주세요',
+						    'title' : '알람'
+						    
+						}).show();
+				
+						    //this.elements.content.style.textAlign = 'left';
+						    //this.elements.content.style.verticalAlign = 'top';
+		
 						// 세션 객체 다루기 위해 차후 ajax 사용
 						return false
 					}

@@ -1,6 +1,7 @@
 package com.kh.aniht.survey.controller;
 
 import java.util.ArrayList;
+
 import java.util.Comparator;
 import java.util.HashMap;
 
@@ -33,7 +34,7 @@ public class SurveyController {
 	}
 	// 설문결과 출력
 	@PostMapping("surveyResult.su")
-	public String surveyResult(String animal, String breed, int bcs, int weight, HttpServletRequest request, Model model) {
+	public String surveyResult(String animal, String breed, int age, int bcs, int weight, HttpServletRequest request, Model model) {
 
 		int userNo = 2; // session
 		
@@ -55,7 +56,7 @@ public class SurveyController {
 		//System.out.println("결과insert:" + result);
 		
 		// 추천제품 리스트
-		ArrayList<Product> pList = surveyService.selectTopProuduct();
+		ArrayList<Product> pList = surveyService.selectTopProuduct(animal);
 		/*
 		for (Product product : pList) {
 			System.out.println("추천제품:" + product);
@@ -66,6 +67,7 @@ public class SurveyController {
 		//System.out.println("삭제결과:"+ result2);
 		//System.out.println(bcsInfo);
 		//System.out.println(weightInfo);
+		model.addAttribute("age", age);
 		model.addAttribute("breed", breed);
 		model.addAttribute("effectInfo", effectInfo);
 		model.addAttribute("weightInfo", weightInfo);
@@ -81,7 +83,7 @@ public class SurveyController {
 	public String selectEffectList(int[] productNoArr) {
 		ArrayList<HashMap<String, Object>> eList = surveyService.selectEffectList(productNoArr);
 
-		System.out.println(eList);
+		//System.out.println(eList);
 		
 		return new Gson().toJson(eList);
 	}

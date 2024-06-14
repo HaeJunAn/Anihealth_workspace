@@ -27,6 +27,14 @@
 		 GROUP BY RATING 
 		 ORDER BY RATING DESC
 	</select>
+	
+	<!-- 주문상품별 개수 -->
+	<select id="selectReviewCount" parameterType="_int"  resultType="_int"> 
+		SELECT COUNT(*)
+		  FROM REVIEW 
+		  WHERE ORDER_PRODUCT_NO = #{orderProductNo} AND REVIEW_STATUS = 'Y'
+	</select>
+	
 	<!-- 안씀 -->
 	<select id="selectCountReview" parameterType="review" resultType="_int">
 		SELECT COUNT(*)

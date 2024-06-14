@@ -58,6 +58,16 @@ public class ReviewService {
 		
 		return reviewDao.deleteReview(sqlSession, reviewNo);
 	}
+
+	public int selectReviewCount(int orderProductNo) {
+		
+		return reviewDao.selectReviewCount(sqlSession, orderProductNo);
+	}
+
+	public ArrayList<Review> selectMainReview() {
+		
+		return reviewDao.selectMainReview(sqlSession);
+	}
 	
 	
 

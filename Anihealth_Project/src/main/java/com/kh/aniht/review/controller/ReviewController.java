@@ -6,10 +6,8 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.TreeMap;
 
 import javax.servlet.http.HttpSession;
 
@@ -24,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.google.gson.Gson;
 import com.kh.aniht.common.movel.vo.PageInfo;
 import com.kh.aniht.common.template.Pagination;
+import com.kh.aniht.member.model.vo.Member;
 import com.kh.aniht.review.model.service.ReviewService;
 import com.kh.aniht.review.model.vo.Review;
 
@@ -115,18 +114,31 @@ public class ReviewController {
 	}
 	
 	@GetMapping("insertForm.re")
-	public String reviewInsertForm() {
+	public String reviewInsertForm(int orderProductNo, Model model, HttpSession session) {
 		
+		//int count = reviewService.
+		int count = reviewService.selectReviewCount(orderProductNo);
 		
-		return "review/insertReviewForm";
+		if(count == 0) {
+			model.addAttribute("orderProductNo", orderProductNo);
+			
+			return "review/insertReviewForm";
+			
+		} else {
+			
+			session.setAttribute("alertMsg", "이미 작성한 리뷰가 존재합니다.");
+			
+			return "redirect:/myPageOrder.me";
+		}		
 	}
 	
 	@PostMapping("insert.re")
 	public String insertReview(Review r, MultipartFile upfile, HttpSession session) {
 		
+		//System.out.println(r);
+	
+		r.setUserNo(((Member) session.getAttribute("loginUser")).getUserNo()); // sessionn 또는 요청값으로, 주문내역 조회 쿼리 수정도 가능
 		
-		r.setUserNo(2); //임시, sessionn 또는 요청값으로
-		r.setOrderProductNo(1); //임시, 요청값으로
 		if(!upfile.getOriginalFilename().equals("")) {
 			// 요청 시 전달된 파일이 있을 경우
 			
@@ -149,17 +161,17 @@ public class ReviewController {
 			session.setAttribute("alertMsg", "게시글 등록실패.");
 		}
 		
-		return "redirect:/";
+		return "redirect:/myPageReview.me";
 	}
 	
-	@GetMapping("updateForm.re")
-	public String reviewUpdateForm(Model model) {	
+	@PostMapping("updateForm.re")
+	public String reviewUpdateForm(int reviewNo, Model model) {	
 		
-		int reviewNo = 18; // 임시, 요청값으로 받을 거임
+		//int reviewNo = 18; // 임시, 요청값으로 받을 거임
 		
 		Review r = reviewService.selectReview(reviewNo);
 		
-		System.out.println(r);
+		//System.out.println(r);
 		model.addAttribute("r", r);
 		
 		return "review/reviewUpdateForm";
@@ -177,7 +189,7 @@ public class ReviewController {
 				
 				String realPath = session.getServletContext().getRealPath(r.getReviewFilePath());
 				
-				System.out.println(realPath);
+				//System.out.println(realPath);
 				
 				new File(realPath).delete();
 			}
@@ -200,13 +212,12 @@ public class ReviewController {
 			session.setAttribute("alertMsg", "게시글 수정실패.");
 		}
 		
-		return "redirect:/";
+		return "redirect:/myPageReview.me";
 	}
 	
-	@GetMapping("delete.re")
-	public String deleteReview(HttpSession session) {
+	@PostMapping("delete.re")
+	public String deleteReview(int reviewNo, HttpSession session) {
 		
-		int reviewNo = 18;
 		
 		int result = reviewService.deleteReview(reviewNo);
 		
@@ -218,7 +229,14 @@ public class ReviewController {
 			session.setAttribute("alertMsg", "게시글 삭제실패.");
 		}
 		
-		return "redirect:/";
+		return "redirect:/myPageReview.me";
+	}
+	
+	public String selectMainReview() {
+		
+		ArrayList<Review> rList = reviewService.selectMainReview();
+		
+		return null;
 	}
 	
 	
@@ -257,7 +275,7 @@ public class ReviewController {
 			= session.getServletContext()
 					 .getRealPath("/resources/rimg/");
 		
-		System.out.println(savePath);
+		//System.out.println(savePath);
 		// 7. 경로와 수정파일명 합체 후 파일을 업로드해주기
 		// > MultipartFile 객체가 제공하는
 		//   transferTo 메소드를 이용함

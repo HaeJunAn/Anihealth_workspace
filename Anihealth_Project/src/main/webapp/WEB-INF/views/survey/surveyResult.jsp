@@ -256,12 +256,16 @@
 				}
 
 				.product-selected table {
-					width: 100%;			
+					width: 100%;	
+					border-top : 1px solid #d3d3d3;		
 				}
 				.product-selected td{
 					text-align: center;
-					border-top : 1px solid #d3d3d3;
+					border-bottom : 1px solid #d3d3d3;
 					font-size: 20px;
+				}
+				.product-selected h3 {
+					margin-bottom: 20px;
 				}
 				.effect-icon img {
 					width: 50px;
@@ -271,13 +275,39 @@
 				}
 
 				#loading {
+					height: 800px;
 					text-align: center;
+					display: flex;
+					flex-direction: column;
+					align-items: center;
+					gap: 40px;
+					padding-top: 100px;
+					background-color: #fafafa;
 				}
 				.progress {
-					margin: auto;
 					width: 500px;
 					margin-bottom: 40px;
 				}
+				.product-selected button {
+				border-radius: 10px;
+                font-weight: 100;
+                padding: 5px 10px;
+                background-color: #9ac5ab;
+                /*background-color: transparent;*/
+                cursor: pointer;
+                border: none;
+                color: white;
+                margin-top: 30px;
+            	}
+				.product-selected form {
+					width: 100%;
+				}
+				.product-selected form:last-child {
+					text-align: center;
+				}
+				
+				
+
 
 			</style>
 			<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
@@ -300,7 +330,7 @@
 							</tr>
 							<tr>
 								<td>${breed}</td>
-								<td>7살</td>
+								<td>${age}</td>
 							</tr>
 							<tr>
 								<th>건강점수</th>
@@ -440,8 +470,6 @@
 				</div>
 				<div class="product-selected">
 					<!-- 추천 영양제 정보(5개)-->
-					<!-- db 참조 -->
-
 					<form action="">
 						<h3>추천제품</h3>
 						<table>
@@ -468,13 +496,14 @@
 									</tr>
 							</c:forEach>
 						</table>
+						<div><button type="submit">장바구니 담기</button></div>
 					</form>
 				</div>
 			</main>
 			<div id="loading">
 				<h1>건강검진 진행중...</h1>
 				<div class="progress">
-                    <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0"
+                    <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0"
                         aria-valuemax="100"></div>
                 </div>
 				<div class="text-center">
@@ -507,7 +536,7 @@
 					setTimeout(function() {
 						$("#loading").hide();
 						$("main").show();
-					}, 4000);
+					}, 200);
 
 					
 
@@ -526,6 +555,33 @@
 						$("#helpModal").hide();
 					});
 
+					// $(document).on("mouseenter", ".product-selected tr:odd", function () { 
+					// 	$(this).css("opacity", "0.8");
+					// 	$(this).prev().css("opacity", "0.8");
+					// });
+
+					// $(document).on("mouseleave", ".product-selected tr:odd", function () { 
+					// 	$(this).css("opacity", "1");
+					// 	$(this).prev().css("opacity", "1");
+					// });
+
+					// $(document).on("mouseenter", ".product-selected tr:even", function () { 
+					// 	$(this).css("opacity", "0.8");
+					// 	$(this).next().css("opacity", "0.8");
+					// });
+
+					// $(document).on("mouseleave", ".product-selected tr:even", function () { 
+					// 	$(this).css("opacity", "1");
+					// 	$(this).next().css("opacity", "1");
+					// });
+
+					// $(document).on("click", ".product-selected tr", function () { 
+					// 	$(this).prop('checked', true);
+					// });
+
+
+		
+
 					//$(".weight section").eq(0).find("img").eq(${(weightInfo.bcsNo - 1) / 2}).addClass("bcsActive");
 					
 					let productNoArr = [];
@@ -533,6 +589,7 @@
 					$(".recommendedProduct").each(function () {
 						productNoArr.push($(this).val());
 					});
+					
 					// 상품별 효과 아이콘
 					$.ajax({
 						url: "selectEffect.su",

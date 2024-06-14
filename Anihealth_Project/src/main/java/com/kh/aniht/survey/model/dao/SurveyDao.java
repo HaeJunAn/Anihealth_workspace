@@ -18,9 +18,9 @@ public class SurveyDao {
 		return sqlSession.insert("surveyMapper.insertSurveyResult", hMap);
 	}
 
-	public ArrayList<Product> selectTopProuduct(SqlSessionTemplate sqlSession) {
+	public ArrayList<Product> selectTopProuduct(SqlSessionTemplate sqlSession, String animal) {
 		// TODO Auto-generated method stub
-		return (ArrayList) sqlSession.selectList("surveyMapper.surveyResult");
+		return (ArrayList) sqlSession.selectList("surveyMapper.surveyResult", animal);
 	}
 
 	public int deleteSurveyResult(SqlSessionTemplate sqlSession, int userNo) {

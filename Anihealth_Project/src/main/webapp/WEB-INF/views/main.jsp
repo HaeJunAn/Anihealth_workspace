@@ -255,7 +255,7 @@
                         <h1>반려동물의 건강</h1>
                         <h4>댕냥이 전용 맞춤 영양제</h4>
                         <button class="btn btn-lg"
-                                style="background-color: rgb(153, 188, 133);">
+                                style="background-color: rgb(153, 188, 133);" onclick="location.href='survey.su'">
                                 건강 설문 조사하기
                         </button>
                     </div>
@@ -272,7 +272,7 @@
                             </td>
                             <td>
                                 <h3> 동물병원 찾기</h3>
-                                <a href="">
+                                <a href="map.ma">
                                 <img src="resources/img/dog111.png" alt="동물병원 이미지" class="content-image">
                             </a>
                             </td>
@@ -311,39 +311,39 @@
                 <div class="review-title  main-section hidden animate__animated animate__slower" data-animate="animate__fadeInLeft">
                     <h3>ANIHEALTH 와 함께하는 고객 후기</h3>
                 </div>
-                <div class="review-container main-section hidden animate__animated animate__slower" data-animate="animate__fadeInUp">
-                    <div class="review-row">
-            <div class="product-rw">
-                <a href="">
-                    <img src="resources/img/review-img.png" alt="Product Image 1">           
-                    <span class="pd-name1">코텍스 블리스터</span>
-                    <span class="pd-title1">금방 와요!</span>
-                </a>
-            </div>
-            <div class="product-rw">
-                <a href="">
-                    <img src="resources/img/review-img.png" alt="Product Image 1">           
-                    <span class="pd-name1">코텍스 블리스터</span>
-                    <span class="pd-title1">금방 와요!</span>
-                </a>
-            </div>
-            <div class="product-rw">
-                <a href="">
-                    <img src="resources/img/review-img.png" alt="Product Image 1">           
-                    <span class="pd-name1">코텍스 블리스터</span>
-                    <span class="pd-title1">금방 와요!</span>
-                </a>
-            </div>
-            <div class="product-rw">
-                <a href="">
-                    <img src="resources/img/review-img.png" alt="Product Image 1">           
-                    <span class="pd-name1">코텍스 블리스터</span>
-                    <span class="pd-title1">금방 와요!</span>
-                </a>
-            </div>
-        </div>
-    </div>
-    </div>
+            <div class="review-container main-section hidden animate__animated animate__slower" data-animate="animate__fadeInUp">
+            	<div class="review-row">
+		            <div class="product-rw">
+		                <a href="">
+		                    <img src="resources/img/review-img.png" alt="Product Image 1">           
+		                    <span class="pd-name1">코텍스 블리스터</span>
+		                    <span class="pd-title1">금방 와요!</span>
+		                </a>
+		            </div>
+		            <div class="product-rw">
+		                <a href="">
+		                    <img src="resources/img/review-img.png" alt="Product Image 1">           
+		                    <span class="pd-name1">코텍스 블리스터</span>
+		                    <span class="pd-title1">금방 와요!</span>
+		                </a>
+		            </div>
+		            <div class="product-rw">
+		                <a href="">
+		                    <img src="resources/img/review-img.png" alt="Product Image 1">           
+		                    <span class="pd-name1">코텍스 블리스터</span>
+		                    <span class="pd-title1">금방 와요!</span>
+		                </a>
+		            </div>
+		            <div class="product-rw">
+		                <a href="">
+		                    <img src="resources/img/review-img.png" alt="Product Image 1">           
+		                    <span class="pd-name1">코텍스 블리스터</span>
+		                    <span class="pd-title1">금방 와요!</span>
+		                </a>
+		            </div>
+	          </div>
+	    </div>
+	</div>
      
       <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -367,6 +367,19 @@
                 observer.observe(elem);
             });
         });
+        
+        $(function() {
+            $.ajax({
+                url: "mList.re",
+                type: "get",
+                success: function () {
+                    
+                },
+                error: function () {
+                    
+                }
+            });
+		})
     </script>
      
     <br><br><br>

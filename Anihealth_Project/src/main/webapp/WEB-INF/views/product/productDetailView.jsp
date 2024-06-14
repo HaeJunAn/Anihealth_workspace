@@ -384,7 +384,9 @@
                         </div>
                 </div>
                 <div class="tab-content">
-                		영양제 후기 영역  
+                	<jsp:include page="../review/productReview.jsp">
+                		<jsp:param name="productNo" value="${product.productNo}" />
+					</jsp:include>
                 </div>
             </div>
 	

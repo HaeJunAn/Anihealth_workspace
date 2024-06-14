@@ -23,7 +23,7 @@
 		INSERT INTO SURVEY_RESULT VALUES (#{survey.effectWeight}, #{userNo}, #{survey.effectNo})
 	</insert>
 	<!-- category도 나중에 동적으로 받기 -->
-	<select id="surveyResult" resultMap="productResultSet">
+	<select id="surveyResult" resultMap="productResultSet" parameterType="string">
 		SELECT ROWNUM, R.* 
 		  FROM (
 		        SELECT SUM(SR.EFFECT_WEIGHT) AS TOTAL_WEIGHT, EP.PRODUCT_NO, P.PRODUCT_NAME, P.PRODUCT_THUMBNAIL_PATH
@@ -31,7 +31,7 @@
 		        JOIN EFFECT E ON EP.EFFECT_NO = E.EFFECT_NO
 		        JOIN SURVEY_RESULT SR ON E.EFFECT_NO = SR.EFFECT_NO
 		        JOIN PRODUCT P ON EP.PRODUCT_NO = P.PRODUCT_NO
-		        WHERE P.CATEGORY = '강아지' OR P.CATEGORY = '공통' AND P.PRODUCT_STATUS = 'Y'
+		        WHERE P.CATEGORY = #{animal} OR P.CATEGORY = '공통' AND P.PRODUCT_STATUS = 'Y'
 		        GROUP BY EP.PRODUCT_NO, P.PRODUCT_NAME, P.PRODUCT_THUMBNAIL_PATH
 		        ORDER BY TOTAL_WEIGHT DESC
 		       )R

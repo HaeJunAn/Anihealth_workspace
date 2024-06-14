@@ -17,8 +17,8 @@
         .inner-container-rw {
             width: 65%;
             margin: 0 auto;
-            padding-top: 100px;
-            padding-bottom: 100px;
+            /*padding-top: 100px;*/
+            /*padding-bottom: 100px;*/
         }
 
         .header-faq {
@@ -66,9 +66,9 @@
         }
 
         .progress {
+        	height: 20px;
             display: flex;
             align-items: center;
-            gap: 0.5em; 
             /* 글자사이간격 */
             position: relative;
             /* 상대 위치 지정 */
@@ -325,12 +325,10 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-	<jsp:include page="../common/header.jsp" />
-
 	<div class="parent-container-rw">
 		<div class="inner-container-rw">
-			<div class="header-faq">
-				<h1>영양제 후기</h1>
+			<div>
+				<!-- <h1>영양제 후기</h1>-->
 			</div>
 			<div class="container-star-avg">
 				<table>
@@ -338,14 +336,14 @@
 						<td class="rating-container">
 							<div class="rating">
 								<p>총점 평균</p>
-								<p>5</p>
+								<p></p>
 								<!-- 게시글 리스트에서 받아올거임-->
 								<p class="rating-stars">
-									<span class="star"><i class="fa-solid fa-star "></i></span> <span
-										class="star"><i class="fa-solid fa-star "></i></span> <span
-										class="star"><i class="fa-solid fa-star "></i></span> <span
-										class="star"><i class="fa-solid fa-star "></i></span> <span
-										class="star"><i class="fa-solid fa-star "></i></span>
+									<span class="star"><i class="fa-solid fa-star "></i></span> 
+									<span class="star"><i class="fa-solid fa-star "></i></span> 
+									<span class="star"><i class="fa-solid fa-star "></i></span> 
+									<span class="star"><i class="fa-solid fa-star "></i></span> 
+									<span class="star"><i class="fa-solid fa-star "></i></span>
 								</p>
 							</div>
 						</td>
@@ -355,7 +353,6 @@
 					</tr>
 				</table>
 			</div>
-
 
 			<div>
 				<table class="header-table-rw">
@@ -389,13 +386,14 @@
         </div>    
 		</div>
 	</div>
-
+	
+	<!--
 	<div class="btn-back-container">
 		<div class="btn-back">
 			<button class="btn btn-lg" onclick="history.back()">뒤로가기</button>
 		</div>
 	</div>
-	<jsp:include page="../common/footer.jsp" />
+    -->
 
 	<style>
 	@media ( max-width : 950px) {
@@ -497,7 +495,7 @@
        			url : "plist.re",
        			type : "get",
        			data : {
-       				productNo: 1,
+       				productNo: ${param.productNo}, // param 받는법
        				rating: $(".custom-select option:selected").val(),
        				currentPage: pageNum
        			},
@@ -523,7 +521,7 @@
        					ratingStr += "<div class='progress-wrapper'> <div class='progress'>";
        					ratingStr += "<span class='progress-text'>" + i + "점 </span>";
        					ratingStr += "<div class='progress-bar star-pgr' style='width:" + 20 * (i-1) + "%;'></div>"
-       					ratingStr +=  "<span class='progress-label'>" + ratingList[5-i].COUNT + "</span> </div> </div>"
+       					ratingStr +=  "<span class='progress-label'>" + ratingList[5-i].COUNT + "개 </span> </div> </div>"
        					//console.log(ratinglist[i].COUNT);
        					sumRating += ratingList[5-i].RATING * ratingList[5-i].COUNT;
        					countRating += ratingList[5-i].COUNT;

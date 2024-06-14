@@ -12,19 +12,53 @@
                 font-style: normal;
             }
 
-            * {
+            .survey-wrap * {
                 font-family: 'WavvePADO-Regular';
                 box-sizing: border-box;
                 font-size: 20px;
                 font-weight: 100;
             }
 
-            div {
-                /* border: 1px solid black; */
-                box-sizing: border-box;
+            /* 포괄 */
+            .survey-wrap {
+                width: 1200px;
+                margin: auto;
             }
 
-            label {
+            .survey-wrap ul {
+                list-style: none;
+            }
+
+            .survey-wrap input[type=radio] {
+                display: none;
+            }
+
+            .survey-wrap p {
+                height: 55px;
+                margin-bottom: 0px;
+                opacity: 0.9;
+                line-height: 2.8em;
+            }
+            
+            .survey-container {
+                width: 50%;
+                margin: auto;
+            }
+
+            .survey-item {
+                width: 100%;
+                text-align: center;
+            }
+
+            .survey-item>*:not(label) {
+                margin-bottom: 10px;
+            }
+
+            .survey-item>div>img {
+                width: 70px;
+            }
+
+            .survey-wrap label {
                 box-shadow: 0px 0px 7px rgba(26, 26, 26, 0.2);
                 border-radius: 10px;
                 width: 100%;
@@ -34,7 +68,17 @@
                 box-sizing: border-box;
             }
 
-            input {
+            .survey-wrap label:hover {
+                background-color: #f0f0f0;
+            }
+
+            .survey-wrap label.active {
+                background-color: #9ac5ab;
+                color: white;
+                /* border-color: #789c78;  */
+            }
+
+            .survey-wrap input {
                 border-radius: 10px;
                 margin: 10px;
                 width: 100px;
@@ -57,29 +101,48 @@
                 margin: 0;
             }
 
-            .survey-wrap {
-                width: 1200px;
-                margin: auto;
+            /* 동물 */
+            .animal {
+                display: flex;
+                justify-content: space-evenly;
+                margin-top: 30px;
+            }
+            .animal img {
+                width: 250px;
+            }
+            .animal>div {
+            	padding-bottom: 17px
+            }
+            .animal>div:hover {
+                opacity: 80%;
+                box-shadow: 0px 0px 7px rgba(26, 26, 26, 0.2);
+                border-radius: 15px;
+                overflow: hidden;   
+            }
+            .animal-active {
+                opacity: 80%;
+                box-shadow: 0px 0px 7px rgba(26, 26, 26, 0.2);
+                transform: scale(1.1);
+                border-radius: 15px;
+                overflow: hidden;
+                transition: all 0.3s;
             }
 
-            .survey-container {
-                width: 50%;
-                margin: auto;
+            .survey-container>div h3{
+                font-size: 24px;
+                margin-bottom: 20px;
             }
 
-            .survey-item {
-                width: 100%;
-                text-align: center;
+            .survey-container>div:nth-child(2) h3{
+                font-size: 28px;
             }
-
-            .survey-item>*:not(label) {
-                margin-bottom: 10px;
+            .survey-container>div:nth-child(3) h3{
+                font-size: 28px;
             }
-
-            .survey-item>div>img {
-                width: 70px;
+            .survey-container>div:nth-child(4) h3{
+                font-size: 28px;
             }
-
+            /* 종 */
             .breed {
                 display: flex;
                 flex-wrap: wrap;
@@ -87,11 +150,9 @@
                 padding-left: 0;
                 margin-top: 20px;
             }
-
             .breed img {
                 width: 140px;
             }
-
             .breed img:hover {
                 opacity: 70%;
             }
@@ -100,58 +161,39 @@
                 box-shadow: 0px 0px 7px rgba(14, 14, 14, 0.2);
                 border-radius: 15px;
             }
-
-
+            /* 체중 */
             .bcs>label>div {
                 display: flex;
             }
-
             .bcs>label>img {
                 width: 150px;
                 float: left;
                 margin-right: 10px;
-
             }
-
             .bcs p {
-                margin-left: 20px;
+                margin-left: 23px;
                 font-size: 18px;
-                line-height: 1.7em;
+                line-height: 1.75em;
                 text-align: left;
             }
 
-            ul {
-                list-style: none;
-            }
-
-            input[type=radio] {
-                display: none;
-            }
-
-            .progress {
+            /* 문진 */
+            
+            /* 진행바 */
+            .survey-wrap .progress {
                 height: 10px;
                 margin-bottom: 20px;
             }
 
-            .progress-bar {
+            .survey-wrap .progress-bar {
                 transition: width 0.8s ease;
                 background-color: #9ac5ab !important;
                 /* background-color: #508dc3 */
             }
 
-            label:hover {
-                background-color: #f0f0f0;
-            }
 
-            label.active {
-                background-color: #9ac5ab;
-                color: white;
-                /* border-color: #789c78;  */
-            }
-
-            button {
+            .survey-wrap button {
                 border-radius: 10px !important;
-                font-size: 4px;
                 font-weight: 100;
                 padding: 5px 10px;
                 background-color: #9ac5ab;
@@ -162,41 +204,10 @@
                 margin-top: 30px !important;
             }
 
-            .animal {
-                display: flex;
-                justify-content: space-evenly;
-            }
-
-            .animal img {
-                width: 250px;
-            }
-
-            p {
-                height: 40px;
-                margin-bottom: 0px;
-                opacity: 0.9;
-                line-height: 3.2em;
-            }
-
             .icon-container {
                 margin-bottom: 0px !important;
             }
-            .animal {
-                margin-top: 30px;
-            }
-            .animal>div:hover {
-                opacity: 80%;
-                box-shadow: 0px 0px 7px rgba(26, 26, 26, 0.2);
-                border-radius: 15px;
-                overflow: hidden;
-            }
-            .animal-active {
-                opacity: 80%;
-                box-shadow: 0px 0px 7px rgba(26, 26, 26, 0.2);
-                transform: scale(1.1);
-                border-radius: 15px;
-                overflow: hidden;
-            }
+           
 
             /*background-color: rgb(115, 201, 115);  */
         </style>
@@ -208,11 +219,11 @@
         <main class="survey-wrap">
             <form action="surveyResult.su" class="survey-container" method="post">
                 <div class="progress">
-                    <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0"
+                    <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0"
                         aria-valuemax="100"></div>
                 </div>
                 <div class="survey-item" align="center">
-                    <h3>동물선택</h3>
+                    <h3>반려동물</h3>
                     <p>우리 아이는 강아지인가요? 고양이인가요?</p>
                     <div class="animal">
                         <div>
@@ -220,7 +231,7 @@
                             <br><span>강아지</span>
                         </div>
                         <div>
-                            <img src="resources/simg/cat2.png" alt="고양이">
+                            <img src="resources/simg/cat2.png" alt="강아지">
                             <br><span>고양이</span>
                         </div>
                     </div>
@@ -229,7 +240,7 @@
                 </div>
                 <div class="survey-item" align="center" style="display: none;">
                     <h3 style="margin-bottom: 15px;">견종과 나이를 선택해주세요</h3>
-                    나이 <input type="number" placeholder="나이 입력">
+                    나이 <input type="number" name="age" placeholder="나이 입력" required>
                     <ul class="breed">
                         <li><img src="resources/simg/닥스훈트.png" alt="닥스훈트"></li>
                         <li><img src="resources/simg/포메라니안.png" alt="포메라니안"></li>
@@ -527,6 +538,37 @@
             });
             let proBar = 0;
             function next(element) {
+            	console.log(!$(element).parent().find("input").val());
+            	console.log(!$(element).parent().find("input[type=hidden]").val());
+				// 유효성 검사
+            	if(!$(element).parent().find("input[type=hidden]").length){ //요소 존재 검사
+            		if (!$(element).parent().find("input").is(':checked')){  // 라디오는 하나만 체크되도 검사됨
+            			//alertify.alert("알람", "아직 입력하지 않은 항목이 있습니다");
+            			alertify.alert().set({
+						    'onshow': function() {
+						        this.elements.dialog.style.width = '400px'; 
+						    },
+						    'message': '아직 입력하지 않은 항목이 있습니다',
+						    'title' : '알람'
+						    
+						}).show();
+            			return false;
+       				} else {
+       					if($(element).parent().find("input[name=weight]").length){ //무게항목 있음
+       						if(!$(element).parent().find("input[name=weight]").val()){
+       							alertify.alert("알람", "아직 입력하지 않은 항목이 있습니다");
+       							return false;
+       						}
+            			} 
+       				}
+            	} else {// 나이 없으면 true || hidden 없으면 true || 있으면 false
+            		if (!$(element).parent().find("input").val() || !$(element).parent().find("input[type=hidden]").val()) { //하나 없으면 겹쳐서 같은 선택
+            			alertify.alert("알람", "아직 입력하지 않은 항목이 있습니다");
+            			return false;
+					}
+            	}
+		
+  
                 let currentItem = $(element).parent();
                 currentItem.css('display', 'none'); // 또는 hide(애니메이션);
                 proBar += 10;

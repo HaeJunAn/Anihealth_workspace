@@ -263,7 +263,7 @@
 			                                    </td>
 			                                    <td style="text-align: center;">
 			                                        <button class="btn btn-sm">환불하기</button>
-			                                        <button class="btn btn-sm">후기작성</button>
+			                                        <button class="btn btn-sm" onclick="location.href='insertForm.re?orderProductNo=${op.orderProductNo}'">후기작성</button>
 			                                    </td>
 		                               		</tr>
 		                                </c:forEach>

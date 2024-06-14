@@ -117,7 +117,7 @@ public class ProductController {
     public String selectRating(int[] productNoArr) {
     	ArrayList<HashMap<String, Object>> rList = productService.selectRating(productNoArr); 	
     	
-    	System.out.println(rList);
+    	//System.out.println(rList);
     	
     	return new Gson().toJson(rList);
 		

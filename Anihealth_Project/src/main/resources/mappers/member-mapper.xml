@@ -282,7 +282,8 @@
 		     , ORDER_PRODUCT_NO
 		     , USER_NO
 		  FROM REVIEW R
-		 WHERE USER_NO = #{userNo}
+		 WHERE USER_NO = #{userNo} AND REVIEW_STATUS = 'Y' <!-- 추가 -->
+		 ORDER BY REVIEW_NO DESC                           <!-- 추가 -->
 	</select>
 	
 	<!-- *********** 정민 : 관리자 ********* -->
