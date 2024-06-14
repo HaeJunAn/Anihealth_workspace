@@ -12,6 +12,7 @@ import java.util.HashMap;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.EnableLoadTimeWeaving;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,6 +43,7 @@ public class ReviewController {
 	@ResponseBody
 	@GetMapping(value = "plist.re", produces = "application/json; charset=UTF-8")
 	public String selectProductReview(Review r, int currentPage) {
+
 	    ArrayList<HashMap<String, Object>> ratingList = reviewService.selectRatingCount(r.getProductNo());
 
 	    int listCount = 0;
@@ -85,6 +87,8 @@ public class ReviewController {
 	            ratingList.add(newrMap);
 	        }
 	    }
+	
+	
 		/*
 		TreeMap<String, String> ratingMap = new TreeMap<>();
 		int listCount = 0;
@@ -242,11 +246,13 @@ public class ReviewController {
 		return "redirect:/myPageReview.me";
 	}
 	
+	@ResponseBody
+	@GetMapping(value = "mList.re", produces="application/json; charset=UTF-8")
 	public String selectMainReview() {
 		
 		ArrayList<Review> rList = reviewService.selectMainReview();
 		
-		return null;
+		return new Gson().toJson(rList);
 	}
 	
 	
