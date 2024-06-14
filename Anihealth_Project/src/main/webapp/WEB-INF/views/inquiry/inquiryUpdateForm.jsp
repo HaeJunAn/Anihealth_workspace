@@ -5,9 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
-    <style>     
-   div {
+<style>
+  div {
             box-sizing: border-box;
             /* border : 1px solid darkblue;  */
         }
@@ -154,8 +153,6 @@
             color: white;
             font-size: large;
         }
-        /* 전체 내용 영역 끝 */
-        /* 메인 영역 끝 */
 
         #enrollForm>table {width:100%;}
         #enrollForm>table * {margin:5px;}
@@ -164,110 +161,111 @@
             margin:auto;
         }
         .innerOuter {
-
             width:100%;
             margin:auto;
             padding:5% 10%;
         }
         .content h2{
-           color: #57585c;
-           text-align: center;
+	         color: #57585c;
+	         text-align: center;
         }
-
         /* 전체 내용 영역 끝 */
         /* 메인 영역 끝 */
+</style>
 
-
-    </style>
 
 </head>
+
 <body>
 
 <jsp:include page="../common/header.jsp" />
 
-	<div class="parent">
-	   <div class="parent-content">
-	
-	            <div class="header-faq">
-	                <h1>1 : 1 문의</h1>
-	            </div>
-	            <br>
-	
-	            <div class="cart-background">
-	                <div class="content">
-	                      <br> <h2 > 문의글 작성하기</h2><br>
-		                    <div class="innerOuter">
-	
-		                        <form id="enrollForm" method="post" action="insert.iq" enctype="">
-		                            <table align="center">
-		                                <tr>
-		                                    <th><label for="title" style="color: #57585c;">제목</label></th>
-		                                    <td><input type="text" id="title" class="form-control" name="inquiryTitle" 
-		                                               placeholder="제목을 입력해주세요" required></td>
-		                                </tr>
-		                
-		                                <tr>
-		                                    <th><label for="content"  style="color: #57585c;">내용</label></th>
-		                                    <td><textarea id="content" class="form-control" rows="10" style="resize:none;" name="inquiryContent" 
-		                                    			  placeholder="내욜을 입력해주세요"	required></textarea></td>
-		                                </tr>
-		                            </table>
-		                            <br><br>
-		            
-		                            <div align="center">
-		                                <button type="submit"  onclick = "location.href='insert.iq'" id="btn-update" class="btn btn-update">등록하기</button>
-		                                <button type="reset" id="btn-delete"  
-		                                      onclick="javascript:history.go(-1);" 
-		                                      class="btn btn-delete">뒤로가기</button>
-		                            </div>
-		                        </form>
-	                       </div>
-           
-			          </div>
-			        </div>
-			  </div>
-		</div>
- 
-    <br><br><br>
+<div class="parent">
+   <div class="parent-content">
+
+            <div class="header-faq">
+                <h1>1 : 1 문의</h1>
+            </div>
+            <br>
+
+        
+
+               <div class="cart-background">
+                <div class="content">
+                      <br> <h2 > 문의글 수정하기</h2><br>
+                    <div class="innerOuter">
+
+                        <form id="enrollForm" method="post" action="update.iq">
+                        
+                           <!-- 해당 게시글의 글번호 (PK) 도 같이 넘기기 -->
+                           <input type="hidden" name="inquiryNo" value="${ requestScope.iq.inquiryNo }">
+                           
+                            <table align="center">
+                                <tr>
+                                    <th><label for="title" style="color: #57585c;">제목</label></th>
+                                    <td><input type="text" id="title" class="form-control"
+                                                value="${ requestScope.iq.inquiryTitle }" name="inquiryTitle" required></td>
+                                </tr>
+                
+                                <tr>
+                                    <th><label for="content"  style="color: #57585c;">내용</label></th>
+                                    <td><textarea id="content" class="form-control" 
+                                                  rows="10" 
+                                                  style="resize:none;" 
+                                                  name="inquiryContent" required>${ requestScope.iq.inquiryContent }</textarea></td>
+                                </tr>
+                            </table>
+                            <br>   <br>
+            
+                            <div align="center">
+                                <button type="submit" class="btn btn-update" id="btn-update">수정하기</button>
+                                <button type="reset"  class="btn btn-delete" id="btn-delete" onclick="javascript:history.go(-1);">뒤로가기</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+          </div>
+    </div>
+</div>
+ <br><br><br>
  
     
+     
+ <style>
 
+    @media (max-width: 950px) {
+    .cart-background {
+        width: 100%;
+        padding: 20px;
+    }
 
-    <style>
+    .cart-table-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
 
-     @media (max-width: 950px) {
-	    .cart-background {
-	        width: 100%;
-	        padding: 20px;
-	    }
-	
-	    .cart-table-header {
-	        flex-direction: column;
-	        align-items: flex-start;
-	    }
-	
-	    .left-header, .right-header {
-	        margin-bottom: 10px;
-	    }
-	
-	    .item-container {
-	        flex-direction: column;
-	        align-items: flex-start;
-	    }
-	
-	    .item-text {
-	        padding-left: 0;
-	        margin-top: 10px;
-	    }
-	
-	    .quantity-wrapper {
-	        justify-content: space-between;
-	        width: 100%;
-	    }
-      }
+    .left-header, .right-header {
+        margin-bottom: 10px;
+    }
+
+    .item-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .item-text {
+        padding-left: 0;
+        margin-top: 10px;
+    }
+
+    .quantity-wrapper {
+        justify-content: space-between;
+        width: 100%;
+    }
+}
     </style>
 
 	<jsp:include page="../common/footer.jsp" />
-	
+
 </body>
 </html>

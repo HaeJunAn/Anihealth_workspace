@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.aniht.common.movel.vo.PageInfo;
 import com.kh.aniht.inquiry.model.dao.InquiryDao;
@@ -30,5 +31,35 @@ public class InquiryServiceImpl  implements InquiryService{
 		
 		return inquiryDao.selectList(sqlSession, pi);
 	}
+	
+	
+	@Override
+	public Inquiry selectInquiry(int inquiryNo) {
+		
+		return inquiryDao.selectInquiry(sqlSession, inquiryNo);
+	}
+	
+	@Override
+	@Transactional
+	public int deleteInquiry(int inquiryNo) {
+		
+		return inquiryDao.deleteInquiry(sqlSession, inquiryNo);
+	}
+	
+	@Override
+	@Transactional
+	public int insertInquiry(Inquiry iq) {
+		
+		return  inquiryDao.insertInquiry(sqlSession, iq);
+	}
+
+
+	@Override
+	@Transactional
+	public int updateInquiry(Inquiry iq) {
+		
+		return  inquiryDao.updateInquiry(sqlSession, iq);
+	}
+	
 
 }

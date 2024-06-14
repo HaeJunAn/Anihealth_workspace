@@ -28,6 +28,26 @@ public class InquiryDao {
 	}
 
 	
+	public Inquiry selectInquiry(SqlSessionTemplate sqlSession, int inquiryNo) {
+			
+		return sqlSession.selectOne("inquiryMapper.selectInquiry", inquiryNo);
+	}
+
+	public int deleteInquiry(SqlSessionTemplate sqlSession, int inquiryNo) {
+		
+		return sqlSession.update("inquiryMapper.deleteInquiry", inquiryNo);
+	}
+
+	public int insertInquiry(SqlSessionTemplate sqlSession, Inquiry iq) {
+		
+		return sqlSession.insert("inquiryMapper.insertInquiry", iq);
+	}
+
+	public int updateInquiry(SqlSessionTemplate sqlSession, Inquiry iq) {
+		
+		return sqlSession.update("inquiryMapper.updateInquiry", iq);
+	}
+	
 	
 	
 }

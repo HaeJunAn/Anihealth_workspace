@@ -159,7 +159,6 @@
 
         .card-custom {
             width: 21.2%;
-            /* 카드 크기를 20%로 설정 */
             box-sizing: border-box;
             margin: 1.1%;
             display: flex;
@@ -183,8 +182,8 @@
         }
 
         .card-footer {
-            text-align: left;
-            background-color: white;
+           text-align: left;
+           background-color: white !important;
            border:  1px solid #ddd;
            border-radius: 10px;
         }

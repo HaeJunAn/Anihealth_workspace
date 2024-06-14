@@ -50,6 +50,25 @@
 		   AND INQUIRY_STATUS = 'Y'
 	</select>
 	
+	<!-- 게시글 작성용 쿼리문 -->
+	<insert id="insertInquiry"
+			parameterType="inquiry">
+		INSERT INTO INQUIRY(INQUIRY_NO
+		                , INQUIRY_TITLE
+		                , INQUIRY_CONTENT
+		                , INQUIRY_CREATE
+		                , USER_NO
+		                 )
+		                
+		           VALUES(SEQ_INQUIRY_NO.NEXTVAL
+		                , #{inquiryTitle}
+		                , #{inquiryContent}
+		                , SYSDATE
+		                , #{userNo} 
+		                )
+	</insert>
+	
+	
 		<!-- 게시글 삭제용 쿼리문 -->
 	<update id="deleteInquiry"
 			parameterType="_int">

@@ -121,14 +121,23 @@
         }
 
 
-        /* 영양제 상세설명 시작 */
+           /* 영양제 상세설명 시작 */
         .detail-list-container {
-            width: 80%;
+            width: 100%;
             margin: 0 auto;
             margin-top: 40px;
-            text-align: center; /* 내용물을 가운데 정렬 */
-            padding-left: 0; /* 불필요한 패딩 제거 */
-        }
+            text-align: center;
+            padding-left: 0; 
+            display: flex;
+		    justify-content: center;
+		    align-items: center;
+		    flex-direction: column;
+		  }
+
+		.detail-list-container .img-detail {
+		    max-width:90% ;
+		    margin: 0 auto;
+		}
 
         /* 영양제 상세설명 끝 */
 
@@ -205,6 +214,7 @@
 
 <jsp:include page="../common/header.jsp" />
 
+
 <div class="parent">
 
 
@@ -216,95 +226,145 @@
         <div class="gray-line"></div> 
 
 
-        <div class="parent-info">
+   
+       <div class="parent-info">
           <table class="info-table">
-            <tbody>
-                <form id="addToCartForm">
-                    <!-- Hidden field for product number -->
-                      <input type="hidden" name="productNo" value="${product.productNo}">
-       				 	<input type="hidden" name="price" value="${product.price}">
-                    <tr>
-                    <td rowspan="8" style="width: 60%;">
-                        <img src="${pageContext.request.contextPath}/${product.productThumbnailPath}" 
-                             alt="${product.productName}"
-                             class="img-thumb">
-                    </td>
-                    </tr>
-                    <tr>
-                    <td class="td-left">
-                        <h5 style="font-weight: bold; color: rgb(118, 117, 117);">${product.category} 영양제</h5>
-                        <h4 style="font-weight: bold;">${product.productName}</h4>
-                    </td>
-                    </tr>
-                    <tr style="border-bottom: 2px solid rgb(198, 196, 196); background-color: rgb(254, 245, 237);">
-                    <td class="td-left"><strong>구매가</strong></td>
-                    <td><strong id="priceDisplay">₩ ${product.price}</strong></td>
-                    </tr>
-                    <tr style="background-color: rgb(254, 245, 237);">
-                    <td class="quantity td-left">수량</td>
-                    <td colspan="3">
-                        <div class="quantity-content">
-                        <span>총</span> 1 개 <!-- 수정된 부분 -->
-                        </div>
-                    </td>
-                    </tr>
-                    <tr>
-                    <td colspan="2">
-                        <div class="button-container">
-                        <button id="heart1" class="btn btn-lg heart-btn">❤️</button>
-                        <button type="button" id="cart1" class="btn btn-lg cart-btn">장바구니 담기</button> 
-                        </div>
-                    </td>
-                    </tr>
-                </form>
-               </tbody>
+             <tbody>
+	                <form id="addToCartForm">
+		                    <!-- Hidden field for product number -->
+		                      <input type="hidden" name="productNo" value="${product.productNo}">
+		       				 	<input type="hidden" name="price" value="${product.price}">
+		                    <tr>
+			                    <td rowspan="8" style="width: 60%;">
+			                        <img src="${pageContext.request.contextPath}/${product.productThumbnailPath}" 
+			                             alt="${product.productName}"
+			                             class="img-thumb">
+			                    </td>
+		                    </tr>
+		                    <tr>
+			                    <td class="td-left">
+			                        <h5 style="font-weight: bold; color: rgb(118, 117, 117);">${product.category} 영양제</h5>
+			                        <h4 style="font-weight: bold;">${product.productName}</h4>
+			                    </td>
+		                    </tr>
+		                    <tr style="border-bottom: 2px solid rgb(198, 196, 196); background-color: rgb(254, 245, 237);">
+			                    <td class="td-left"><strong>구매가</strong></td>
+			                    <td><strong id="priceDisplay">₩ ${product.price}</strong></td>
+		                    </tr>
+		                    <tr style="background-color: rgb(254, 245, 237);">
+			                    <td class="quantity td-left">수량</td>
+			                    <td colspan="3">
+			                        <div class="quantity-content">
+			                        <span>총</span> 1 개 <!-- 수정된 부분 -->
+			                        </div>
+			                    </td>
+		                    </tr>
+		                    <tr>
+			                    <td colspan="2">
+			                        <div class="button-container">
+			                        <button id="heart1" class="btn btn-lg heart-btn">🤍</button>
+			                        <button type="button" id="cart1" class="btn btn-lg cart-btn">장바구니 담기</button> 
+			                        </div>
+			                    </td>
+		                    </tr>
+	                 </form>
+                </tbody>
             </table>
         </div>
          <br><br>
+         
+         
 
         <script>
-    document.getElementById("cart1").addEventListener("click", function() {
-        $.ajax({
-            url: "checkLogin",
-            type: "get",
-            success: function(response) {
-                if (response.loggedIn) {
-                    // Proceed with adding to cart
-                    const form = document.getElementById("addToCartForm");
-                    const formData = {
-                        productNo: form.productNo.value,
-                        price: form.price.value,
-                    };
-                    $.ajax({
-                        url: "cart.ad",
-                        type: "post",
-                        contentType: "application/json",
-                        data: JSON.stringify(formData),
-                        success: function(result) {
-                            if (result.success) {
-                                console.log(result.message);
-                                alert(result.message);
-                            } else {
-                                console.log(result.message);
-                                alert(result.message);
-                            }
-                        },
-                        error: function() {
-                            console.log("장바구니 담기 실패");
-                            alert("장바구니 담기 실패");
-
-                        }
-                    });
-                } else {
-                    alert("로그인이 필요합니다.");
-                }
-            },
-            error: function() {
-                console.log("로그인 상태 확인 실패");
-                alert("로그인 상태 확인 실패");
-            }
-        });
-    });
+		    document.getElementById("cart1").addEventListener("click", function() {
+		        $.ajax({
+		            url: "checkLogin",
+		            type: "get",
+		            success: function(response) {
+		                if (response.loggedIn) {
+		                    // Proceed with adding to cart
+		                    const form = document.getElementById("addToCartForm");
+		                    const formData = {
+		                        productNo: form.productNo.value,
+		                        price: form.price.value,
+		                    };
+		                    $.ajax({
+		                        url: "cart.ad",
+		                        type: "post",
+		                        contentType: "application/json",
+		                        data: JSON.stringify(formData),
+		                        success: function(result) {
+		                            if (result.success) {
+		                                console.log(result.message);
+		                                alert(result.message);
+		                            } else {
+		                                console.log(result.message);
+		                                alert(result.message);
+		                            }
+		                        },
+		                        error: function() {
+		                            console.log("장바구니 담기 실패");
+		                            alert("장바구니 담기 실패");
+		
+		                        }
+		                    });
+		                } else {
+		                    alert("로그인이 필요합니다.");
+		                }
+		            },
+		            error: function() {
+		                console.log("로그인 상태 확인 실패");
+		                alert("로그인 상태 확인 실패");
+		            }
+		        });
+		    });
+		    	    
+    </script>
+    
+    
+    <script>
+		 // 하트 버튼 클릭 이벤트
+		    document.getElementById("heart1").addEventListener("click", function() {
+		        $.ajax({
+		            url: "checkLogin",
+		            type: "get",
+		            success: function(response) {
+		                if (response.loggedIn) {
+		                    const form = document.getElementById("addToCartForm");
+		                    const formData = {
+		                        productNo: form.productNo.value,
+		                        userNo: response.userNo, // 로그인한 사용자의 USER_NO를 사용
+		                    };
+		                    $.ajax({
+		                        url: "addFavorite",
+		                        type: "post",
+		                        contentType: "application/json",
+		                        data: JSON.stringify(formData),
+		                        success: function(result) {
+		                            if (result.success) {
+		                                console.log(result.message);
+		                                alert(result.message);
+		                            } else {
+		                                console.log(result.message);
+		                                alert(result.message);
+		                            }
+		                        },
+		                        error: function() {
+		                            console.log("하트 추가 실패");
+		                            alert("하트 추가 실패");
+		                        }
+		                    });
+		                } else {
+		                    alert("로그인이 필요합니다.");
+		                }
+		            },
+		            error: function() {
+		                console.log("로그인 상태 확인 실패");
+		                alert("로그인 상태 확인 실패");
+		            }
+		        });
+		    });
+    
     </script>
           
             <div class="cont">
@@ -316,8 +376,10 @@
                         <!-- 상세 정보 리스트 추가 -->
                         <div class="detail-list-container">
                             <h4>상세 정보</h4>
-                            <img src="${pageContext.request.contextPath}/${product.productDetailPath}" 
-                                alt="상세 정보 이미지">
+                             <img src="${pageContext.request.contextPath}/${product.productDetailPath}" 
+                                alt="상세 정보 이미지"
+                                style=" border: 1px solid;"
+                                class="img-detail">
                         
                         </div>
                 </div>
@@ -343,11 +405,12 @@
 
 <jsp:include page="../common/footer.jsp" />
 
-
 <script>
-    //탭전환 버튼 영역
-    $('.list').click(function (e) {
-        openTab(e.target.dataset.id); // 상위요소 리스트로 이벤트 버블링을 이용한 축약 코드
+    //탭 전환 버튼 영역
+    $('.tab-button').click(function (e) {
+        if ($(e.target).hasClass('tab-button')) {
+            openTab($(e.target).data('id')); // 클릭된 버튼의 data-id를 가져와서 탭 전환
+        }
     });
 
     function openTab(number) { // 함수 이름을 'openTab'으로, 파라미터를 'number'로 변경

@@ -16,6 +16,7 @@ import com.kh.aniht.common.movel.vo.PageInfo;
 import com.kh.aniht.common.template.Pagination;
 import com.kh.aniht.inquiry.model.service.InquiryService;
 import com.kh.aniht.inquiry.model.vo.Inquiry;
+import com.kh.aniht.member.model.vo.Member;
 
 
 
@@ -62,6 +63,122 @@ public class InquiryController {
 		
 		return mv;
 	}
+	
+	
+	@GetMapping("detail.iq")
+	public ModelAndView selectBoard(int ino,
+									ModelAndView mv) {
+		
+		
+
+		Inquiry iq = inquiryService.selectInquiry(ino);
+			
+			// 조회된 데이터를 담아서 응답페이지로 포워딩
+			// /WEB-INF/views/board/boardDetailView.jsp
+			mv.addObject("iq", iq)
+			  .setViewName("inquiry/inquiryDetailView");
+			
+			return mv;
+	}
+	
+	@PostMapping("insert.iq")
+	public ModelAndView insertBoard(Inquiry iq, 
+									HttpSession session,
+									ModelAndView mv) {
+		
+		iq.setUserNo(((Member)session.getAttribute("loginUser")).getUserNo());
+		int result = inquiryService.insertInquiry(iq);
+		
+		// 결과에 따른 응답페이지 처리
+		if(result > 0) { // 성공
+			
+			// 일회성 알람문구를 출력하고 list.bo 로 url 재요청
+			session.setAttribute("alertMsg", "성공적으로 게시글이 등록되었습니다.");
+			
+			mv.setViewName("redirect:/list.iq");
+			
+		} else { // 실패
+			
+			// 에러문구를 담아서 에러페이지로 포워딩
+			// mv.addObject("errorMsg", "게시글 등록 실패");
+			// mv.setViewName("common/errorPage");
+			
+			mv.addObject("errorMsg", "게시글 등록 실패")
+			  .setViewName("common/errorPage");
+			// > mv.addObject 메소드는 반환타입이 ModelAndView 타입임
+			//   위와 같이 메소드체이닝이 가능함!!
+		}
+		
+		return mv;
+		
+	} // insertInquiry 메소드 영역 끝
+	
+	
+	@PostMapping("updateForm.iq")
+	public String updateForm(int ino, Model model) {
+	
+		// 게시글 한건 조회
+		// > 기존 게시글 상세보기 서비스 로직 재활용
+		Inquiry iq = inquiryService.selectInquiry(ino);
+		
+		model.addAttribute("iq", iq);
+		
+		// /WEB-INF/views/board/boardUpdateForm.jsp
+		return "inquiry/inquiryUpdateForm";
+	}
+	
+	@PostMapping("delete.iq")
+	public String deleteInquiry(int ino,
+							  Model model,
+							  HttpSession session) {
+		
+
+		int result = inquiryService.deleteInquiry(ino);
+		
+		if(result > 0) { // 성공
+			
+			// session 에 일회성 알람문구를 담은 후
+			// list.bo 로 url 재요청
+			session.setAttribute("alertMsg", "성공적으로 게시글이 삭제되었습니다.");
+			
+			return "redirect:/list.iq";
+			
+		} else { // 실패
+			
+			// 에러문구를 담아서 에러페이지로 포워딩
+			model.addAttribute("errorMsg", "게시글 삭제 실패");
+			
+			return "common/errorPage";
+		}
+	}
+	
+	
+	@PostMapping("update.iq")
+	public String updateBoard(Inquiry iq, 
+							  HttpSession session,
+							  Model model) {
+		
+
+		int result = inquiryService.updateInquiry(iq);
+		
+		if(result > 0) { // 성공
+			
+			// 일회성 알람문구를 담아서 
+			// 해당 게시글 상세보기 페이지로 url 재요청
+			session.setAttribute("alertMsg", "성공적으로 게시글이 수정되었습니다.");
+			
+			return "redirect:/detail.iq?ino=" + iq.getInquiryNo();
+			
+		} else { // 실패
+			
+			// 에러문구를 담아서 에러페이지로 포워딩
+			model.addAttribute("errorMsg", "게시글 수정 실패");
+			
+			return "common/errorPage";
+		}
+	}
+
+	
 	
 	
 	
