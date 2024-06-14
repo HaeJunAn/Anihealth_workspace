@@ -17,6 +17,8 @@
 		<result column="ORDER_PRODUCT_NO" property="orderProductNo" />
 		<result column="USER_NO" property="userNo" />
 		<result column="PRODUCT_NO" property="productNo" />
+		<result column="COUNT" property="count"/>
+		<result column="PRODUCT_NAME" property="productName"/>
 	</resultMap>
 	<!-- 별점별 개수 -->
 	<select id="selectRatingCount" parameterType="_int" resultType="hashmap"> 
@@ -90,6 +92,20 @@
 		   SET REVIEW_STATUS = 'N'
 		 WHERE REVIEW_NO = #{reviewNo} AND REVIEW_STATUS = 'Y'
 	</update>
+	
+	<!-- 메인페이지 리뷰 조회 -->
+	<select id="selectMainReview" resultMap="reviewResultSet">
+		SELECT ROWNUM, R.*
+		FROM(
+		    SELECT P.PRODUCT_NAME as "PRODUCT_NAME", P.PRODUCT_NO, REVIEW_NO, RATING, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_FILE_PATH
+		    FROM REVIEW R
+		    JOIN ORDER_PRODUCT OP ON R.ORDER_PRODUCT_NO = OP.ORDER_PRODUCT_NO
+		    JOIN "ORDER" O ON OP.ORDER_NO = O.ORDER_NO
+		    JOIN PRODUCT P ON P.PRODUCT_NO = OP.PRODUCT_NO
+		    WHERE O.ORDER_CANCLE = 'Y'
+		    ORDER BY R.REVIEW_NO DESC) R 
+		WHERE ROWNUM BETWEEN 1 AND 5 
+	</select>
 
   
 </mapper>

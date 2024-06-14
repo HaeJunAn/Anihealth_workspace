@@ -536,7 +536,7 @@
 					setTimeout(function() {
 						$("#loading").hide();
 						$("main").show();
-					}, 200);
+					}, 4000);
 
 					
 

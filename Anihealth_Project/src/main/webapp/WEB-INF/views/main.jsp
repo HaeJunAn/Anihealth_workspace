@@ -313,39 +313,42 @@
                 </div>
             <div class="review-container main-section hidden animate__animated animate__slower" data-animate="animate__fadeInUp">
             	<div class="review-row">
-		            <div class="product-rw">
-		                <a href="">
-		                    <img src="resources/img/review-img.png" alt="Product Image 1">           
-		                    <span class="pd-name1">코텍스 블리스터</span>
-		                    <span class="pd-title1">금방 와요!</span>
-		                </a>
-		            </div>
-		            <div class="product-rw">
-		                <a href="">
-		                    <img src="resources/img/review-img.png" alt="Product Image 1">           
-		                    <span class="pd-name1">코텍스 블리스터</span>
-		                    <span class="pd-title1">금방 와요!</span>
-		                </a>
-		            </div>
-		            <div class="product-rw">
-		                <a href="">
-		                    <img src="resources/img/review-img.png" alt="Product Image 1">           
-		                    <span class="pd-name1">코텍스 블리스터</span>
-		                    <span class="pd-title1">금방 와요!</span>
-		                </a>
-		            </div>
-		            <div class="product-rw">
-		                <a href="">
-		                    <img src="resources/img/review-img.png" alt="Product Image 1">           
-		                    <span class="pd-name1">코텍스 블리스터</span>
-		                    <span class="pd-title1">금방 와요!</span>
-		                </a>
-		            </div>
+		            
 	          </div>
 	    </div>
 	</div>
      
       <script>
+	      $(function() {
+	          $.ajax({
+	              url: "mList.re",
+	              type: "get",
+	              success: function (rList) {
+	                  //console.log(rList);
+	                  	/*
+			            <div class="product-rw">
+		                <a href="">
+		                    <img src="resources/img/review-img.png" alt="Product Image 1">           
+		                    <span class="pd-name1">코텍스 블리스터</span>
+		                    <span class="pd-title1">금방 와요!</span>
+		                </a>
+		           		</div>
+		           		*/
+		           		listStr = '';
+		           		for (let i = 0; i < rList.length; i++) {
+		           			listStr += '<div class="product-rw"> <a href="detail.pd?pno=' + rList[i].productNo + '">';
+		           			listStr += '<img src='+ rList[i].reviewFilePath+ ' alt="Product Image"' + (i+1) + '>';
+		           			listStr += '<span class="pd-name1">'+ rList[i].productName +'</span>';
+		           			listStr += '<span class="pd-title1">' + rList[i].reviewTitle + '</span> </a> </div>';
+						}
+		           		$(".review-row").html(listStr);
+	              },
+	              error: function () {
+	                  
+	              }
+	          });
+			});
+	      
         document.addEventListener('DOMContentLoaded', function() {
             const observerOptions = {
                 threshold: 0.1
@@ -368,18 +371,6 @@
             });
         });
         
-        $(function() {
-            $.ajax({
-                url: "mList.re",
-                type: "get",
-                success: function () {
-                    
-                },
-                error: function () {
-                    
-                }
-            });
-		})
     </script>
      
     <br><br><br>

@@ -32,6 +32,7 @@ public class Review {
 	private int userNo;
 	// 추가
 	private int productNo;
-
+	private int count;
+	private String productName;
 
 }

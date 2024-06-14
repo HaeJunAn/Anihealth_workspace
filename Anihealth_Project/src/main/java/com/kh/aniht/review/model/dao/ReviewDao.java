@@ -59,7 +59,7 @@ public class ReviewDao {
 
 	public ArrayList<Review> selectMainReview(SqlSessionTemplate sqlSession) {
 		
-		return (ArrayList) sqlSession.selectList("reviewMappe.selectMainReview");
+		return (ArrayList) sqlSession.selectList("reviewMapper.selectMainReview");
 	}
 
 
