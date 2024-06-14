@@ -34,5 +34,6 @@ public class Review {
 	private int productNo;
 	private int count;
 	private String productName;
-
+	// 관리자 리뷰 조회 - 정민
+	private String userNick;
 }

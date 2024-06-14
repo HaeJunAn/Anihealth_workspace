@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.aniht.common.movel.vo.PageInfo;
 import com.kh.aniht.member.model.dao.AdMemberDao;
@@ -49,6 +50,15 @@ public class AdMemberServiceImpl implements AdMemberService{ // 클래스 영역
 	public ArrayList<Delivery> selectDelivery(String userId) {
 		
 		return memberDao.selectDelivery(sqlSession, userId);
+		
+	}
+
+	// 회원 정보 수정
+	@Transactional
+	@Override
+	public int updateMember(Member m) {
+		
+		return memberDao.updateMember(sqlSession, m);
 		
 	} 
 

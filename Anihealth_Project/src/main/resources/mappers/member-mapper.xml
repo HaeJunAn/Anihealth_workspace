@@ -286,6 +286,7 @@
 		 ORDER BY REVIEW_NO DESC                           <!-- 추가 -->
 	</select>
 	
+	
 	<!-- *********** 정민 : 관리자 ********* -->
 	<!-- 회원 총인원수 조회용 쿼리문 -->
 	<select id="selectAdMemberListCount" resultType="_int">
@@ -328,6 +329,17 @@
 		  FROM DELIVERY
 		 WHERE USER_ID = #{userId}
 	</select>
+	
+	<!-- 회원 정보 수정 -->
+	<update id="updateAdMember" parameterType="member">
+		UPDATE MEMBER
+		   SET USER_NAME = #{userName}
+		   	 , USER_NICK = #{userNick}
+		   	 , PHONE = #{phone}
+		   	 , USER_BIRTHDAY = #{userBirthday}
+		   	 , STATUS = #{status}
+		 WHERE USER_NO = #{userNo}
+	</update>
 	<!-- *********** 정민 : 관리자 ********* -->
 	
 </mapper>

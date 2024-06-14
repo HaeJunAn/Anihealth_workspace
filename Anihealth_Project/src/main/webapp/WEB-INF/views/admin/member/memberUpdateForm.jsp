@@ -24,10 +24,12 @@
         margin: 0 auto; 
         text-align : center;
         /* 부모 요소의 가운데 정렬을 위해 auto 마진 추가 */
+        margin-left:auto;
+        margin-right:auto;
 	}
 	
-	#detail-area-content #delivery {
-        padding-top: 20px; 
+	#activeLabel {
+		padding-right : 50px;
 	}
 	
 	/* 제목 영역 시작 */
@@ -130,6 +132,24 @@
         margin: 5px 0;
     }
     /* 배송지 스타일 끝 */
+    
+    /* 버튼 영역 시작 */
+    .btns button {
+       border: none;
+       background-color: #f0f0f0; 
+       color: #202020; 
+       padding: 10px 25px; 
+       margin: 0 5px; 
+       cursor: pointer;
+       border-radius: 10px; 
+       margin-right: 15px;
+       border: 1px solid  rgb(82, 166, 121);
+   }
+
+   .btns button:hover {
+       background-color:  rgb(198, 228, 212);
+   }
+   /* 버튼 영역 끝 */
 </style>
 </head>
 <body>
@@ -143,75 +163,175 @@
         </div>
         
 		<div id="list-area">
-			<table id="detail-area-content" class="table">
-				<!-- 기본 정보 -->
-				<thead>
-					<tr>
-						<th width="250px">회원 번호</th>
-						<td>${ requestScope.m.userNo }</td>
-					</tr>
-					<tr>
-						<th>회원 아이디</th>
-						<td>
-							<input type="text" value="${ requestScope.m.userId }" required>
-						</td>
-					</tr>
-					<tr>
-						<th>회원 이름</th>
-						<td>
-							<input type="text" value="${ requestScope.m.userName }" required>
-						</td>
-					</tr>
-					<tr>
-						<th>회원 닉네임</th>
-						<td>
-							<input type="text" value="${ requestScope.m.userNick }">
-						</td>
-					</tr>
-					<tr>
-						<th>회원 이메일</th>
-						<td>${ requestScope.m.email }</td>
-					</tr>
-					<tr>
-						<th>회원 전화번호</th>
-						<td>${ requestScope.m.phone }</td>
-					</tr>
-					<tr>
-						<th>회원 생년월일</th>
-						<td>${ requestScope.m.userBirthday }</td>
-					</tr>
-					<tr>
-						<th>회원 가입일</th>
-						<td>${ requestScope.m.createDate }</td>
-					</tr>
-					<tr>
-						<th>회원 활동여부</th>
-						<td>${ requestScope.m.status }</td>
-					</tr>
-				</thead>
+			<form id="enroll-form" action="updateMember.ad" method="post">
+			
+				<input type="hidden" name="userNo" value="${ requestScope.m.userNo }">
 				
-				<!-- 배송지 -->
-				<tbody>
-					<c:set var="list" value="${ requestScope.list }" />
-					<c:set var="size" value="${ fn:length(list) }" />
-					<tr>
-						<th>배송지</th>
-						<c:forEach var="d" items="${ requestScope.list }" varStatus="loop">
-							<td id="delivery">
-					            <div class="address-container">
-					                <div class="address-item">
-					                    <span class="badge badge-pill">배송지 ${loop.index + 1}</span>
-					                    <p class="address-name">${ d.deliveryName }</p>
-					                    <p class="address-details">${ d.deliveryZipcode }</p>
-					                    <p class="address-details">${ d.deliveryAddress }</p>
-					                </div>
-				            	</div>
-			            	</td>
-		            	</c:forEach>
-	            	</tr>
-				</tbody>
-			</table>
+				<table id="detail-area-content" class="table">
+					<!-- 기본 정보 -->
+					<thead>
+						<tr>
+							<th width="250px">회원 번호</th>
+							<td>${ requestScope.m.userNo }</td>
+						</tr>
+						<tr>
+							<th>회원 아이디</th>
+							<td>${ requestScope.m.userId }</td>
+						</tr>
+						<tr>
+							<th>회원 이름</th>
+							<td>
+								<input type="text" name="userName" class="form-control" maxlength="6" placeholder="이름을 입력해주세요" value="${ requestScope.m.userName }" required>
+							</td>
+						</tr>
+						<tr>
+							<th class="nickTh">* 회원 닉네임</th>
+							<td>
+								<input type="text" name="userNick" class="form-control" minlength="2" maxlength="11" value="${ requestScope.m.userNick }" placeholder="닉네임(2~11자 한글/영문)" required>
+								<div id="nickCheckResult" style="font-size: 0.8em;"></div>
+							</td>
+						</tr>
+						<tr>
+							<th>회원 이메일</th>
+							<td>${ requestScope.m.email }</td>
+						</tr>
+						<tr>
+							<th>* 회원 전화번호</th>
+							<td>
+								<input type="text" name="phone" class="form-control"  maxlength="13" placeholder="- 포함해서 입력해주세요" value="${ requestScope.m.phone }" required>
+							</td>
+						</tr>
+						<tr>
+							<th>* 회원 생년월일</th>
+							<td>
+								<input type="date" class="form-control" value="${ requestScope.m.userBirthday }" name="userBirthday" placeholder="YY-MM-DD 형식" required>
+							</td>
+						</tr>
+						<tr>
+							<th>회원 가입일</th>
+							<td>${ requestScope.m.createDate }</td>
+						</tr>
+						<tr>
+							<th>* 회원 활동여부</th>
+							<td class="status">
+								<input type="radio" class="form-check-inline" id="active" name="status" value="Y"><label id="activeLabel" for="active">활동</label>
+								<input type="radio" class="form-check-inline" id="inactive" name="status"  value="N"><label for="inactive">정지</label>
+							</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th></th><td></td>
+						</tr>
+					</tbody>
+				</table>
+				
+				<div class="btns" id="enroll-form" align="center">
+		        	<button class="btn btn-lg" type="submit">수정</button>
+		        	<button class="btn btn-lg" type="button" onclick="location.href='detailMember.ad?mno=${ requestScope.m.userNo }'">뒤로가기</button>
+		        	<button class="btn btn-lg" type="reset">초기화</button>
+		        </div>
+				
+			</form>			
 		</div>
 	</div>
+	
+	<!-- 닉네임 중복체크 ajax -->	
+	<script>
+		$(function(){
+			
+			// 아이디를 입력하는 input 요소 객체를 변수에 담아두기
+       		const $nickInput = $("#enroll-form input[name=userNick]");
+      		
+       		// 아이디를 입력할때마다 실시간으로 아이디 중복 체크
+       		// > "keyup" 이벤트 활용
+       		$nickInput.keyup(function() {
+       			
+       			// console.log($idInput.val());
+       			// > 사용자가 실시간으로 입력한 아이디값을 중복체크 시 요청값으로 넘기기
+       			$("#enroll-form button[type=submit]").attr("disabled", true);
+       			
+       			// 우선, 아이디값이 최소 5글자 이상으로 입력되어 있을 때에만
+       			// ajax 를 요청해서 중복체크 하기!!
+       			
+       			if($nickInput.val().length >= 2) {
+       				// 5글자 이상일 때
+       				// > ajax 로 아이디 중복복확인 요청 보내기
+       				
+       				$.ajax({
+       					url : "nickCheck.me",
+       					type : "get",
+       					data : {
+       						checkNick : $nickInput.val()
+       					},
+       					success : function(result) {
+       						
+       						// console.log(result);
+       						if(result == "NNNNN") {
+       							// 사용 불가능한 아이디일 경우
+       							$(".nickTh").css("padding-bottom", "30px");
+       							
+       							// 빨간색 메세지로 출력
+       							$("#nickCheckResult").show()
+	       											 .css("color", "red")
+	       											 .text("이미 사용중인 닉네임입니다. 다시 입력해주세요.");
+       							
+       							// 수정버튼 비활성화
+       							$("#enroll-form button[type=submit]").attr("disabled", true);
+       							
+       						} else {
+       							// 사용 가능한 아이디일 경우
+       							$(".nickTh").css("padding-bottom", "30px");
+       							
+       							// 초록색 메세지로 출력
+       							$("#nickCheckResult").show();
+       							$("#nickCheckResult").css("color", "green");
+       							$("#nickCheckResult").text("사용 가능한 닉네임입니다.");
+       							
+       							// 수정버튼 활성화
+       							$("#enroll-form button[type=submit]").attr("disabled", false);
+       							
+       						}
+       						
+       					},
+       					error : function() {
+       						console.log("닉네임 중복 체크용 ajax 통신 실패!");
+       					}
+       				});
+       				
+       			} else {
+       				// 2글자 미만
+       				
+       				$(".nickTh").css("padding-bottom", "");
+       				
+       				// 수정버튼 비활성화
+       				$("#enroll-form button[type=submit]").attr("disabled", true);
+       				
+       				// 메세지 숨기기
+       				$("#nickCheckResult").hide();
+       				
+       			}
+       			
+       		});
+		});
+		
+		/* 조회된 상태여부 표시 */
+		$(function() {
+			
+			let status = "${ requestScope.m.status }";
+			
+			if(status == 'Y') {
+				
+				$(".status input[value=Y]").attr("checked", true);
+				
+			} else {
+				
+				$(".status input[value=N]").attr("checked", true);
+				
+			}
+			
+		});
+      </script>
+	
 </body>
 </html>
