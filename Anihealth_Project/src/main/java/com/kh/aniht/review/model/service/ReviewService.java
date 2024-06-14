@@ -20,13 +20,7 @@ public class ReviewService {
 	
 	@Autowired
 	private ReviewDao reviewDao;
-	
-	// 별점별 리뷰수
-	public ArrayList<HashMap<String, Object>> selectRatingCount(int productNo) {
 		
-		return reviewDao.selectRatingCount(sqlSession, productNo);
-	}
-	
 	public int selectCountReview(Review r) {
 		//System.out.println("호출");
 		return reviewDao.selectCountReview(sqlSession, r);
@@ -69,6 +63,12 @@ public class ReviewService {
 		return reviewDao.selectMainReview(sqlSession);
 	}
 	
+	// 별점별 리뷰수
+	public ArrayList<Review> selectRatingCount(int productNo) {
+		
+	return reviewDao.selectRatingCount(sqlSession, productNo);
+	}
+
 	
 
 

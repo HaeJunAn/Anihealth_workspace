@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.TreeMap;
 
 import javax.servlet.http.HttpSession;
 
@@ -27,6 +28,8 @@ import com.kh.aniht.member.model.vo.Member;
 import com.kh.aniht.review.model.service.ReviewService;
 import com.kh.aniht.review.model.vo.Review;
 
+import oracle.net.aso.i;
+
 @Controller
 public class ReviewController {
 	
@@ -43,83 +46,87 @@ public class ReviewController {
 	@ResponseBody
 	@GetMapping(value = "plist.re", produces = "application/json; charset=UTF-8")
 	public String selectProductReview(Review r, int currentPage) {
-
-	    ArrayList<HashMap<String, Object>> ratingList = reviewService.selectRatingCount(r.getProductNo());
-
+		//System.out.println(r);
+	   //ArrayList<HashMap<String, Object>> ratingList = reviewService.selectRatingCount(r.getProductNo());
+	    
+	    //int listCount = 0;
+//	    if (r.getRating() != 0) {
+//	        for (HashMap<String, Object> rMap : ratingList) {
+//	            if (Integer.parseInt(String.valueOf(rMap.get("RATING"))) == r.getRating()) {
+//	                listCount = Integer.parseInt(String.valueOf(rMap.get("COUNT")));
+//	                break;
+//	            }
+//	        }
+//	    } else {
+//	        for (HashMap<String, Object> rMap : ratingList) {
+//	            listCount += Integer.parseInt(String.valueOf(rMap.get("COUNT")));
+//	        }
+//	    }
+//
+//	    // System.out.println(ratingList);
+//	    for (int i = 5; i > 0; i--) {
+//	        Boolean tf = false;
+//	        for (HashMap<String, Object> rMap : ratingList) {
+//	            Object ratingObj = rMap.get("RATING");
+//	            int rating = 0;
+//	            if (ratingObj instanceof BigDecimal) {
+//	                rating = ((BigDecimal) ratingObj).intValue();
+//	            } else if (ratingObj instanceof Integer) {
+//	                rating = (Integer) ratingObj;
+//	            } else {
+//	                rating = Integer.parseInt(ratingObj.toString());
+//	            }
+//
+//	            tf = tf || (rating == i);
+//	            if (tf) {
+//	                break;
+//	            }
+//	        }
+//	        // System.out.println(tf);
+//	        if (!tf) {
+//	            HashMap<String, Object> newrMap = new HashMap<>();
+//	            newrMap.put("RATING", i);
+//	            newrMap.put("COUNT", 0);
+//	            ratingList.add(newrMap);
+//	        }
+//	    }
+		
+	    //----------------------------------------------------------
+    
+	    ArrayList<Review> ratingList = reviewService.selectRatingCount(r.getProductNo());
 	    int listCount = 0;
-	    if (r.getRating() != 0) {
-	        for (HashMap<String, Object> rMap : ratingList) {
-	            if (Integer.parseInt(String.valueOf(rMap.get("RATING"))) == r.getRating()) {
-	                listCount = Integer.parseInt(String.valueOf(rMap.get("COUNT")));
-	                break;
-	            }
-	        }
+	    
+	    HashMap<Integer, Integer> ratingMap = new HashMap<>();
+	    
+	    for (int i = 1; i <= 5; i++) {
+	    	ratingMap.put(i, 0);
+		}
+	    
+	    for (Review re : ratingList) {
+	    	ratingMap.put(re.getRating(), re.getCount());
+		}
+	    
+	    //System.out.println(r.getRating());
+	    if(r.getRating() != 0) {
+	    	listCount = ratingMap.get(r.getRating());
 	    } else {
-	        for (HashMap<String, Object> rMap : ratingList) {
-	            listCount += Integer.parseInt(String.valueOf(rMap.get("COUNT")));
-	        }
+	    	for (Review re : ratingList) {
+	    		listCount += re.getCount();
+			}  	
 	    }
 
-	    // System.out.println(ratingList);
-	    for (int i = 5; i > 0; i--) {
-	        Boolean tf = false;
-	        for (HashMap<String, Object> rMap : ratingList) {
-	            Object ratingObj = rMap.get("RATING");
-	            int rating = 0;
-	            if (ratingObj instanceof BigDecimal) {
-	                rating = ((BigDecimal) ratingObj).intValue();
-	            } else if (ratingObj instanceof Integer) {
-	                rating = (Integer) ratingObj;
-	            } else {
-	                rating = Integer.parseInt(ratingObj.toString());
-	            }
 
-	            tf = tf || (rating == i);
-	            if (tf) {
-	                break;
-	            }
-	        }
-	        // System.out.println(tf);
-	        if (!tf) {
-	            HashMap<String, Object> newrMap = new HashMap<>();
-	            newrMap.put("RATING", i);
-	            newrMap.put("COUNT", 0);
-	            ratingList.add(newrMap);
-	        }
-	    }
+	    //-------------------------------------------------------
 	
-	
-		/*
-		TreeMap<String, String> ratingMap = new TreeMap<>();
-		int listCount = 0;
-		for (HashMap<String, Object> rMap : ratingList) {
-			ratingMap.put(String.valueOf(rMap.get("RATING")), String.valueOf(rMap.get("COUNT")));
-		}
-		
-		//System.out.println(ratingMap);
-		if( r.getRating() != 0) {
-			listCount = Integer.parseInt(ratingMap.get(""+ r.getRating()));
-		} else {
-			for (String key : ratingMap.keySet()) {
-				//System.out.println(ratingMap.get(key));
-				listCount += Integer.parseInt(ratingMap.get(key));
-			}
-		
-		}
-		*/
-		//System.out.println("개수" + listCount);
-		//int listCount = reviewService.selectCountReview(r);
-
 		int pageLimit = 10;
 		int ReviewLimit = 5;
 
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, pageLimit, ReviewLimit);
 
 		ArrayList<Review> list = reviewService.selectProductReview(r, pi);
-		//System.out.println(ratingMap);
-		//System.out.println(ratingList);
+		
 		HashMap<String, Object> reviewMap= new HashMap<>(); 
-		reviewMap.put("ratingList", ratingList);
+		reviewMap.put("ratingMap", ratingMap);
 		reviewMap.put("pi", pi);
 		reviewMap.put("list", list);
 		

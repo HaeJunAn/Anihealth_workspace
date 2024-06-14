@@ -21,7 +21,7 @@
 		<result column="PRODUCT_NAME" property="productName"/>
 	</resultMap>
 	<!-- 별점별 개수 -->
-	<select id="selectRatingCount" parameterType="_int" resultType="hashmap"> 
+	<select id="selectRatingCount" parameterType="_int" resultMap="reviewResultSet"> 
 		SELECT RATING, COUNT(RATING) "COUNT"
 		  FROM REVIEW R
 		  JOIN ORDER_PRODUCT O ON (R.ORDER_PRODUCT_NO = O.ORDER_PRODUCT_NO)

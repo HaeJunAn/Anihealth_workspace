@@ -12,7 +12,7 @@ import com.kh.aniht.review.model.vo.Review;
 @Repository
 public class ReviewDao {
 	
-	public ArrayList<HashMap<String, Object>> selectRatingCount(SqlSessionTemplate sqlSession, int productNo) {
+	public ArrayList<Review> selectRatingCount(SqlSessionTemplate sqlSession, int productNo) {
 		// TODO Auto-generated method stub
 		return (ArrayList) sqlSession.selectList("reviewMapper.selectRatingCount", productNo);
 	}

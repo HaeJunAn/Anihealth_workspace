@@ -348,7 +348,21 @@
 							</div>
 						</td>
 						<td class="progress-container">
-							
+							<div class="progress-wrapper no5">
+                             
+                            </div>
+                            <div class="progress-wrapper no4">
+                      
+                            </div>
+                            <div class="progress-wrapper no3">
+           
+                            </div>
+                            <div class="progress-wrapper no2">
+    
+                            </div>
+                            <div class="progress-wrapper no1">
+      
+                            </div>
 						</td>
 					</tr>
 				</table>
@@ -372,7 +386,7 @@
 					</tr>
 				</table>
 			</div>
-
+	
 			<table class="info-table-rw">
 				
 			</table> 
@@ -490,7 +504,7 @@
        	});
        	
        	function selectReviewList(pageNum) {
-
+			console.log($(".custom-select option:selected").val());
        		$.ajax({
        			url : "plist.re",
        			type : "get",
@@ -501,13 +515,16 @@
        			},
        			success: function(result) {
        				
+       				/*
        				let ratingList = result.ratingList;
        				ratingList.sort(function(a, b) {
        				    return b.RATING - a.RATING;
        				}); //정렬 콜백함수 정의
-   
+  					 */
        				let rlist = result.list;
        				let rpi = result.pi;
+       				let ratingMap = result.ratingMap;
+       				//console.log(ratingMap);
        				
        				//console.log(ratinglist[0].COUNT);
        				//console.log(result);
@@ -517,6 +534,9 @@
        				let sumRating = 0;
        				let countRating = 0;
        				let avgRating = 0;
+       				
+       					
+       				/*
        				for (let i  = ratingList.length; i > 0 ; i--) {
        					ratingStr += "<div class='progress-wrapper'> <div class='progress'>";
        					ratingStr += "<span class='progress-text'>" + i + "점 </span>";
@@ -526,6 +546,22 @@
        					sumRating += ratingList[5-i].RATING * ratingList[5-i].COUNT;
        					countRating += ratingList[5-i].COUNT;
 					}
+    				*/
+       				
+       				for ( var key in ratingMap) { // 객체 반복문
+       					let ratingStr = "";
+       					ratingStr += "<div class='progress'>"
+    					ratingStr += "<span class='progress-text'>" + key + " 점 </span>";
+    					ratingStr += "<div class='progress-bar star-pgr' style='width:" + 15 * (key) + "%;'></div>"
+    					ratingStr += "<span class='progress-label'>" + ratingMap[key] + "</span>"
+    					ratingStr += "</div>";
+    					sumRating += key * ratingMap[key];
+    					countRating += ratingMap[key];
+    					$(".no"+ key).html(ratingStr);
+					}
+       				
+       				
+
        				avgRating = sumRating/countRating;
 					let roundedRating = Math.round(avgRating*10)/ 10;
        				
@@ -577,7 +613,7 @@
 					}
        					
        				$(".rating>p").eq(1).html(roundedRating);
-   					$(".progress-container").html(ratingStr);
+   					//$(".progress-container").html(ratingStr);
        				$(".info-table-rw").html(listStr);
        				$(".pagination").html(pageStr);
        			},
