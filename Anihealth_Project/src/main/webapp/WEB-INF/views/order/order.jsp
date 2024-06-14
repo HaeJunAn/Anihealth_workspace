@@ -173,27 +173,9 @@
 
     </style>
 </head>
-<script>
-function updateAddress() {
-    var selectedOption = document.getElementById("delivery-select").selectedOptions[0];
-    document.getElementById("address-details").value = selectedOption.getAttribute("data-address");
-    document.getElementById("zipCode").value = selectedOption.getAttribute("data-phone");
-}
-function checkFormCompletion() {
-    var address = document.getElementById("address-details").value;
-    var zipCode = document.getElementById("zipCode").value;
-    var phone = document.getElementById("phone").value;
-    
-    if (address && zipCode && phone) {
-        document.getElementById("checkout-button").disabled = false;
-    } else {
-        document.getElementById("checkout-button").disabled = true;
-    }
-}
-
-</script>
 <body>
-	<jsp:include page="../common/header.jsp" />
+
+<jsp:include page="../common/header.jsp" />
 <div class="parent">
     <div class="parent-content">
         <div class="header-faq">
@@ -263,7 +245,7 @@ function checkFormCompletion() {
                                 <br>
                                 <label for="delivery-request">배송 요청사항</label>
                                 <select id="delivery-request">
-                                    <option value="">배송요청사항 없음 </option>
+                                    <option value="배송요청사항 없음">배송요청사항 없음 </option>
                                     <option value="문앞에 놔주세요">문앞에 놔주세요</option>
                                     <option value="경비실에 맡겨주세요">경비실에 맡겨주세요</option>
                                 </select>
@@ -317,85 +299,95 @@ function checkFormCompletion() {
             </table>
              <input type="hidden" id="productNos" value="<c:forEach var='oi' items='${requestScope.orderItems}'>${oi.productNo},</c:forEach>" />
         </div>
-        <button class="btn btn-lg right-button" id="checkout-button" onclick="payment()" disabled>결제하기</button>
+        <button class="btn btn-lg right-button" id="checkout-button" onclick="payment()">결제하기</button>
         <br><br><br>
     </div>
 </div>
-        <script>
-        
-       
-        function payment() {
-        	  console.log("test");
-        	  const address = document.getElementById("address-details").value;
-        	  const zipCode = document.getElementById("zipCode").value;
-        	  const phone = document.getElementById("phone").value;
-        	  const delivery = document.getElementById("delivery-request").value;
-				
-        	  let random = Math.floor(Math.random() * 900000 + 100000);
-        	  let random2 = Number(""+new Date().getTime() + random);
-        	  console.log(random2);
-        	  const IMP = window.IMP;
-        	  IMP.init("imp70105832");
-        	  IMP.request_pay(
-        	    {
-        	      pg: "html5_inicis",
-        	      pay_method: "card",
-        	      merchant_uid: random2,
-        	      name: "영양제",
-        	      amount: 100,
-        	      buyer_email: "${requestScope.orderItems[0].email}",
-        	      buyer_name: "${requestScope.orderItems[0].userName}",
-        	      buyer_tel: phone,
-        	      buyer_addr: address,
-        	      buyer_postcode: zipCode,
-        	    },
-        	    async (rsp) => {
-        	      if (rsp.success) {
-        	        console.log("결제성공");
-        	        console.log(rsp);
-					
-        	        let orderItems = [];
-        	        <c:forEach var="oi" items="${requestScope.orderItems}">
-        	          orderItems.push({
-        	            productNo: "${oi.productNo}",
-        	            cartQuantity: "${oi.cartQuantity}",
-        	            cartPrice: "${oi.cartPrice}",
-        	            cartNo : "${oi.cartNo}"
-        	          });
-        	        </c:forEach>
+<script>
+function updateAddress() {
+    var selectedOption = document.getElementById("delivery-select").selectedOptions[0];
+    document.getElementById("address-details").value = selectedOption.getAttribute("data-address");
+    document.getElementById("zipCode").value = selectedOption.getAttribute("data-phone");
+    checkFormCompletion();
+}
 
-        	        const orderData = {
-        	          orderNo: rsp.merchant_uid,
-        	          payCode: rsp.pg_tid,
-        	          orderPrice: 100,
-        	          orderRequest: delivery,
-        	          orderPhone: phone,
-        	          orderAddress: address,
-        	          orderZipcode: zipCode,
-        	          orderItems: orderItems
-        	        };
+function payment() {
+    var address = document.getElementById("address-details").value;
+    var zipCode = document.getElementById("zipCode").value;
+    var phone = document.getElementById("phone").value;
 
-        	        $.ajax({
-                        url: "order.in",
-                        type: "post",
-                        contentType: "application/json",
-                        data: JSON.stringify(orderData),
-                        success: function(result) {
-                            console.log("결제저장 성공");
-                            window.location.href = "${pageContext.request.contextPath}"; 
-                        },
-                        error: function() {
-                            console.log("결제저장 실패");
-                        }
-                    });
-                } else {
-                    console.log("결제실패");
-                }
-            }
-        );
+    if (!address || !zipCode || !phone) {
+        alert("배송지 정보를 입력해야합니다.");
+        return;
     }
-        
-	</script>
+
+    console.log("test");
+    const delivery = document.getElementById("delivery-request").value;
+
+    let random = Math.floor(Math.random() * 900000 + 100000);
+    let random2 = Number("" + new Date().getTime() + random);
+    console.log(random2);
+    const IMP = window.IMP;
+    IMP.init("imp70105832");
+    IMP.request_pay(
+        {
+            pg: "html5_inicis",
+            pay_method: "card",
+            merchant_uid: random2,
+            name: "영양제",
+            amount: 100,
+            buyer_email: "${requestScope.orderItems[0].email}",
+            buyer_name: "${requestScope.orderItems[0].userName}",
+            buyer_tel: phone,
+            buyer_addr: address,
+            buyer_postcode: zipCode,
+        },
+        async (rsp) => {
+            if (rsp.success) {
+                console.log("결제성공");
+                console.log(rsp);
+
+                let orderItems = [];
+                <c:forEach var="oi" items="${requestScope.orderItems}">
+                    orderItems.push({
+                        productNo: "${oi.productNo}",
+                        cartQuantity: "${oi.cartQuantity}",
+                        cartPrice: "${oi.cartPrice}",
+                        cartNo : "${oi.cartNo}"
+                    });
+                </c:forEach>
+
+                const orderData = {
+                    orderNo: rsp.merchant_uid,
+                    payCode: rsp.pg_tid,
+                    orderPrice: 100,
+                    orderRequest: delivery,
+                    orderPhone: phone,
+                    orderAddress: address,
+                    orderZipcode: zipCode,
+                    orderItems: orderItems
+                };
+
+                $.ajax({
+                    url: "order.in",
+                    type: "post",
+                    contentType: "application/json",
+                    data: JSON.stringify(orderData),
+                    success: function(result) {
+                        console.log("결제저장 성공");
+                        window.location.href = "${pageContext.request.contextPath}"; 
+                    },
+                    error: function() {
+                        console.log("결제저장 실패");
+                    }
+                });
+            } else {
+                console.log("결제실패");
+            }
+        }
+    );
+}
+</script>
 <jsp:include page="../common/footer.jsp" />
 </body>
 </html>

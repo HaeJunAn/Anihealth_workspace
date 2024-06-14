@@ -40,41 +40,51 @@ public class ReviewController {
 	}
 	
 	@ResponseBody
-	@GetMapping(value = "plist.re", produces="application/json; charset=UTF-8")
+	@GetMapping(value = "plist.re", produces = "application/json; charset=UTF-8")
 	public String selectProductReview(Review r, int currentPage) {
-		ArrayList<HashMap<String, Object>> ratingList = reviewService.selectRatingCount(r.getProductNo());
-		
-		int listCount = 0;
-		if (r.getRating() != 0) {
-			for (HashMap<String, Object> rMap : ratingList) {
-				if (Integer.parseInt(String.valueOf(rMap.get("RATING"))) == r.getRating()) {
-					listCount = Integer.parseInt(String.valueOf(rMap.get("COUNT")));
-					break;
-				}
-			}
-		} else {
-			for (HashMap<String, Object> rMap : ratingList) {
-				listCount += Integer.parseInt(String.valueOf(rMap.get("COUNT")));
-			}
-		}
-		
-		//System.out.println(ratingList);
-		for (int i = 5; i > 0; i--) {
-			Boolean tf = false;
-			for (HashMap<String, Object> rMap : ratingList) {
-				tf = tf || (((BigDecimal) rMap.get("RATING")).intValue() == i);
-				if (tf) {
-					break;
-				}
-			}
-			//System.out.println(tf);
-			if(!tf) {
-				HashMap<String, Object> newrMap = new HashMap<>();
-				newrMap.put("RATING", i);
-				newrMap.put("COUNT", 0);
-				ratingList.add(newrMap);
-			}
-		}
+	    ArrayList<HashMap<String, Object>> ratingList = reviewService.selectRatingCount(r.getProductNo());
+
+	    int listCount = 0;
+	    if (r.getRating() != 0) {
+	        for (HashMap<String, Object> rMap : ratingList) {
+	            if (Integer.parseInt(String.valueOf(rMap.get("RATING"))) == r.getRating()) {
+	                listCount = Integer.parseInt(String.valueOf(rMap.get("COUNT")));
+	                break;
+	            }
+	        }
+	    } else {
+	        for (HashMap<String, Object> rMap : ratingList) {
+	            listCount += Integer.parseInt(String.valueOf(rMap.get("COUNT")));
+	        }
+	    }
+
+	    // System.out.println(ratingList);
+	    for (int i = 5; i > 0; i--) {
+	        Boolean tf = false;
+	        for (HashMap<String, Object> rMap : ratingList) {
+	            Object ratingObj = rMap.get("RATING");
+	            int rating = 0;
+	            if (ratingObj instanceof BigDecimal) {
+	                rating = ((BigDecimal) ratingObj).intValue();
+	            } else if (ratingObj instanceof Integer) {
+	                rating = (Integer) ratingObj;
+	            } else {
+	                rating = Integer.parseInt(ratingObj.toString());
+	            }
+
+	            tf = tf || (rating == i);
+	            if (tf) {
+	                break;
+	            }
+	        }
+	        // System.out.println(tf);
+	        if (!tf) {
+	            HashMap<String, Object> newrMap = new HashMap<>();
+	            newrMap.put("RATING", i);
+	            newrMap.put("COUNT", 0);
+	            ratingList.add(newrMap);
+	        }
+	    }
 		/*
 		TreeMap<String, String> ratingMap = new TreeMap<>();
 		int listCount = 0;
