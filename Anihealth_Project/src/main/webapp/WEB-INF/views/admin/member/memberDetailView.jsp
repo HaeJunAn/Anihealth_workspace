@@ -130,6 +130,24 @@
         margin: 5px 0;
     }
     /* 배송지 스타일 끝 */
+    
+    /* 버튼 영역 시작 */
+    .btns a {
+       border: none;
+       background-color: #f0f0f0; 
+       color: #202020; 
+       padding: 10px 25px; 
+       margin: 0 5px; 
+       cursor: pointer;
+       border-radius: 10px; 
+       margin-right: 15px;
+       border: 1px solid  rgb(82, 166, 121);
+   }
+
+   .btns a:hover {
+       background-color:  rgb(198, 228, 212);
+   }
+   /* 버튼 영역 끝 */
 </style>
 </head>
 <body>
@@ -211,6 +229,28 @@
 				</tfoot>
 			</table>
 		</div>
+		
+		<div class="btns" align="center">
+        	<a class="btn btn-lg" onclick="postFormSubmit(1);">수정</a>
+        	<a class="btn btn-lg" href="member.ad">목록</a>
+        </div>
+        
+         <form id="postForm" action="" method="post">
+        	<input type="hidden" name="userNo" value="${ requestScope.m.userNo }" >
+        </form>
+        
+        <script>
+        	function postFormSubmit(num) {
+        		
+        		if(num == 1) {
+        		
+        			$("#postForm").attr("action", "updateFormMember.ad").submit(); 
+        			
+        		}
+        		
+        	}
+        </script>
+		
 	</div>
 </body>
 </html>

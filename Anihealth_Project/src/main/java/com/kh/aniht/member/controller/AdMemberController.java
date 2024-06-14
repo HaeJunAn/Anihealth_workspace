@@ -2,10 +2,13 @@ package com.kh.aniht.member.controller;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -20,7 +23,7 @@ public class AdMemberController { // 클래스 영역 시작
 
 	@Autowired
 	private AdMemberService memberService;
-	
+
 	// 회원 목록조회 (+ 페이징 처리)
 	@GetMapping(value="member.ad")
 	public String selectMemberList(@RequestParam(value="cpage", defaultValue="1") int currentPage, Model model) {
@@ -56,5 +59,36 @@ public class AdMemberController { // 클래스 영역 시작
 		
 	}
 	
+	// 회원 정보 수정 페이지//
+	@PostMapping(value="updateFormMember.ad")
+	public ModelAndView updateForm(int userNo, ModelAndView mv) {
+		
+		Member m = memberService.selectMember(userNo);
+		
+		mv.addObject("m", m).setViewName("admin/member/memberUpdateForm");
+		
+		return mv;
+		
+	}
+	
+	// 회원 정보 수정
+	@PostMapping(value="updateMember.ad")
+	public String updateMember(Member m, HttpSession session) {
+		
+		int result = memberService.updateMember(m);
+		
+		if(result > 0) { // 성공
+			
+			session.setAttribute("alertMsg", "성공적으로 회원 정보가 수정되었습니다.");
+			
+		} else { // 실패
+			
+			session.setAttribute("alertMsg", "회원 정보을 실패하였습니다.");
+			
+		}
+		
+		return "redirect:/detailMember.ad?mno=" + m.getUserNo();
+			
+	}
 	
 } // 클래스 영역 끝

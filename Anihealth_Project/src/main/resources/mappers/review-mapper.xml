@@ -19,6 +19,8 @@
 		<result column="PRODUCT_NO" property="productNo" />
 		<result column="COUNT" property="count"/>
 		<result column="PRODUCT_NAME" property="productName"/>
+		<!-- 관리자 리뷰 조회 - 정민 -->
+		<result column="USER_NICK" property="userNick" />
 	</resultMap>
 	<!-- 별점별 개수 -->
 	<select id="selectRatingCount" parameterType="_int" resultMap="reviewResultSet"> 
@@ -106,6 +108,48 @@
 		    ORDER BY R.REVIEW_NO DESC) R 
 		WHERE ROWNUM BETWEEN 1 AND 5 
 	</select>
-
+	
+	
+	<!-- ******** 정민 : 관리자 ********** -->
+	<select id="selectAdReviewListCount" resultType="_int">
+		SELECT COUNT(*)
+		  FROM REVIEW
+	</select>
+	
+	<select id="selectAdReviewList" resultMap="reviewResultSet">
+		SELECT REVIEW_NO
+	         , RATING
+	         , REVIEW_TITLE
+	         , REVIEW_CONTENT
+	         , REVIEW_FILE_PATH
+	         , TO_CHAR(REVIEW_DATE, 'YY/MM/DD HH:MI:SS') "REVIEW_DATE"
+	         , REVIEW_STATUS
+	         , ORDER_PRODUCT_NO
+	         , USER_NO
+	         , USER_NICK
+             , PRODUCT_NAME
+		  FROM REVIEW
+		  JOIN MEMBER USING (USER_NO)
+          JOIN ORDER_PRODUCT USING (ORDER_PRODUCT_NO)
+          JOIN PRODUCT  USING (PRODUCT_NO)
+		  ORDER BY REVIEW_NO DESC    
+	</select>
+	
+	<!-- 리뷰 삭제 -->
+	<update id="deleteAdReview" parameterType="_int">
+		UPDATE REVIEW
+		   SET REVIEW_STATUS = 'N'
+		 WHERE REVIEW_NO = #{reviewNo}
+		   AND REVIEW_STATUS = 'Y'
+	</update>
+	
+	<!-- 리뷰 복구 -->
+	<update id="recoverAdReview" parameterType="_int">
+		UPDATE REVIEW
+		   SET REVIEW_STATUS = 'Y'
+		 WHERE REVIEW_NO = #{reviewNo}
+		   AND REVIEW_STATUS = 'N'
+	</update>
+	<!-- ******** 정민 : 관리자 ********** -->
   
 </mapper>

@@ -44,8 +44,13 @@ public class AdMemberDao { // 클래스 영역 시작
 		
 		return (ArrayList)sqlSession.selectList("memberMapper.selectAdDelivery", userId);
 		
-	} 
+	}
 
-	
+	// 회원 정보 수정
+	public int updateMember(SqlSessionTemplate sqlSession, Member m) {
+		
+		return sqlSession.update("memberMapper.updateAdMember", m);
+		
+	} 
 	
 } // 클래스 영역 끝
