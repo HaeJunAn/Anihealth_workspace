@@ -33,6 +33,9 @@
 				.surveyResult-wrap>div>section {
 					width: 100%;
 				}
+				.surveyResult-wrap th, td {
+					padding: 12px;
+				}
 				.outline >* {
 					margin-bottom: 20px;
 				}
@@ -244,9 +247,19 @@
 					margin: auto;
 				}
 
-				.product-selected input {
-					float: left;
+				.item-header {
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					font-size: 30px;
+					gap: 5px;
+					margin-bottom: 20px;
 				}
+				.item-header>.material-symbols-outlined {
+					font-size: 35px;
+					color: #9ac5ab;
+				}
+				
 
 				.product-selected img {
 					width: 150px;
@@ -257,22 +270,45 @@
 
 				.product-selected table {
 					width: 100%;	
-					border-top : 1px solid #d3d3d3;		
+					border-top: 1px solid #d3d3d3;		
+				}
+				.product-selected tr {
+					height: 70px;
 				}
 				.product-selected td{
-					text-align: center;
 					border-bottom : 1px solid #d3d3d3;
 					font-size: 20px;
+					height: 100%
 				}
 				.product-selected h3 {
 					margin-bottom: 20px;
 				}
+				.product-title {
+					position: relative;
+				}
+				.product-title>.material-symbols-outlined {
+					left: 10px;
+					top: 50px;
+					font-size: 30px;
+					color: #9ac5ab;
+				}
+				.effect-icon {
+					position: relative;
+				}
+				.effect-icon>.material-symbols-outlined {
+					position: absolute;
+					left: 10px;
+					top: 23px;
+					font-size: 30px;
+					color: #9ac5ab;
+				}
+
 				.effect-icon img {
 					width: 50px;
+					margin-left: 5px;
+					margin-right: 5px;
 				}
-				th, td {
-					padding: 12px;
-				}
+
 
 				#loading {
 					height: 800px;
@@ -359,7 +395,9 @@
 					<!-- 체중/bcs 정보 -->
 					<section align="center">
 						<!-- bcs -->
-						<h3>BCS 지수</h3>
+						<div class="item-header">
+							<span>BCS</span><span class="material-symbols-outlined">monitor_weight</span>
+						</div>
 						<span class="material-symbols-outlined help">help</span>
 						<div>
 							<img src="resources/simg/bcs1_2.png"><img src="resources/simg/bcs2_2.png"><img src="resources/simg/bcs3_2.png"><img src="resources/simg/bcs4_2.png"><img src="resources/simg/bcs5_2.png">
@@ -370,7 +408,7 @@
 								<h4>bcs 지수란?</h4>
 								<p>BCS(신체충실지수)는 반려동물의 비만도를 측정하는 지표로서 
 									미국동물병원협회(AAHA) 등 많은 전문 기관에서 사용하고 있습니다. 
-									1단계에 가까울수록 저체중, 9단계에 가까울수록 과체중입니다.</p>
+									1단계에 가까울수록 저체지방, 9단계에 가까울수록 고체지방입니다.</p>
 							</div>
 						</div>
 						<p>${bcsInfo}</p>
@@ -432,7 +470,9 @@
 				</div>
 				<div class="effect-selected">
 					<!-- 건강 세부 정보 -->
-					<h3>건강 상세</h3>
+					<div class="item-header">
+						<span>건강 상세</span><span class="material-symbols-outlined">ecg_heart</span>
+					</div>
 					<div class="effect-total">
 						<div><span class="material-symbols-outlined" style="color: red;">warning</span><span>경고 ${effectInfo.warning}개</span></div>
 						<div><span class="material-symbols-outlined" style="color: yellow;">error</span><span>주의 ${effectInfo.caution}개</span></div>
@@ -471,7 +511,9 @@
 				<div class="product-selected">
 					<!-- 추천 영양제 정보(5개)-->
 					<form action="">
-						<h3>추천제품</h3>
+						<div class="item-header">
+							<span>추천제품</span><span class="material-symbols-outlined">pill</span>
+						</div>
 						<table>
 							<c:forEach var="p" items="${pList}" varStatus="status">
 									<tr>
@@ -486,8 +528,13 @@
 											<img src="resources/pimg/skin-hair.png">
 											<!-- <img src="${p.productThumbnailPath}"> -->
 										</td>
-										<td>
-											${p.productName}
+										<td class="product-title">
+											<span>${p.productName}</span>
+											<span class="star" >
+												<i class="fa-solid fa-star " style="color: gold;">
+													<span class="rating${p.productNo}">(3.9점)</span>
+												</i>
+											</span> 	
 										</td>
 									</tr>
 									<tr>
@@ -495,7 +542,74 @@
 										</td>
 									</tr>
 							</c:forEach>
+							<style>
+								.product-title {
+									position: relative;
+									text-align: left;
+
+								}
+								.product-title>span:nth-child(1) {
+									margin-left: 10px;
+								}
+								.star{
+									position: absolute;
+									bottom: 3px;
+									right: 5px;
+								}
+								.star span {
+									font-size: 15px;
+									font-weight: 100;
+								}
+							</style>
+							<!-- 
+							<tr>
+								<td class="product-title">	
+									<span>액티베이트 스몰 60p</span>
+									<span class="star" >
+										<i class="fa-solid fa-star " style="color: gold;">
+											<span>(3.9점)</span>
+										</i>
+									</span> 
+								</td>
+							</tr>
+							<tr>
+								<td id="effect-icon4" class="effect-icon">
+									<img src="resources/simg/heart.png"><img src="resources/simg/immunity.png"><img src="resources/simg/kidney.png">
+								</td>
+							</tr>
+							-->
 						</table>
+						<!--  
+						<style>
+							.temp {
+								width: 100%;
+								display: flex;
+								justify-content: space-evenly;
+								align-items: center;
+							}
+							.temp span img {
+								width: 50px;
+							}
+							.temp2{
+								display: flex;
+								flex-direction: column;
+								justify-content: space-evenly;
+							}
+						</style>
+						<div class="temp">
+							<div>
+								<label for="item1">
+									<input type="checkbox" name="recommendedProduct" id="item1" value="3">
+								</label>
+							</div>
+							<div>
+								<img src="resources/pimg/skin-hair.png">
+							</div>
+							<div class="temp2">
+								<span>영양제C 20000원</span><span><img src="resources/simg/skin.png"> <img src="resources/simg/eye.png"> <img src="resources/simg/immunity.png"></span>
+							</div>
+						</div>
+						-->
 						<div><button type="submit">장바구니 담기</button></div>
 					</form>
 				</div>
@@ -536,10 +650,10 @@
 					setTimeout(function() {
 						$("#loading").hide();
 						$("main").show();
-					}, 4000);
+					}, 400);
 
 					
-
+					// bcs 아이콘
 					$(".weight section").eq(0).find("img").each(function (index) {
 						if(index != ${(weightInfo.bcsNo - 1) / 2}) {
 							$(this).addClass("bcsInactive");
@@ -547,13 +661,15 @@
 							$(this).addClass("bcsActive");
 						}
 					});
-
+					//모달
 					$(".help").on("click", function () {
 						$("#helpModal").show();
 					});
 					$(".close").on("click", function(){ 
 						$("#helpModal").hide();
 					});
+					// 미리체크
+					$("input[type=checkbox]").prop('checked', true);
 
 					// $(document).on("mouseenter", ".product-selected tr:odd", function () { 
 					// 	$(this).css("opacity", "0.8");
@@ -596,8 +712,11 @@
 						method: "get",
 						data: { productNoArr: productNoArr },
 						traditional: true, // 요청값이 배열일때
-						success: function (eList) {
+						success: function (map) {
+							let eList = map.eList;
 							console.log(eList);
+							let ratingList = map.ratingList;
+							console.log(ratingList);
 							let effectStr = "<span> </span>";
 							// 일반 for 가능
 							eList.forEach(function (eMap) {
@@ -607,7 +726,11 @@
 
 								$("#effect-icon" + eMap.productNo).html(effectStr);
 									effectStr = "<span> </span>";
+								
 							});
+							ratingList.forEach(function (rMap) {
+								$(".rating" + rMap.productNo).html("(" + (Math.round(rMap.rating *10)/10.0) + ")");
+							})
 						},
 						error: function () {
 							console.log("효과 조회 실패!");

@@ -57,7 +57,14 @@ public class ProductServiceImpl implements ProductService {
 			for (int productNo :  productNoArr) {
 				HashMap<String, Object> rMap = new HashMap<>();
 				rMap.put("productNo", productNo);
-				rMap.put("rating", productDao.selectRating(sqlSession, productNo));
+				
+				Object rating = productDao.selectRating(sqlSession, productNo);
+				
+				if (rating != null) {
+				    rMap.put("rating", rating);
+				} else {
+				    rMap.put("rating", 0); 
+				}
 				
 				rList.add(rMap);
 			}
