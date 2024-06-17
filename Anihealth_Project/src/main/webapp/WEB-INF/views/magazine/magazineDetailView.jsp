@@ -66,8 +66,9 @@
         }
 
         .content-table img {
-            max-width: 100%;
-            /* height: 500px;  */
+              width:52em;
+            /* max-width: 700px; */
+            height: 450px; 
             display: block;
             margin: 0 auto;
         }

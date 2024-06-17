@@ -55,7 +55,7 @@ public interface MemberService {
 		int orderRefund(String ono);
 		
 		// 마이페이지 - 상세 주문내역 리스트
-		ArrayList<OrderProduct> selectOrderDetailList(int ono);
+		ArrayList<OrderProduct> selectOrderDetailList(String ono);
 
 		// 마이페이지 - 배송지 리스트
 		ArrayList<Delivery> selectDeliveryList(Member m);

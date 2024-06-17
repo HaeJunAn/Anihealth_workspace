@@ -89,7 +89,7 @@ public int orderRefund(SqlSessionTemplate sqlSession, String ono) {
 	return sqlSession.update("memberMapper.orderRefund", ono);
 }
 
-public ArrayList<OrderProduct> selectOrderDetailList(SqlSessionTemplate sqlSession, int ono) {
+public ArrayList<OrderProduct> selectOrderDetailList(SqlSessionTemplate sqlSession, String ono) {
 	
 	return (ArrayList)sqlSession.selectList("memberMapper.selectOrderDetailList", ono);
 	

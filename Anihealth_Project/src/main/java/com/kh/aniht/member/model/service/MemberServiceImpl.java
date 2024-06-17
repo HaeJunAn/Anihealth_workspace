@@ -115,7 +115,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public ArrayList<OrderProduct> selectOrderDetailList(int ono) {
+	public ArrayList<OrderProduct> selectOrderDetailList(String ono) {
 		
 		return memberDao.selectOrderDetailList(sqlSession, ono);
 	}

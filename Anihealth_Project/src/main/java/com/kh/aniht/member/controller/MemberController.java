@@ -495,18 +495,18 @@ public class MemberController {
 		if(result > 0) {
 			
 			session.setAttribute("alertMsg", "환불처리가 완료되었습니다.");
-			
+			return "redirect:/myPageOrder.me";
 		} else {
 			
 			session.setAttribute("alertMsg", "환불이 완료되지 않았습니다. 다시 시도해주세요.");
+			return "redirect:/myPageOrder.me";
 		}
-		return "member/myPageOrder";
 	}
 	
 	
 	// 마이페이지 상세 주문내역 이동
 	@GetMapping("myPageOrderDetail.me")
-	public String myPageOrderDetail(int ono,
+	public String myPageOrderDetail(String ono,
 							        HttpSession session,
 							        Model model) {
 		
