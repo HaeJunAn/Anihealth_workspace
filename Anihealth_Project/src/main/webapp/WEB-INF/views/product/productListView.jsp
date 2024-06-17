@@ -433,7 +433,7 @@
 
 <jsp:include page="../common/footer.jsp" />
 
-<!--별점조회-유상, 별숨기기,리유없음-진희  -->
+<!--별점조회-유상, 별숨기기-리뷰없음-진희  -->
 <script>
     $(function () {
         let productNoArr = [];

@@ -214,7 +214,7 @@
    
 
             <div class="cart-background">
-                <button class="btn btn-lg right-button" id="checkout-button" onclick = "location.href = 'list.iq'" >목록으로</button>
+                <a class="btn btn-lg right-button" id="checkout-button" onclick = "location.href = 'list.iq'" >목록으로</a>
 
                 <table class="cart-table">
                
@@ -239,7 +239,6 @@
 								    	</c:otherwise>
 							       </c:choose>    
 							 </th>
-
                         </tr>
                     </thead>
 
@@ -248,9 +247,7 @@
                         
                         <tr class="cart-table-inner">
                             <td class="content-iq" colspan="3" style="font-size: large;">
-                                <p style="height:150px;">
-                                    ${ requestScope.iq.inquiryContent }
-                                </p>
+                                <p style="height:150px; white-space: pre-wrap;">${ requestScope.iq.inquiryContent }</p>
                             </td>  
                         </tr>   
                         
@@ -263,15 +260,14 @@
 	                    <thead>
 	                        <tr>    
 	                            <th class="cart-table-item1" id="product-header">답변내용</th>
-	                           <td style="text-align: right;">${requestScope.iq.inquiryAnswerContent} 답변날짜</td>
-	                            
+	                           <td style="text-align: right;">${requestScope.iq.inquiryAnswerContent} 답변날짜</td>             
 	                        </tr>
 	                    </thead>
 	
 	                    <tbody class="cart-table-content1">
 	                        <tr class="cart-table-inner1">
 	                            <td colspan="2" class="content-iq1" style="font-size: large;">
-	                                <p style="white-space: pre-wrap; height: 150px;"> ${ requestScope.iq.inquiryAnswer}답변내용 답변내용 답변내용</p>
+	                                <p style="white-space: pre-wrap; height: 150px;">${ requestScope.iq.inquiryAnswer}답변내용 답변내용 답변내용</p>
 	                            </td>
 	                        </tr>   
 	                    </tbody>

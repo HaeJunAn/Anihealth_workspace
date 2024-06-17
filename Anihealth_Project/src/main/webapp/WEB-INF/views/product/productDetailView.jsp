@@ -329,50 +329,84 @@
     </script>
     
     
-    <script>
-		 // 하트 버튼 클릭 이벤트
-		    document.getElementById("heart1").addEventListener("click", function() {
-		        $.ajax({
-		            url: "checkLogin",
-		            type: "get",
-		            success: function(response) {
-		                if (response.loggedIn) {
-		                    const form = document.getElementById("addToCartForm");
-		                    const formData = {
-		                        productNo: form.productNo.value,
-		                        userNo: response.userNo, // 로그인한 사용자의 USER_NO를 사용
-		                    };
-		                    $.ajax({
-		                        url: "addFavorite",
-		                        type: "post",
-		                        contentType: "application/json",
-		                        data: JSON.stringify(formData),
-		                        success: function(result) {
-		                            if (result.success) {
-		                                console.log(result.message);
-		                                alert(result.message);
-		                            } else {
-		                                console.log(result.message);
-		                                alert(result.message);
-		                            }
-		                        },
-		                        error: function() {
-		                            console.log("하트 추가 실패");
-		                            alert("하트 추가 실패");
-		                        }
-		                    });
-		                } else {
-		                    alert("로그인이 필요합니다.");
-		                }
-		            },
-		            error: function() {
-		                console.log("로그인 상태 확인 실패");
-		                alert("로그인 상태 확인 실패");
-		            }
-		        });
-		    });
-    
-    </script>
+   <script>
+			$(document).ready(function() {
+			    const heartBtn = $("#heart1");
+			    const productNo = ${product.productNo}; // 서버 측에서 할당된 실제 상품 번호로 변경
+			
+			    // 페이지 로드 시 위시리스트 상태 확인
+			    checkWishlistStatus();
+			
+			    // 하트 버튼 클릭 이벤트
+			    heartBtn.click(function() {
+			        $.ajax({
+			            url: "checkLogin1",
+			            type: "GET",
+			            success: function(response) {
+			                if (response.loggedIn) {
+			                    const formData = {
+			                        productNo: productNo,
+			                        userNo: response.userNo
+			                    };
+			
+			                    // Ajax 요청: toggleHeart.pd로 POST 요청
+			                    $.ajax({
+			                        url: "toggleHeart.pd",
+			                        type: "POST",
+			                        contentType: "application/json",
+			                        data: JSON.stringify(formData),
+			                        success: function(result) {
+			                            if (result.success) {
+			                                console.log(result.message);
+			                                alert(result.message);
+			
+			                                // 하트 버튼 상태 업데이트
+			                                if (result.added) {
+			                                    heartBtn.text("❤️"); // 하트 추가 상태
+			                                } else {
+			                                    heartBtn.text("🤍"); // 하트 제거 상태
+			                                }
+			                            } else {
+			                                console.log(result.message);
+			                                alert(result.message);
+			                            }
+			                        },
+			                        error: function() {
+			                            console.log("서버 오류: 하트 추가/삭제 실패");
+			                            alert("서버 오류: 하트 추가/삭제 실패");
+			                        }
+			                    });
+			                } else {
+			                    alert("로그인이 필요합니다.");
+			                }
+			            },
+			            error: function() {
+			                console.log("로그인 상태 확인 실패");
+			                alert("로그인 상태 확인 실패");
+			            }
+			        });
+			    });
+			
+			    function checkWishlistStatus() {
+			        $.ajax({
+			            url: "checkWishlistStatus",
+			            type: "GET",
+			            data: { productNo: productNo },
+			            success: function(response) {
+			                if (response.inWishlist) {
+			                    heartBtn.text("❤️"); // 하트 추가 상태
+			                } else {
+			                    heartBtn.text("🤍"); // 하트 제거 상태
+			                }
+			            },
+			            error: function() {
+			                console.log("위시리스트 상태 확인 실패");
+			                alert("위시리스트 상태 확인 실패");
+			            }
+			        });
+			    }
+			});
+  </script>
           
             <div class="cont">
                 <ul class="list">
@@ -383,6 +417,14 @@
                         <!-- 상세 정보 리스트 추가 -->
                         <div class="detail-list-container">
                             <h4>상세 정보</h4>
+                            <div>
+                            	<table>
+                            		<tr>
+                            			<td>1</td>
+                            			<td>2</td>
+                            		</tr>
+                            	</table>
+                            </div>
                              <img src="${pageContext.request.contextPath}/${product.productDetailPath}" 
                                 alt="상세 정보 이미지"
                                 style=" border: 1px solid;"
