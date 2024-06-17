@@ -140,5 +140,20 @@ public ArrayList<Inquiry> selectInquiryList(SqlSessionTemplate sqlSession, Membe
 	return (ArrayList)sqlSession.selectList("memberMapper.selectInquiryList", m);
 }
 
+public int nickUpdate(SqlSessionTemplate sqlSession, Member m) {
+	
+	return sqlSession.update("memberMapper.nickUpdate", m);
+}
+
+public ArrayList<Member> selectMyPageList(SqlSessionTemplate sqlSession, Member m) {
+	
+	return (ArrayList)sqlSession.selectList("memberMapper.selectMyPageList", m);
+}
+
+public int emailUpdate(SqlSessionTemplate sqlSession, Member m) {
+	
+	return sqlSession.update("memberMapper.emailUpdate", m);
+}
+
 
 } // 클래스 영역 끝

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -229,58 +230,59 @@
             </div>
             <div class="content-my">
                 <h2>회원 정보 관리 <img src="resources/img/memIcon.png" width="40px"></h2>
-                
-                <form action="update.me">
-                    <table id="myPage_tb">
-                        <tr>
-                            <th>아이디</th>
-                            <td>
-                                <input type="text" class="form-control" value="${ sessionScope.loginUser.userId }" name="userId" id="userId" readonly>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>닉네임</th>
-                            <td>
-                                <input type="text" class="form-control" value="${ sessionScope.loginUser.userNick }" readonly>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>이름</th>
-                            <td>
-                                <input type="text" class="form-control" value="${ sessionScope.loginUser.userName }" name="userName" id="userName" placeholder="이름을 입력해주세요" required>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>이메일</th>
-                            <td>
-                                <input type="text" class="form-control" value="${ sessionScope.loginUser.email }" readonly>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>전화번호</th>
-                            <td>
-                                <input type="text" class="form-control" value="${ sessionScope.loginUser.phone }" name="phone" id="phone" placeholder="전화번호를 입력해주세요 (- 포함)" required>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>생년월일</th>
-                            <td>
-                                <input type="date" class="form-control" value="${ sessionScope.loginUser.userBirthday }" id="userBirthday" name="userBirthday">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="2" height="10px"></td>
-                        </tr>
-                        <tr>
-                            <td colspan="2" class="form-buttons" style="text-align: center;">
-                                <button type="submit" class="btn" id="btn-update">수정하기</button>
-                                <button type="button" class="btn" id="btn-pwdUpdate" data-toggle="modal" data-target="#pwdUpdateForm">비밀번호 변경</button>
-                                <button type="button" class="btn" id="btn-delete" data-toggle="modal" data-target="#deleteForm">회원탈퇴</button>
-                                
-                            </td>
-                        </tr>
-                    </table>
-                </form>
+                <c:forEach var="m" items="${ requestScope.list }">
+	                <form action="update.me">
+	                    <table id="myPage_tb">
+	                        <tr>
+	                            <th>아이디</th>
+	                            <td>
+	                                ${ m.userId }
+	                            </td>
+	                        </tr>
+	                        <tr>
+	                            <th>닉네임</th>
+	                            <td>
+	                                ${ m.userNick }
+	                            </td>
+	                        </tr>
+	                        <tr>
+	                            <th>이름</th>
+	                            <td>
+	                                ${ m.userName }
+	                            </td>
+	                        </tr>
+	                        <tr>
+	                            <th>이메일</th>
+	                            <td>
+	                                ${ m.email }
+	                            </td>
+	                        </tr>
+	                        <tr>
+	                            <th>전화번호</th>
+	                            <td>
+	                                ${ m.phone }
+	                            </td>
+	                        </tr>
+	                        <tr>
+	                            <th>생년월일</th>
+	                            <td>
+	                                ${ m.userBirthday }
+	                            </td>
+	                        </tr>
+	                        <tr>
+	                            <td colspan="2" height="10px"></td>
+	                        </tr>
+	                        <tr>
+	                            <td colspan="2" class="form-buttons" style="text-align: center;">
+	                                <a class="btn" href="myPageUpdate.me" id="btn-update">수정하기</a>
+	                                <button type="button" class="btn" id="btn-pwdUpdate" data-toggle="modal" data-target="#pwdUpdateForm">비밀번호 변경</button>
+	                                <button type="button" class="btn" id="btn-delete" data-toggle="modal" data-target="#deleteForm">회원탈퇴</button>
+	                                
+	                            </td>
+	                        </tr>
+	                    </table>
+	                </form>
+                </c:forEach>
                 <div class="gray-line"></div>
             </div>
         </div>

@@ -380,11 +380,69 @@ public class MemberController {
 	
 	// 마이페이지 이동
 	@GetMapping("myPage.me")
-	public String myPage() {
+	public String myPage(HttpSession session,
+						 Member m,
+						 Model model) {
+		
+		m.setUserId(((Member)session.getAttribute("loginUser")).getUserId());
+		
+		ArrayList<Member> list = memberService.selectMyPageList(m);
+	
+		model.addAttribute("list", list);
 		
 		return "member/myPageMain";
 		
 	}
+	
+	// 마이페이지 수정하기 이동
+	@GetMapping("myPageUpdate.me")
+	public String myPageUpdate() {
+		
+		return "member/myPageMainUpdate";
+	}
+	
+	// 마이페이지 수정하기 - 닉네임 변경
+	@PostMapping("nickUpdate.me")
+	public String nickUpdate(Member m,
+							 HttpSession session) {
+		// System.out.println(m);
+		
+		int result = memberService.nickUpdate(m);
+		
+		if(result > 0) {
+			
+			session.setAttribute("alertMsg", "닉네임이 변경되었습니다.");
+
+			((Member)session.getAttribute("loginUser")).setUserNick(m.getUserNick());;
+			
+		} else {
+			
+			session.setAttribute("alertMsg", "닉네임이 변경되지 않았습니다. 다시 시도해주세요.");
+		}
+		return "redirect:/myPage.me";
+	}
+	
+	// 마이페이지 수정하기 - 이메일 변경
+	@PostMapping("emailUpdate.me")
+	public String emailUpdate(Member m,
+							 HttpSession session) {
+		// System.out.println(m);
+		
+		int result = memberService.emailUpdate(m);
+		
+		if(result > 0) {
+			
+			session.setAttribute("alertMsg", "이메일이 변경되었습니다.");
+
+			((Member)session.getAttribute("loginUser")).setEmail(m.getEmail());
+		
+		} else {
+			
+			session.setAttribute("alertMsg", "이메일이 변경되지 않았습니다. 다시 시도해주세요.");
+		}
+		return "redirect:/myPage.me";
+	}
+	
 	
 	// 마이페이지 - 회원탈퇴
 	@PostMapping("delete.me")

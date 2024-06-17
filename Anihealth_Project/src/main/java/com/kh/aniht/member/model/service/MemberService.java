@@ -84,6 +84,15 @@ public interface MemberService {
 		// 마이페이지 - 문의 조회
 		ArrayList<Inquiry> selectInquiryList(Member m);
 
+		// 마이페이지 - 닉네임 수정
+		int nickUpdate(Member m);
+
+		// 마이페이지 조회
+		ArrayList<Member> selectMyPageList(Member m);
+
+		// 마이페이지 - 이메일 변경
+		int emailUpdate(Member m);
+
 
 
 		

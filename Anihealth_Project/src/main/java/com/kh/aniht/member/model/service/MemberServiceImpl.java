@@ -174,6 +174,24 @@ public class MemberServiceImpl implements MemberService {
 		return memberDao.selectInquiryList(sqlSession, m);
 	}
 
+	@Override
+	public int nickUpdate(Member m) {
+		
+		return memberDao.nickUpdate(sqlSession, m);
+	}
+
+	@Override
+	public ArrayList<Member> selectMyPageList(Member m) {
+		
+		return memberDao.selectMyPageList(sqlSession, m);
+	}
+
+	@Override
+	public int emailUpdate(Member m) {
+		
+		return memberDao.emailUpdate(sqlSession, m);
+	}
+
 	
 
 	

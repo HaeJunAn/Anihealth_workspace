@@ -30,6 +30,7 @@
 			<mapping path="/order.re"/>
 			<mapping path="/myPage.me"/>
 			<mapping path="/list.iq" />
+			<mapping path="/myPageUpdate.me" />			
 			<mapping path="/myPageDelivery.me"/>
 			<mapping path="/myPageOrder.me"/>
 			<mapping path="/myPageRefund.me"/>
