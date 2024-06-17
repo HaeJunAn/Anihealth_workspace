@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
+import com.kh.aniht.product.model.service.ProductService;
+import com.kh.aniht.product.model.service.ProductServiceImpl;
 import com.kh.aniht.product.model.vo.Product;
 import com.kh.aniht.survey.model.service.SurveyService;
 import com.kh.aniht.survey.model.vo.Survey;
@@ -26,6 +28,9 @@ import com.kh.aniht.survey.model.vo.SurveyResponse;
 public class SurveyController {
 	@Autowired
 	private SurveyService surveyService;
+	
+    @Autowired
+    private ProductService productService;
 
 	@GetMapping("survey.su")
 	public String surveyForm() {
@@ -81,11 +86,18 @@ public class SurveyController {
 	@ResponseBody
 	@GetMapping(value = "selectEffect.su", produces="application/json; charset=UTF-8")
 	public String selectEffectList(int[] productNoArr) {
+//		for (int i : productNoArr) {
+//			System.out.println("w" + i);
+//		}
 		ArrayList<HashMap<String, Object>> eList = surveyService.selectEffectList(productNoArr);
-
+		ArrayList<HashMap<String, Object>> ratingList = productService.selectRating(productNoArr); //bean 써야함
 		//System.out.println(eList);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("eList", eList);
+		map.put("ratingList", ratingList);
 		
-		return new Gson().toJson(eList);
+		
+		return new Gson().toJson(map);
 	}
 	
 	// 설문결과 객체화/정렬

@@ -157,7 +157,7 @@
     	SELECT AVG(RATING)
 		 FROM REVIEW R
 		 JOIN ORDER_PRODUCT OP ON (R.ORDER_PRODUCT_NO = OP.ORDER_PRODUCT_NO)
-		WHERE OP.PRODUCT_NO = ${productNo}
+		WHERE OP.PRODUCT_NO = #{productNo}
     </select>
 	
 	<!-- 장바구니 넣기전 상품 중복검사 해준 -->

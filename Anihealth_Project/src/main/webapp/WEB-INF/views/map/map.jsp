@@ -46,7 +46,7 @@
 	
 	#address {
 		display: flex;
-		width: 300px;
+		width: 450px;
 		height: 40px;
 		border: 1px solid lightgray;
 		border-radius: 10px
@@ -70,6 +70,14 @@
 		/*border: 1px solid blue;*/
 		width: 600px;
 		height: 200px;
+	}
+	#suggestions table {
+		padding: 10px;
+		box-shadow: 0px 0px 15px rgba(138, 138, 138, 0.2);
+	}
+	#suggestions tr:hover {
+		cursor: pointer;
+		opacity: 80%;
 	}
 	
 	#map>button {
@@ -103,7 +111,7 @@
 	}
 	.list-content {
 		width: 400px;
-		height:90%;
+		height:80%;
 		border: 1px solid lightgray;
 		border-radius: 10px;
 		overflow: scroll;
@@ -201,15 +209,24 @@
 		border-collapse: separate;
 		border-spacing: 3px;
 	}
-	#suggestions tr:hover {
-		cursor: pointer;
-		opacity: 80%;
-	}
+
 	#marker {
 		width:230px;
 		padding:5px;
 		font-size:12px; 
 		border: none;
+	}
+	.kwAuto {
+		font-size: 13px;
+		color: rgb(179, 179, 179);
+	}
+	.cancle{
+		height: 24px;
+		transform: translate(0px, 7px);
+	}
+	.cancle:hover {
+		cursor: pointer;
+		color: rgba(47, 142, 219, 0.801);
 	}
 </style>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
@@ -228,9 +245,8 @@
 					<span class="material-symbols-outlined" onclick="searchButton();"
 						style="color: black;">search</span>
 				</button>
-				<input onkeyup="suggest(this.value, event);" type="text" class="form-control" placeholder=""
-					aria-label="Example text with button addon"
-					aria-describedby="button-addon1">
+				<input  type="text" class="form-control" placeholder="장소를 입력해주세요" aria-label="장소를 입력해주세요" aria-describedby="button-addon1">
+				<span class="material-symbols-outlined cancle" onclick="cancel();">close</span>
 			</div>
 			<div id="suggestions" align="left">
 				<table>
@@ -288,8 +304,27 @@
 		$("#address input").on("focus", function (event) {
 			suggest(this.value, event);
 		});
+		// 디바운스 함수정의
+		function debounce(func, delay) {
+			let debounceTimer;
+			return function() {
+				const context = this;
+				const args = arguments;
+				clearTimeout(debounceTimer);
+				debounceTimer = setTimeout(() => func.apply(context, args), delay);
+			};
+		}
+		// 키업 이벤트
+		$("#address input").on("keyup", debounce(function(event) {
+			suggest(this.value, event);
+		}, 200));
+		
+		// 삭제버튼
+		function cancel() {
+			$("#address input").val('');
+		}
 
-
+		
 		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 		mapOption = {
 			center : new kakao.maps.LatLng(37.534, 126.897), // 지도의 중심좌표
@@ -323,15 +358,15 @@
 		// autocomplete 함수명 쓰면 오류남
 		// 자동완성 함수
 		function suggest(keyword, event) {
+			let autoList = '';
 			geocoder.addressSearch(keyword, function(result, status) {
-				
 				if(event.keyCode == 13){
 					$(".material-symbols-outlined").click();
 				}
-
 				if (status === kakao.maps.services.Status.OK) {
-					let autoList = '';
-					for (let i = 0; i < result.length; i++) {
+					
+					for (let i = 0; i < 6; i++) {
+						//console.log(result[i]);
 						autoList += "<tr>" + "<td>" + result[i].address_name + "</td>" + "</tr>";
 					}
 					$("#suggestions>table").html(autoList);
@@ -339,11 +374,25 @@
 					$("#suggestions>table").html('');
 				}
 			});
+			ps.keywordSearch(keyword, function (data, status, pagination) {
+				if (status === kakao.maps.services.Status.OK) { 
+					for (var i = 0; i < 6; i++) {
+						console.log(data[i].place_name);
+						autoList += "<tr>" + "<td>" + data[i].place_name + " / <span class='kwAuto'>" + data[i].address_name  + "</span> </td>" + "</tr>";
+					}
+					$("#suggestions>table").html(autoList);
+				}
+			});
 		}
 
 		// 키워드 검색
 		function searchButton() {
 			let address = $("#address>input").val();
+			// 주소검색 or 키워드 검색 검사
+			if(address.includes('/')){
+				address = address.split('/', 2)[1];
+			}
+			console.log(address);
 			geocoder.addressSearch(address,
 					function(result, status) {
 						// 정상적으로 검색이 완료됐으면 

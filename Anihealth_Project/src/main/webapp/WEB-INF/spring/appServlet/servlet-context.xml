@@ -45,6 +45,7 @@
 			<mapping path="/updateDelivery.me"/>
 			<mapping path="/deleteDelivery.me"/>
 			<mapping path="/insertDelivery.me"/>
+			<mapping path="/survey.su"/>
 			<beans:bean class="com.kh.aniht.common.interceptor.LoginInterceptor" id="loginInterceptor" />
 		</interceptor>
 	</interceptors>

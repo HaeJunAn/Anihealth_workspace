@@ -553,7 +553,7 @@
        					ratingStr += "<div class='progress'>"
     					ratingStr += "<span class='progress-text'>" + key + " 점 </span>";
     					ratingStr += "<div class='progress-bar star-pgr' style='width:" + 15 * (key) + "%;'></div>"
-    					ratingStr += "<span class='progress-label'>" + ratingMap[key] + "</span>"
+    					ratingStr += "<span class='progress-label'>" + ratingMap[key] + "개 </span>"
     					ratingStr += "</div>";
     					sumRating += key * ratingMap[key];
     					countRating += ratingMap[key];
@@ -573,7 +573,7 @@
        					
 						for(let i = 0; i < rlist.length; i++){
 	       					listStr += "<tbody> <tr class='table-line'> <td class='text-column'> <div class='info-content-rw'>" ;
-	       					listStr += "<div> <span class='info-title1'>" + rlist[i].userNo + "</span>";
+	       					listStr += "<div> <span class='info-title1'>" + rlist[i].userNick + "</span>";
 	       					listStr += "<span class='info-title2'>" + rlist[i].reviewDate + "</span>";
 	       					listStr += "<div class='stars rw-star'>" ;
 	       				    
