@@ -25,9 +25,9 @@ import com.kh.aniht.inquiry.model.vo.Inquiry;
 import com.kh.aniht.member.model.service.MemberService;
 import com.kh.aniht.member.model.vo.Delivery;
 import com.kh.aniht.member.model.vo.Member;
-import com.kh.aniht.member.model.vo.WishList;
 import com.kh.aniht.order.model.vo.Order;
 import com.kh.aniht.order.model.vo.OrderProduct;
+import com.kh.aniht.product.model.vo.Wishlist;
 import com.kh.aniht.review.model.vo.Review;
 
 import lombok.extern.slf4j.Slf4j;
@@ -484,7 +484,7 @@ public class MemberController {
 	
 	// 마이페이지 주문내역 환불하기
 	@GetMapping("orderRefund.me")
-	public String orderRefund(int ono,
+	public String orderRefund(String ono,
 							  Model model,
 							  HttpSession session) {
 		
@@ -556,7 +556,7 @@ public class MemberController {
 		
 		m.setUserNo(((Member)session.getAttribute("loginUser")).getUserNo());
 		
-		ArrayList<WishList> list = memberService.selectWishList(m);
+		ArrayList<Wishlist> list = memberService.selectWishlist(m);
 		
 		/*
 		for(WishList w : list) {
@@ -577,7 +577,7 @@ public class MemberController {
 	public String wishDelete(@RequestParam("productNo") int productNo,
 							 @RequestParam("userNo") int userNo,
 							 HttpSession session,
-							 WishList w) {
+							 Wishlist w) {
 		
 		// System.out.println(pno);
 		// System.out.println(userNo);

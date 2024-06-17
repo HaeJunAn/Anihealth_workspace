@@ -69,7 +69,7 @@
 		<result column="PRODUCT_NAME" property="productName" />
 	</resultMap>
 	
-	<resultMap type="wishList" id="wishListResultSet">
+	<resultMap type="wishlist" id="wishlistResultSet">
 		<result column="PRODUCT_NO" property="productNo" />
 		<result column="USER_NO" property="userNo" />
 		<result column="PRODUCT_NAME" property="productName" />
@@ -354,8 +354,8 @@
 	</select>
 	
 	<!-- 찜 조회 쿼리문 -->
-	<select id="selectWishList"
-			resultMap="wishListResultSet">
+	<select id="selectWishlist"
+			resultMap="wishlistResultSet">
 		SELECT W.PRODUCT_NO
 		     , W.USER_NO
 		     , P.PRODUCT_NAME

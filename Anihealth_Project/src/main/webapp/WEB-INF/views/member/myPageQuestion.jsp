@@ -249,13 +249,19 @@
 		                                <tr>
 		                                    <th class="cart-table-item" width="360px;">문의 내역</th>
 		                                    <th>작성일</th>
-		                                    <th width="360px;">문의답변</th>
-		                                    <th width="100px;">삭제</th>
+		                                    <th width="360px;">답변 상태</th>
 		                                    
 		                                </tr>
 		                            </thead>
 		                            <tbody class="cart-table-content">
 		                            	<c:forEach var="i" items="${ requestScope.list }">
+		                            		<tr>
+		                                		<div>
+		                                		<td colspan="3" style="text-align: right; padding-bottom: 0; border-bottom-color: lightgray">
+		                                			<a href="detail.iq?ino=${ i.inquiryNo }" style="text-decoration: none; color: black;">문의 상세보기 ></a>
+		                                		</td>
+		                                		</div>
+		                                	</tr>
 			                                <tr class="cart-table-inner">
 			                                    <td>  
 				                                    <div class="item-text">
@@ -267,10 +273,15 @@
 			                                        
 			                                    </td>
 			                                    <td>${ i.inquiryCreate }</td>
-			                                    <td>${ i.inquiryAnswer }</td>
-			                                    <td>
-			                                        <button class="btn btn-sm">삭제</button>
-			                                    </td>
+			                                    <c:choose>
+				                                    <c:when test="${ i.inquiryAnswer == null }">
+				                                    	<td>답변 되지 않은 문의글입니다.</td>
+				                                    </c:when>
+				                                    <c:otherwise>
+				                                    	<td>답변이 완료된 문의글입니다.</td>
+				                                    </c:otherwise>
+			                                    </c:choose>
+			                                    
 			                                </tr>
 										</c:forEach>
 		                            </tbody>

@@ -8,9 +8,9 @@ import org.springframework.stereotype.Repository;
 import com.kh.aniht.inquiry.model.vo.Inquiry;
 import com.kh.aniht.member.model.vo.Delivery;
 import com.kh.aniht.member.model.vo.Member;
-import com.kh.aniht.member.model.vo.WishList;
 import com.kh.aniht.order.model.vo.Order;
 import com.kh.aniht.order.model.vo.OrderProduct;
+import com.kh.aniht.product.model.vo.Wishlist;
 import com.kh.aniht.review.model.vo.Review;
 
 @Repository
@@ -84,7 +84,7 @@ public ArrayList<Order> selectOrderList(SqlSessionTemplate sqlSession, Member m)
 	return (ArrayList)sqlSession.selectList("memberMapper.selectOrderList", m);
 }
 
-public int orderRefund(SqlSessionTemplate sqlSession, int ono) {
+public int orderRefund(SqlSessionTemplate sqlSession, String ono) {
 	
 	return sqlSession.update("memberMapper.orderRefund", ono);
 }
@@ -124,12 +124,12 @@ public ArrayList<Review> selectReviewList(SqlSessionTemplate sqlSession, Member 
 	return (ArrayList)sqlSession.selectList("memberMapper.selectReviewList", m);
 }
 
-public ArrayList<WishList> selectWishList(SqlSessionTemplate sqlSession, Member m) {
+public ArrayList<Wishlist> selectWishlist(SqlSessionTemplate sqlSession, Member m) {
 	
-	return (ArrayList)sqlSession.selectList("memberMapper.selectWishList", m);
+	return (ArrayList)sqlSession.selectList("memberMapper.selectWishlist", m);
 }
 
-public int wishDelete(SqlSessionTemplate sqlSession, WishList w) {
+public int wishDelete(SqlSessionTemplate sqlSession, Wishlist w) {
 	
 	// System.out.println(w);
 	return sqlSession.delete("memberMapper.wishDelete", w);
@@ -139,12 +139,6 @@ public ArrayList<Inquiry> selectInquiryList(SqlSessionTemplate sqlSession, Membe
 	
 	return (ArrayList)sqlSession.selectList("memberMapper.selectInquiryList", m);
 }
-
-
-
-
-
-
 
 
 } // 클래스 영역 끝

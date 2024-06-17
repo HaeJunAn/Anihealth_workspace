@@ -13,5 +13,11 @@ public class Wishlist {
 	
 	private int productNo;
 	private int userNo;
+	
+	// 추가
+	private String productName;
+	private String category;
+	private String productThumbnailPath;
+	private int price;
 
 }

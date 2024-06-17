@@ -11,12 +11,10 @@ import com.kh.aniht.inquiry.model.vo.Inquiry;
 import com.kh.aniht.member.model.dao.MemberDao;
 import com.kh.aniht.member.model.vo.Delivery;
 import com.kh.aniht.member.model.vo.Member;
-import com.kh.aniht.member.model.vo.WishList;
 import com.kh.aniht.order.model.vo.Order;
 import com.kh.aniht.order.model.vo.OrderProduct;
-import com.kh.aniht.question.model.vo.Question;
+import com.kh.aniht.product.model.vo.Wishlist;
 import com.kh.aniht.review.model.vo.Review;
-import com.sun.javadoc.MemberDoc;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -111,7 +109,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
-	public int orderRefund(int ono) {
+	public int orderRefund(String ono) {
 		
 		return memberDao.orderRefund(sqlSession, ono);
 	}
@@ -159,13 +157,13 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public ArrayList<WishList> selectWishList(Member m) {
+	public ArrayList<Wishlist> selectWishlist(Member m) {
 		
-		return memberDao.selectWishList(sqlSession, m);
+		return memberDao.selectWishlist(sqlSession, m);
 	}
 
 	@Override
-	public int wishDelete(WishList w) {
+	public int wishDelete(Wishlist w) {
 		
 		return memberDao.wishDelete(sqlSession, w);
 	}
