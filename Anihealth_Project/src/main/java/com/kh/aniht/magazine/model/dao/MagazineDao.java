@@ -1,6 +1,7 @@
 package com.kh.aniht.magazine.model.dao;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -29,5 +30,20 @@ public class MagazineDao {
 		
 		return (ArrayList)sqlSession.selectList("magaMapper.selectMagaList", null, rowBounds);
 		
+	}
+
+	public int increaseCount(SqlSessionTemplate sqlSession, int mno) {
+		
+		return sqlSession.update("magaMapper.increaseCount",mno);
+	}
+
+	public Magazine selectMagaDeList(SqlSessionTemplate sqlSession, int mno) {
+		
+		return sqlSession.selectOne("magaMapper.selectMagaDeList",mno);
+	}
+
+	public List<Magazine> selectMagaDeList1(SqlSessionTemplate sqlSession, int mno) {
+		
+		return sqlSession.selectList("magaMapper.selectMagaDeList1",mno);
 	}
 }

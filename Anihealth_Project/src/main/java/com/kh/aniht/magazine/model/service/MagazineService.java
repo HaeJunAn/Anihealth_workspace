@@ -1,6 +1,7 @@
 package com.kh.aniht.magazine.model.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,12 @@ public interface MagazineService {
 	
 	// 매거진 리스트 조회 해준
 	ArrayList<Magazine> selectMagaList(PageInfo pi);
+
+	int increaseCount(int mno);
+
+	Magazine selectMagaDeList(int mno);
+
+	List<Magazine> selectMagaDeList1(int mno);
 	
 
 }

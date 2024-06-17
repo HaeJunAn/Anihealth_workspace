@@ -193,7 +193,10 @@
             font-size: 105%;
             font-weight: 600;
         }
-
+		 .view-count-cell {
+            text-align: right;
+            width: 100px; 
+        }
         /* 페이징버튼 끝 */
         /* 메인컨텐츠 영역 끝 */
     </style>
@@ -221,7 +224,7 @@
                             <div class="card-custom">
                                 <div class="card">
                                     <img class="fixed-img rounded" src="${ma.magazinePath}" alt="Product Image">
-
+									<input type="hidden" class="magazine-no" value="${ma.magazineNo}" />
                                     <div class="card-footer">
                                         <table class="drug-info">
                                             <tr>
@@ -237,8 +240,8 @@
                                                         ${ma.magazineCreate}
                                                     </small>
                                                 </td>
-                                                <td>
-                                                    <small class="drug-detail" style="font-weight: bold; color: gray;" align="right">
+                                                <td  class="view-count-cell">
+                                                    <small class="drug-detail" style="font-weight: bold; color: gray;">
                                                         조회수 : ${ma.magazineCount}
                                                     </small>
                                                 </td>
@@ -252,7 +255,19 @@
                     </div>
                 </div>
             </div>
-
+			 <script>
+            	$(function() {
+            		
+            		$(".card").click(function() {
+            			
+            			let mno = $(this).find(".magazine-no").val();
+            			 console.log("Magazine No: " + mno);
+            			 location.href = "detail.mbo?mno=" + mno;
+            			
+            		});
+            		
+            	});
+            </script>
 
             <!-- 페이징바가 보여질 부분 -->
           <div align="center" class="paging-area">

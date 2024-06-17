@@ -19,4 +19,7 @@ public class Magazine {
 	private String magazineStatus;
 	// 매거진 테이블 
 	private String magazinePath;
+	private int magazineAttachmentNo;
+	private int magazineImgLevel;
+	private String magazineImgStatus;
 }
