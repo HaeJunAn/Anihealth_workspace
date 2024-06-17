@@ -64,6 +64,37 @@ public class ProductServiceImpl implements ProductService {
 			
 			return rList;
 		}
+		
+		
+		@Override
+		public boolean checkWishlist(int userNo, int productNo) {
+		    int count = productDao.checkWishlist(sqlSession, userNo, productNo);
+		    return count > 0;
+		}
+
+		@Override
+		public boolean addToWishlist(int userNo, int productNo) {
+		    int result = productDao.addToWishlist(sqlSession, userNo, productNo);
+		    return result > 0;
+		}
+
+		@Override
+		public boolean removeFromWishlist(int userNo, int productNo) {
+		    int result = productDao.removeFromWishlist(sqlSession, userNo, productNo);
+		    return result > 0;
+		}
+
+		@Override
+		public boolean checkDuplicateWishlist(int userNo, int productNo) {
+		    int count = productDao.checkDuplicateWishlist(sqlSession, userNo, productNo);
+		    return count > 0;
+		}
+		@Override
+		public boolean checkWishlistStatus(int userNo, int productNo) {
+		    int count = productDao.checkWishlist(sqlSession, userNo, productNo);
+		    return count > 0;
+		}
+		
 	
 	
 	

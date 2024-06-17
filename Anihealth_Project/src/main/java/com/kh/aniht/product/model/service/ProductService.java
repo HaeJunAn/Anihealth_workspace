@@ -16,5 +16,16 @@ public interface ProductService {
     ArrayList<Product> selectFilteredProductList(PageInfo pi, String order, String category, String keyword);
     
     ArrayList<HashMap<String, Object>> selectRating(int[] productNoArr);
+    
+    boolean checkWishlist(int userNo, int productNo);
+
+    boolean addToWishlist(int userNo, int productNo);
+
+    boolean removeFromWishlist(int userNo, int productNo);
+
+    boolean checkDuplicateWishlist(int userNo, int productNo);
+    
+    boolean checkWishlistStatus(int userNo, int productNo);
+    
 }
 

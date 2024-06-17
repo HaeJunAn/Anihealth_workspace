@@ -28,9 +28,11 @@ public class InquiryController {
 	
 	@GetMapping("list.iq")
 	public String selectList(
-			@RequestParam(value="cpage", defaultValue="1") int currentPage, Model model) {
+			@RequestParam(value="cpage", defaultValue="1") int currentPage, Model model,HttpSession session) {
 		
-		int listCount = inquiryService.selectListCount();
+		 int userNo = ((Member)session.getAttribute("loginUser")).getUserNo();
+		
+		int listCount = inquiryService.selectListCount(userNo);
 		int pageLimit = 10;
 		int boardLimit = 5;
 		
@@ -43,13 +45,14 @@ public class InquiryController {
 		
 		// 게시글 목록 조회
 		ArrayList<Inquiry> list 
-					= inquiryService.selectList(pi);
+					= inquiryService.selectList(pi, userNo);
 		
 		// 응답데이터 담기
 		model.addAttribute("pi", pi);
 		model.addAttribute("list", list);
 		
 		return "inquiry/inquiryListView";
+		
 	}
 	
 	
@@ -93,7 +96,7 @@ public class InquiryController {
 		if(result > 0) { // 성공
 			
 			// 일회성 알람문구를 출력하고 list.bo 로 url 재요청
-			session.setAttribute("alertMsg", "성공적으로 게시글이 등록되었습니다.");
+			session.setAttribute("alertMsg", "성공적으로 문의글이 등록되었습니다.");
 			
 			mv.setViewName("redirect:/list.iq");
 			
@@ -103,7 +106,7 @@ public class InquiryController {
 			// mv.addObject("errorMsg", "게시글 등록 실패");
 			// mv.setViewName("common/errorPage");
 			
-			mv.addObject("errorMsg", "게시글 등록 실패")
+			mv.addObject("errorMsg", "문의글 등록 실패")
 			  .setViewName("common/errorPage");
 			// > mv.addObject 메소드는 반환타입이 ModelAndView 타입임
 			//   위와 같이 메소드체이닝이 가능함!!
@@ -139,14 +142,14 @@ public class InquiryController {
 			
 			// session 에 일회성 알람문구를 담은 후
 			// list.bo 로 url 재요청
-			session.setAttribute("alertMsg", "성공적으로 게시글이 삭제되었습니다.");
+			session.setAttribute("alertMsg", "성공적으로 문의글이 삭제되었습니다.");
 			
 			return "redirect:/list.iq";
 			
 		} else { // 실패
 			
 			// 에러문구를 담아서 에러페이지로 포워딩
-			model.addAttribute("errorMsg", "게시글 삭제 실패");
+			model.addAttribute("errorMsg", "문의글 삭제 실패");
 			
 			return "common/errorPage";
 		}
@@ -165,14 +168,14 @@ public class InquiryController {
 			
 			// 일회성 알람문구를 담아서 
 			// 해당 게시글 상세보기 페이지로 url 재요청
-			session.setAttribute("alertMsg", "성공적으로 게시글이 수정되었습니다.");
+			session.setAttribute("alertMsg", "성공적으로 문의글이 수정되었습니다.");
 			
 			return "redirect:/detail.iq?ino=" + iq.getInquiryNo();
 			
 		} else { // 실패
 			
 			// 에러문구를 담아서 에러페이지로 포워딩
-			model.addAttribute("errorMsg", "게시글 수정 실패");
+			model.addAttribute("errorMsg", "문의글 수정 실패");
 			
 			return "common/errorPage";
 		}

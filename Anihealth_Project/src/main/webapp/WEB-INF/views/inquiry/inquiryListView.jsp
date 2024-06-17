@@ -54,9 +54,9 @@
             width: 70%;
             height: auto;
             margin: auto;
-            padding:30px 30px;
+            padding:30px 50px;
             background-color: #fff;
-            box-shadow: 0 0 10px rgba(59, 173, 110, 0.3);
+           box-shadow:0 0 8px 2px rgba(4, 4, 4, 0.1);
             border-radius: 10px;
             box-sizing: border-box;
             position: relative;
@@ -84,26 +84,26 @@
         .cart-table td {
             padding: 15px;
             text-align: left;
-            border-bottom: 1px solid #63a07a;
+             border-bottom: 1.5px solid lightgray;
         }
 
         .cart-table thead {
-            background-color:#f4f8f1;
-            color:  #555;
-            font-size: 130%;
+             background-color:#e9f7e2;
+            color:  #444;
+            font-size: 115%;
         }
         .cart-table-content td {
             vertical-align: middle; 
-            height: 110%;
-            color: #333;
+            height: 100%;
+            color:  #444;
         }
 
         .cart-table-inner td{
-            font-size: 110%;
+            font-size: 105%;
         }
 
 	     .cart-table-content :hover {
-	       background-color:  #f9fffd;
+	       background-color:  #f1faf7;
 	       cursor: pointer;
 		}
         .item-container {
@@ -124,7 +124,7 @@
             display: block;
             box-sizing: border-box;
             width: auto;
-            margin: 20px auto;
+           margin: 10px auto 20px;
             padding: 10px 30px;
             margin-left: 80%;
             background-color: #99BC85;
@@ -134,12 +134,20 @@
             cursor: pointer;
         }
 		#checkout-button:hover {
-		    background-color: #88a874;
+		    background-color: #7b9a6a;
 		}
 
         .content h2{
             color: #57585c;
             text-align: center;
+        }
+
+		 .gray-line {
+            width: 100%; 
+            margin: 0 auto;
+            border-bottom: 2px solid lightgray;
+            margin-top: 30px;
+            margin-bottom: 30px;
         }
 
 		 /* 페이징버튼 영역 시작 */
@@ -212,11 +220,10 @@
 
 
 <c:choose>
-    <c:when test="${not empty sessionScope.loginUser}">
+   <c:when test="${not empty sessionScope.loginUser}">
     
-    
-        <div class="parent">
-            <div class="parent-content">
+       <div class="parent">
+          <div class="parent-content">
                 <div class="header-faq">
                     <h1>1 : 1 문의</h1>
                 </div>
@@ -231,29 +238,31 @@
 			                    <table class="cart-table" id="cart-table1">
 			                        <thead>
 			                            <tr>    
-			                                <th>No</th>
-			                                <th colspan="2" class="cart-table-item" id="product-header">제목</th>
-			                                <th>작성일</th>
-			                                <th>답변상태</th>
+			                               <th>No</th>
+			                                <th colspan="2" class="cart-table-item" 
+			                                    id="product-header" 
+			                                    style="text-align: center;">제목</th>
+			                                <th style="text-align: right;  padding-right: 40px;">작성일</th>
+			                                <th style="text-align: right;">답변상태</th>
 			                            </tr>
 			                        </thead>
 			
 			                        <tbody class="cart-table-content">
 			                            <c:forEach var="iq" items="${requestScope.list}">
 				                                <tr class="cart-table-inner">
-				                                    <td style="font-size: large;">${iq.inquiryNo}</td>
-				                                    <td colspan="2" class="title-iq">${iq.inquiryTitle}</td>
-				                                    <td>${iq.inquiryCreate}</td>
-				                                    <td>
+				                                 <td style="font-size: large;">${iq.inquiryNo}</td>
+				                                    <td colspan="2" class="title-iq" style="text-align: center;">${iq.inquiryTitle}</td>
+				                                    <td style="text-align: right;  padding-left: 50px;">${iq.inquiryCreate}</td>
+				                                    <td style="text-align: right;">
 				                                        <c:choose>
 				                                            <c:when test="${not empty iq.inquiryAnswer}">
-				                                                답변 완료
+				                                                                                                    답변 완료
 				                                            </c:when>
 				                                            <c:otherwise>
-				                                                답변 대기
+				                                                                                                    답변 대기
 				                                            </c:otherwise>
 				                                        </c:choose>
-				                                    </td>                       
+				                                    </td>                     
 				                                </tr>
 				                            </c:forEach>
 				                        </tbody>
@@ -304,25 +313,25 @@
 	                     </c:when> 
 	                      
 	                      
-	                        <c:otherwise>
-	                            <div align="center" style="margin-top: 20px;">
-	                                 <h4>문의글 내역이 없습니다.</h4>
-	                            </div>
-	                        </c:otherwise>
-	                </c:choose>  
-	                </div>
-	            </div>          
-	        </div>
-	    </c:when>
-    
-    
-    <c:otherwise>
-        
-        <script>
-            alert('로그인이 필요합니다.');
-            window.location.href = 'loginPage.me'; // 로그인 페이지로 리다이렉트
-        </script>
-    </c:otherwise>
+		                        <c:otherwise>
+		                        	<div class="gray-line"></div> 
+		                            <div align="center" style="margin-top: 20px; color: #57585c;">
+		                                 <h4>문의글 내역이 없습니다.</h4>
+		                            </div>
+		                            <div class="gray-line"></div> 
+		                        </c:otherwise>
+	                   </c:choose>  
+	            </div>
+	       </div>          
+	    </div>
+	</c:when> 
+	 
+	    <c:otherwise>       
+	        <script>
+	            alert('로그인이 필요합니다.');
+	            window.location.href = 'loginPage.me'; // 로그인 페이지로 리다이렉트
+	        </script>
+	    </c:otherwise>
 </c:choose>
 
 

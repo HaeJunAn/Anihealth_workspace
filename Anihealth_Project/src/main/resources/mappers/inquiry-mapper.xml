@@ -21,6 +21,7 @@
 		SELECT COUNT(*)
 		  FROM INQUIRY
 		 WHERE INQUIRY_STATUS = 'Y'
+		  AND USER_NO = #{userNo}
 	</select>
 	
 	<!-- 게시글 목록을 구하는 쿼리문 -->
@@ -33,6 +34,7 @@
 		     <!-- 답변내용이 널인지 아닌지로 판단인거같은디,,-->
 		  FROM INQUIRY
 		 WHERE INQUIRY_STATUS = 'Y'
+		  AND USER_NO = #{userNo}
 		 ORDER BY INQUIRY_NO DESC
 	</select>
 

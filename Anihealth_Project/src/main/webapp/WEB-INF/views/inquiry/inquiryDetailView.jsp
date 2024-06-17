@@ -53,9 +53,9 @@
             width:  70%;
             height: auto;
             margin: auto;
-            padding:30px 30px;
+            padding:30px 50px;
             background-color: #fff;
-            box-shadow: 0 0 10px rgba(59, 173, 110, 0.3);
+            box-shadow:0 0 8px 2px rgba(4, 4, 4, 0.1);
             border-radius:10px;
             box-sizing: border-box;
             position: relative;
@@ -83,22 +83,22 @@
         .cart-table td {
             padding: 15px;
             text-align: left;
-            border-bottom: 1px solid #63a07a;
+             border-bottom: 1.5px solid lightgray;
         }
 
         .cart-table thead {
-            background-color:#f4f8f1;
-            color: #555;
-            font-size: 130%;
+            background-color: #e9f7e2;
+            color:#444;
+            font-size: 113%;
         }
         .cart-table-content td {
             vertical-align: middle; 
-            height: 110%;
-            color: #333;
+            height: 100%;
+            color:#444;
         }
 
         .cart-table-inner td{
-            font-size: 110%;
+            font-size: 100%;
         }
 
         .item-container {
@@ -107,6 +107,42 @@
             padding: 0px 10px; 
             flex-direction: row; 
         }
+
+		.cart-table1 {
+		    width: 100%;
+		    border-collapse: collapse; 
+		    /* 추가: 셀 간의 보더를 겹치게 만듭니다 */
+		     margin: 20px 0;
+		    text-align: center;
+		     background-color:#e6f5f1;
+		     border-radius: 15px;
+		}
+		
+		.cart-table1 th,
+		.cart-table1 td {
+		    padding: 16px;
+		    text-align: left;
+		}
+
+        .cart-table1 thead {
+            color:  #444;
+            font-size: 113%;
+        }
+         .cart-table-content1 td {
+          vertical-align: middle; 
+          height: 100%;
+          color:  #444; 
+       }
+        .cart-table-inner1 td{
+            font-size: 100%;
+        }
+        .item-container1 {
+            display: flex;
+            align-items: center; 
+            padding: 0px 10px; 
+            flex-direction: row; 
+        }
+        
 
         #quantity-cell {
             padding-left: 0;
@@ -119,7 +155,7 @@
             display: block;
             box-sizing: border-box;
             width: auto;
-            margin: 20px auto;
+            margin: 10px auto 20px;
             padding: 10px 30px;
             margin-left: 80%;
             background-color: #99BC85;
@@ -129,8 +165,9 @@
             cursor: pointer;
         }
         #checkout-button:hover {
-		    background-color: #88a874;
+		    background-color:#7b9a6a;
 		}
+		
 		.content h2{
              color: #57585c;
              text-align: center;
@@ -166,8 +203,8 @@
 
 
 
-  <div class="parent">
-        <div class="parent-content">
+ <div class="parent">
+      <div class="parent-content">
 
             <div class="header-faq">
                 <h1>1 : 1 문의</h1>
@@ -221,52 +258,45 @@
                 </table>
 
 		   <!-- 답변 내용이 있으면 답변 내용을 표시하는 조건문 -->
-              <c:if test="${not empty requestScope.iq.inquiryAnswer }"> 
-                <table class="cart-table">      
-                    <thead>
-                        <tr>    
-                            <th class="cart-table-item" id="product-header">답변내용</th>
-                           <td style="text-align: right;">${requestScope.iq.inquiryAnswerContent} 답변날짜</td>
-                            
-                        </tr>
-                    </thead>
-
-                    <tbody class="cart-table-content">
-                        <tr class="cart-table-inner">
-                            <td colspan="2" class="content-iq" style="font-size: large;">
-                                <p style="height:150px;">
-                                    ${ requestScope.iq.inquiryAnswer}
-                                </p>
-                            </td>
-                        </tr>   
-                    </tbody>
-                </table>
-           </c:if>  
-             
-            </div>
-            
+            <%--<c:if test="${not empty requestScope.iq.inquiryAnswer }">  --%>
+	                <table class="cart-table1">      
+	                    <thead>
+	                        <tr>    
+	                            <th class="cart-table-item1" id="product-header">답변내용</th>
+	                           <td style="text-align: right;">${requestScope.iq.inquiryAnswerContent} 답변날짜</td>
+	                            
+	                        </tr>
+	                    </thead>
+	
+	                    <tbody class="cart-table-content1">
+	                        <tr class="cart-table-inner1">
+	                            <td colspan="2" class="content-iq1" style="font-size: large;">
+	                                <p style="white-space: pre-wrap; height: 150px;"> ${ requestScope.iq.inquiryAnswer}답변내용 답변내용 답변내용</p>
+	                            </td>
+	                        </tr>   
+	                    </tbody>
+	                </table>
+          <%--</c:if>  --%>
+          		
+          		<div align="center">
+	                <!-- 수정하기, 삭제하기 버튼은 이 글이 본인이 작성한 글일 경우에만 보여져야 함 -->
+	                <!-- 
+	                    * 기존의 수정하기, 삭제하기 요청을 GET 방식으로 보냈었음!!
+	                    > 쿼리스트링을 조작하여 내가 쓴 게시글이 아니더라도 수정, 삭제가 가능해짐
+	                    > 수정하기, 삭제하기 요청을 POST 방식으로 보내면 해결 가능함
+	                -->
+	                <a class="btn btn-update" id="btn-update" onclick="postFormSubmit(1);">수정하기</a>
+	                <a class="btn btn-delete" id="btn-delete" onclick="postFormSubmit(2);">삭제하기</a>
+                </div>                   
+          </div>
+          
+                <form id="postForm" action="" method="post">
+	                <!-- 수정하기든, 삭제하기든 간에 글번호를 넘겨줘야함 -->
+	                <input type="hidden" name="ino" value="${ requestScope.iq.inquiryNo }"> 
+               </form>                   
             <br><br>
             
-            
-
-                    
-            <div align="center">
-                <!-- 수정하기, 삭제하기 버튼은 이 글이 본인이 작성한 글일 경우에만 보여져야 함 -->
-                <!-- 
-                    * 기존의 수정하기, 삭제하기 요청을 GET 방식으로 보냈었음!!
-                    > 쿼리스트링을 조작하여 내가 쓴 게시글이 아니더라도 수정, 삭제가 가능해짐
-                    > 수정하기, 삭제하기 요청을 POST 방식으로 보내면 해결 가능함
-                -->
-                <a class="btn btn-update" id="btn-update" onclick="postFormSubmit(1);">수정하기</a>
-                <a class="btn btn-delete" id="btn-delete" onclick="postFormSubmit(2);">삭제하기</a>
-            </div>
-            <br><br>
-            
-            <form id="postForm" action="" method="post">
-                <!-- 수정하기든, 삭제하기든 간에 글번호를 넘겨줘야함 -->
-                <input type="hidden" name="ino" value="${ requestScope.iq.inquiryNo }"> 
-            </form>
-            
+  
             <script>
                 function postFormSubmit(num) {
                     
@@ -288,11 +318,10 @@
             </script>
             
 
+     </div>
+ </div>
 
-
-        </div>
-    </div>
-
+	<jsp:include page="../common/footer.jsp" />
 
     <style>
 	     @media (max-width: 950px) {
@@ -328,7 +357,7 @@
     </style>
 
 
-	<jsp:include page="../common/footer.jsp" />
+
 
 
 </body>

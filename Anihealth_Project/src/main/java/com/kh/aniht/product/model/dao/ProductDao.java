@@ -64,6 +64,36 @@ public class ProductDao {
 
   		return sqlSession.selectOne("productMapper.selectRating", productNo);
   	}
+  	
+  //위시리스트에 특정 제품이 있는지 여부를 확인하는 메서드
+ 	 public int checkWishlist(SqlSessionTemplate sqlSession, int userNo, int productNo) {
+        Map<String, Integer> params = new HashMap<>();
+        params.put("userNo", userNo);
+        params.put("productNo", productNo);
+        return sqlSession.selectOne("productMapper.checkWishlist", params);
+    }
+
+    public int addToWishlist(SqlSessionTemplate sqlSession, int userNo, int productNo) {
+        Map<String, Integer> params = new HashMap<>();
+        params.put("userNo", userNo);
+        params.put("productNo", productNo);
+        return sqlSession.insert("productMapper.addToWishlist", params);
+    }
+    
+    public int removeFromWishlist(SqlSessionTemplate sqlSession, int userNo, int productNo) {
+        Map<String, Integer> params = new HashMap<>();
+        params.put("userNo", userNo);
+        params.put("productNo", productNo);
+        return sqlSession.delete("productMapper.removeFromWishlist", params);
+    }
+    
+    //위시리스트에 특정 제품이 중복되어 있는지 확인하는 메서드
+    public int checkDuplicateWishlist(SqlSessionTemplate sqlSession, int userNo, int productNo) {
+   	    Map<String, Integer> params = new HashMap<>();
+   	    params.put("userNo", userNo);
+   	    params.put("productNo", productNo);
+   	    return sqlSession.selectOne("productMapper.checkDuplicateWishlist", params);
+   	}
     
     
 }

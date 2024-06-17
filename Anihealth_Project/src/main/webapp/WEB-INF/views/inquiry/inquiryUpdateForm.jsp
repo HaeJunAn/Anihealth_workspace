@@ -53,7 +53,7 @@
             margin: auto;
             padding: 30px 30px;
             background-color: #fff;
-            box-shadow: 0 0 10px   rgba(59, 173, 110, 0.3);
+           box-shadow:0 0 8px 2px rgba(4, 4, 4, 0.1);
             border-radius: 10px;
             box-sizing: border-box;
             position: relative;
@@ -81,22 +81,22 @@
         .cart-table td {
             padding: 15px;
             text-align: left;
-            border-bottom: 1px solid #63a07a;
+             border-bottom: 1.5px solid lightgray; 
         }
 
         .cart-table thead {
-            background-color:#f4f8f1;
-            color: #555;
-            font-size: 130%;
+            background-color: #e9f7e2;
+            color:  #444;
+            font-size: 113%;
         }
         .cart-table-content td {
             vertical-align: middle; 
-            height: 110%;
-            color: #333;
+            height: 100%;
+           color:  #444;
         }
 
         .cart-table-inner td{
-            font-size: 110%;
+            font-size: 100%;
         }
         
         .item-container {
@@ -117,7 +117,7 @@
             display: block;
             box-sizing: border-box;
             width: auto;
-            margin: 20px auto;
+             margin: 10px auto 20px;
             padding: 10px 30px;
             margin-left: 80%;
             background-color: #99BC85;
@@ -128,7 +128,7 @@
         }
 
 		#checkout-button:hover {
-		    background-color: #88a874;
+		     background-color:#7b9a6a;
 		}
 
         .content h2{
@@ -143,16 +143,28 @@
             background-color:#87cfb8;
             color: white;
             font-size: large;
+              margin: 3px;
         }
         #btn-delete{
             padding: 10px 50px;
             border: none;
             border-radius: 4px;
             cursor: pointer;
-            background-color:#ec767e; 
+            background-color: rgb(103, 162, 130);
             color: white;
             font-size: large;
+             margin: 3px;
         }
+        #btn-update:hover {
+		    background-color:#4fc29d;
+		}
+        #btn-delete:hover {
+		    background-color:rgb(53, 175, 110);
+		}
+		
+		 .label1{
+		 	font-size: 120%;
+		 }
 
         #enrollForm>table {width:100%;}
         #enrollForm>table * {margin:5px;}
@@ -202,13 +214,13 @@
                            
                             <table align="center">
                                 <tr>
-                                    <th><label for="title" style="color: #57585c;">제목</label></th>
+                                    <th><label for="title" style="color: #57585c;"  class="label1">제목</label></th>
                                     <td><input type="text" id="title" class="form-control"
                                                 value="${ requestScope.iq.inquiryTitle }" name="inquiryTitle" required></td>
                                 </tr>
                 
                                 <tr>
-                                    <th><label for="content"  style="color: #57585c;">내용</label></th>
+                                    <th><label for="content"  style="color: #57585c;"  class="label1">내용</label></th>
                                     <td><textarea id="content" class="form-control" 
                                                   rows="10" 
                                                   style="resize:none;" 

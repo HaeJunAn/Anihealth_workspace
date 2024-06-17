@@ -21,15 +21,15 @@ public class InquiryServiceImpl  implements InquiryService{
 	private InquiryDao inquiryDao;
 	
 	@Override
-	public int selectListCount() {
+	public int selectListCount(int userNo) {
 		
-		return inquiryDao.selectListCount(sqlSession);
+		return inquiryDao.selectListCount(sqlSession, userNo);
 	}
 
 	@Override
-	public ArrayList<Inquiry> selectList(PageInfo pi) {
+	public ArrayList<Inquiry> selectList(PageInfo pi,int userNo) {
 		
-		return inquiryDao.selectList(sqlSession, pi);
+		return inquiryDao.selectList(sqlSession, pi, userNo);
 	}
 	
 	

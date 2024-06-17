@@ -1,15 +1,11 @@
 package com.kh.aniht.product.controller;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.google.gson.Gson;
 import com.kh.aniht.common.movel.vo.PageInfo;
 import com.kh.aniht.common.template.Pagination;
+import com.kh.aniht.member.model.vo.Member;
 import com.kh.aniht.product.model.service.ProductService;
 import com.kh.aniht.product.model.vo.Product;
 
@@ -122,6 +119,68 @@ public class ProductController {
     	return new Gson().toJson(rList);
 		
 	}
+    
+    
+    // 로그인 확인
+    @ResponseBody
+    @GetMapping(value="checkLogin1", produces="application/json; charset=UTF-8")
+    public String checkLogin(HttpSession session) {
+        Member loginUser = (Member) session.getAttribute("loginUser");
+        if (loginUser != null) {
+            return "{\"loggedIn\": true, \"userNo\": " + loginUser.getUserNo() + "}";
+        } else {
+            return "{\"loggedIn\": false}";
+        }
+    }
+
+    // 위시리스트 추가/삭제 처리
+    @ResponseBody
+    @PostMapping(value="toggleHeart.pd", produces="application/json; charset=UTF-8")
+    public String toggleHeart(@RequestBody Product product, HttpSession session) {
+        Member loginUser = (Member) session.getAttribute("loginUser");
+        if (loginUser == null) {
+            return "{\"success\": false, \"message\": \"로그인이 필요합니다.\"}";
+        }
+
+        int userNo = loginUser.getUserNo();
+        int productNo = product.getProductNo();
+
+        // 위시리스트에 추가되어 있는지 확인
+        boolean isAdded = productService.checkWishlist(userNo, productNo);
+
+        if (!isAdded) {
+            // 위시리스트에 추가
+            boolean result = productService.addToWishlist(userNo, productNo);
+            if (result) {
+                return "{\"success\": true, \"added\": true, \"message\": \"찜한 제품에 추가 되었습니다.\"}";
+            } else {
+                return "{\"success\": false, \"message\": \"찜한 제품 추가에 실패했습니다 .\"}";
+            }
+        } else {
+            // 위시리스트에서 삭제
+            boolean result = productService.removeFromWishlist(userNo, productNo);
+            if (result) {
+                return "{\"success\": true, \"added\": false, \"message\": \"찜한 제품에 삭제되었습니다.\"}";
+            } else {
+                return "{\"success\": false, \"message\": \"찜한 제품 삭제에 실패했습니다.\"}";
+            }
+        }
+    }
+    
+		
+		@ResponseBody
+		@GetMapping(value="checkWishlistStatus", produces="application/json; charset=UTF-8")
+		public String checkWishlistStatus(@RequestParam int productNo, HttpSession session) {
+		    Member loginUser = (Member) session.getAttribute("loginUser");
+		    if (loginUser == null) {
+		        return "{\"inWishlist\": false}";
+		    }
+		
+		    int userNo = loginUser.getUserNo();
+		    boolean inWishlist = productService.checkWishlist(userNo, productNo);
+		    return "{\"inWishlist\": " + inWishlist + "}";
+		}
+
     
 
     

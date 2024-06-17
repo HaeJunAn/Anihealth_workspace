@@ -94,15 +94,22 @@
         #heart1 {
             font-size: large;
          	margin-left: 30px;
-         	border: 1px solid   rgb(233, 199, 199);
+         	border: 2px solid  rgb(233, 199, 199);
         }
 
         #cart1 {
             color: white;
             background-color: rgb(139, 198, 178);
             font-weight: bold;
-         
+         	padding: 10px 20px;
         }
+         #cart1:hover{
+            padding: 10px 20px;
+         	 color: white;
+         	 font-weight: bold;
+         	 background-color: rgb(106, 165, 145);
+         }
+        
 
         #table-line{
             border-bottom: 2px solid rgb(55, 51, 51);
@@ -262,7 +269,7 @@
 		                    <tr>
 			                    <td colspan="2">
 			                        <div class="button-container">
-			                        <button id="heart1" class="btn btn-lg heart-btn">🤍</button>
+			                         <button type="button" id="heart1" class="btn btn-lg heart">${wishlistAdded ? '❤️' : '🤍'}</button>
 			                        <button type="button" id="cart1" class="btn btn-lg cart-btn">장바구니 담기</button> 
 			                        </div>
 			                    </td>

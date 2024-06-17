@@ -152,7 +152,7 @@
     
     </select>
     
-      <!-- 평점 조회 -->
+        <!-- 평점 조회 유상 -->
     <select id="selectRating" parameterType="_int" resultType="_double">
     	SELECT AVG(RATING)
 		 FROM REVIEW R
@@ -302,5 +302,33 @@
           WHERE PRODUCT_NO = #{productNo}
 	</delete>
 	<!-- *********** 정민 : 관리자 ********* -->
+	
+	
+	<!-- Wishlist 관련 쿼리 -->
+<insert id="addToWishlist" parameterType="wishlist">
+    INSERT INTO WISHLIST (PRODUCT_NO, USER_NO)
+    VALUES (#{productNo}, #{userNo})
+</insert>
+
+<delete id="removeFromWishlist" parameterType="java.util.Map">
+    DELETE FROM WISHLIST
+    WHERE PRODUCT_NO = #{productNo} AND USER_NO = #{userNo}
+</delete>
+
+
+<select id="checkDuplicateWishlist" resultType="int" parameterType="wishlist">
+    SELECT COUNT(*) 
+    FROM WISHLIST
+    WHERE PRODUCT_NO = #{productNo} AND USER_NO = #{userNo}
+</select>
+
+<!-- 위시리스트에 제품이 있는지 여부를 체크하는 쿼리 -->
+<select id="checkWishlist" resultType="int" parameterType="wishlist">
+    SELECT COUNT(*) 
+    FROM WISHLIST
+    WHERE PRODUCT_NO = #{productNo} AND USER_NO = #{userNo}
+</select>
+	
+	
 	
 </mapper>

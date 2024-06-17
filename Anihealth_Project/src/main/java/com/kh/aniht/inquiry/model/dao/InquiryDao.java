@@ -12,19 +12,19 @@ import com.kh.aniht.inquiry.model.vo.Inquiry;
 @Repository
 public class InquiryDao {
 
-	public int selectListCount(SqlSessionTemplate sqlSession) {
+	public int selectListCount(SqlSessionTemplate sqlSession, int userNo) {
 		
-		return sqlSession.selectOne("inquiryMapper.selectListCount");
+		return sqlSession.selectOne("inquiryMapper.selectListCount", userNo);
 	}
 
-	public ArrayList<Inquiry> selectList(SqlSessionTemplate sqlSession, PageInfo pi) {
+	public ArrayList<Inquiry> selectList(SqlSessionTemplate sqlSession, PageInfo pi,int userNo) {
 		
 		int limit = pi.getBoardLimit();
 		int offset = (pi.getCurrentPage() - 1) * limit;
 		
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		
-		return  (ArrayList)sqlSession.selectList("inquiryMapper.selectList", null, rowBounds);
+		return  (ArrayList)sqlSession.selectList("inquiryMapper.selectList", userNo, rowBounds);
 	}
 
 	

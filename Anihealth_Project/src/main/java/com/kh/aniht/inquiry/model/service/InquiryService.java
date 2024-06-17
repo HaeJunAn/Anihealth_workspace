@@ -7,9 +7,9 @@ import com.kh.aniht.inquiry.model.vo.Inquiry;
 
 public interface InquiryService {
 
-	int selectListCount(); // 게시글 총 갯수 조회
+	int selectListCount(int userNo); // 게시글 총 갯수 조회
 
-	ArrayList<Inquiry> selectList(PageInfo pi); // 게시글 리스트 조회
+	ArrayList<Inquiry> selectList(PageInfo pi ,int userNo); // 게시글 리스트 조회
 
 	Inquiry selectInquiry(int inquiryNo); // 게시글 상세 조회
 	

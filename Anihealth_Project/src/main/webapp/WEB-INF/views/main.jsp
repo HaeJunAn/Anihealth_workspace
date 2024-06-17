@@ -30,6 +30,7 @@
             padding-bottom: 1px;
             position: absolute;
             border-radius: 10px;
+            text-shadow: 2px 2px 4px #000000;
         }
 
         .header-btn h2,
@@ -87,15 +88,44 @@
             color: rgb(88, 86, 86);
         }
 
-        .content-image {
-            width: 100%;
-            height: 120%;
-            max-width: none;
-            margin-top: 10px;
-            border-radius: 10px;
-            cursor: pointer;
-            object-fit: cover; /* 이미지 비율을 유지하면서 크기 조정 */
-        }
+        .image-text-container {
+		    position: relative;
+		    display: block;
+		    width: 100%;
+		}
+		
+		.content-image {
+		    width: 100%;
+		    height: auto;
+		    border-radius: 10px;
+		    object-fit: cover;
+		    display: block; /* 이미지를 블록 요소로 설정 */
+		}
+		
+		.image-caption {
+		    position: absolute;
+		    top: 6%; /* 이미지 상단에서 10% 아래로 위치 조정 */
+		    left: 13px; /* 왼쪽에서 10픽셀 떨어진 위치 */
+		    color: rgb(60, 59, 59);
+		    text-align: left; /* 텍스트 왼쪽 정렬 */
+		    width: 100%; 
+		    padding: 10px; /* 패딩 추가 */
+		    box-sizing: border-box; /* 패딩과 보더가 너비와 높이에 포함되도록 설정 */
+		}
+		
+		.image-caption p {
+		    margin: 4px 0; /* 텍스트 간격 설정 */
+		    font-size: 1.7em; /* 기본 글자 크기 */
+		}
+		
+		.image-caption .larger-text {
+		    font-size: 2em; /* 더 큰 텍스트의 글자 크기를 더 크게 조정 */
+		}
+		
+		.image-caption .detail-link {
+		    margin-top: 15px; /* '자세히 보기' 위의 여백 추가 */
+		    font-size: 1.4em; /* '자세히 보기'의 글자 크기를 조금 줄임 */
+		}
 
 
         .slide-container {
@@ -260,25 +290,39 @@
                         </button>
                     </div>
                 </div>
-                <br><br>
                 <div class="table-container main-section hidden animate__animated animate__slower" data-animate="animate__fadeInLeft">
-                    <table class="content-table">
-                        <tr>
-                            <td>
-                            <h3>매거진</h3>
-                            <a href="maga.re">
-                                <img src="resources/img/cat111.png" alt="매거진 이미지" class="content-image">
-                                </a>
-                            </td>
-                            <td>
-                                <h3> 동물병원 찾기</h3>
-                                <a href="map.ma">
-                                <img src="resources/img/dog111.png" alt="동물병원 이미지" class="content-image">
-                            </a>
-                            </td>
-                        </tr>
-                    </table>
+    <table class="content-table">
+        <tr>
+            <td>
+                <h3>매거진</h3>
+                <div class="image-text-container">
+                    <a href="maga.re">
+                        <img src="resources/img/cat-megazine_720.png" alt="매거진 이미지" class="content-image">
+                        <div class="image-caption">
+						    <p>반려동물의</p>
+						    <p class="larger-text">모든 건강 정보 보기</p>
+						  <p class="detail-link">자세히 보기 >>></p>
+						</div>
+                    </a>
                 </div>
+            </td>
+            <td>
+                <h3>동물병원 찾기</h3>
+                <div class="image-text-container">
+                    <a href="map.ma">
+                        <img src="resources/img/dog-find_720.png" alt="동물병원 이미지" class="content-image">
+                       <div class="image-caption">
+						    <p>잠깐!!!</p>
+						    <p class="larger-text">전문 수의사와</p>
+						    <p class="larger-text">상담 받았나요?</p>
+						    <p class="detail-link">자세히 보기 >>></p>
+						</div>
+                    </a>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
                 <div class="slide-container  main-section hidden animate__animated animate__slower" data-animate="animate__fadeInRight">
                      <div class="slide-table">
                 <h3>BestPick!</h3>

@@ -113,6 +113,10 @@
             font-weight: 600;
             margin-left: 5px;
         }
+          #btn-search:hover {
+       	  background-color:rgb(82, 166, 121);
+       	  color: white;
+        }
 
         /* 가격순 정렬과 공통 키워드 검색 영역 끝 */
 
@@ -429,6 +433,7 @@
 
 <jsp:include page="../common/footer.jsp" />
 
+<!--별점조회-유상, 별숨기기,리유없음-진희  -->
 <script>
     $(function () {
         let productNoArr = [];

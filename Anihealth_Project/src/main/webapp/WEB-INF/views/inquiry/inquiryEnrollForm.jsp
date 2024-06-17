@@ -54,7 +54,7 @@
             margin: auto;
             padding: 30px 30px;
             background-color: #fff;
-            box-shadow: 0 0 10px   rgba(59, 173, 110, 0.3);
+           box-shadow:0 0 8px 2px rgba(4, 4, 4, 0.1);
             border-radius: 10px;
             box-sizing: border-box;
             position: relative;
@@ -82,18 +82,18 @@
         .cart-table td {
             padding: 15px;
             text-align: left;
-            border-bottom: 1px solid #63a07a;
+             border-bottom: 1.5px solid lightgray; 
         }
 
         .cart-table thead {
             background-color:#f4f8f1;
-            color: #555;
+             color:  #444;
             font-size: 130%;
         }
         .cart-table-content td {
             vertical-align: middle; 
             height: 110%;
-            color: #333;
+             color:  #444;
         }
 
         .cart-table-inner td{
@@ -118,7 +118,7 @@
             display: block;
             box-sizing: border-box;
             width: auto;
-            margin: 20px auto;
+           margin: 10px auto 20px;
             padding: 10px 30px;
             margin-left: 80%;
             background-color: #99BC85;
@@ -150,10 +150,18 @@
             border: none;
             border-radius: 4px;
             cursor: pointer;
-            background-color:#ec767e; 
+             background-color: rgb(103, 162, 130);
             color: white;
             font-size: large;
         }
+        
+        #btn-update:hover {
+		    background-color:#4fc29d;
+		}
+        #btn-delete:hover {
+		    background-color:rgb(53, 175, 110);
+		}
+   
         /* 전체 내용 영역 끝 */
         /* 메인 영역 끝 */
 
@@ -172,6 +180,9 @@
         .content h2{
            color: #57585c;
            text-align: center;
+        }
+        .label1{
+        	font-size: 120%;
         }
 
         /* 전체 내용 영역 끝 */
@@ -201,15 +212,15 @@
 		                        <form id="enrollForm" method="post" action="insert.iq" enctype="">
 		                            <table align="center">
 		                                <tr>
-		                                    <th><label for="title" style="color: #57585c;">제목</label></th>
+		                                    <th><label for="title" style="color: #57585c;"  class="label1">제목</label></th>
 		                                    <td><input type="text" id="title" class="form-control" name="inquiryTitle" 
 		                                               placeholder="제목을 입력해주세요" required></td>
 		                                </tr>
 		                
 		                                <tr>
-		                                    <th><label for="content"  style="color: #57585c;">내용</label></th>
+		                                    <th><label for="content"  style="color: #57585c;"  class="label1">내용</label></th>
 		                                    <td><textarea id="content" class="form-control" rows="10" style="resize:none;" name="inquiryContent" 
-		                                    			  placeholder="내욜을 입력해주세요"	required></textarea></td>
+		                                    			  placeholder="내용을 입력해주세요"	required></textarea></td>
 		                                </tr>
 		                            </table>
 		                            <br><br>
