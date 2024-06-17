@@ -195,7 +195,10 @@
         .gray-line {
             border-bottom: 2px solid lightgray;
         }
-        
+       
+        .review_btn {
+        	display: inline-block;
+        }
         
 		
 
@@ -246,6 +249,7 @@
                         <table class="cart-table">
                         	<thead>
                                 <tr>
+                                	<th>제품명</th>
                                     <th class="cart-table-item" colspan="2">후기내역</th>
                                     <th width="130px">작성일</th>
                                     <th>수정  / 삭제</th>
@@ -256,6 +260,7 @@
                             <tbody class="cart-table-content">
                             	<c:forEach var="r" items="${ requestScope.list }">
 	                                <tr class="cart-table-inner">
+	                                	<td>${ r.productName }</td>
 	                                    <td colspan="2">
 	                                        <div class="item-container">
 	                                            <img class="img-size" src="${ r.reviewFilePath }" alt="영양제이미지">
@@ -273,11 +278,11 @@
 	                                        </div>
 	                                    </td>
 	                                    <td>
-	                                    <form action="updateForm.re" method="post">
+	                                    <form action="updateForm.re" method="post" class="review_btn">
 	                                    	<button class="btn btn-sm"">수정</button>
 	                                    	<input type='hidden' name="reviewNo" value="${r.reviewNo}">
 	                                    </form>
-	                                    <form action="delete.re" method="post">
+	                                    <form action="delete.re" method="post" class="review_btn">
 	                                    	<button class="btn btn-sm">삭제</button>
 	                                    	<input type='hidden' name="reviewNo" value="${r.reviewNo}">
 	                                    </form>

@@ -30,6 +30,21 @@
 			<mapping path="/order.re"/>
 			<mapping path="/myPage.me"/>
 			<mapping path="/list.iq" />
+			<mapping path="/myPageDelivery.me"/>
+			<mapping path="/myPageOrder.me"/>
+			<mapping path="/myPageRefund.me"/>
+			<mapping path="/myPageOrderDetail.me"/>
+			<mapping path="/myPageReview.me"/>
+			<mapping path="/myPageWish.me"/>
+			<mapping path="/wishDelete.me"/>
+			<mapping path="/myPageQuestion.me"/>
+			<mapping path="/myPagePassword.me"/>
+			<mapping path="/update.me"/>
+			<mapping path="/checkPwd.me"/>
+			<mapping path="/updatePwd.me"/>
+			<mapping path="/updateDelivery.me"/>
+			<mapping path="/deleteDelivery.me"/>
+			<mapping path="/insertDelivery.me"/>
 			<beans:bean class="com.kh.aniht.common.interceptor.LoginInterceptor" id="loginInterceptor" />
 		</interceptor>
 	</interceptors>

@@ -2,9 +2,13 @@ package com.kh.aniht.member.model.service;
 
 import java.util.ArrayList;
 
+import com.kh.aniht.inquiry.model.vo.Inquiry;
 import com.kh.aniht.member.model.vo.Delivery;
 import com.kh.aniht.member.model.vo.Member;
+import com.kh.aniht.member.model.vo.WishList;
+import com.kh.aniht.order.model.vo.Order;
 import com.kh.aniht.order.model.vo.OrderProduct;
+import com.kh.aniht.question.model.vo.Question;
 import com.kh.aniht.review.model.vo.Review;
 
 public interface MemberService {
@@ -46,7 +50,13 @@ public interface MemberService {
 		int updatePwd(Member m);
 		
 		// 마이페이지 - 주문내역 리스트
-		ArrayList<OrderProduct> selectOrderList(Member m);
+		ArrayList<Order> selectOrderList(Member m);
+		
+		// 마이페이지 - 주문내역 리스트 환불하기
+		int orderRefund(int ono);
+		
+		// 마이페이지 - 상세 주문내역 리스트
+		ArrayList<OrderProduct> selectOrderDetailList(int ono);
 
 		// 마이페이지 - 배송지 리스트
 		ArrayList<Delivery> selectDeliveryList(Member m);
@@ -66,6 +76,18 @@ public interface MemberService {
 		// 마이페이지 - 리뷰 조회
 		ArrayList<Review> selectReviewList(Member m);
 
+		// 마이페이지 - 찜 조회
+		ArrayList<WishList> selectWishList(Member m);
+
+		// 마이페이지 - 찜 삭제
+		int wishDelete(WishList w);
+
+		// 마이페이지 - 문의 조회
+		ArrayList<Inquiry> selectInquiryList(Member m);
+
+
+
+		
 
 		
 

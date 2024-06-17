@@ -1,6 +1,8 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -89,6 +91,7 @@
             text-decoration: none;
         }
 
+        /* 콘텐츠 스타일 */
         .content-my {
             width: 70%;
             margin: 0 auto;
@@ -100,8 +103,7 @@
             padding-bottom: 20px;
             border-bottom: 2px solid lightgray;
         }
-
-        .cart-background {
+        .cart-background{
             margin-top: 20px;
         }
 
@@ -124,13 +126,9 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            text-align: center;
-            font-weight: bold;
-            vertical-align: middle;
         }
 
         .item-title {
-        	text-align: left;
             font-weight: bold;
             margin: 5px;
         }
@@ -138,12 +136,6 @@
         .item-subtitle {
             color: gray;
             margin: 5px;
-            text-align: left;
-        }
-
-        .item-details {
-            display: flex;
-            align-items: center;
         }
 
         .cart-background {
@@ -155,49 +147,44 @@
             width: 100%;
             border-collapse: collapse;
             margin: auto;
-            text-align: center;
+            text-align: center;        
         }
 
 		.cart-table th {
 			padding: 15px;
             border-bottom: 1px solid #5a5b5a;
-            background-color: #f3f7f1;
-            color: rgb(104, 103, 103);
-            font-size: large;
-            font-weight: bold;
 		}
 
         .cart-table td {
             padding: 15px;
             text-align: center;
-            border-top: 1px solid #4ca64c;
+            border-bottom: 1px solid #5a5b5a;
         }
 
-        .cart-table tbody:last-child {
-            border-bottom: 1px solid #4ca64c;
+        .cart-table th {
+            background-color: #f3f7f1;
+            color: rgb(104, 103, 103);
+            font-size: large;
+            font-weight: bold;
         }
-
         .cart-table-item{
           margin-left: 50px;
         }
-        
 
-        .cart-table-inner .btn {
+        .cart-table-inner .btn{
             background-color: #599a83;
-            /* color: aliceblue; */
+            color: aliceblue;
             margin: 5px;
-            color: white;
         }
 
         .cart-table-content td {
             vertical-align: middle;
         }
-
+        
         .gray-line {
             border-bottom: 2px solid lightgray;
         }
-        
-        
+			
 		
 
     </style>
@@ -236,55 +223,59 @@
                 </nav-my>
             </div>
             <div class="content-my">
-                    <h2>1:1 문의 <img src="resources/img/questionIcon.png" width="40px"></h2>
+                    <h2>상세 주문 내역 <img src="resources/img/orderIcon.png" width="40px"></h2>
                     <br>
                     
                     <div class="cart-background">
+                    
                     	<c:choose>
                            	<c:when test="${not empty requestScope.list }">
                            	<!-- 주문내역이 있을 경우 -->
-                    
 		                        <table class="cart-table">
-		                        	<thead>
+		                            <thead>
 		                                <tr>
-		                                    <th class="cart-table-item" width="360px;">문의 내역</th>
-		                                    <th>작성일</th>
-		                                    <th width="360px;">문의답변</th>
-		                                    <th width="100px;">삭제</th>
-		                                    
+		                                    <th class="cart-table-item" colspan="2" width="150px;">제품</th>
+		                                    <th>주문일자</th>
+		                                    <th>주문 상태</th>
+		                                    <th>환불 / 후기</th>
 		                                </tr>
 		                            </thead>
 		                            <tbody class="cart-table-content">
-		                            	<c:forEach var="i" items="${ requestScope.list }">
-			                                <tr class="cart-table-inner">
-			                                    <td>  
-				                                    <div class="item-text">
-				                                        <p class="item-title">${ i.inquiryTitle }</p>
-				                                        <div class="item-details">
-				                                            <span class="item-subtitle">${ i.inquiryContent }</span>
-				                                        </div>
-				                                    </div>
-			                                        
+		                                <c:forEach var="op" items="${ requestScope.list }">
+	                                		<tr class="cart-table-inner">
+			                                    <td colspan="2">
+			                                        <div class="item-container">
+			                                            <img class="img-size" src="${ op.productThumbnailPath }" alt="영양제이미지">
+			                                            <div class="item-text">
+			                                                <p class="item-title">${ op.productName }</p>
+			                                                <div class="item-details">
+			                                                    <span class="item-subtitle"><fmt:formatNumber value="${ op.orderProductPrice }" type="number" groupingUsed="true" /> &nbsp;원</span>
+			                                                    <span class="item-subtitle">${ op.orderQuantity }개</span>
+			                                                </div>
+			                                            </div>
+			                                        </div>
 			                                    </td>
-			                                    <td>${ i.inquiryCreate }</td>
-			                                    <td>${ i.inquiryAnswer }</td>
+			                                    <td>${ op.orderDate }</td>
 			                                    <td>
-			                                        <button class="btn btn-sm">삭제</button>
+			                                        <div class="item-text">
+			                                            <p class="item-title">${ op.deliveryStatus }</p>
+			                                        </div>
 			                                    </td>
-			                                </tr>
-										</c:forEach>
+			                                    <td style="text-align: center;">
+			                                        <button class="btn btn-sm" onclick="location.href='insertForm.re?orderProductNo=${op.orderProductNo}'">후기작성</button>
+			                                    </td>
+		                               		</tr>
+		                                </c:forEach>
 		                            </tbody>
-	                        	</table>
-                    		</c:when>
-                    		<c:otherwise>
-	                    		<h4 align="center" style="color: gray">문의내역이 존재하지 않습니다.</h4>
-	                    	</c:otherwise>
-                    	</c:choose>
+		                        </table>
+	                    	</c:when>
+                        </c:choose>
                     </div>
                     <br><br>
                     <div class="gray-line"></div> 
                 </div>
         </div>
+        <div class="gray-line"></div>
     </div>
 
     <br><br><br><br><br><br><br>

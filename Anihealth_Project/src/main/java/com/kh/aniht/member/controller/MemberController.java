@@ -17,12 +17,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.aniht.inquiry.model.vo.Inquiry;
 import com.kh.aniht.member.model.service.MemberService;
 import com.kh.aniht.member.model.vo.Delivery;
 import com.kh.aniht.member.model.vo.Member;
+import com.kh.aniht.member.model.vo.WishList;
+import com.kh.aniht.order.model.vo.Order;
 import com.kh.aniht.order.model.vo.OrderProduct;
 import com.kh.aniht.review.model.vo.Review;
 
@@ -460,11 +464,55 @@ public class MemberController {
 	public String myPageOrder(Member m,
 							  HttpSession session,
 							  Model model) {
-		
+				
 		m.setUserNo(((Member)session.getAttribute("loginUser")).getUserNo());
-		// System.out.println(userNo);
 		
-		ArrayList<OrderProduct> list = memberService.selectOrderList(m);
+		ArrayList<Order> list = memberService.selectOrderList(m);
+		
+		/*
+		for(Order o : list) {
+		System.out.println(o);
+		}
+		*/
+		
+		
+		model.addAttribute("list", list);
+		
+		return "member/myPageOrder";
+		
+	}
+	
+	// 마이페이지 주문내역 환불하기
+	@GetMapping("orderRefund.me")
+	public String orderRefund(int ono,
+							  Model model,
+							  HttpSession session) {
+		
+		// System.out.println(ono);
+		
+		int result = memberService.orderRefund(ono);
+		
+		if(result > 0) {
+			
+			session.setAttribute("alertMsg", "환불처리가 완료되었습니다.");
+			
+		} else {
+			
+			session.setAttribute("alertMsg", "환불이 완료되지 않았습니다. 다시 시도해주세요.");
+		}
+		return "member/myPageOrder";
+	}
+	
+	
+	// 마이페이지 상세 주문내역 이동
+	@GetMapping("myPageOrderDetail.me")
+	public String myPageOrderDetail(int ono,
+							        HttpSession session,
+							        Model model) {
+		
+		// System.out.println(ono);
+		
+		ArrayList<OrderProduct> list = memberService.selectOrderDetailList(ono);
 		
 		/*
 		for(OrderProduct op : list) {
@@ -474,7 +522,7 @@ public class MemberController {
 		
 		model.addAttribute("list", list);
 		
-		return "member/myPageOrder";
+		return "member/myPageOrderDetail";
 		
 	}
 	
@@ -488,6 +536,12 @@ public class MemberController {
 		
 		ArrayList<Review> list = memberService.selectReviewList(m);
 		
+		/*
+		for(Review r : list) {
+			System.out.println(r);
+		}
+		*/
+		
 		model.addAttribute("list", list);
 		
 		return "member/myPageReview";
@@ -496,15 +550,66 @@ public class MemberController {
 	
 	// 마이페이지 찜 이동
 	@GetMapping("myPageWish.me")
-	public String myPageWish() {
+	public String myPageWish(Member m,
+							 HttpSession session,
+							 Model model) {
+		
+		m.setUserNo(((Member)session.getAttribute("loginUser")).getUserNo());
+		
+		ArrayList<WishList> list = memberService.selectWishList(m);
+		
+		/*
+		for(WishList w : list) {
+			
+			System.out.println(w);
+		}
+		*/
+		
+		
+		model.addAttribute("list", list);
 		
 		return "member/myPageWish";
 		
 	}
 	
+	// 마이페이지 찜 삭제
+	@GetMapping("wishDelete.me")
+	public String wishDelete(@RequestParam("productNo") int productNo,
+							 @RequestParam("userNo") int userNo,
+							 HttpSession session,
+							 WishList w) {
+		
+		// System.out.println(pno);
+		// System.out.println(userNo);
+		
+		w.setProductNo(productNo);
+		w.setUserNo(userNo);
+		
+		int result = memberService.wishDelete(w);
+		
+		if(result > 0) {
+			
+			session.setAttribute("alertMsg", "해당 상품이 찜 목록에서 삭제되었습니다.");
+			
+		} else {
+			
+			session.setAttribute("alertMsg", "삭제되지 않았습니다. 다시 시도해주세요.");
+		}
+		
+		return "member/myPageWish";
+	}
+	
 	// 마이페이지 문의 이동
 	@GetMapping("myPageQuestion.me")
-	public String myPageQuestion() {
+	public String myPageQuestion(HttpSession session,
+								 Model model,
+								 Member m) {
+		
+		m.setUserNo(((Member)session.getAttribute("loginUser")).getUserNo());
+		
+		ArrayList<Inquiry> list = memberService.selectInquiryList(m);
+		
+		model.addAttribute("list", list);
 		
 		return "member/myPageQuestion";
 		

@@ -7,11 +7,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.kh.aniht.inquiry.model.vo.Inquiry;
 import com.kh.aniht.member.model.dao.MemberDao;
 import com.kh.aniht.member.model.vo.Delivery;
 import com.kh.aniht.member.model.vo.Member;
+import com.kh.aniht.member.model.vo.WishList;
+import com.kh.aniht.order.model.vo.Order;
 import com.kh.aniht.order.model.vo.OrderProduct;
+import com.kh.aniht.question.model.vo.Question;
 import com.kh.aniht.review.model.vo.Review;
+import com.sun.javadoc.MemberDoc;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -99,11 +104,22 @@ public class MemberServiceImpl implements MemberService {
 		
 		return memberDao.emailCheck(sqlSession, checkEmail);
 	}
+	
+	@Override
+	public ArrayList<Order> selectOrderList(Member m) {
+		return memberDao.selectOrderList(sqlSession, m);
+	}
+	
+	@Override
+	public int orderRefund(int ono) {
+		
+		return memberDao.orderRefund(sqlSession, ono);
+	}
 
 	@Override
-	public ArrayList<OrderProduct> selectOrderList(Member m) {
+	public ArrayList<OrderProduct> selectOrderDetailList(int ono) {
 		
-		return memberDao.selectOrderList(sqlSession, m);
+		return memberDao.selectOrderDetailList(sqlSession, ono);
 	}
 	
 	@Override
@@ -141,6 +157,28 @@ public class MemberServiceImpl implements MemberService {
 		
 		return memberDao.selectReviewList(sqlSession, m);
 	}
+
+	@Override
+	public ArrayList<WishList> selectWishList(Member m) {
+		
+		return memberDao.selectWishList(sqlSession, m);
+	}
+
+	@Override
+	public int wishDelete(WishList w) {
+		
+		return memberDao.wishDelete(sqlSession, w);
+	}
+
+	@Override
+	public ArrayList<Inquiry> selectInquiryList(Member m) {
+		
+		return memberDao.selectInquiryList(sqlSession, m);
+	}
+
+	
+
+	
 
 	
 

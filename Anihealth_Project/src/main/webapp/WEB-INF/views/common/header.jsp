@@ -307,7 +307,7 @@
                         <img src="resources/img/image (4).png" id="logo">
                     </a>
                 </div>
-    
+                
                 <div id="header_2" align="center">
                     <ul class="nav justify-content-center">
                         <li class="nav-item">

@@ -282,7 +282,7 @@
 				            <div class="address-container">
 				                <div class="address-item">
 					                    <span class="badge badge-pill">배송지 ${loop.index + 1}</span>
-					                    <p class="address-name">${ d.deliveryName }</p>
+					                    <p class="address-name"><img src="resources/img/deliIcon2.png" width="20px"> ${ d.deliveryName }</p>
 					                    <p class="address-details">${ d.deliveryZipcode }</p>
 					                    <p class="address-details">${ d.deliveryAddress }</p>
 					                    <button class="btn btn-edit" id="btn-edit" data-toggle="modal" data-target="#deliveryUpdate-form" data-delivery-no="${d.deliveryNo}">수정</button>

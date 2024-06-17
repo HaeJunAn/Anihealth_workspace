@@ -5,8 +5,11 @@ import java.util.ArrayList;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.aniht.inquiry.model.vo.Inquiry;
 import com.kh.aniht.member.model.vo.Delivery;
 import com.kh.aniht.member.model.vo.Member;
+import com.kh.aniht.member.model.vo.WishList;
+import com.kh.aniht.order.model.vo.Order;
 import com.kh.aniht.order.model.vo.OrderProduct;
 import com.kh.aniht.review.model.vo.Review;
 
@@ -76,10 +79,19 @@ public int emailCheck(SqlSessionTemplate sqlSession, String checkEmail) {
 	return sqlSession.selectOne("memberMapper.emailCheck", checkEmail);
 }
 
-
-public ArrayList<OrderProduct> selectOrderList(SqlSessionTemplate sqlSession, Member m) {
+public ArrayList<Order> selectOrderList(SqlSessionTemplate sqlSession, Member m) {
 	
 	return (ArrayList)sqlSession.selectList("memberMapper.selectOrderList", m);
+}
+
+public int orderRefund(SqlSessionTemplate sqlSession, int ono) {
+	
+	return sqlSession.update("memberMapper.orderRefund", ono);
+}
+
+public ArrayList<OrderProduct> selectOrderDetailList(SqlSessionTemplate sqlSession, int ono) {
+	
+	return (ArrayList)sqlSession.selectList("memberMapper.selectOrderDetailList", ono);
 	
 }
 
@@ -111,6 +123,24 @@ public ArrayList<Review> selectReviewList(SqlSessionTemplate sqlSession, Member 
 	
 	return (ArrayList)sqlSession.selectList("memberMapper.selectReviewList", m);
 }
+
+public ArrayList<WishList> selectWishList(SqlSessionTemplate sqlSession, Member m) {
+	
+	return (ArrayList)sqlSession.selectList("memberMapper.selectWishList", m);
+}
+
+public int wishDelete(SqlSessionTemplate sqlSession, WishList w) {
+	
+	// System.out.println(w);
+	return sqlSession.delete("memberMapper.wishDelete", w);
+}
+
+public ArrayList<Inquiry> selectInquiryList(SqlSessionTemplate sqlSession, Member m) {
+	
+	return (ArrayList)sqlSession.selectList("memberMapper.selectInquiryList", m);
+}
+
+
 
 
 

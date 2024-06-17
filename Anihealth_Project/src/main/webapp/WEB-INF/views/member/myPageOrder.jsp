@@ -22,6 +22,7 @@
     <!-- Font Awesome CSS 포함 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
+	
     <title>마이페이지 메인</title>
     <style>
         /* 공통 스타일 */
@@ -131,6 +132,7 @@
         .item-title {
             font-weight: bold;
             margin: 5px;
+            text-align: left;
         }
 
         .item-subtitle {
@@ -190,6 +192,7 @@
     </style>
 </head>
 <body>
+
     <!-- 헤더바 -->
     <jsp:include page="../common/header.jsp" />
    
@@ -230,40 +233,58 @@
                     
                     	<c:choose>
                            	<c:when test="${not empty requestScope.list }">
+                           	
                            	<!-- 주문내역이 있을 경우 -->
 		                        <table class="cart-table">
 		                            <thead>
 		                                <tr>
-		                                    <th class="cart-table-item" colspan="2" width="150px;">제품</th>
-		                                    <th>주문일자</th>
-		                                    <th>주문 상태</th>
-		                                    <th>환불 / 후기</th>
+		                                    <th class="cart-table-item" colspan="2" width="100px;">주문 일자</th>
+		                                    <th>결제 금액</th>
+		                                    <th>배송 상태</th>
+		                                    <th>배송지</th>
+		                                    <th>배송 요청사항</th>
+		                                    <th>환불</th>
 		                                </tr>
 		                            </thead>
+		                            
 		                            <tbody class="cart-table-content">
-		                                <c:forEach var="op" items="${ requestScope.list }">
+		                           		<c:forEach var="o" items="${ requestScope.list }">
+		                                	<tr>
+		                                		<div>
+		                                		<td colspan="3" style="text-align: left; padding-bottom: 0; border-bottom-color: lightgray">주문번호 : ${ o.orderNo }</td>
+		                                		<td colspan="4" style="text-align: right; padding-bottom: 0; border-bottom-color: lightgray">
+		                                			<a href="myPageOrderDetail.me?ono=${ o.orderNo }" style="text-decoration: none; color: black;">주문 상세보기 ></a>
+		                                		</td>
+		                                		</div>
+		                                	</tr>
 	                                		<tr class="cart-table-inner">
 			                                    <td colspan="2">
 			                                        <div class="item-container">
-			                                            <img class="img-size" src="${ op.productThumbnailPath }" alt="영양제이미지">
 			                                            <div class="item-text">
-			                                                <p class="item-title">${ op.productName }</p>
-			                                                <div class="item-details">
-			                                                    <span class="item-subtitle"><fmt:formatNumber value="${ op.orderProductPrice }" type="number" groupingUsed="true" /> &nbsp;원</span>
-			                                                    <span class="item-subtitle">${ op.orderQuantity }개</span>
-			                                                </div>
+			                                                <p class="item-title">${ o.orderDate }</p>
+			                                                
 			                                            </div>
 			                                        </div>
 			                                    </td>
-			                                    <td>${ op.orderDate }</td>
+			                                    <td>
+			                                    	<span class="item-subtitle"><fmt:formatNumber value="${ o.orderPrice }" type="number" groupingUsed="true" /> &nbsp;원</span>
+			                                    </td>
+			                                    <td>배송완료</td>
 			                                    <td>
 			                                        <div class="item-text">
-			                                            <p class="item-title">${ op.deliveryStatus }</p>
+			                                            <p class="item-title">
+			                                            	${ o.orderZipcode } <br>
+			                                            	${ o.orderAddress }
+			                                            </p>
 			                                        </div>
 			                                    </td>
-			                                    <td style="text-align: center;">
-			                                        <button class="btn btn-sm">환불하기</button>
-			                                        <button class="btn btn-sm" onclick="location.href='insertForm.re?orderProductNo=${op.orderProductNo}'">후기작성</button>
+			                                    <td>${ o.orderRequest }</td>
+			                                    <td>
+			                                    	<button class="btn btn-sm">
+			                                    		<a href="orderRefund.me?ono=${ o.orderNo }" style="text-decoration: none; color: white;">
+			                                    			환불하기
+			                                    		</a>
+			                                    	</button>
 			                                    </td>
 		                               		</tr>
 		                                </c:forEach>
@@ -274,6 +295,7 @@
 	                    		<h4 align="center" style="color: gray">주문내역이 존재하지 않습니다.</h4>
 	                    	</c:otherwise>
                         </c:choose>
+	                    
                     </div>
                     <br><br>
                     <div class="gray-line"></div> 

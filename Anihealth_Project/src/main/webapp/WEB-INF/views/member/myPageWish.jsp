@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -238,37 +240,47 @@
                     <br>
                     
                     <div class="cart-background">
-                        <table class="cart-table">
-                        	<thead>
-                                <tr>
-                                    <th class="cart-table-item" colspan="2" width="150px;">제품</th>
-                                    <th></th>
-                                    <th>삭제</th>
-                                    
-                                </tr>
-                            </thead>
-                            <tbody class="cart-table-content">
-                                <tr class="cart-table-inner">
-                                    <td colspan="2">
-                                        <div class="item-container">
-                                            <img class="img-size" src="resources/img/skin-hair.png" alt="영양제이미지">
-                                            <div class="item-text">
-                                                <p class="item-title">코텍스 블리스터</p>
-                                                <div class="item-details">
-                                                    <span class="item-subtitle">25000원</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                    </td>
-                                    <td>
-                                        <button class="btn btn-sm">삭제</button>
-                                    </td>
-                                </tr>
-
-                            </tbody>
-                        </table>
+                    
+                    	<c:choose>
+                           	<c:when test="${not empty requestScope.list }">
+                           	<!-- 주문내역이 있을 경우 -->
+	                        <table class="cart-table">
+	                        	<thead>
+	                                <tr>
+	                                    <th class="cart-table-item" colspan="2" width="150px;">제품</th>
+	                                    <th></th>
+	                                    <th>삭제</th>
+	                                    
+	                                </tr>
+	                            </thead>
+	                            <tbody class="cart-table-content">
+	                            	<c:forEach var="w" items="${ requestScope.list }">
+		                                <tr class="cart-table-inner">
+		                                    <td colspan="2">
+		                                        <div class="item-container">
+		                                            <img class="img-size" src="${ w.productThumbnailPath }" alt="영양제이미지">
+		                                            <div class="item-text">
+		                                                <p class="item-title">${ w.productName }</p>
+		                                                <div class="item-details">
+		                                                    <span class="item-subtitle"><fmt:formatNumber value="${ w.price }" type="number" groupingUsed="true" /> &nbsp;원</span>
+		                                                </div>
+		                                            </div>
+		                                        </div>
+		                                    </td>
+		                                    <td>
+		                                    </td>
+		                                    <td>
+		                                        <a class="btn btn-sm" href="wishDelete.me?productNo=${ w.productNo }&userNo=${ w.userNo }">삭제</a>
+		                                    </td>
+		                                </tr>
+									</c:forEach>
+	                            </tbody>
+	                        </table>
+                        </c:when>
+                        <c:otherwise>
+	                    		<h4 align="center" style="color: gray">찜 목록이 존재하지 않습니다.</h4>
+	                    	</c:otherwise>
+                        </c:choose>
                     </div>
                     <br><br>
                     <div class="gray-line"></div> 

@@ -21,6 +21,20 @@
 		<result column="STATUS" property="status"/>
 	</resultMap>
 	
+	<resultMap type="order" id="orderResultSet">
+		<result column="ORDER_NO" property="orderNo"/>
+		<result column="PAY_CODE" property="payCode"/>
+		<result column="ORDER_PRICE" property="orderPrice"/>
+		<result column="ORDER_REQUEST" property="orderRequest"/>
+		<result column="ORDER_DATE" property="orderDate"/>
+		<result column="ORDER_CANCLE" property="orderCancle" />
+		<result column="DELIVERY_STATUS" property="deliveryStatus" />
+		<result column="ORDER_PHONE" property="orderPhone" />
+		<result column="ORDER_ADDRESS" property="orderAddress" />
+		<result column="ORDER_ZIPCODE" property="orderZipcode" />
+		<result column="USER_NO" property="userNo" />
+	</resultMap>
+		
 	<resultMap type="orderProduct" id="orderProductResultSet">
 		<result column="ORDER_PRODUCT_NO" property="orderProductNo"/>
 		<result column="ORDER_QUANTITY" property="orderQuantity"/>
@@ -52,7 +66,30 @@
 		<result column="REVIEW_STATUS" property="reviewStatus" />
 		<result column="ORDER_PRODUCT_NO" property="orderProductNo" />
 		<result column="USER_NO" property="userNo" />
+		<result column="PRODUCT_NAME" property="productName" />
 	</resultMap>
+	
+	<resultMap type="wishList" id="wishListResultSet">
+		<result column="PRODUCT_NO" property="productNo" />
+		<result column="USER_NO" property="userNo" />
+		<result column="PRODUCT_NAME" property="productName" />
+		<result column="CATEGORY" property="category" />
+		<result column="PRODUCT_THUMBNAIL_PATH" property="productThumbnailPath" />
+		<result column="PRICE" property="price" />
+	</resultMap>
+	
+	<resultMap type="inquiry" id="inquiryResultSet">
+		<result column="INQUIRY_NO" property="inquiryNo" />
+		<result column="INQUIRY_TITLE" property="inquiryTitle" />
+		<result column="INQUIRY_CONTENT" property="inquiryContent" />
+		<result column="INQUIRY_CREATE" property="inquiryCreate" />
+		<result column="INQUIRY_ANSWER" property="inquiryAnswer" />
+		<result column="INQUIRY_ANSWER_CONTENT" property="inquiryAnswerContent" />
+		<result column="INQUIRY_STATUS" property="inquiryStatus" />
+		<result column="USER_NO" property="userNo" />
+	</resultMap>
+	
+	
 	
 	<!-- 로그인용 쿼리문 -->
 	<select id="loginMember" 
@@ -195,6 +232,33 @@
 	
 	<!-- 주문내역 조회 쿼리문 -->
 	<select id="selectOrderList"
+			resultMap="orderResultSet">
+		SELECT ORDER_NO
+		     , PAY_CODE
+		     , ORDER_PRICE
+		     , ORDER_REQUEST
+		     , TO_CHAR(ORDER_DATE, 'YYYY-MM-DD') AS ORDER_DATE
+		     , ORDER_CANCLE
+		     , DELIVERY_STATUS
+		     , ORDER_PHONE
+		     , ORDER_ADDRESS
+		     , ORDER_ZIPCODE
+		     , USER_NO
+		  FROM "ORDER"
+		 WHERE USER_NO = #{userNo}
+		   AND ORDER_CANCLE = 'Y'
+	</select>
+			 
+	<!-- 주문내역 환불하기 쿼리문 -->
+	<update id="orderRefund"
+			parameterType="order">
+		UPDATE "ORDER"
+		   SET ORDER_CANCLE = 'N'
+		 WHERE ORDER_NO = #{ono}
+	</update>			 
+	
+	<!-- 상세 주문내역 조회 쿼리문 -->
+	<select id="selectOrderDetailList"
 			resultMap="orderProductResultSet">
 		SELECT OP.ORDER_PRODUCT_NO
 		     , OP.ORDER_QUANTITY
@@ -208,7 +272,7 @@
 		  FROM ORDER_PRODUCT OP
 		  JOIN "ORDER" O ON (OP.ORDER_NO = O.ORDER_NO)
 		  JOIN PRODUCT P ON (OP.PRODUCT_NO = P.PRODUCT_NO)
-		 WHERE USER_NO = #{userNo}
+		 WHERE O.ORDER_NO = #{ono}
 		   AND ORDER_CANCLE = 'Y'
 	</select>
 	
@@ -279,11 +343,53 @@
 		     , REVIEW_FILE_PATH
 		     , TO_CHAR(REVIEW_DATE, 'YYYY-MM-DD') AS REVIEW_DATE
 		     , REVIEW_STATUS
-		     , ORDER_PRODUCT_NO
+		     , R.ORDER_PRODUCT_NO
 		     , USER_NO
+		     , P.PRODUCT_NAME
 		  FROM REVIEW R
-		 WHERE USER_NO = #{userNo} AND REVIEW_STATUS = 'Y' <!-- 추가 -->
-		 ORDER BY REVIEW_NO DESC                           <!-- 추가 -->
+		  JOIN ORDER_PRODUCT OP ON(R.ORDER_PRODUCT_NO = OP.ORDER_PRODUCT_NO)
+		  JOIN PRODUCT P ON(OP.PRODUCT_NO = P.PRODUCT_NO)
+		 WHERE R.USER_NO = ${userNo} AND REVIEW_STATUS = 'Y'
+		 ORDER BY REVIEW_NO DESC                            <!-- 추가 -->
+	</select>
+	
+	<!-- 찜 조회 쿼리문 -->
+	<select id="selectWishList"
+			resultMap="wishListResultSet">
+		SELECT W.PRODUCT_NO
+		     , W.USER_NO
+		     , P.PRODUCT_NAME
+		     , P.CATEGORY
+		     , P.PRODUCT_THUMBNAIL_PATH
+		     , P.PRICE
+		  FROM WISHLIST W
+		  JOIN PRODUCT P ON (W.PRODUCT_NO = P.PRODUCT_NO)
+		 WHERE USER_NO = #{userNo}
+		   AND P.PRODUCT_STATUS = 'Y'
+	</select>
+	
+	<!-- 찜 삭제 쿼리문 -->
+	<delete id="wishDelete"
+			parameterType="wishlist">
+		DELETE 
+		  FROM WISHLIST
+		 WHERE PRODUCT_NO = #{productNo}
+		   AND USER_NO = #{userNo}
+	</delete>
+	
+	<!-- 문의 조회 쿼리문 -->
+	<select id="selectInquiryList"
+			resultMap="inquiryResultSet">
+		SELECT INQUIRY_NO
+			 , INQUIRY_TITLE
+			 , INQUIRY_CONTENT
+			 , INQUIRY_CREATE
+			 , INQUIRY_ANSWER
+			 , INQUIRY_ANSWER_CONTENT
+			 , INQUIRY_STATUS
+			 , USER_NO
+		  FROM INQUIRY
+		 WHERE USER_NO = #{userNo}
 	</select>
 	
 	
