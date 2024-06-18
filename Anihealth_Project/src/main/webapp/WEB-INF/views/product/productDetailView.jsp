@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
 <!DOCTYPE html>
 <html>
 <head>
@@ -78,12 +79,25 @@
             margin-right: 10px;
         }
 
-
         .quantity-content button {
             margin: 0 5px;
             padding: 5px 10px;
             cursor: pointer;
         }
+        
+        .price-row td strong,
+		.quantity-row td.quantity {
+		    font-size: 1.2em; /* 글자 크기를 키웁니다 */
+		}
+		
+		.price-row td,
+		.quantity-row td {
+		    font-size: 1.1em; /* 글자 크기를 키웁니다 */
+		}
+		
+		.quantity-content span {
+		    font-size: 1.1em; /* 수량 글자 크기를 키웁니다 */
+		}
 
         .button-container {
             display: flex;
@@ -128,25 +142,83 @@
         }
 
 
-           /* 영양제 상세설명 시작 */
-        .detail-list-container {
-            width: 100%;
-            margin: 0 auto;
-            margin-top: 40px;
-            text-align: center;
-            padding-left: 0; 
-            display: flex;
-		    justify-content: center;
-		    align-items: center;
-		    flex-direction: column;
-		  }
-
-		.detail-list-container .img-detail {
-		    max-width:90% ;
+    	/* 영양제 상세설명 시작 */
+		.detail-list-container {
+		    width: 85%;
 		    margin: 0 auto;
+		    margin-top: 40px;
+		    text-align: center;
+		    padding-top: 20px;
 		}
-
-        /* 영양제 상세설명 끝 */
+		.section-heading {
+		    color: #333; 
+		    margin-bottom: 10px; 
+		    font-size: 24px; 
+		}
+			
+		.effect-container {
+		    display: flex;
+		    justify-content: space-between; /* 효능과 부작용을 양 옆으로 배치 */
+		    margin-top: 20px;
+		    margin-bottom: 20px;
+		    
+		}
+		
+		.effect-cell {
+		    width: 50%;
+		    border: 1px solid #ddd;
+		    padding: 10px;
+		    border-radius: 8px;
+		    text-align: center; /* 효능과 부작용 내용 가운데 정렬 */
+		}
+		
+		.effect-cell:first-child {
+		    margin-right: 2%; /* 효능과 부작용 사이 간격을 조절합니다 */
+		}
+		
+		.effect-items {
+		    display: flex;
+		    flex-wrap: wrap; /* 공간이 부족할 경우 항목을 다음 줄로 넘깁니다 */
+		    justify-content: center; /* 가운데 정렬 */
+		}
+		
+		.effect-item {
+		    margin-right: 20px; /* 각 항목 사이 간격을 조절합니다 */
+		    margin-bottom: 10px; /* 항목들 사이의 여백을 조절합니다 */
+		    text-align: center;
+		}
+		
+		.section-title {
+			    margin-bottom: 20px; /
+			      color: #333; 
+			}
+			
+		.effect-image {
+		    width: 100px;
+		    height: 100px;
+		    object-fit: cover; /* 이미지를 확대 또는 축소하여 채웁니다 */
+		    border-radius: 50%; /* 이미지를 둥글게 만듭니다 */
+		}
+		
+		.effect-name {
+		    font-weight: bold;
+		    margin-top: 5px;
+		     color: #666; 
+		}
+		
+		.img-detail {
+		    margin-top: 30px;
+		    width: 100%;
+		    max-width: 100%;
+		}
+		 .no-side-effect-text {
+	        font-weight: bold;
+	        color: #666; 
+	        margin-top: 5px; /* 상단 여백 설정 */
+	        font-size: 18px;
+	    }
+		
+		/* 영양제 상세설명 끝 */
 
         /* 탭버튼영역시작 */
         ul.list {
@@ -187,7 +259,7 @@
             display: block;
         }
         .cont {
-            width: 70%; /* 너비를 부모의 60%로 설정 */
+            width: 70%; 
             margin: 0 auto; /* 수평 중앙 정렬 */
             padding-top: 20px; /* 상단 패딩 */
             padding-bottom: 20px; /* 하단 패딩 */
@@ -254,15 +326,15 @@
 			                        <h4 style="font-weight: bold;">${product.productName}</h4>
 			                    </td>
 		                    </tr>
-		                    <tr style="border-bottom: 2px solid rgb(198, 196, 196); background-color: rgb(254, 245, 237);">
+		                    <tr class="price-row" style="border-bottom: 2px solid rgb(198, 196, 196); background-color: rgb(254, 245, 237);">
 			                    <td class="td-left"><strong>구매가</strong></td>
 			                    <td><strong id="priceDisplay">₩ ${product.price}</strong></td>
 		                    </tr>
-		                    <tr style="background-color: rgb(254, 245, 237);">
+		                    <tr class="quantity-row" style="background-color: rgb(254, 245, 237);">
 			                    <td class="quantity td-left">수량</td>
 			                    <td colspan="3">
 			                        <div class="quantity-content">
-			                        <span>총</span> 1 개 <!-- 수정된 부분 -->
+			                         <span> 총  1   개 </span>
 			                        </div>
 			                    </td>
 		                    </tr>
@@ -408,47 +480,64 @@
 			});
   </script>
           
-            <div class="cont">
-                <ul class="list">
-                    <li class="tab-button green" data-id="0">상세정보</li>
-                    <li class="tab-button" data-id="1">상품후기</li>
-                </ul>
-                <div class="tab-content show">
-                        <!-- 상세 정보 리스트 추가 -->
-                        <div class="detail-list-container">
-                            <h4>상세 정보</h4>
-                            <div>
-                            	<table>
-                            		<tr>
-                            			<td>1</td>
-                            			<td>2</td>
-                            		</tr>
-                            	</table>
-                            </div>
-                             <img src="${pageContext.request.contextPath}/${product.productDetailPath}" 
-                                alt="상세 정보 이미지"
-                                style=" border: 1px solid;"
-                                class="img-detail">
-                        
-                        </div>
-                </div>
-                <div class="tab-content">
-                	<jsp:include page="../review/productReview.jsp">
-                		<jsp:param name="productNo" value="${product.productNo}" />
-					</jsp:include>
-                </div>
-            </div>
+                  <div class="cont">
+	                
+	                <ul class="list">
+	                    <li class="tab-button green" data-id="0">상세정보</li>
+	                    <li class="tab-button" data-id="1">상품후기</li>
+	                </ul>
+	                
+	                <div class="tab-content show">	                        
+								<div class="detail-list-container">
+								    <h4 class="section-heading">상세 정보</h4>
+								    <div class="effect-container">
+								        <!-- 효능 칸 -->
+								        <div class="effect-cell">
+								            <h5 style="font-weight: bold;"  class="section-title">효능</h5>
+								            <div class="effect-items">
+								                <!-- 효능 항목 반복문 -->
+								                <c:forEach var="c" items="${requestScope.effects}">
+								                    <div class="effect-item">
+								                        <img src="${pageContext.request.contextPath}/${c.effectFilePath}" alt="효과 사진" class="effect-image">
+								                        <div class="effect-name">${c.effectName}</div>
+								                    </div>
+								                </c:forEach>
+								            </div>
+								        </div>
+								        
+								        <!-- 부작용 칸 -->
+								        <div class="effect-cell">
+								            <h5 style="font-weight: bold;"  class="section-title">부작용</h5>
+								            <div class="effect-items">
+								                <!-- 부작용 항목 반복문 -->
+								                <c:forEach var="se" items="${requestScope.sideEffects}">
+								                    <div class="effect-item">
+								                        <img src="${pageContext.request.contextPath}/${se.effectFilePath}" alt="효과 사진" class="effect-image">
+								                        <div class="effect-name">${se.effectName}</div>
+								                    </div>
+								                </c:forEach>
+								            </div>
+								        </div>
+								    </div>
+								    <img src="${pageContext.request.contextPath}/${product.productDetailPath}" alt="상세 정보 이미지" style="border: 1px solid;" class="img-detail">
+								</div>				    
+						</div>  		
+							   <div class="tab-content">
+	                		       영양제 후기 영역  
+	                            </div>  
+						              
+                    </div>
 	
-			<br>
+			   <br>  <br>
             <div class="btn-list-container" >
                 <div class="btn-list">
                     <button class="btn btn-lg"
                                 onclick="location.href='list.pd'">
-                                목록으로
+                                					목록으로
                     </button>
                 </div>
             </div>
-            <br>
+             <br>  <br>  
          
 </div>
 
@@ -457,6 +546,24 @@
 <jsp:include page="../common/footer.jsp" />
 
 <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var sideEffects = document.querySelectorAll(".effect-cell:nth-child(2) .effect-item");
+        if (sideEffects.length === 0) {
+            var noSideEffectText = document.createElement("div");
+            noSideEffectText.classList.add("effect-item", "no-side-effect-text");
+            noSideEffectText.textContent = "부작용이 없습니다.";
+            
+            var sideEffectContainer = document.querySelector(".effect-cell:nth-child(2) .effect-items");
+            sideEffectContainer.appendChild(noSideEffectText);
+        }
+    });
+</script>
+
+
+
+
+<script>
+
     //탭 전환 버튼 영역
     $('.tab-button').click(function (e) {
         if ($(e.target).hasClass('tab-button')) {

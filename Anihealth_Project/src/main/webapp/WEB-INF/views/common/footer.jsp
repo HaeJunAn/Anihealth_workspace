@@ -204,8 +204,37 @@
     .quantity-content button {
         margin: 5px 0;
     }
+}
 
+       @media (max-width: 950px) {
+    .image-caption {
+        padding: 5px;
+        top: 5%;
+        left: 5px;
+        width: 95%;
+        overflow: hidden;
+    }
 
+    .image-caption p {
+        font-size: 0.4em; /* 모든 텍스트 기본 사이즈를 더 줄임 */
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .image-caption .larger-text {
+        font-size: 0.7em; /* 더 중요한 텍스트의 크기를 조금만 줄임 */
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .image-caption .detail-link {
+        font-size: 0.3em; /* '자세히 보기' 글자 크기를 더 작게 조정 */
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
 }
 
 	 

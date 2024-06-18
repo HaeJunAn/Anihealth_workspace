@@ -21,6 +21,7 @@ import com.kh.aniht.common.movel.vo.PageInfo;
 import com.kh.aniht.common.template.Pagination;
 import com.kh.aniht.member.model.vo.Member;
 import com.kh.aniht.product.model.service.ProductService;
+import com.kh.aniht.product.model.vo.Effect;
 import com.kh.aniht.product.model.vo.Product;
 
 @Controller
@@ -90,6 +91,7 @@ public class ProductController {
     }
 
 
+    // 영양제 상세조회 
     @GetMapping("detail.pd")
     public ModelAndView selectProductDetail(@RequestParam("pno") int productNo, ModelAndView mv) {
      //   System.out.println("Controller: Fetching product details for productNo: " + productNo);
@@ -97,8 +99,24 @@ public class ProductController {
         
         if (product != null) {
            // System.out.println("Controller: Fetched product: " + product);
-            mv.addObject("product", product)
-              .setViewName("product/productDetailView");
+        	 mv.addObject("product", product);
+        	 
+        	   ArrayList<Effect> effects = productService.selectEffectsByProductNo(productNo);
+        	   for(Effect e : effects) {
+        		   System.out.println(e);
+        	   }
+        	   
+               ArrayList<Effect> sideEffects = productService.selectSideEffectsByProductNo(productNo);
+               
+               // 효능과 부작용 정보를 모델에 추가
+               mv.addObject("effects", effects);
+               mv.addObject("sideEffects", sideEffects);
+
+               mv.setViewName("product/productDetailView");
+               
+               System.out.println(effects);
+               System.out.println(sideEffects);
+            
         } else {
            // System.out.println("Controller: Product not found for productNo: " + productNo);
             mv.addObject("errorMsg", "제품 상세조회 실패")

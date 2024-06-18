@@ -3,13 +3,13 @@ package com.kh.aniht.product.model.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.aniht.common.movel.vo.PageInfo;
 import com.kh.aniht.product.model.dao.ProductDao;
+import com.kh.aniht.product.model.vo.Effect;
 import com.kh.aniht.product.model.vo.Product;
 
 @Service
@@ -102,6 +102,16 @@ public class ProductServiceImpl implements ProductService {
 		    return count > 0;
 		}
 		
+		@Override
+	    public ArrayList<Effect> selectEffectsByProductNo(int productNo) {
+	        return productDao.selectEffectsByProductNo(sqlSession, productNo);
+	    }
+
+	    @Override
+	    public ArrayList<Effect> selectSideEffectsByProductNo(int productNo) {
+	        return productDao.selectSideEffectsByProductNo(sqlSession, productNo);
+	    }
+
 	
 	
 	

@@ -3,10 +3,13 @@ package com.kh.aniht.product.model.dao;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
+
 import com.kh.aniht.common.movel.vo.PageInfo;
+import com.kh.aniht.product.model.vo.Effect;
 import com.kh.aniht.product.model.vo.Product;
 
 @Repository
@@ -94,6 +97,18 @@ public class ProductDao {
    	    params.put("productNo", productNo);
    	    return sqlSession.selectOne("productMapper.checkDuplicateWishlist", params);
    	}
+    
+    // 효능 조회
+ 	public ArrayList<Effect> selectEffectsByProductNo(SqlSessionTemplate sqlSession, int productNo) {
+ 		
+ 		return  (ArrayList)sqlSession.selectList("productMapper.selectEffectsByProductNo", productNo);
+ 	}
+
+ 	// 부작용 조회
+ 	public ArrayList<Effect> selectSideEffectsByProductNo(SqlSessionTemplate sqlSession, int productNo) {
+ 		
+ 		return  (ArrayList)sqlSession.selectList("productMapper.selectSideEffectsByProductNo", productNo);
+ 	}
     
     
 }

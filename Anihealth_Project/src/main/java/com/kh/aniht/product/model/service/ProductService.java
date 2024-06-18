@@ -2,7 +2,9 @@ package com.kh.aniht.product.model.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
 import com.kh.aniht.common.movel.vo.PageInfo;
+import com.kh.aniht.product.model.vo.Effect;
 import com.kh.aniht.product.model.vo.Product;
 
 public interface ProductService {
@@ -26,6 +28,10 @@ public interface ProductService {
     boolean checkDuplicateWishlist(int userNo, int productNo);
     
     boolean checkWishlistStatus(int userNo, int productNo);
+    
+    ArrayList<Effect> selectEffectsByProductNo(int productNo);
+
+	ArrayList<Effect> selectSideEffectsByProductNo(int productNo);
     
 }
 

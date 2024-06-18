@@ -228,17 +228,23 @@
             display: flex;
             width: 80%;
             justify-content: space-between;
-            align-items: center;
+          /*   align-items: center; */
         }
 
-        .product-rw {
+         .product-rw {
             width: 22%; /* 각 디브가 일정한 너비를 가지도록 설정 */
             text-align: center;
             background-color: white;
             border-radius: 20px;
             box-sizing: border-box;
+            padding: 20px;
             padding-top: 30px;
-            padding-bottom: 30px;
+            padding-bottom: 30px; 
+			display: flex;
+		    flex-direction: column;
+		    justify-content: center;
+		    height: 300px; /* 내용에 따라 높이 자동 조절 */
+		    margin-top: 40px; /* 원하는 여백 설정 */		    
         }
 
          .product-rw img {
