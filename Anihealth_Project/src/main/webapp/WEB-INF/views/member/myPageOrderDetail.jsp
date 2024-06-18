@@ -245,7 +245,7 @@
 	                                		<tr class="cart-table-inner">
 			                                    <td colspan="2">
 			                                        <div class="item-container">
-			                                            <img class="img-size" src="${ op.productThumbnailPath }" alt="영양제이미지">
+			                                            <a href="detail.pd?pno=${ op.productNo }"><img class="img-size" src="${ op.productThumbnailPath }" alt="영양제이미지"></a>
 			                                            <div class="item-text">
 			                                                <p class="item-title">${ op.productName }</p>
 			                                                <div class="item-details">

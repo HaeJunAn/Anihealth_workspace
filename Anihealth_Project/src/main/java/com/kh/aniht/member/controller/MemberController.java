@@ -194,6 +194,7 @@ public class MemberController {
 			
 			mailSender.send(message);
 			
+			session.setAttribute("alertMsg", "회원님의 이메일로 아이디를 전송해드렸습니다.");
 			
 			return "member/loginPage";
 			
