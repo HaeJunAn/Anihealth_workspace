@@ -261,9 +261,13 @@
 			                                            <p class="item-title">${ op.deliveryStatus }</p>
 			                                        </div>
 			                                    </td>
+			                                     
 			                                    <td style="text-align: center;">
+			                                    <c:if test="${op.deliveryStatus == '배송완료'}">
 			                                        <button class="btn btn-sm" onclick="location.href='insertForm.re?orderProductNo=${op.orderProductNo}'">후기작성</button>
+			                                    </c:if>
 			                                    </td>
+			                                    
 		                               		</tr>
 		                                </c:forEach>
 		                            </tbody>

@@ -241,7 +241,7 @@
                                 <input type="text" id="zipCode" class="address-details" value="" oninput="checkFormCompletion()">
                                 <br>
                                 <label for="phone">전화번호</label>
-                                <input type="text" id="phone" value="" oninput="checkFormCompletion()">
+                                <input type="text" id="phone" value="" oninput="checkFormCompletion()" placeholder="-포함하여 입력해주세요">
                                 <br>
                                 <label for="delivery-request">배송 요청사항</label>
                                 <select id="delivery-request">
