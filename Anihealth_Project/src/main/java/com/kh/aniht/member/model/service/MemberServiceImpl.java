@@ -192,6 +192,12 @@ public class MemberServiceImpl implements MemberService {
 		return memberDao.emailUpdate(sqlSession, m);
 	}
 
+	@Override
+	public int refundOrder(Order o) {
+		
+		return memberDao.refundOrder(sqlSession, o);
+	}
+
 	
 
 	

@@ -155,5 +155,10 @@ public int emailUpdate(SqlSessionTemplate sqlSession, Member m) {
 	return sqlSession.update("memberMapper.emailUpdate", m);
 }
 
+public int refundOrder(SqlSessionTemplate sqlSession, Order o) {
+	
+	return sqlSession.update("memberMapper.refundOrder", o);
+}
+
 
 } // 클래스 영역 끝

@@ -93,6 +93,9 @@ public interface MemberService {
 		// 마이페이지 - 이메일 변경
 		int emailUpdate(Member m);
 
+		// 마이페이지 - 환불하기
+		int refundOrder(Order o);
+
 
 
 		

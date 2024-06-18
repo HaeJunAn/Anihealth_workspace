@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -269,7 +268,7 @@
 			                                    <td>
 			                                    	<span class="item-subtitle"><fmt:formatNumber value="${ o.orderPrice }" type="number" groupingUsed="true" /> &nbsp;원</span>
 			                                    </td>
-			                                    <td>배송완료</td>
+			                                    <td>${ o.deliveryStatus }</td>
 			                                    <td>
 			                                        <div class="item-text">
 			                                            <p class="item-title">
@@ -280,13 +279,48 @@
 			                                    </td>
 			                                    <td>${ o.orderRequest }</td>
 			                                    <td>
-			                                    	<button class="btn btn-sm">
-			                                    		<a href="orderRefund.me?ono=${ o.orderNo }" style="text-decoration: none; color: white;">
-			                                    			환불하기
-			                                    		</a>
-			                                    	</button>
+			                                    	<c:if test="${o.orderContent == null}">
+		                                    			<button type="button" class="btn" id="btn-refund" data-toggle="modal" data-target="#refundForm">환불하기</button>
+			                                    	</c:if>
+			                                    	<c:if test="${o.orderContent != null}">
+			                                    		환불 요청중
+			                                    	</c:if>
+			                                    	
 			                                    </td>
 		                               		</tr>
+		                               		
+		                               		<!-- 환불모달 -->
+										    <div class="modal fade" id="refundForm">
+										        <div class="modal-dialog modal-m">
+										            <div class="modal-content">
+										
+										                <!-- Modal Header -->
+										                <div class="modal-header">
+										                    <h4 class="modal-title">환불하기</h4>
+										                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+										                </div>
+										
+										                <form action="refund.me" method="post">
+										                    <!-- Modal body -->
+										                    <div class="modal-body">
+										                        
+										                        <br>
+										                            <label for="userPwd" class="mr-sm-2">환불사유 </label>
+										                            <input type="text" class="form-control mb-2 mr-sm-2" placeholder="환불사유를 입력해주세요." id="orderContent" name="orderContent" required> <br>
+										                    		<!-- 회원 탈퇴 시 PK 에 해당하는 회원의 아이디도 같이 넘겨야함 -->
+										                    		<input type="hidden" name="orderNo" value="${ o.orderNo }">
+										                    </div>
+										                    <!-- Modal footer -->
+										                    <div class="modal-footer" align="center">
+										                        <button type="submit" class="btn btn-danger">환불</button>
+										                    </div>
+										                </form>
+										            </div>
+										        </div>
+										    </div>
+							                               		
+		                               		
+										    
 		                                </c:forEach>
 		                            </tbody>
 		                        </table>
@@ -295,6 +329,9 @@
 	                    		<h4 align="center" style="color: gray">주문내역이 존재하지 않습니다.</h4>
 	                    	</c:otherwise>
                         </c:choose>
+                        
+                        
+	                  
 	                    
                     </div>
                     <br><br>

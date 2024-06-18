@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -12,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -148,7 +151,7 @@ public class MemberController {
 	@PostMapping(value="findIdEmail.me", produces = "text/html; charset=UTF-8")
 	public String findIdEmail(Member m,
 							  Model model,
-							  HttpSession session) {
+							  HttpSession session) throws MessagingException {
 		
 		// System.out.println(m);
 		
@@ -166,15 +169,31 @@ public class MemberController {
 		} else {
 			
 			// 사용자에게 이메일 보내기
-			SimpleMailMessage message = new SimpleMailMessage();
+			// SimpleMailMessage message = new SimpleMailMessage();
 			
-			message.setSubject("[ANIHEALTH] 아이디 찾기");
-			message.setText("아이디 : " + findId);
-			message.setTo(m.getEmail());
+			// message.setSubject("[ANIHEALTH] 아이디 찾기");
+			// message.setText("아이디 : " + findId);
+			// message.setTo(m.getEmail());
+			
+			// mailSender.send(message);
+			
+			// session.setAttribute("alertMsg", "회원님의 이메일로 아이디를 전송해드렸습니다.");
+			
+			MimeMessage message = mailSender.createMimeMessage();
+			MimeMessageHelper mimeMessageHelper
+			= new MimeMessageHelper(message, true, "UTF-8");
+			mimeMessageHelper.setTo(m.getEmail());
+			mimeMessageHelper.setSubject("[ANIHEALTH] 아이디 찾기");
+			
+			String title = "조회하신 아이디";
+			String content = findId;
+			String mail = mailSetText(title, content);
+			
+			mimeMessageHelper.setText(mail, true);
+			
 			
 			mailSender.send(message);
 			
-			session.setAttribute("alertMsg", "회원님의 이메일로 아이디를 전송해드렸습니다.");
 			
 			return "member/loginPage";
 			
@@ -186,7 +205,7 @@ public class MemberController {
 	@PostMapping(value="findPwdEmail.me", produces = "text/html; charset=UTF-8")
 	public String findPwdEmail(Member m,
 							  Model model,
-							  HttpSession session) {
+							  HttpSession session) throws MessagingException {
 		
 		// System.out.println(m);
 		
@@ -208,11 +227,26 @@ public class MemberController {
 			// System.out.println(randomPwd);
 			
 			// 사용자에게 이메일 보내기
-			SimpleMailMessage message = new SimpleMailMessage();
+			// SimpleMailMessage message = new SimpleMailMessage();
 			
-			message.setSubject("[ANIHEALTH] 비밀번호 찾기");
-			message.setText("비밀번호 : " + randomPwd);
-			message.setTo(m.getEmail());
+			// message.setSubject("[ANIHEALTH] 비밀번호 찾기");
+			// message.setText("비밀번호 : " + randomPwd);
+			// message.setTo(m.getEmail());
+			
+			// mailSender.send(message);
+			
+			MimeMessage message = mailSender.createMimeMessage();
+			MimeMessageHelper mimeMessageHelper
+			= new MimeMessageHelper(message, true, "UTF-8");
+			mimeMessageHelper.setTo(m.getEmail());
+			mimeMessageHelper.setSubject("[ANIHEALTH] 비밀번호 찾기");
+			
+			String title = "비밀번호 ";
+			String content = randomPwd;
+			String mail = mailSetText(title, content);
+			
+			mimeMessageHelper.setText(mail, true);
+			
 			
 			mailSender.send(message);
 			
@@ -336,7 +370,7 @@ public class MemberController {
 	// 이메일 인증번호
 	@ResponseBody
 	@PostMapping(value="cert.do", produces = "text/html; charset=UTF-8")
-	public String getCertNo(String email) {
+	public String getCertNo(String email) throws MessagingException {
 		
 		// 6자리 랜덤값 뽑기 (10000 ~ 99999)
 		int random = (int)(Math.random() * 90000 + 10000);
@@ -346,11 +380,26 @@ public class MemberController {
 		// System.out.println(certNoList);
 		
 		// 사용자에게 이메일 보내기
-		SimpleMailMessage message = new SimpleMailMessage();
+		// SimpleMailMessage message = new SimpleMailMessage();
 		
-		message.setSubject("[ANIHEALTH] 이메일 인증 번호입니다.");
-		message.setText("인증번호 : " + random);
-		message.setTo(email);
+		// message.setSubject("[ANIHEALTH] 이메일 인증 번호입니다.");
+		// message.setText("인증번호 : " + random);
+		// message.setTo(email);
+		
+		// mailSender.send(message);
+		
+		MimeMessage message = mailSender.createMimeMessage();
+		MimeMessageHelper mimeMessageHelper
+		= new MimeMessageHelper(message, true, "UTF-8");
+		mimeMessageHelper.setTo(email);
+		mimeMessageHelper.setSubject("[ANIHEALTH] 인증번호");
+		
+		String title = "인증번호";
+		String content = Integer.toString(random);
+		String mail = mailSetText(title, content);
+		
+		mimeMessageHelper.setText(mail, true);
+		
 		
 		mailSender.send(message);
 		
@@ -540,25 +589,45 @@ public class MemberController {
 		
 	}
 	
-	// 마이페이지 주문내역 환불하기
-	@GetMapping("orderRefund.me")
-	public String orderRefund(String ono,
-							  Model model,
+//	// 마이페이지 주문내역 환불하기
+//	@GetMapping("orderRefund.me")
+//	public String orderRefund(String ono,
+//							  Model model,
+//							  HttpSession session) {
+//		
+//		// System.out.println(ono);
+//		
+//		int result = memberService.orderRefund(ono);
+//		
+//		if(result > 0) {
+//			
+//			session.setAttribute("alertMsg", "환불처리가 완료되었습니다.");
+//			return "redirect:/myPageOrder.me";
+//		} else {
+//			
+//			session.setAttribute("alertMsg", "환불이 완료되지 않았습니다. 다시 시도해주세요.");
+//			return "redirect:/myPageOrder.me";
+//		}
+//	}
+	
+	// 마이페이지 환불 insert
+	@PostMapping("refund.me")
+	public String refundOrder(Order o,
 							  HttpSession session) {
 		
-		// System.out.println(ono);
+		// System.out.println(o);
 		
-		int result = memberService.orderRefund(ono);
+		int result = memberService.refundOrder(o);
 		
 		if(result > 0) {
 			
-			session.setAttribute("alertMsg", "환불처리가 완료되었습니다.");
-			return "redirect:/myPageOrder.me";
+			session.setAttribute("alertMsg", "환불요청이 완료되었습니다.");
 		} else {
 			
-			session.setAttribute("alertMsg", "환불이 완료되지 않았습니다. 다시 시도해주세요.");
-			return "redirect:/myPageOrder.me";
+			session.setAttribute("alertMsg", "환불요청 실패하였습니다.");
 		}
+		
+		return "redirect:/myPageOrder.me";
 	}
 	
 	
@@ -884,6 +953,20 @@ public class MemberController {
 		
 	}
 	
+	
+	
+	public String mailSetText(String title, String content) {
+		
+		String mail="";
+		
+		mail += "<!DOCTYPE HTML PUBLIC\"-//W3C//DTD XHTML 1.0 Transitional //EN\"\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\"><html xmlns=\"http://www.w3.org/1999/xhtml\"xmlns:v=\"urn:schemas-microsoft-com:vml\"xmlns:o=\"urn:schemas-microsoft-com:office:office\"><head><meta http-equiv=\"Content-Type\"content=\"text/html; charset=UTF-8\"><meta name=\"viewport\"content=\"width=device-width, initial-scale=1.0\"><meta name=\"x-apple-disable-message-reformatting\"><meta http-equiv=\"X-UA-Compatible\"content=\"IE=edge\"><title></title><style type=\"text/css\">@media only screen and(min-width:620px){.u-row{width:600px!important}.u-row.u-col{vertical-align:top}.u-row.u-col-33p33{width:199.98px!important}.u-row.u-col-100{width:600px!important}}@media(max-width:620px){.u-row-container{max-width:100%!important;padding-left:0px!important;padding-right:0px!important}.u-row.u-col{min-width:320px!important;max-width:100%!important;display:block!important}.u-row{width:100%!important}.u-col{width:100%!important}.u-col>div{margin:0 auto}}body{margin:0;padding:0}table,tr,td{vertical-align:top;border-collapse:collapse}p{margin:0}.ie-container table,.mso-container table{table-layout:fixed}*{line-height:inherit}a[x-apple-data-detectors='true']{color:inherit!important;text-decoration:none!important}table,td{color:#000000}#u_body a{color:#0000ee;text-decoration:underline}</style><link href=\"https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap\"rel=\"stylesheet\"type=\"text/css\"></head><body class=\"clean-body u_body\"style=\"margin: 0;padding: 0;-webkit-text-size-adjust: 100%;background-color: #f0f0f0;color: #000000\"><table id=\"u_body\"style=\"border-collapse: collapse;table-layout: fixed;border-spacing: 0;mso-table-lspace: 0pt;mso-table-rspace: 0pt;vertical-align: top;min-width: 320px;Margin: 0 auto;background-color: #f0f0f0;width:100%\"cellpadding=\"0\"cellspacing=\"0\"><tbody><tr style=\"vertical-align: top\"><td style=\"word-break: break-word;border-collapse: collapse !important;vertical-align: top\"><div class=\"u-row-container\"style=\"padding: 0px;background-color: transparent\"><div class=\"u-row\"style=\"margin: 0 auto;min-width: 320px;max-width: 600px;overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;background-color: transparent;\"><div style=\"border-collapse: collapse;display: table;width: 100%;height: 100%;background-color: transparent;\"><div class=\"u-col u-col-100\"style=\"max-width: 320px;min-width: 600px;display: table-cell;vertical-align: top;\"><div style=\"background-color: #e1f0da;height: 100%;width: 100% !important;\"><div style=\"box-sizing: border-box; height: 100%; padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;\"></div></div></div></div></div></div><div class=\"u-row-container\"style=\"padding: 0px;background-color: transparent\"><div class=\"u-row\"style=\"margin: 0 auto;min-width: 320px;max-width: 600px;overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;background-color: transparent;\"><div style=\"border-collapse: collapse;display: table;width: 100%;height: 100%;background-color: transparent;\"><div class=\"u-col u-col-100\"style=\"max-width: 320px;min-width: 600px;display: table-cell;vertical-align: top;\"><div style=\"background-color: #ffffff;height: 100%;width: 100% !important;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;\"><div style=\"box-sizing: border-box; height: 100%; padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;\"><table style=\"font-family:arial,helvetica,sans-serif;\"role=\"presentation\"cellpadding=\"0\"cellspacing=\"0\"width=\"100%\"border=\"0\"><tbody><tr><td style=\"overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:arial,helvetica,sans-serif;\"align=\"left\"><table width=\"100%\"cellpadding=\"0\"cellspacing=\"0\"border=\"0\"><tr><td style=\"padding-right: 0px;padding-left: 0px;\"align=\"center\"><img align=\"center\"border=\"0\"src=\"https://i.ibb.co/ngf9DX7/image.png\"alt=\"\"title=\"\"style=\"outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: inline-block !important;border: none;height: auto;float: none;width: 36%;max-width: 208.8px;\"width=\"208.8\"/></td></tr></table></td></tr></tbody></table><table style=\"font-family:arial,helvetica,sans-serif;\"role=\"presentation\"cellpadding=\"0\"cellspacing=\"0\"width=\"100%\"border=\"0\"><tbody><tr><td style=\"overflow-wrap:break-word;word-break:break-word;padding:30px 10px 10px;font-family:arial,helvetica,sans-serif;\"align=\"left\"><h1 style=\"margin: 0px; line-height: 140%; text-align: center; word-wrap: break-word; font-family: 'Montserrat',sans-serif; font-size: 22px; font-weight: 700;\"><span><span><span><span><span><span><span><span>";
+		mail += title;
+		mail += "</span></span></span></span></span></span></span></span></h1></td></tr></tbody></table><table style=\"font-family:arial,helvetica,sans-serif;\"role=\"presentation\"cellpadding=\"0\"cellspacing=\"0\"width=\"100%\"border=\"0\"><tbody><tr><td style=\"overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:arial,helvetica,sans-serif;\"align=\"left\"><div align=\"center\"><span style=\"display:block;padding:10px 20px;line-height:120%; border: 3px solid gray; width: 30% ;border-radius: 10px\">\r\n" ;
+		mail += content;
+		mail += "</span></div></td></tr></tbody></table><table style=\"font-family:arial,helvetica,sans-serif;\"role=\"presentation\"cellpadding=\"0\"cellspacing=\"0\"width=\"100%\"border=\"0\"><tbody><tr><td style=\"overflow-wrap:break-word;word-break:break-word;padding:30px 10px 10px;font-family:arial,helvetica,sans-serif;\"align=\"left\"><div style=\"font-size: 14px; line-height: 140%; text-align: center; word-wrap: break-word;\"><p style=\"line-height: 140%;\"><strong></strong></p></div></td></tr></tbody></table></div></div></div></div></div></div><div class=\"u-row-container\"style=\"padding: 0px;background-color: transparent\"><div class=\"u-row\"style=\"margin: 0 auto;min-width: 320px;max-width: 600px;overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;background-color: transparent;\"><div style=\"border-collapse: collapse;display: table;width: 100%;height: 100%;background-color: transparent;\"><div class=\"u-col u-col-33p33\"style=\"max-width: 320px;min-width: 200px;display: table-cell;vertical-align: top;\"><div style=\"background-color: #ffffff;height: 100%;width: 100% !important;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;\"><div style=\"box-sizing: border-box; height: 100%; padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;\"><table style=\"font-family:arial,helvetica,sans-serif;\"role=\"presentation\"cellpadding=\"0\"cellspacing=\"0\"width=\"100%\"border=\"0\"><tbody><tr><td style=\"overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:arial,helvetica,sans-serif;\"align=\"left\"><table width=\"100%\"cellpadding=\"0\"cellspacing=\"0\"border=\"0\"><tr><td style=\"padding-right: 0px;padding-left: 0px;\"align=\"center\"><img align=\"center\"border=\"0\"src=\"https://i.ibb.co/dDGjTrN/email-Shopping.png\"alt=\"image\"title=\"image\"style=\"outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: inline-block !important;border: none;height: auto;float: none;width: 22%;max-width: 39.6px;\"width=\"39.6\"/></td></tr></table></td></tr></tbody></table><table style=\"font-family:arial,helvetica,sans-serif;\"role=\"presentation\"cellpadding=\"0\"cellspacing=\"0\"width=\"100%\"border=\"0\"><tbody><tr><td style=\"overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:arial,helvetica,sans-serif;\"align=\"left\"><h1 style=\"margin: 0px; line-height: 140%; text-align: center; word-wrap: break-word; font-family: 'Montserrat',sans-serif; font-size: 16px; font-weight: 700;\"><span><span>Shopping</span></span></h1></td></tr></tbody></table><table style=\"font-family:arial,helvetica,sans-serif;\"role=\"presentation\"cellpadding=\"0\"cellspacing=\"0\"width=\"100%\"border=\"0\"><tbody><tr><td style=\"overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:arial,helvetica,sans-serif;\"align=\"left\"><div style=\"font-size: 14px; line-height: 110%; text-align: center; word-wrap: break-word;\"><p style=\"line-height: 110%;\">dog&amp;cat</p><p style=\"line-height: 110%;\">nutritional supplements</p></div></td></tr></tbody></table></div></div></div><div class=\"u-col u-col-33p33\"style=\"max-width: 320px;min-width: 200px;display: table-cell;vertical-align: top;\"><div style=\"background-color: #ffffff;height: 100%;width: 100% !important;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;\"><div style=\"box-sizing: border-box; height: 100%; padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;\"><table style=\"font-family:arial,helvetica,sans-serif;\"role=\"presentation\"cellpadding=\"0\"cellspacing=\"0\"width=\"100%\"border=\"0\"><tbody><tr><td style=\"overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:arial,helvetica,sans-serif;\"align=\"left\"><table width=\"100%\"cellpadding=\"0\"cellspacing=\"0\"border=\"0\"><tr><td style=\"padding-right: 0px;padding-left: 0px;\"align=\"center\"><img align=\"center\"border=\"0\"src=\"https://i.ibb.co/GxyNp1C/emailMap.png\"alt=\"image\"title=\"image\"style=\"outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: inline-block !important;border: none;height: auto;float: none;width: 22%;max-width: 39.6px;\"width=\"39.6\"/></td></tr></table></td></tr></tbody></table><table style=\"font-family:arial,helvetica,sans-serif;\"role=\"presentation\"cellpadding=\"0\"cellspacing=\"0\"width=\"100%\"border=\"0\"><tbody><tr><td style=\"overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:arial,helvetica,sans-serif;\"align=\"left\"><h1 style=\"margin: 0px; line-height: 140%; text-align: center; word-wrap: break-word; font-family: 'Montserrat',sans-serif; font-size: 16px; font-weight: 700;\"><span><span><span>Location</span></span></span></h1></td></tr></tbody></table><table style=\"font-family:arial,helvetica,sans-serif;\"role=\"presentation\"cellpadding=\"0\"cellspacing=\"0\"width=\"100%\"border=\"0\"><tbody><tr><td style=\"overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:arial,helvetica,sans-serif;\"align=\"left\"><div style=\"font-size: 12px; line-height: 110%; text-align: center; word-wrap: break-word;\"><p style=\"line-height: 110%;\">서울특별시영등포구</p><p style=\"line-height: 110%;\">선유동2로57이레빌딩19F</p></div></td></tr></tbody></table></div></div></div><div class=\"u-col u-col-33p33\"style=\"max-width: 320px;min-width: 200px;display: table-cell;vertical-align: top;\"><div style=\"background-color: #ffffff;height: 100%;width: 100% !important;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;\"><div style=\"box-sizing: border-box; height: 100%; padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;\"><table style=\"font-family:arial,helvetica,sans-serif;\"role=\"presentation\"cellpadding=\"0\"cellspacing=\"0\"width=\"100%\"border=\"0\"><tbody><tr><td style=\"overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:arial,helvetica,sans-serif;\"align=\"left\"><table width=\"100%\"cellpadding=\"0\"cellspacing=\"0\"border=\"0\"><tr><td style=\"padding-right: 0px;padding-left: 0px;\"align=\"center\"><img align=\"center\"border=\"0\"src=\"https://i.ibb.co/k0v9rYK/email-Date.png\"alt=\"image\"title=\"image\"style=\"outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: inline-block !important;border: none;height: auto;float: none;width: 22%;max-width: 39.6px;\"width=\"39.6\"/></td></tr></table></td></tr></tbody></table><table style=\"font-family:arial,helvetica,sans-serif;\"role=\"presentation\"cellpadding=\"0\"cellspacing=\"0\"width=\"100%\"border=\"0\"><tbody><tr><td style=\"overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:arial,helvetica,sans-serif;\"align=\"left\"><h1 style=\"margin: 0px; line-height: 140%; text-align: center; word-wrap: break-word; font-family: 'Montserrat',sans-serif; font-size: 16px; font-weight: 700;\"><span>Date</span></h1></td></tr></tbody></table><table style=\"font-family:arial,helvetica,sans-serif;\"role=\"presentation\"cellpadding=\"0\"cellspacing=\"0\"width=\"100%\"border=\"0\"><tbody><tr><td style=\"overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:arial,helvetica,sans-serif;\"align=\"left\"><div style=\"font-size: 12px; line-height: 110%; text-align: center; word-wrap: break-word;\"><p style=\"line-height: 110%;\">고객센터:070-4519-6419</p><p style=\"line-height: 110%;\">평일11:00~18:00</p></div></td></tr></tbody></table></div></div></div></div></div></div><div class=\"u-row-container\"style=\"padding: 2px 0px 0px;background-color: transparent\"><div class=\"u-row\"style=\"margin: 0 auto;min-width: 320px;max-width: 600px;overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;background-color: transparent;\"><div style=\"border-collapse: collapse;display: table;width: 100%;height: 100%;background-color: transparent;\"><div class=\"u-col u-col-100\"style=\"max-width: 320px;min-width: 600px;display: table-cell;vertical-align: top;\"><div style=\"background-color: #ffffff;height: 100%;width: 100% !important;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;\"><div style=\"box-sizing: border-box; height: 100%; padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;\"><table style=\"font-family:arial,helvetica,sans-serif;\"role=\"presentation\"cellpadding=\"0\"cellspacing=\"0\"width=\"100%\"border=\"0\"><tbody><tr><td style=\"overflow-wrap:break-word;word-break:break-word;padding:30px 10px 10px;font-family:arial,helvetica,sans-serif;\"align=\"left\"><h1 style=\"margin: 0px; color: #000000; line-height: 140%; text-align: center; word-wrap: break-word; font-family: 'Montserrat',sans-serif; font-size: 13px; font-weight: 400;\"><span>ⓒANIHEALTH Inc.All Rights Reserved</span></h1></td></tr></tbody></table></div></div></div></div></div></div><div class=\"u-row-container\"style=\"padding: 0px;background-color: transparent\"><div class=\"u-row\"style=\"margin: 0 auto;min-width: 320px;max-width: 600px;overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;background-color: transparent;\"><div style=\"border-collapse: collapse;display: table;width: 100%;height: 100%;background-color: transparent;\"><div class=\"u-col u-col-100\"style=\"max-width: 320px;min-width: 600px;display: table-cell;vertical-align: top;\"><div style=\"height: 100%;width: 100% !important;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;\"><div style=\"box-sizing: border-box; height: 100%; padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;\"><table style=\"font-family:arial,helvetica,sans-serif;\"role=\"presentation\"cellpadding=\"0\"cellspacing=\"0\"width=\"100%\"border=\"0\"><tbody><tr><td style=\"overflow-wrap:break-word;word-break:break-word;padding:10px 0px 0px;font-family:arial,helvetica,sans-serif;\"align=\"left\"><table height=\"0px\"align=\"center\"border=\"0\"cellpadding=\"0\"cellspacing=\"0\"width=\"100%\"style=\"border-collapse: collapse;table-layout: fixed;border-spacing: 0;mso-table-lspace: 0pt;mso-table-rspace: 0pt;vertical-align: top;border-top: 1px solid #000000;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%\"><tbody><tr style=\"vertical-align: top\"><td style=\"word-break: break-word;border-collapse: collapse !important;vertical-align: top;font-size: 0px;line-height: 0px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%\"><span>&#160;</span></td></tr></tbody></table></td></tr></tbody></table><table style=\"font-family:arial,helvetica,sans-serif;\"role=\"presentation\"cellpadding=\"0\"cellspacing=\"0\"width=\"100%\"border=\"0\"><tbody><tr><td style=\"overflow-wrap:break-word;word-break:break-word;padding:0px 0px 10px;font-family:arial,helvetica,sans-serif;\"align=\"left\"><table height=\"0px\"align=\"center\"border=\"0\"cellpadding=\"0\"cellspacing=\"0\"width=\"100%\"style=\"border-collapse: collapse;table-layout: fixed;border-spacing: 0;mso-table-lspace: 0pt;mso-table-rspace: 0pt;vertical-align: top;border-top: 1px solid #000000;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%\"><tbody><tr style=\"vertical-align: top\"><td style=\"word-break: break-word;border-collapse: collapse !important;vertical-align: top;font-size: 0px;line-height: 0px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%\"><span>&#160;</span></td></tr></tbody></table></td></tr></tbody></table></div></div></div></div></div></div></td></tr></tbody></table></body></html>";
+		
+		return mail;
+	}
 	
 	
 } // 클래스 영역 끝

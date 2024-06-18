@@ -44,5 +44,6 @@ public class Order {
 	private String email;
 	//
 	private List<Order> orderItems;
+	private String orderContent;
 
 }

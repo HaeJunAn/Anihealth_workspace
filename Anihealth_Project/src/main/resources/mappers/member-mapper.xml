@@ -33,6 +33,7 @@
 		<result column="ORDER_ADDRESS" property="orderAddress" />
 		<result column="ORDER_ZIPCODE" property="orderZipcode" />
 		<result column="USER_NO" property="userNo" />
+		<result column="ORDER_CONTENT" property="orderContent" />		
 	</resultMap>
 		
 	<resultMap type="orderProduct" id="orderProductResultSet">
@@ -244,6 +245,7 @@
 		     , ORDER_ADDRESS
 		     , ORDER_ZIPCODE
 		     , USER_NO
+		     , ORDER_CONTENT
 		  FROM "ORDER"
 		 WHERE USER_NO = #{userNo}
 		   AND ORDER_CANCLE = 'Y'
@@ -420,6 +422,14 @@
 		  FROM MEMBER
 		 WHERE USER_ID = #{userId}
 	</select>
+	
+	<!-- 주문내역 - 환불하기 -->
+	<update id="refundOrder"
+			parameterType="order">
+		UPDATE "ORDER"
+		   SET ORDER_CONTENT = #{orderContent}
+		 WHERE ORDER_NO = #{orderNo}
+	</update>
 
 	
 	
