@@ -6,7 +6,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
-
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
+import com.kh.aniht.member.model.vo.Member;
 import com.kh.aniht.product.model.service.ProductService;
 import com.kh.aniht.product.model.service.ProductServiceImpl;
 import com.kh.aniht.product.model.vo.Product;
@@ -39,9 +40,9 @@ public class SurveyController {
 	}
 	// 설문결과 출력
 	@PostMapping("surveyResult.su")
-	public String surveyResult(String animal, String breed, int age, int bcs, double weight, HttpServletRequest request, Model model) {
+	public String surveyResult(String animal, String breed, int age, int bcs, double weight, HttpServletRequest request, Model model, HttpSession session) {
 
-		int userNo = 2; // session
+		int userNo = ((Member)session.getAttribute("loginUser")).getUserNo();	 // session
 		
 		// bcs 결과
 		String bcsInfo = SurveyResponse.bcs.get(bcs);

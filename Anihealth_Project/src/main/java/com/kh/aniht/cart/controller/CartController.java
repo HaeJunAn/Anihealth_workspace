@@ -99,10 +99,16 @@ public class CartController {
 	 @PostMapping("cart.su")
 	 public String insertCart(int[] productNo, int[] cartPrice, HttpSession session) {
 		 
-		 for (int i = 0; i < productNo.length; i++) {
-			System.out.println(productNo[i]);
-		}
+//		 for (int i = 0; i < productNo.length; i++) {
+//			 System.out.println(productNo[i]);
+//		 }
+//		 System.out.println("-----");
+//		 for (int i = 0; i < cartPrice.length; i++) {
+//			 System.out.println(cartPrice[i]);
+//		 }
+		 
 		 ArrayList<Cart> cList = new ArrayList<Cart>();
+		 int userNo = ((Member)session.getAttribute("loginUser")).getUserNo();	
 		 
 		 for (int i = 0; i < productNo.length; i++) {
 			 Cart c = new Cart();
@@ -110,12 +116,11 @@ public class CartController {
 			 c.setProductNo(productNo[i]);
 			 c.setCartPrice(cartPrice[i]);
 			 c.setCartQuantity(1);
-			 int userNo = ((Member)session.getAttribute("loginUser")).getUserNo();	
 			 c.setUserNo(userNo);
 			 
 			 cList.add(c);
 		}
-		 System.out.println(cList);
+		 //System.out.println(cList);
 		 
 		 int result = cartService.insertCart(cList);
 		 

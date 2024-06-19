@@ -523,8 +523,6 @@
 													id="item${status.index + 1}" class="recommendedProduct"
 													value="${p.productNo}">
 												<input type="hidden" name="cartPrice" value="${p.price}">
-												<input type="hidden" name="cartQuantity" value="1">
-												<input type="hidden" name="userNo" value="2">
 											</label>
 										</td>
 										<td rowspan="2">
@@ -602,19 +600,20 @@
 			<br> <br>
 			<jsp:include page="../common/footer.jsp" />
 			<script>
-				$(function () {
-					// 로딩 화면
-					/*
-					let l = 0;
-					for(let i = 0; i < 5; i++) {
-						setTimeout(function(){
-							l += 20;
-							$(".progress-bar").width(l + "%");
-						}, 600);
-					}
-					*/
+				// 체크박스 히든 밸류변경
+				$(document).on("click", ".recommendedProduct", function () {
+					console.log($(this).prop('checked'));
+					console.log($(this).next());
 
-					//$(".progress-bar").width("100%");
+					if($(this).prop('checked')) {
+						$(this).next().attr("disabled", false);
+					} else {
+						$(this).next().attr("disabled", true);
+					}
+				});
+
+				$(function () {
+
 					// 로딩바
 					$(".progress-bar").animate({
 						width: "100%"
@@ -644,6 +643,16 @@
 					// 미리체크
 					$("input[type=checkbox]").prop('checked', true);
 
+					// function checkProduct() {
+					// 	console.log($(this).prop('checked'));
+					// 	console.log($(this).next());
+					// 	if($(this).prop('checked')) {
+					// 		$(this).next().attr("disabled", false);
+					// 	} else {
+					// 		$(this).next().attr("disabled", true);
+					// 	}
+					// }
+					
 					// $(document).on("mouseenter", ".product-selected tr:odd", function () { 
 					// 	$(this).css("opacity", "0.8");
 					// 	$(this).prev().css("opacity", "0.8");
