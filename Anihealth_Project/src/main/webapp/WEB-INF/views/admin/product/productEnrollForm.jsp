@@ -139,15 +139,15 @@
 			        			<input type="checkbox" name="effect" value="3" id="eye" class="form-check-inline">
 			        			<label for="eye">눈</label>
 			        			<input type="checkbox" name="effect" value="4" id="bone" class="form-check-inline">
-			        			<label for="bone">뼈</label>
+			        			<label for="bone">뼈/관절</label>
 			        			<input type="checkbox" name="effect" value="5" id="heart" class="form-check-inline">
 			        			<label for="heart">심장</label>
 			        			<input type="checkbox" name="effect" value="6" id="immunity" class="form-check-inline">
-			        			<label for="immunity">면역</label>
+			        			<label for="immunity">면역력</label>
 			        			<input type="checkbox" name="effect" value="7" id="stomach" class="form-check-inline">
-			        			<label for="stomach">소화계</label>
+			        			<label for="stomach">위/장</label>
 			        			<input type="checkbox" name="effect" value="8" id="kidney" class="form-check-inline">
-			        			<label for="kidney">신장</label>
+			        			<label for="kidney">신장/방광</label>
 			        		</td>
 		        		</tr>
 		        		<tr class="effect-area sideEffect">
@@ -160,15 +160,15 @@
 			        			<input type="checkbox" name="sideEffect" value="3" id="side-eye" class="form-check-inline">
 			        			<label for="side-eye">눈</label>
 			        			<input type="checkbox" name="sideEffect" value="4" id="side-bone" class="form-check-inline">
-			        			<label for="side-bone">뼈</label>
+			        			<label for="side-bone">뼈/관절</label>
 			        			<input type="checkbox" name="sideEffect" value="5" id="side-heart" class="form-check-inline">
 			        			<label for="side-heart">심장</label>
 			        			<input type="checkbox" name="sideEffect" value="6" id="side-immunity" class="form-check-inline">
-			        			<label for="side-immunity">면역</label>
+			        			<label for="side-immunity">면역력</label>
 			        			<input type="checkbox" name="sideEffect" value="7" id="side-stomach" class="form-check-inline">
-			        			<label for="side-stomach">소화계</label>
+			        			<label for="side-stomach">위/장</label>
 			        			<input type="checkbox" name="sideEffect" value="8" id="side-kidney" class="form-check-inline">
-			        			<label for="side-kidney">신장</label>
+			        			<label for="side-kidney">신장/방광</label>
 			        		</td>
 		        		</tr>
 			        </thead>
@@ -235,15 +235,10 @@
 				}
         	}
         	
-        	// Form submission with validation
+        	// 필수요소  효능과 대표이미지, 상세이미지 입력유도
         	function validateForm() {
 	            if ($('.effect input:checked').length === 0) {
 	                alert('효능 중 최소한 하나를 선택해야 합니다.');
-	                return false;
-	            }
-
-	            if ($('.sideEffect input:checked').length === 0) {
-	                alert('부작용 중 최소한 하나를 선택해야 합니다.');
 	                return false;
 	            }
 

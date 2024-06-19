@@ -255,24 +255,24 @@
                 </table>
 
 		   <!-- 답변 내용이 있으면 답변 내용을 표시하는 조건문 -->
-            <%--<c:if test="${not empty requestScope.iq.inquiryAnswer }">  --%>
+            <c:if test="${not empty requestScope.iq.inquiryAnswer }">  
 	                <table class="cart-table1">      
 	                    <thead>
 	                        <tr>    
 	                            <th class="cart-table-item1" id="product-header">답변내용</th>
-	                           <td style="text-align: right;">${requestScope.iq.inquiryAnswerContent} 답변날짜</td>             
+	                           <td style="text-align: right;">${requestScope.iq.inquiryAnswerContent}</td>             
 	                        </tr>
 	                    </thead>
 	
 	                    <tbody class="cart-table-content1">
 	                        <tr class="cart-table-inner1">
 	                            <td colspan="2" class="content-iq1" style="font-size: large;">
-	                                <p style="white-space: pre-wrap; height: 150px;">${ requestScope.iq.inquiryAnswer}답변내용 답변내용 답변내용</p>
+	                                <p style="white-space: pre-wrap; height: 150px;">${ requestScope.iq.inquiryAnswer}</p>
 	                            </td>
 	                        </tr>   
 	                    </tbody>
 	                </table>
-          <%--</c:if>  --%>
+         	 </c:if>  
           		
           		<div align="center">
 	                <!-- 수정하기, 삭제하기 버튼은 이 글이 본인이 작성한 글일 경우에만 보여져야 함 -->

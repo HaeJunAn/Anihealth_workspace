@@ -265,7 +265,7 @@
                           <a class="nav-link dropdown-toggle" data-toggle="dropdown">CUSTOMER SERVICE</a>
                           <div class="dropdown-menu">
                               <a class="dropdown-item" href="faq.ad">FAQ</a>
-                              <a class="dropdown-item" href="inquriy.ad">INQUIRY</a>
+                              <a class="dropdown-item" href="inquiry.ad">INQUIRY</a>
   						</div>
                       </li>
   
