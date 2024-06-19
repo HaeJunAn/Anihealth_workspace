@@ -31,8 +31,12 @@
 			<mapping path="/myPage.me"/>
 			<mapping path="/list.iq" />
 			<mapping path="/myPageUpdate.me" />			
+			<mapping path="/nickUpdate.me" />			
+			<mapping path="/emailUpdate.me" />			
+			<mapping path="/delete.me" />			
 			<mapping path="/myPageDelivery.me"/>
 			<mapping path="/myPageOrder.me"/>
+			<mapping path="/refund.me"/>
 			<mapping path="/myPageRefund.me"/>
 			<mapping path="/myPageOrderDetail.me"/>
 			<mapping path="/myPageReview.me"/>
