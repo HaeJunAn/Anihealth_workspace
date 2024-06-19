@@ -45,5 +45,10 @@ public class Order {
 	//
 	private List<Order> orderItems;
 	private String orderContent;
+	
+	// 주문 상품 조회용 - 정민
+	private int orderProductNo;		
+	private int orderQuantity;		
+	private int orderProductPrice;	
 
 }
