@@ -21,6 +21,10 @@ public interface CartService {
 	// 장바구니 추가
 	int ajaxCartInsert(Product p,int userNo);
 
+	 boolean isProductInCart(int productNo, int userNo);
+	
 	int insertCart(ArrayList<Cart> cList);
+	
+	
 	
 }

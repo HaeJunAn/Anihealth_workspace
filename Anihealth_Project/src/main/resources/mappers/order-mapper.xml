@@ -39,20 +39,18 @@
 	</resultMap>
 	
 	<!-- 결제하기 장바구니 넘기기 -->
-	 <select id="cartOrder" resultMap="orderResultSet" parameterType="map">
-        SELECT CART_NO, CART_QUANTITY, CART_PRICE, USER_NO, PRODUCT_NO, CATEGORY, PRODUCT_THUMBNAIL_PATH, PRODUCT_NAME
-        ,USER_NAME,PHONE,EMAIL
-        FROM CART
-        JOIN PRODUCT USING (PRODUCT_NO)
-        JOIN SIDE_EFFECT USING (PRODUCT_NO)
-        JOIN EFFECT USING (EFFECT_NO)
-        JOIN MEMBER USING (USER_NO)
-        WHERE CART_NO IN 
-        <foreach item="cartNos" collection="cartNosList" open="(" separator="," close=")">
-            #{cartNos}
-        </foreach>
-         AND USER_NO = #{userNo}
-    </select>
+	<select id="cartOrder" resultMap="orderResultSet" parameterType="map">
+    SELECT CART_NO, CART_QUANTITY, CART_PRICE, USER_NO, PRODUCT_NO, CATEGORY, PRODUCT_THUMBNAIL_PATH, PRODUCT_NAME,
+           USER_NAME, PHONE, EMAIL
+    FROM CART
+    JOIN PRODUCT USING (PRODUCT_NO)
+    JOIN MEMBER USING (USER_NO)
+    WHERE CART_NO IN 
+    <foreach item="cartNo" collection="cartNosList" open="(" separator="," close=")">
+        #{cartNo}
+    </foreach>
+    AND USER_NO = #{userNo}
+</select>
 	
 	<!-- 배송지 정보 가져오기 -->
 	<select id="getDeliveryList" resultMap="orderResultSet">

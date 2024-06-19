@@ -1,6 +1,7 @@
 
 package com.kh.aniht.order.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -24,22 +25,21 @@ public class OrderController {
 	@Autowired
 	private OrderService orderService;
 	
-	 @PostMapping("/order.re")
-     public String cartOrder(@RequestParam("selectedItems") List<String> selectedItems, @RequestParam("userNo") int userNo, Model model, HttpSession session) {
- 		 //System.out.println(selectedItems);
- 		 // System.out.println(userNo);
- 		
-		 String userId = ((Member)session.getAttribute("loginUser")).getUserId();
- 		//System.out.println(userId);
-         List<Order> orderItems = orderService.cartOrder(selectedItems,userNo);
-         System.out.println(orderItems);
-         
-         List<Delivery> deliveryList = orderService.getDeliveryList(userId);
-		// System.out.println(deliveryList);
-		 model.addAttribute("deliveryList",deliveryList);
-         model.addAttribute("orderItems", orderItems);
-         return "order/order"; // 주문 페이지로 리디렉션
-     }
+	@PostMapping("/order.re")
+	public String cartOrder(@RequestParam("selectedItems") List<String> selectedItems, @RequestParam("userNo") int userNo, Model model, HttpSession session) {
+	    System.out.println("Selected Items: " + selectedItems);
+
+	    String userId = ((Member)session.getAttribute("loginUser")).getUserId();
+
+	    // selectedItems를 그대로 전달
+	    List<Order> orderItems = orderService.cartOrder(selectedItems, userNo);
+	    System.out.println("Order Items: " + orderItems);
+
+	    List<Delivery> deliveryList = orderService.getDeliveryList(userId);
+	    model.addAttribute("deliveryList", deliveryList);
+	    model.addAttribute("orderItems", orderItems);
+	    return "order/order"; // 주문 페이지로 리디렉션
+	}
 	 
 	 // 주문정보넣기 상세정보넣기
 	 @ResponseBody

@@ -98,40 +98,41 @@ public class CartController {
 	 // 유상 장바구니
 	 @PostMapping("cart.su")
 	 public String insertCart(int[] productNo, int[] cartPrice, HttpSession session) {
-		 
-//		 for (int i = 0; i < productNo.length; i++) {
-//			 System.out.println(productNo[i]);
-//		 }
-//		 System.out.println("-----");
-//		 for (int i = 0; i < cartPrice.length; i++) {
-//			 System.out.println(cartPrice[i]);
-//		 }
-		 
-		 ArrayList<Cart> cList = new ArrayList<Cart>();
-		 int userNo = ((Member)session.getAttribute("loginUser")).getUserNo();	
-		 
-		 for (int i = 0; i < productNo.length; i++) {
-			 Cart c = new Cart();
-			
-			 c.setProductNo(productNo[i]);
-			 c.setCartPrice(cartPrice[i]);
-			 c.setCartQuantity(1);
-			 c.setUserNo(userNo);
-			 
-			 cList.add(c);
-		}
-		 //System.out.println(cList);
-		 
-		 int result = cartService.insertCart(cList);
-		 
-		 if(result > 0) {
-			 System.out.println("성공");
-		 } else {
-			 System.out.println("실패");
-		 }
-		 
-		
-		 return null;
-	}
-	 
+
+		 int userNo = ((Member)session.getAttribute("loginUser")).getUserNo();
+		    ArrayList<Cart> cList = new ArrayList<>();
+
+		    for (int i = 0; i < productNo.length; i++) {
+		        if (cartService.isProductInCart(productNo[i], userNo)) {
+		            System.out.println("Product " + productNo[i] + " is already in the cart.");
+		            continue; // Skip adding this product to the cart
+		        }
+
+		        Cart c = new Cart();
+		        c.setProductNo(productNo[i]);
+		        c.setCartPrice(cartPrice[i]);
+		        c.setCartQuantity(1);
+		        c.setUserNo(userNo);
+
+		        cList.add(c);
+		    }
+
+		    System.out.println(cList);
+
+		    if (!cList.isEmpty()) {
+		        int result = cartService.insertCart(cList);
+		        if (result > 0) {
+		            System.out.println("성공");
+		            return "redirect:/cart.re";
+		        } else {
+		            System.out.println("실패");
+		           
+		        }
+		    } else {
+		        System.out.println("No new products to add to the cart.");
+		        
+		    }
+		    return "redirect:/";
+		    
+}
 }

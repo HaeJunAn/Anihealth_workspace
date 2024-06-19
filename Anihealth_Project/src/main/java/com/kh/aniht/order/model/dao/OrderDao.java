@@ -18,12 +18,12 @@ public class OrderDao {
 	    private SqlSessionTemplate sqlSession;
 	    
 	  public List<Order> cartOrder(List<Integer> cartNos, int userNo) {
-	        Map<String, Object> params = new HashMap<>();
-	        params.put("cartNosList", cartNos);
-	        params.put("userNo", userNo);
-	        return sqlSession.selectList("orderMapper.cartOrder", params);
-	    }
-	  
+		    Map<String, Object> params = new HashMap<>();
+		    params.put("cartNosList", cartNos);
+		    params.put("userNo", userNo);
+		    System.out.println("DAO Params: " + params); // 디버깅을 위해 추가
+		    return sqlSession.selectList("orderMapper.cartOrder", params);
+		}
 	  public List<Delivery> getDeliveryList(String userId) {
 	        return sqlSession.selectList("orderMapper.getDeliveryList", userId);
 	    }

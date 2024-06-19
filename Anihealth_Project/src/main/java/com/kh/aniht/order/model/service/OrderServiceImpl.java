@@ -21,17 +21,17 @@ public class OrderServiceImpl implements OrderService{
 	@Autowired
 	private OrderDao orderDao;
 	
-	 @Override
-	    public List<Order> cartOrder(List<String> selectedItems, int userNo) {
-	        List<Integer> cartNos = new ArrayList<>();
-	        for (String item : selectedItems) {
-	            String[] parts = item.split(":");
-	            int cartNo = Integer.parseInt(parts[0]);
-	            cartNos.add(cartNo);
-	        }
-	        return orderDao.cartOrder(cartNos, userNo);
+	@Override
+	public List<Order> cartOrder(List<String> selectedItems, int userNo) {
+	    List<Integer> cartNos = new ArrayList<>();
+	    for (String item : selectedItems) {
+	        String[] parts = item.split(":");
+	        int cartNo = Integer.parseInt(parts[0]);
+	        cartNos.add(cartNo);
 	    }
-
+	    System.out.println("Parsed Cart Nos: " + cartNos); // 디버깅을 위해 추가
+	    return orderDao.cartOrder(cartNos, userNo);
+	}
 	 @Override
 	    public List<Delivery> getDeliveryList(String userId) {
 	        return orderDao.getDeliveryList(userId);

@@ -53,6 +53,12 @@ public class CartServiceImpl implements CartService {
 			return cartDao.ajaxCartInsert(p,userNo);
 		}
 		
+		  @Override
+		    public boolean isProductInCart(int productNo, int userNo) {
+		        int count = cartDao.countProductInCart(productNo, userNo);
+		        return count > 0;
+		    }
+		
 		@Override
 		@Transactional
 		public int insertCart(ArrayList<Cart> cList) {
@@ -64,9 +70,5 @@ public class CartServiceImpl implements CartService {
 			return result;
 		}
 		
-		
-		 
-	
-	
 		
 }

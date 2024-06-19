@@ -218,6 +218,12 @@
 			 WHERE PRODUCT_NO = #{productNo}
 			   AND USER_NO = #{userNo}
 	</select>
+	<!-- 설문조사 하고 상품중복검사 해준 -->
+	<select id="countProductInCart" resultType="int" parameterType="map">
+    SELECT COUNT(*)
+    FROM CART
+    WHERE PRODUCT_NO = #{productNo} AND USER_NO = #{userNo}
+	</select>
 	
 	<!-- *********** 정민 : 관리자 ********* -->
 	<!-- 영양제 총 개수 쿼리문 -->

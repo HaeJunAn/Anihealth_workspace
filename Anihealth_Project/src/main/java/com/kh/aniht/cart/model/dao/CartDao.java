@@ -62,11 +62,19 @@ public class CartDao {
 		return sqlSession.insert("cartMapper.ajaxCartInsert",paramMap);
 	}
 
-
-	public int insertCart(SqlSessionTemplate sqlSession, Cart cart) {
+	  public int countProductInCart(int productNo, int userNo) {
+	        Map<String, Integer> params = new HashMap<>();
+	        params.put("productNo", productNo);
+	        params.put("userNo", userNo);
+	        return sqlSession.selectOne("productMapper.countProductInCart", params);
+	    }
 		
-		return sqlSession.insert("cartMapper.insertCart", cart);
-	}
+		
+		public int insertCart(SqlSessionTemplate sqlSession, Cart cart) {
+			
+			return sqlSession.insert("cartMapper.insertCart", cart);
+		}
+
 	
 	
 }
