@@ -61,7 +61,7 @@ public class SurveyService {
 		return eList;
 	}
 	// 무게정보
-	public HashMap<String, Object> getWeightInfo(int weight, int bcs) {
+	public HashMap<String, Object> getWeightInfo(double weight, int bcs) {
 		HashMap<String, Object> weightInfo = new  HashMap<>();
 		
 		 double standardWeight = (Math.round(((weight * 100) / (double) (100 + 10 * (bcs - 5))) * 10) / 10.0);

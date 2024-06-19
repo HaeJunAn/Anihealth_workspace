@@ -121,7 +121,8 @@
 	                </div>
 	            </div>
 	            <input type="file" name="upfile" class="inputFile" style="display: none;" onchange="loadImg(this);" required>
-	            <div class="button-area"><button type="submit">리뷰등록</button> <button type="button" onclick="location.href='${pageContext.request.contextPath}'">작성취소</button> </div>
+	            <div class="button-area"><button type="submit">리뷰등록</button> 
+	            <button type="button" onclick="location.href='myPageOrder.me'">작성취소</button> </div>
 	            <input type="hidden" name="orderProductNo" value="${orderProductNo}"> 
 	        </form>
 	    </main>

@@ -20,5 +20,7 @@ public interface CartService {
 	Product ajaxInsertCart(Product p,int userNo);
 	// 장바구니 추가
 	int ajaxCartInsert(Product p,int userNo);
+
+	int insertCart(ArrayList<Cart> cList);
 	
 }

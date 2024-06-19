@@ -39,7 +39,7 @@ public class SurveyController {
 	}
 	// 설문결과 출력
 	@PostMapping("surveyResult.su")
-	public String surveyResult(String animal, String breed, int age, int bcs, int weight, HttpServletRequest request, Model model) {
+	public String surveyResult(String animal, String breed, int age, int bcs, double weight, HttpServletRequest request, Model model) {
 
 		int userNo = 2; // session
 		

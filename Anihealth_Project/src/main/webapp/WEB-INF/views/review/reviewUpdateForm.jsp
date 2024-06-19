@@ -108,23 +108,24 @@
 	                <i class="fa fa-star" style="font-size:36px; "></i>
 	                <i class="fa fa-star" style="font-size:36px; display: none;"></i>
 	                <span><span>별점선택</span></span>
-	                <input type="hidden" name="rating">
+	                <input type="hidden" name="rating" value="${r.rating}">
 	            </div>
 	            <div class="input-group mb-3 review-title">
-	                <input type="text" name="reviewTitle" class="form-control" value="${r.reviewTitle}" required>
+	                <input type="text" name="reviewTitle" class="form-control" value="${r.reviewTitle}">
 	            </div>
 	            <div class="review-content-container">
 	                <div class="input-group review-content">
-	                    <textarea class="form-control" name="reviewContent" required>${r.reviewContent}</textarea>
+	                    <textarea class="form-control" name="reviewContent">${r.reviewContent}</textarea>
 	                </div>
 	                <div class="review-pic" onclick="inputFile();">
 	                    <img src="${r.reviewFilePath}" alt="">
 	                </div>
 	            </div>
-	            <input type="file" name="reupfile" class="inputFile" style="display: none;" onchange="loadImg(this);" required>
+	            <input type="file" name="reupfile" class="inputFile" style="display: none;" onchange="loadImg(this);">
 	            <input type="hidden" name="reviewFilePath" value="${r.reviewFilePath}">
 	            <input type="hidden" name="reviewNo" value="${r.reviewNo}">
-	            <div class="button-area"><button type="submit">리뷰수정</button> <button type="button" onclick="location.href='${pageContext.request.contextPath}'">작성취소</button> </div> 
+	            <div class="button-area"><button type="submit">리뷰수정</button> 
+	            <button type="button" onclick="location.href='myPageReview.me'">작성취소</button> </div> 
 	        </form>
 	    </main>
 	    <br> <br> <br>

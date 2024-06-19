@@ -110,7 +110,7 @@ public class ReviewController {
 	public String insertReview(Review r, MultipartFile upfile, HttpSession session) {
 		
 		//System.out.println(r);
-	
+		System.out.println(r);
 		r.setUserNo(((Member) session.getAttribute("loginUser")).getUserNo()); // sessionn 또는 요청값으로, 주문내역 조회 쿼리 수정도 가능
 		
 		if(!upfile.getOriginalFilename().equals("")) {

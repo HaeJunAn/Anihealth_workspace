@@ -114,14 +114,15 @@
             	padding-bottom: 17px
             }
             .animal>div:hover {
-                opacity: 80%;
-                box-shadow: 0px 0px 7px rgba(26, 26, 26, 0.2);
                 border-radius: 15px;
-                overflow: hidden;   
+                overflow: hidden; 
+                cursor: pointer;  
+            }
+            .animal>div:not(.animal-active) {
+                opacity: 80%;
             }
             .animal-active {
-                opacity: 80%;
-                box-shadow: 0px 0px 7px rgba(26, 26, 26, 0.2);
+                opacity: 100%;
                 transform: scale(1.1);
                 border-radius: 15px;
                 overflow: hidden;
@@ -148,18 +149,30 @@
                 flex-wrap: wrap;
                 justify-content: space-evenly;
                 padding-left: 0;
-                margin-top: 20px;
+                margin-top: 10px;
             }
             .breed img {
                 width: 140px;
             }
-            .breed img:hover {
+            .breed div {
+                font-weight: 100;
+                font-size: 15px;
+                line-height: 3em;
+                transform: translateX(-5px);
+                color: #585858;
+            }
+
+            .breed li:hover {
+                opacity: 100%;
+                cursor: pointer;
+            }
+            .breed li:not(.breed-active) {
                 opacity: 70%;
             }
             .breed-active {
-                opacity: 70%;
-                box-shadow: 0px 0px 7px rgba(14, 14, 14, 0.2);
-                border-radius: 15px;
+                opacity: 100%;
+                border-radius: 25px;
+                overflow: hidden;
             }
             /* 체중 */
             .bcs>label>div {
@@ -240,24 +253,24 @@
                 </div>
                 <div class="survey-item" align="center" style="display: none;">
                     <h3 style="margin-bottom: 15px;">견종과 나이를 선택해주세요</h3>
-                    나이 <input type="number" name="age" placeholder="나이 입력" required>
+                    나이 <input type="number" name="age" placeholder="나이 입력" required min="1">
                     <ul class="breed">
-                        <li><img src="resources/simg/닥스훈트.png" alt="닥스훈트"></li>
-                        <li><img src="resources/simg/포메라니안.png" alt="포메라니안"></li>
-                        <li><img src="resources/simg/치와와.png" alt="치와와"></li>
-                        <li><img src="resources/simg/요크셔테리어.png" alt="요크셔테리어"></li>
-                        <li><img src="resources/simg/푸들.png" alt="푸들"></li>
-                        <li><img src="resources/simg/도베르만.png" alt="도베르만"></li>
-                        <li><img src="resources/simg/닥스훈트.png" alt="닥스훈트"></li>
-                        <li><img src="resources/simg/래브라도.png" alt="래브라도"></li>
-                        <li><img src="resources/simg/치와와.png" alt="치와와"></li>
-                        <li><img src="resources/simg/불독.png" alt="불독"></li>
-                        <li><img src="resources/simg/푸들.png" alt="푸들"></li>
-                        <li><img src="resources/simg/닥스훈트.png" alt="닥스훈트"></li>
-                        <li><img src="resources/simg/포메라니안.png" alt="포메라니안"></li>
-                        <li><img src="resources/simg/치와와.png" alt="치와와"></li>
-                        <li><img src="resources/simg/래브라도.png" alt="래브라도"></li>
-                        <li><img src="resources/simg/도베르만.png" alt="도베르만"></li>
+                        <li><img src="resources/simg/닥스훈트.png" alt="닥스훈트"><div>닥스훈트</div></li>
+                        <li><img src="resources/simg/포메라니안.png" alt="포메라니안"><div>포메라니안</div></li>
+                        <li><img src="resources/simg/치와와.png" alt="치와와"><div>치와와</div></li>
+                        <li><img src="resources/simg/요크셔테리어.png" alt="요크셔테리어"><div>요크셔테리어</div></li>
+                        <li><img src="resources/simg/푸들.png" alt="푸들"><div>푸들</div></li>
+                        <li><img src="resources/simg/리트리버.png" alt="리트리버"><div>리트리버</div></li>
+                        <li><img src="resources/simg/허스키.png" alt="허스키"><div>허스키</div></li>
+                        <li><img src="resources/simg/웰시코기.png" alt="웰시코기"><div>웰시코기</div></li>
+                        <li><img src="resources/simg/시츄.png" alt="시츄"><div>시츄</div></li>
+                        <li><img src="resources/simg/시바견.png" alt="시바견"><div>시바견</div></li>
+                        <li><img src="resources/simg/말티즈.png" alt="말티즈"><div>말티즈</div></li>
+                        <li><img src="resources/simg/닥스훈트.png" alt="닥스훈트"><div>닥스훈트</div></li>
+                        <li><img src="resources/simg/퍼그.png" alt="포메라니안"><div>포메라니안</div></li>
+                        <li><img src="resources/simg/그레이하운드.png" alt="그레이하운드"><div>그레이하운드</div></li>
+                        <li><img src="resources/simg/포메라니안.png" alt="포메라니안"><div>포메라니안</div></li>
+                        <li><img src="resources/simg/도베르만.png" alt="도베르만"><div>도베르만</div></li>
                     </ul>
                     <input type="hidden" name="breed">
                     <button class="prev" type="button" onclick="prev(this);">이전</button>
@@ -266,7 +279,7 @@
                 <div class="survey-item bcs" style="display: none;">
                     <div class="icon-container"><img src="resources/simg/obesity.png"></div>
                     <h3 style="margin-bottom: 15px;">체중/체지방</h3>
-                    몸무게 <input type="number" placeholder="몸무게 입력" name="weight" required style="margin-bottom: 20px;"> Kg
+                    몸무게 <input type="number" placeholder="몸무게 입력" name="weight" required style="margin-bottom: 20px;" step="0.1"> Kg
                     <label for="bcs1">
                         <input type="radio" name="bcs" value="9" id="bcs1" required>
                         <img src="resources/simg/bcs-icon-dog-9.png">
@@ -528,47 +541,59 @@
                     let aniVal = $(this).find("img").attr("alt");
                     $("input[name=animal]").val(aniVal);
                 });
-                $(".breed img").on("click", function () {
+                $(".breed li").on("click", function () {
                     $(this).addClass("breed-active");
-                    $(this).parent().parent().find("img").not(this).removeClass("breed-active");
-                    let breedVal = $(this).attr("alt");
+                    $(this).parent().find("li").not(this).removeClass("breed-active");
+                    let breedVal = $(this).find("img").attr("alt");
+                    console.log(breedVal);
                     $("input[name=breed]").val(breedVal);
                 });
 
             });
             let proBar = 0;
+            let b =true;
             function next(element) {
-            	console.log(!$(element).parent().find("input").val());
-            	console.log(!$(element).parent().find("input[type=hidden]").val());
-				// 유효성 검사
-            	if(!$(element).parent().find("input[type=hidden]").length){ //요소 존재 검사
-            		if (!$(element).parent().find("input").is(':checked')){  // 라디오는 하나만 체크되도 검사됨
+                // if문 false 취급 0, "" (빈 문자열), null, undefined, NaN
+
+                if($(element).parent().find("input[type=radio]").length) {
+                    if (!$(element).parent().find("input:checked").length || !($(element).parent().find("input[name=weight]").val() != 0)){  // 라디오는 하나만 체크되도 검사됨
             			//alertify.alert("알람", "아직 입력하지 않은 항목이 있습니다");
+                        //console.log(!$(element).parent().find("input:checked").length);
+                        // console.log(!$(element).parent().find("input[name=weight]").val());
+                        //console.log("호출1");
             			alertify.alert().set({
 						    'onshow': function() {
 						        this.elements.dialog.style.width = '400px'; 
 						    },
 						    'message': '아직 입력하지 않은 항목이 있습니다',
-						    'title' : '알람'
-						    
+						    'title' : '알람'   
 						}).show();
             			return false;
-       				} else {
-       					if($(element).parent().find("input[name=weight]").length){ //무게항목 있음
-       						if(!$(element).parent().find("input[name=weight]").val()){
-       							alertify.alert("알람", "아직 입력하지 않은 항목이 있습니다");
-       							return false;
-       						}
-            			} 
-       				}
-            	} else {// 나이 없으면 true || hidden 없으면 true || 있으면 false
-            		if (!$(element).parent().find("input").val() || !$(element).parent().find("input[type=hidden]").val()) { //하나 없으면 겹쳐서 같은 선택
-            			alertify.alert("알람", "아직 입력하지 않은 항목이 있습니다");
-            			return false;
-					}
-            	}
-		
-  
+                    }
+                } else {
+                    $(element).parent().find("input").each(function (index, item) {
+                        if(!$(item).val()){
+                            console.log("호출");
+                            alertify.alert().set({
+						    'onshow': function() {
+						        this.elements.dialog.style.width = '400px'; 
+						    },
+						    'message': '아직 입력하지 않은 항목이 있습니다',
+						    'title' : '알람'
+
+						    }).show();
+                            b = false;
+                            return false;
+                        } else {
+                            b =true;
+                        }
+                    });
+                }
+                if(!b){
+                    return false;
+                }
+                
+
                 let currentItem = $(element).parent();
                 currentItem.css('display', 'none'); // 또는 hide(애니메이션);
                 proBar += 10;

@@ -53,6 +53,17 @@ public class CartServiceImpl implements CartService {
 			return cartDao.ajaxCartInsert(p,userNo);
 		}
 		
+		@Override
+		@Transactional
+		public int insertCart(ArrayList<Cart> cList) {
+			int result = 1;
+			for (Cart cart : cList) {
+				result *= cartDao.insertCart(sqlSession, cart);
+			}
+			
+			return result;
+		}
+		
 		
 		 
 	

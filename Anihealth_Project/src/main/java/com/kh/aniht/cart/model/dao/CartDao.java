@@ -61,6 +61,12 @@ public class CartDao {
 	    paramMap.put("userNo", userNo);
 		return sqlSession.insert("cartMapper.ajaxCartInsert",paramMap);
 	}
+
+
+	public int insertCart(SqlSessionTemplate sqlSession, Cart cart) {
+		
+		return sqlSession.insert("cartMapper.insertCart", cart);
+	}
 	
 	
 }

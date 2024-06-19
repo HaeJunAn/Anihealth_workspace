@@ -510,7 +510,7 @@
 				</div>
 				<div class="product-selected">
 					<!-- 추천 영양제 정보(5개)-->
-					<form action="">
+					<form action="cart.su" method="post">
 						<div class="item-header">
 							<span>추천제품</span><span class="material-symbols-outlined">pill</span>
 						</div>
@@ -519,13 +519,16 @@
 									<tr>
 										<td rowspan="2">
 											<label for="item${status.index + 1}">
-												<input type="checkbox" name="recommendedProduct"
+												<input type="checkbox" name="productNo"
 													id="item${status.index + 1}" class="recommendedProduct"
 													value="${p.productNo}">
+												<input type="hidden" name="cartPrice" value="${p.price}">
+												<input type="hidden" name="cartQuantity" value="1">
+												<input type="hidden" name="userNo" value="2">
 											</label>
 										</td>
 										<td rowspan="2">
-											<img src="resources/pimg/skin-hair.png">
+											<img src="${p.productThumbnailPath}">
 											<!-- <img src="${p.productThumbnailPath}"> -->
 										</td>
 										<td class="product-title">
@@ -579,37 +582,7 @@
 							</tr>
 							-->
 						</table>
-						<!--  
-						<style>
-							.temp {
-								width: 100%;
-								display: flex;
-								justify-content: space-evenly;
-								align-items: center;
-							}
-							.temp span img {
-								width: 50px;
-							}
-							.temp2{
-								display: flex;
-								flex-direction: column;
-								justify-content: space-evenly;
-							}
-						</style>
-						<div class="temp">
-							<div>
-								<label for="item1">
-									<input type="checkbox" name="recommendedProduct" id="item1" value="3">
-								</label>
-							</div>
-							<div>
-								<img src="resources/pimg/skin-hair.png">
-							</div>
-							<div class="temp2">
-								<span>영양제C 20000원</span><span><img src="resources/simg/skin.png"> <img src="resources/simg/eye.png"> <img src="resources/simg/immunity.png"></span>
-							</div>
-						</div>
-						-->
+
 						<div><button type="submit">장바구니 담기</button></div>
 					</form>
 				</div>
@@ -729,7 +702,8 @@
 								
 							});
 							ratingList.forEach(function (rMap) {
-								$(".rating" + rMap.productNo).html("(" + (Math.round(rMap.rating *10)/10.0) + ")");
+								//$(".rating" + rMap.productNo).html("(" + (Math.round(rMap.rating *10)/10.0) + ")");
+								$(".rating" + rMap.productNo).html("(4.2)");
 							})
 						},
 						error: function () {

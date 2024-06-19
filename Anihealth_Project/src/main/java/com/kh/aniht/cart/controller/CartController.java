@@ -94,4 +94,39 @@ public class CartController {
 	         return "{\"loggedIn\": false}";
 	     }
 	 }
+	 
+	 // 유상 장바구니
+	 @PostMapping("cart.su")
+	 public String insertCart(int[] productNo, int[] cartPrice, HttpSession session) {
+		 
+		 for (int i = 0; i < productNo.length; i++) {
+			System.out.println(productNo[i]);
+		}
+		 ArrayList<Cart> cList = new ArrayList<Cart>();
+		 
+		 for (int i = 0; i < productNo.length; i++) {
+			 Cart c = new Cart();
+			
+			 c.setProductNo(productNo[i]);
+			 c.setCartPrice(cartPrice[i]);
+			 c.setCartQuantity(1);
+			 int userNo = ((Member)session.getAttribute("loginUser")).getUserNo();	
+			 c.setUserNo(userNo);
+			 
+			 cList.add(c);
+		}
+		 System.out.println(cList);
+		 
+		 int result = cartService.insertCart(cList);
+		 
+		 if(result > 0) {
+			 System.out.println("성공");
+		 } else {
+			 System.out.println("실패");
+		 }
+		 
+		
+		 return null;
+	}
+	 
 }

@@ -49,6 +49,9 @@
 			VALUES (SEQ_CART_NO.NEXTVAL,1,#{price},#{userNo},#{productNo})
 	</insert>	
 
-	
+	<insert id="insertCart" parameterType="cart">
+			INSERT INTO CART(CART_NO,CART_QUANTITY,CART_PRICE,USER_NO,PRODUCT_NO)
+			VALUES (SEQ_CART_NO.NEXTVAL,1,#{cartPrice},#{userNo},#{productNo})
+	</insert>
 </mapper>
 
