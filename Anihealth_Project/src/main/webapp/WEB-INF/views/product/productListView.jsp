@@ -150,7 +150,6 @@
             justify-content: flex-start;
             /* 자식 요소들을 왼쪽 정렬 */
             width: 1350px;
-            /* 부모 요소의 너비를 100%로 설정 */
             margin: 0 auto;
             /* 부모 요소를 중앙에 배치 */
             margin-left: 4%;
@@ -168,6 +167,7 @@
             display: flex;
             flex-direction: column;
             margin-bottom: 30px;
+            height: 400px; 
         }
 
         .card-custom:hover {
@@ -188,13 +188,13 @@
         .card-footer {
            text-align: left;
            background-color: white !important;
-           border:  1px solid #ddd;
+          /*  border:  1px solid #ddd; */
            border-radius: 10px;
         }
 
         .fixed-img {
             width: 100%;
-            height: auto;
+            height: 230px; /* 높이 고정 */
             object-fit: cover;
         }
 

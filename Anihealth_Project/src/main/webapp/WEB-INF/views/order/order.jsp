@@ -38,15 +38,17 @@
         /* faq 제목 끝 */
 
         .cart-background {
-            width: 80%;
+            width: 70%;
             height: auto;
             margin: auto;
-            padding: 50px 30px;
+            padding: 50px 50px;
             background-color: #fff;
             box-shadow: 0 0 10px rgba(67, 75, 73, 0.3);
             border-radius: 8px;
             box-sizing: border-box;
             position: relative;
+            padding-left: 150px;
+            padding-right: 150px;
         }
 
         .cart-table {
@@ -166,8 +168,9 @@
             margin-bottom: 5px;
         }
         .address-details {
-            margin: 5px 0;
+            margin: 5px ;
         }
+
         /* 전체 내용 영역 끝 */
         /* 메인 영역 끝 */
 
@@ -219,8 +222,8 @@
                     <tr class="cart-table-inner">
                         <td colspan="4">
                             <div class="address-item">
-                                <span class="badge badge-pill">배송지</span>
-                                <select id="delivery-select" onchange="updateAddress()">
+                                <span class="badge badge-pill" style="margin-bottom: 5px; margin-top: 5px;">배송지</span>
+                                <select class="form-control" id="delivery-select" onchange="updateAddress()" style="margin-bottom: 15px;">
                                     <option value="">배송지를 선택해 주세요</option>
                                     <c:forEach var="address" items="${requestScope.deliveryList}">
                                         <option value="${address.deliveryNo}"
@@ -230,21 +233,21 @@
                                         </option>
                                     </c:forEach>
                                 </select>
-                                <br><br>
+                                
                                 <label for="address-details">이름</label>
-                                <input type="text" id="userName" class="address-details" value="" oninput="checkFormCompletion()">
-                                <br>
+                                <input type="text" id="userName" class="form-control form-control address-details" value="" oninput="checkFormCompletion()" style="margin-bottom: 15px;">
+                              
                                 <label for="address-details">주소</label>
-                                <input type="text" id="address-details" class="address-details" value="" oninput="checkFormCompletion()">
-                                <br>
+                                <input type="text" id="address-details" class="form-control form-control address-details" value="" oninput="checkFormCompletion()" style="margin-bottom: 15px;">
+                               
                                 <label for="zipCode">우편번호</label>
-                                <input type="text" id="zipCode" class="address-details" value="" oninput="checkFormCompletion()">
-                                <br>
+                                <input type="text" id="zipCode" class="form-control form-control address-details" value="" oninput="checkFormCompletion()" style="margin-bottom: 15px;">
+                               
                                 <label for="phone">전화번호</label>
-                                <input type="text" id="phone" value="" oninput="checkFormCompletion()" placeholder="-포함하여 입력해주세요">
-                                <br>
+                                <input type="text" class="form-control form-control" id="phone" value="" oninput="checkFormCompletion()" placeholder="-포함하여 입력해주세요" style="margin-bottom: 15px;">
+                              
                                 <label for="delivery-request">배송 요청사항</label>
-                                <select id="delivery-request">
+                                <select id="delivery-request" class="form-control" style="margin-bottom: 15px;">
                                     <option value="배송요청사항 없음">배송요청사항 없음 </option>
                                     <option value="문앞에 놔주세요">문앞에 놔주세요</option>
                                     <option value="경비실에 맡겨주세요">경비실에 맡겨주세요</option>

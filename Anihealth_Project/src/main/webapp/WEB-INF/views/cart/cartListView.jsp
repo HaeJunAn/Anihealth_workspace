@@ -45,10 +45,10 @@
         }
 
         .cart-background {
-            width: 80%;
+            width: 70%;
             height: auto;
             margin: auto;
-            padding: 50px 30px;
+            padding: 50px 100px;
             background-color: #fff;
             box-shadow: 0 0 10px rgba(67, 75, 73, 0.3);
             border-radius: 8px;

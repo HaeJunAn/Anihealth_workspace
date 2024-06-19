@@ -296,6 +296,7 @@
                         </button>
                     </div>
                 </div>
+                <br>
                 <div class="table-container main-section hidden animate__animated animate__slower" data-animate="animate__fadeInLeft">
     <table class="content-table">
         <tr>

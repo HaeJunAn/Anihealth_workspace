@@ -86,9 +86,10 @@
         }
 
         .card-custom {
-            width: 29.5%;
+           /*   width: 29.5%; */
+          	width: 400px;
             box-sizing: border-box;
-            margin: 1.5%;
+            margin: 15px;
             display: flex;
             flex-direction: column;
             cursor: pointer;
@@ -109,6 +110,8 @@
             text-align: left;
             background-color: white;
             padding-left: 10px;
+             border-top-left-radius: 20px; /* 카드의 둥근 모서리에 맞게 설정 */
+            border-top-right-radius: 20px;
         }
 
         .fixed-img {
