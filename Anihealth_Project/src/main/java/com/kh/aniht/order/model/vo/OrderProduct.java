@@ -26,4 +26,5 @@ public class OrderProduct {
 		private String productName;
 		private String deliveryStatus;
 		private String orderDate;
+		private String orderContent;
 }

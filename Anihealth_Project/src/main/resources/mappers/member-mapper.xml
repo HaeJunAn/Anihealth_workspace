@@ -47,6 +47,7 @@
 		<result column="DELIVERY_STATUS" property="deliveryStatus" />
 		<result column="ORDER_DATE" property="orderDate" />
 		<result column="ORDER_CANCLE" property="orderCancle" />
+		<result column="ORDER_CONTENT" property="orderContent" />
 	</resultMap>
 	
 	<resultMap type="delivery" id="deliveryResultSet">
@@ -248,7 +249,9 @@
 		     , ORDER_CONTENT
 		  FROM "ORDER"
 		 WHERE USER_NO = #{userNo}
-		   AND ORDER_CANCLE = 'Y'
+		 ORDER BY ORDER_DATE DESC
+		 
+		   
 	</select>
 			 
 	<!-- 주문내역 환불하기 쿼리문 -->
@@ -271,6 +274,7 @@
 		     , P.PRODUCT_NAME
 		     , O.DELIVERY_STATUS
 		     , TO_CHAR(O.ORDER_DATE, 'YYYY-MM-DD') AS ORDER_DATE
+		     , O.ORDER_CONTENT
 		  FROM ORDER_PRODUCT OP
 		  JOIN "ORDER" O ON (OP.ORDER_NO = O.ORDER_NO)
 		  JOIN PRODUCT P ON (OP.PRODUCT_NO = P.PRODUCT_NO)

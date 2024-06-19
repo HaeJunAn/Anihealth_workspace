@@ -280,7 +280,7 @@
 			                                    <td>${ o.orderRequest }</td>
 			                                    <td>
 			                                    	<c:if test="${o.orderContent == null}">
-		                                    			<button type="button" class="btn" id="btn-refund" data-toggle="modal" data-target="#refundForm">환불하기</button>
+		                                    			<button type="button" class="btn" id="btn-refund" data-toggle="modal" data-target="#refundForm" data-order-no="${ o.orderNo }">환불하기</button>
 			                                    	</c:if>
 			                                    	<c:if test="${o.orderContent != null}">
 			                                    		환불 요청중
@@ -308,7 +308,7 @@
 										                            <label for="userPwd" class="mr-sm-2">환불사유 </label>
 										                            <input type="text" class="form-control mb-2 mr-sm-2" placeholder="환불사유를 입력해주세요." id="orderContent" name="orderContent" required> <br>
 										                    		<!-- 회원 탈퇴 시 PK 에 해당하는 회원의 아이디도 같이 넘겨야함 -->
-										                    		<input type="hidden" name="orderNo" value="${ o.orderNo }">
+										                    		<input type="hidden" id="refundOrderNo" name="orderNo" value="">
 										                    </div>
 										                    <!-- Modal footer -->
 										                    <div class="modal-footer" align="center">
@@ -318,7 +318,18 @@
 										            </div>
 										        </div>
 										    </div>
-							                               		
+							                            
+							                <script>
+
+										    	$(function() {
+										            $("tbody>tr>td>button").click(function() {
+										            	// console.log($(this)[0].dataset.orderNo);
+										                // 글번호 : 현재 클릭된 tr의 첫번째 자손 td의 내용물
+										               $(".modal-body>input[name=orderNo]").val($(this)[0].dataset.orderNo);
+										            });
+			
+										                })
+									    	</script>   		
 		                               		
 										    
 		                                </c:forEach>

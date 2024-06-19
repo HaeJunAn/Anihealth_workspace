@@ -237,7 +237,7 @@
 		                                    <th class="cart-table-item" colspan="2" width="150px;">제품</th>
 		                                    <th>주문일자</th>
 		                                    <th>주문 상태</th>
-		                                    <th>환불 / 후기</th>
+		                                    <th>후기</th>
 		                                </tr>
 		                            </thead>
 		                            <tbody class="cart-table-content">
@@ -263,8 +263,14 @@
 			                                    </td>
 			                                     
 			                                    <td style="text-align: center;">
-			                                    <c:if test="${op.deliveryStatus == '배송완료'}">
+			                                    <c:if test="${op.deliveryStatus == '배송완료' && op.orderContent == null}">
 			                                        <button class="btn btn-sm" onclick="location.href='insertForm.re?orderProductNo=${op.orderProductNo}'">후기작성</button>
+			                                    </c:if>
+			                                    <c:if test="${op.deliveryStatus != '배송완료' && op.orderContent == null}">
+			                                    	배송중
+			                                    </c:if>
+			                                    <c:if test="${ op.orderContent != null }">
+			                                    	환불 요청중
 			                                    </c:if>
 			                                    </td>
 			                                    
