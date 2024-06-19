@@ -133,7 +133,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <p>
+                                <p style="white-space: pre-wrap; height: 150px;">
                               	${lm.magazineContent }
                                 </p>
                             </td>
