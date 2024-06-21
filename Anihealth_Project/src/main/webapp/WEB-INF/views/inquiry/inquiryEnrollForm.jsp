@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 
     <style>     
-   div {
+  div {
             box-sizing: border-box;
             /* border : 1px solid darkblue;  */
         }
@@ -144,6 +144,7 @@
             background-color:#87cfb8;
             color: white;
             font-size: large;
+               margin: 3px;
         }
         #btn-delete{
             padding: 10px 50px;
@@ -153,6 +154,7 @@
              background-color: rgb(103, 162, 130);
             color: white;
             font-size: large;
+               margin: 3px;
         }
         
         #btn-update:hover {

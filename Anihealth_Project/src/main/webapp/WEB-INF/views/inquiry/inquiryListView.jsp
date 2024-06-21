@@ -78,11 +78,12 @@
             border-collapse: collapse;
             margin:  20px 0;
             text-align: center;
+          
         }
 
         .cart-table th,
         .cart-table td {
-            padding: 15px;
+            padding: 15px 35px;
             text-align: left;
              border-bottom: 1.5px solid lightgray;
         }
@@ -238,7 +239,7 @@
 			                    <table class="cart-table" id="cart-table1">
 			                        <thead>
 			                            <tr>    
-			                               <th>No</th>
+			                             <th> <img src="resources/img/questionIcon.png" width="30px"></th>
 			                                <th colspan="2" class="cart-table-item" 
 			                                    id="product-header" 
 			                                    style="text-align: center;">제목</th>
@@ -250,7 +251,8 @@
 			                        <tbody class="cart-table-content">
 			                            <c:forEach var="iq" items="${requestScope.list}">
 				                                <tr class="cart-table-inner">
-				                                 <td style="font-size: large;">${iq.inquiryNo}</td>
+				                              <td style="font-size: large; display:none;">${iq.inquiryNo}</td>
+				                                 <td></td>
 				                                    <td colspan="2" class="title-iq" style="text-align: center;">${iq.inquiryTitle}</td>
 				                                    <td style="text-align: right;  padding-left: 50px;">${iq.inquiryCreate}</td>
 				                                    <td style="text-align: right;">

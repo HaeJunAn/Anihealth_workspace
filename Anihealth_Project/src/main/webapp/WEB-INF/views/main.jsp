@@ -119,7 +119,7 @@
 		}
 		
 		.image-caption .larger-text {
-		    font-size: 2em; /* 더 큰 텍스트의 글자 크기를 더 크게 조정 */
+		    font-size: 1.9em; /* 더 큰 텍스트의 글자 크기를 더 크게 조정 */
 		}
 		
 		.image-caption .detail-link {
@@ -273,6 +273,24 @@
             font-size: large;
         }
         
+        /* 앵커 태그에 호버했을 때 모든 자식 요소에 적용되는 효과 */
+		.product a#product-link:hover {
+		    text-decoration: none; /* 앵커 전체의 밑줄 제거 */
+		}
+		
+		.product a#product-link:hover .pd-name {
+		    color: black;
+		}
+		
+		.product a#product-link:hover .pd-price {
+		      color: black;
+		}
+		
+		.product a#product-link:hover img {
+		    transform: scale(1.1); /* 이미지 크기를 10% 증가 */
+		    transition: transform 0.3s ease; /* 부드러운 전환 효과 */
+		}
+        
          .hidden {
             opacity: 0;
         }
@@ -330,27 +348,27 @@
         </tr>
     </table>
 </div>
-                <div class="slide-container  main-section hidden animate__animated animate__slower" data-animate="animate__fadeInRight">
+      <div class="slide-container  main-section hidden animate__animated animate__slower" data-animate="animate__fadeInRight">
                      <div class="slide-table">
                 <h3>BestPick!</h3>
                 <div class="product-wrapper">
 
                     <div class="product">
-                        <a href="">
+                        <a href="" id="product-link">
                             <img src="resources/img/skin-hair.png" alt="Product Image 1">
                             <span class="pd-name">코텍스 블리스터</span>
                             <span class="pd-price">25,000원</span>
                         </a>
                     </div>
                     <div class="product">
-                        <a href="">
+                        <a href="" id="product-link">
                             <img src="resources/img/skin-hair.png" alt="Product Image 1">
                             <span class="pd-name">코텍스 블리스터</span>
                             <span class="pd-price">25,000원</span>
                         </a>
                     </div>
-                    <div class="product">
-                        <a href="">
+                   <div class="product">
+                        <a href="" id="product-link">
                             <img src="resources/img/skin-hair.png" alt="Product Image 1">
                             <span class="pd-name">코텍스 블리스터</span>
                             <span class="pd-price">25,000원</span>
@@ -358,7 +376,9 @@
                     </div>
                 </div> 
            </div>
-    		</div> 
+    </div> 
+    		
+    		
                 <div class="review-title  main-section hidden animate__animated animate__slower" data-animate="animate__fadeInLeft">
                     <h3>ANIHEALTH 와 함께하는 고객 후기</h3>
                 </div>

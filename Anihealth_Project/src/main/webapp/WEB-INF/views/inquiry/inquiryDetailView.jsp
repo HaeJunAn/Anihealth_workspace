@@ -173,7 +173,7 @@
              text-align: center;
         }
 
-      #btn-update{
+ #btn-update{
             padding: 10px 50px;
             border: none;
             border-radius: 4px;
@@ -181,7 +181,12 @@
             background-color:#87cfb8;
             color: white;
             font-size: large;
+            margin: 3px;
         }
+         #btn-update:hover{
+         	 background-color:#4fc29d;
+           
+           }
         #btn-delete{
             padding: 10px 50px;
             border: none;
@@ -190,7 +195,11 @@
             background-color:#ec767e; 
             color: white;
             font-size: large;
+            margin: 3px;
         }
+         #btn-delete:hover{
+         	 background-color:#ee3440; 
+         }
         /* 전체 내용 영역 끝 */
         /* 메인 영역 끝 */
 

@@ -48,7 +48,7 @@
             width: 70%;
             height: auto;
             margin: auto;
-            padding: 50px 100px;
+            padding: 50px 80px;
             background-color: #fff;
             box-shadow: 0 0 10px rgba(67, 75, 73, 0.3);
             border-radius: 8px;
@@ -170,7 +170,14 @@
             display: flex;
             align-items: center; 
             padding-left: 0px; 
+             justify-content: center; /* Flexbox를 사용하여 버튼들을 중앙에 배치 */
+		    width: 100%; /* 필요한 경우 width 조정 */
+		    white-space: nowrap;
         }
+         .total-price {
+		     white-space: nowrap; /* 줄 바꿈 방지 */
+		     width: 250px; /* 넉넉한 너비 설정 */
+		 }
 
         #minus, #plus {
             background-color: #BFD8AF;
@@ -200,15 +207,13 @@
         }
 
         .grand-total {
-            color: rgb(9, 80, 26);
-            font-size: 20px;
+           font-size: 20px;
             font-weight: bold;
         }
         .text-grand-total {
             margin-right: auto; 
             font-size: large;
             font-weight: bold;
-            color: rgb(9, 80, 26);
         }
 
         #checkout-button {
@@ -218,12 +223,52 @@
             margin: 20px;
             padding: 10px 50px;
             margin-left: 75%;
-            background-color: #99BC85;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
+             border-radius: 5px;
             cursor: pointer;
+            border: 3px solid #99BC85;
         }
+        
+                  #checkout-button:hover {
+          	cursor: pointer;
+          	color: #fff;
+          	background-color: #99BC85;
+          }
+          .quantity {
+		    min-width: 30px; /* 충분한 공간 확보 */
+		    display: inline-block;
+		    text-align: center;
+		}
+		.cart-table th#product-count, .cart-table td#quantity-cell {
+		  width: 120px;  /* 고정 너비 설정 */
+		}
+		
+		.cart-table th:last-child, .cart-table td.total-price {
+		    width: 200px; /* 가격 열의 고정 너비 설정 */
+		}
+		 .cart-table th, .cart-table td {
+		    min-width: 60px; /* 최소 너비 설정 */
+		    text-align: left; /* 정렬 방식 지정 */
+		}
+		  
+		     /* 수량 헤더와 셀의 텍스트를 중앙으로 정렬 */
+		.cart-table th#product-count, .cart-table td#quantity-cell {
+		    text-align: center; /* 중앙 정렬 */
+		    padding-left: 0; /* 추가된 패딩 제거 */
+		}
+		
+		/* 수량 조절 버튼을 중앙 정렬 */
+		.quantity-wrapper {
+		    justify-content: center; /* Flexbox를 사용하여 버튼들을 중앙에 배치 */
+		    width: 100%; /* 필요한 경우 width 조정 */
+		}
+		  #product-count, #quantity-cell {
+		    padding-right: 90px; /* 패딩을 줄임으로써 수량을 왼쪽으로 이동 */
+		}
+		  
+		  .cart-table th:last-child { /* 가정하에 마지막 th가 가격을 나타낸다고 할 때 */
+		    padding-left: 50px; /* 가격 정보를 오른쪽으로 이동 */
+		}
+		
 
 
         /* 전체 내용 영역 끝 */

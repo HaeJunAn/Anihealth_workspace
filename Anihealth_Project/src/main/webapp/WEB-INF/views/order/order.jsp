@@ -38,17 +38,15 @@
         /* faq 제목 끝 */
 
         .cart-background {
-            width: 70%;
+             width: 70%;
             height: auto;
             margin: auto;
-            padding: 50px 50px;
+            padding: 50px 100px;
             background-color: #fff;
             box-shadow: 0 0 10px rgba(67, 75, 73, 0.3);
             border-radius: 8px;
             box-sizing: border-box;
             position: relative;
-            padding-left: 150px;
-            padding-right: 150px;
         }
 
         .cart-table {
@@ -58,15 +56,15 @@
             text-align: center;
         }
         .cart-table th,
-        .cart-table td {
+          .cart-table td  
+        {
             padding: 15px;
-            text-align: left;
-            border-bottom: 2px solid lightgray
-        }
+            text-align: left;}
 
-        .cart-table th {
+     .cart-table th {
             color: rgb(77, 75, 75);
             font-size: 160%;
+            border-bottom: 3px solid rgb(82, 166, 121);
         }
 
         #product-header {
@@ -110,10 +108,12 @@
             color: gray;
         }
         .total-price-container {
-            display: flex;
+             display: flex;
             justify-content: space-between; 
-            padding: 5px 70px; /* 패딩 적용 */
+            padding: 30px 70px; /* 패딩 적용 */
             width: 100%;
+            border-top: 1.5px solid gray; /* rgb(82, 166, 121); */
+            border-bottom: 1.5px solid gray; /* rgb(82, 166, 121); */
         }
         .cart-total-price td{
             padding: 20px;
@@ -135,18 +135,20 @@
             color: rgb(77, 75, 75);
         }
         #checkout-button {
-            display: block;
+             display: block;
             box-sizing: border-box;
             width: auto;
             margin: 20px;
             padding: 10px 50px;
             margin-left: 75%;
-            background-color: #99BC85;
-            color: #fff;
-            border: none;
+            border: 3px solid rgb(82, 166, 121);
             border-radius: 5px;
             cursor: pointer;
-        }       
+        }      
+          #checkout-button:hover{
+         	 background-color:rgb(82, 166, 121);
+       	  color: white;
+         } 
         .address-item {
             display: flex;
             flex-direction: column;
@@ -167,9 +169,12 @@
             margin-top: 10px;
             margin-bottom: 5px;
         }
-        .address-details {
-            margin: 5px ;
-        }
+        .address-item {
+            margin: 3px ;
+        }  
+        .form-control {
+            max-width: 830px; 
+         }
 
         /* 전체 내용 영역 끝 */
         /* 메인 영역 끝 */
@@ -187,13 +192,13 @@
         <br>
         <div class="cart-background">
             <!-- 주문자 정보 테이블 -->
-            <table class="cart-table" id="cart-table1">              
+            <table class="cart-table" id="cart-table1" >              
                 <thead>
                     <tr>
                         <th class="cart-table-item" colspan="4" id="product-header">주문자 정보</th>
                     </tr>
                 </thead>
-                <tbody class="cart-table-content">
+                <tbody class="cart-table-content" style="margin: 3px ;">
                     <tr class="cart-table-inner">
                         <td colspan="2" style="font-size: large;">
                           ${requestScope.orderItems[0].userName}
@@ -222,7 +227,7 @@
                     <tr class="cart-table-inner">
                         <td colspan="4">
                             <div class="address-item">
-                                <span class="badge badge-pill" style="margin-bottom: 5px; margin-top: 5px;">배송지</span>
+                                <span class="badge badge-pill" style="margin-bottom: 5px; ">배송지</span>
                                 <select class="form-control" id="delivery-select" onchange="updateAddress()" style="margin-bottom: 15px;">
                                     <option value="">배송지를 선택해 주세요</option>
                                     <c:forEach var="address" items="${requestScope.deliveryList}">
@@ -234,19 +239,19 @@
                                     </c:forEach>
                                 </select>
                                 
-                                <label for="address-details">이름</label>
+                                <label for="address-details">º 이름 </label>
                                 <input type="text" id="userName" class="form-control form-control address-details" value="" oninput="checkFormCompletion()" style="margin-bottom: 15px;">
                               
-                                <label for="address-details">주소</label>
+                                <label for="address-details">º 주소</label>
                                 <input type="text" id="address-details" class="form-control form-control address-details" value="" oninput="checkFormCompletion()" style="margin-bottom: 15px;">
                                
-                                <label for="zipCode">우편번호</label>
+                                <label for="zipCode">º 우편번호 </label>
                                 <input type="text" id="zipCode" class="form-control form-control address-details" value="" oninput="checkFormCompletion()" style="margin-bottom: 15px;">
                                
-                                <label for="phone">전화번호</label>
+                                <label for="phone">º 전화번호</label>
                                 <input type="text" class="form-control form-control" id="phone" value="" oninput="checkFormCompletion()" placeholder="-포함하여 입력해주세요" style="margin-bottom: 15px;">
                               
-                                <label for="delivery-request">배송 요청사항</label>
+                                <label for="delivery-request">º 배송 요청사항 </label>
                                 <select id="delivery-request" class="form-control" style="margin-bottom: 15px;">
                                     <option value="배송요청사항 없음">배송요청사항 없음 </option>
                                     <option value="문앞에 놔주세요">문앞에 놔주세요</option>
@@ -302,6 +307,7 @@
             </table>
              <input type="hidden" id="productNos" value="<c:forEach var='oi' items='${requestScope.orderItems}'>${oi.productNo},</c:forEach>" />
         </div>
+         <br>
         <button class="btn btn-lg right-button" id="checkout-button" onclick="payment()">결제하기</button>
         <br><br><br>
     </div>
