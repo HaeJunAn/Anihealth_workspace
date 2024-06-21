@@ -12,10 +12,6 @@
 					color: #383838;
 				}
 
-				div {
-
-				}
-
 				.surveyResult-wrap {
 					width: 1000px;
 					margin: auto;
@@ -82,6 +78,10 @@
 					border-radius: 15px;
 					overflow: hidden;
 					
+					
+				}
+				.bcs-img>img{
+					height: auto;
 				}
 				.weight table {
 					width: 100%;
@@ -341,18 +341,37 @@
 				.product-selected form:last-child {
 					text-align: center;
 				}
-				
-				
-
+				.surveyResult-wrap>section {
+					position: relative;
+					width: 70%;
+					margin: auto;
+					height: 70px;
+				}
+				.surveyResult-wrap>section>button {
+				border-radius: 10px;
+                font-weight: 100;
+                padding: 5px 10px;
+                background-color: #9ac5ab;
+                /*background-color: transparent;*/
+                cursor: pointer;
+                border: none;
+                color: white;
+                margin-top: 30px;
+				position: absolute;
+				bottom: 10px;
+				right: 0px;
+	
+				}
 
 			</style>
 			<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 		</head>
 
 		<body>
 			<jsp:include page="../common/header.jsp" />
-
 			<main class="surveyResult-wrap" style="display: none;">
+				<section><button onclick="downloadSurvey();">설문결과 저장하기</button></section>
 				<div class="outline" align="center">
 					<!-- 종합결과 -->
 					<h2>검진개요</h2>
@@ -361,7 +380,7 @@
 						<table>
 							<tr height="30">
 								<td rowspan="4" class="th-img"><img src="resources/simg/${breed}.png" style="width: 160px;"></td>
-								<th>견종</th>
+								<th>품종</th>
 								<th>나이</th>
 							</tr>
 							<tr>
@@ -370,7 +389,7 @@
 							</tr>
 							<tr>
 								<th>건강점수</th>
-								<th>체질량</th>
+								<th>체지방</th>
 							</tr>
 							<tr>
 								<c:choose>
@@ -399,8 +418,15 @@
 							<span>BCS</span><span class="material-symbols-outlined">monitor_weight</span>
 						</div>
 						<span class="material-symbols-outlined help">help</span>
-						<div>
-							<img src="resources/simg/bcs1_2.png"><img src="resources/simg/bcs2_2.png"><img src="resources/simg/bcs3_2.png"><img src="resources/simg/bcs4_2.png"><img src="resources/simg/bcs5_2.png">
+						<div class="bcs-img">
+							<c:choose>
+								<c:when test="${animal == '강아지'}">
+									<img src="resources/simg/bcs1_2.png"><img src="resources/simg/bcs2_2.png"><img src="resources/simg/bcs3_2.png"><img src="resources/simg/bcs4_2.png"><img src="resources/simg/bcs5_2.png">								
+								</c:when>
+								<c:otherwise>
+									<img src="resources/simg/bcs1_cat.png"><img src="resources/simg/bcs3_cat.png"><img src="resources/simg/bcs5_cat.png"><img src="resources/simg/bcs7_cat.png"><img src="resources/simg/bcs9_cat.png">								
+								</c:otherwise>
+							</c:choose>
 						</div>
 						<div id="helpModal" class="modal">
 							<div class="modal-content">
@@ -484,7 +510,7 @@
 					<c:forEach var="s" items="${sList}" begin="0" end="4">
 						<div class="effect-container">
 							<div>
-								<img src="resources/simg/${s.effectName}.png"><span>${s.effectName}</span>
+								<img src="resources/simg/${s.effectName}.png"><span>${s.effectNameKr}</span>
 							</div>
 							<div>
 								<c:choose>
@@ -533,7 +559,7 @@
 											<span>${p.productName}</span>
 											<span class="star" >
 												<i class="fa-solid fa-star " style="color: gold;">
-													<span class="rating${p.productNo}">(3.9점)</span>
+													<span class="rating${p.productNo}"></span>
 												</i>
 											</span> 	
 										</td>
@@ -562,25 +588,7 @@
 									font-weight: 100;
 								}
 							</style>
-							<!-- 
-							<tr>
-								<td class="product-title">	
-									<span>액티베이트 스몰 60p</span>
-									<span class="star" >
-										<i class="fa-solid fa-star " style="color: gold;">
-											<span>(3.9점)</span>
-										</i>
-									</span> 
-								</td>
-							</tr>
-							<tr>
-								<td id="effect-icon4" class="effect-icon">
-									<img src="resources/simg/heart.png"><img src="resources/simg/immunity.png"><img src="resources/simg/kidney.png">
-								</td>
-							</tr>
-							-->
 						</table>
-
 						<div><button type="submit">장바구니 담기</button></div>
 					</form>
 				</div>
@@ -611,6 +619,31 @@
 						$(this).next().attr("disabled", true);
 					}
 				});
+
+				function downloadSurvey() {
+					// 그림자 렌더링 이슈 제거
+					$(".surveyResult-wrap>div").css("box-shadow", "none");
+					$(".surveyResult-wrap>div").css("border", "1px solid lightgray");
+
+					html2canvas($(".surveyResult-wrap")[0], {
+						scale: 1, 
+				 		useCORS: true,
+						logging: true,
+				 	}).then(function(canvas) {
+						// 캔버스에서 이미지 생성
+				 		var image = canvas.toDataURL("image/png");
+						var link = document.createElement('a');
+						link.href = image;
+						link.download = 'surveyResult.png';
+
+						document.body.appendChild(link);
+						link.click();
+						document.body.removeChild(link);
+						
+						$(".surveyResult-wrap>div").css("border", "none");
+						$(".surveyResult-wrap>div").css("box-shadow", "0px 0px 7px rgba(26, 26, 26, 0.2)");
+					});	
+				}
 
 				$(function () {
 
@@ -643,45 +676,6 @@
 					// 미리체크
 					$("input[type=checkbox]").prop('checked', true);
 
-					// function checkProduct() {
-					// 	console.log($(this).prop('checked'));
-					// 	console.log($(this).next());
-					// 	if($(this).prop('checked')) {
-					// 		$(this).next().attr("disabled", false);
-					// 	} else {
-					// 		$(this).next().attr("disabled", true);
-					// 	}
-					// }
-					
-					// $(document).on("mouseenter", ".product-selected tr:odd", function () { 
-					// 	$(this).css("opacity", "0.8");
-					// 	$(this).prev().css("opacity", "0.8");
-					// });
-
-					// $(document).on("mouseleave", ".product-selected tr:odd", function () { 
-					// 	$(this).css("opacity", "1");
-					// 	$(this).prev().css("opacity", "1");
-					// });
-
-					// $(document).on("mouseenter", ".product-selected tr:even", function () { 
-					// 	$(this).css("opacity", "0.8");
-					// 	$(this).next().css("opacity", "0.8");
-					// });
-
-					// $(document).on("mouseleave", ".product-selected tr:even", function () { 
-					// 	$(this).css("opacity", "1");
-					// 	$(this).next().css("opacity", "1");
-					// });
-
-					// $(document).on("click", ".product-selected tr", function () { 
-					// 	$(this).prop('checked', true);
-					// });
-
-
-		
-
-					//$(".weight section").eq(0).find("img").eq(${(weightInfo.bcsNo - 1) / 2}).addClass("bcsActive");
-					
 					let productNoArr = [];
 					//또는 element
 					$(".recommendedProduct").each(function () {
@@ -711,8 +705,8 @@
 								
 							});
 							ratingList.forEach(function (rMap) {
-								//$(".rating" + rMap.productNo).html("(" + (Math.round(rMap.rating *10)/10.0) + ")");
-								$(".rating" + rMap.productNo).html("(4.2)");
+								$(".rating" + rMap.productNo).html("(" + (Math.round(rMap.rating *10)/10.0) + ")");
+								//$(".rating" + rMap.productNo).html("(4.2)");
 							})
 						},
 						error: function () {

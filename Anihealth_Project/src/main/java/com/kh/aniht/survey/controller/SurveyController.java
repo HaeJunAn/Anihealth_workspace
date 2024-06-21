@@ -75,6 +75,7 @@ public class SurveyController {
 		//System.out.println(weightInfo);
 		model.addAttribute("age", age);
 		model.addAttribute("breed", breed);
+		model.addAttribute("animal", animal);
 		model.addAttribute("effectInfo", effectInfo);
 		model.addAttribute("weightInfo", weightInfo);
 		model.addAttribute("bcsInfo", bcsInfo);
@@ -103,6 +104,7 @@ public class SurveyController {
 	
 	// 설문결과 객체화/정렬
 	private String[] effectArr = {"skin", "teeth", "eye", "bone", "heart", "immunity", "stomach", "kidney"};
+	private String[] effectArrKr = {"피부", "치아", "눈", "뼈", "심장", "면역", "소화계", "신장"};
 	public ArrayList<Survey> createSurveyResultList(HttpServletRequest request, int userNo) {
 		ArrayList<Survey> sList = new ArrayList<>();
 		int index = 1;
@@ -110,6 +112,7 @@ public class SurveyController {
 			Survey s = new Survey();
 			
 			s.setEffectName(ef);
+			s.setEffectNameKr(effectArrKr[index-1]);
 			s.setEffectWeight(Integer.parseInt(request.getParameter(ef)));
 			s.setEffectNo(index);
 			s.setUserNo(userNo); // 필요없음

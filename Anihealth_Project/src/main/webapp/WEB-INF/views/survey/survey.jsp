@@ -244,14 +244,14 @@
                             <br><span>강아지</span>
                         </div>
                         <div>
-                            <img src="resources/simg/cat2.png" alt="강아지">
+                            <img src="resources/simg/cat2.png" alt="고양이">
                             <br><span>고양이</span>
                         </div>
                     </div>
                     <input type="hidden" name="animal">
-                    <button class="next" type="button" onclick="next(this);">다음</button>
+                    <button class="next" type="button">다음</button>
                 </div>
-                <div class="survey-item" align="center" style="display: none;">
+                <div class="survey-item dog" align="center" style="display: none;">
                     <h3 style="margin-bottom: 15px;">견종과 나이를 선택해주세요</h3>
                     나이 <input type="number" name="age" placeholder="나이 입력" required min="1">
                     <ul class="breed">
@@ -266,15 +266,40 @@
                         <li><img src="resources/simg/시츄.png" alt="시츄"><div>시츄</div></li>
                         <li><img src="resources/simg/시바견.png" alt="시바견"><div>시바견</div></li>
                         <li><img src="resources/simg/말티즈.png" alt="말티즈"><div>말티즈</div></li>
-                        <li><img src="resources/simg/닥스훈트.png" alt="닥스훈트"><div>닥스훈트</div></li>
+                        <li><img src="resources/simg/도베르만.png" alt="도베르만"><div>도베르만</div></li>
                         <li><img src="resources/simg/퍼그.png" alt="포메라니안"><div>포메라니안</div></li>
                         <li><img src="resources/simg/그레이하운드.png" alt="그레이하운드"><div>그레이하운드</div></li>
-                        <li><img src="resources/simg/포메라니안.png" alt="포메라니안"><div>포메라니안</div></li>
-                        <li><img src="resources/simg/도베르만.png" alt="도베르만"><div>도베르만</div></li>
+                        <li><img src="resources/simg/비글.png" alt="비글"><div>비글</div></li>
+                        <li><img src="resources/simg/믹스견.png" alt="믹스견"><div>믹스견</div></li>
                     </ul>
                     <input type="hidden" name="breed">
-                    <button class="prev" type="button" onclick="prev(this);">이전</button>
-                    <button class="next" type="button" onclick="next(this);">다음</button>
+                    <button class="prev" type="button">이전</button>
+                    <button class="next" type="button">다음</button>
+                </div>
+                <div class="survey-item cat" align="center" style="display: none;">
+                    <h3 style="margin-bottom: 15px;">품종과 나이를 선택해주세요</h3>
+                    나이 <input type="number" name="age" placeholder="나이 입력" required min="1">
+                    <ul class="breed">
+                        <li><img src="resources/simg/브리티쉬숏헤어.png" alt="브리티쉬숏헤어"><div>브리티쉬숏헤어</div></li>
+                        <li><img src="resources/simg/노르웨이숏헤어.png" alt="노르웨이숏헤어"><div>노르웨이숏헤어</div></li>
+                        <li><img src="resources/simg/메인쿤.png" alt="메인쿤"><div>메인쿤</div></li>
+                        <li><img src="resources/simg/러시안블루.png" alt="러시안블루"><div>러시안블루</div></li>
+                        <li><img src="resources/simg/스핑크스.png" alt="스핑크스"><div>스핑크스</div></li>
+                        <li><img src="resources/simg/아메리칸숏헤어.png" alt="아메리칸숏헤어"><div>아메리칸숏헤어</div></li>
+                        <li><img src="resources/simg/아비시니안.png" alt="아비시니안"><div>아비시니안</div></li>
+                        <li><img src="resources/simg/벵갈.png" alt="벵갈"><div>벵갈</div></li>
+                        <li><img src="resources/simg/코리안숏헤어.png" alt="코리안숏헤어"><div>코리안숏헤어</div></li>
+                        <li><img src="resources/simg/페르시안.png" alt="페르시안"><div>페르시안</div></li>
+                        <li><img src="resources/simg/터키쉬앙고라.png" alt="터키쉬앙고라"><div>터키쉬앙고라</div></li>
+                        <li><img src="resources/simg/랙돌.png" alt="랙돌"><div>랙돌</div></li>
+                        <li><img src="resources/simg/스코티시폴드.png" alt="스코티시폴드"><div>스코티시폴드</div></li>
+                        <li><img src="resources/simg/샴.png" alt="샴"><div>샴</div></li>
+                        <li><img src="resources/simg/엑조틱쇼트헤어.png" alt="엑조틱쇼트헤어"><div>엑조틱쇼트헤어</div></li>
+                        <li><img src="resources/simg/도메스틱숏헤어.png" alt="도메스틱숏헤어"><div>도메스틱숏헤어</div></li>
+                    </ul>
+                    <input type="hidden" name="breed">
+                    <button class="prev" type="button">이전</button>
+                    <button class="next" type="button">다음</button>
                 </div>
                 <div class="survey-item bcs" style="display: none;">
                     <div class="icon-container"><img src="resources/simg/obesity.png"></div>
@@ -310,8 +335,8 @@
                         <h5>수척해요</h5>
                         <p>모든 뼈의 돌출부가 뚜렷하게 보여요. 몸 어디에서도 체지방과 근육을 확인할 수 없어요.</p>
                     </label><br>
-                    <button class="prev" type="button" onclick="prev(this);">이전</button>
-                    <button class="next" type="button" onclick="next(this);">다음</button>
+                    <button class="prev" type="button">이전</button>
+                    <button class="next" type="button">다음</button>
                 </div>
                 <div class="survey-item" style="display: none;">
                     <div class="icon-container"><img src="resources/simg/skin.png"></div>
@@ -336,8 +361,8 @@
                         <input type="radio" name="skin" value="1" id="skin5">
                         <p>없어요.</p>
                     </label><br>
-                    <button class="prev" type="button" onclick="prev(this);">이전</button>
-                    <button class="next" type="button" onclick="next(this);">다음</button>
+                    <button class="prev" type="button">이전</button>
+                    <button class="next" type="button">다음</button>
                 </div>
                 <div class="survey-item" style="display: none;">
                     <div class="icon-container"><img src="resources/simg/teeth.png"></div>
@@ -362,8 +387,8 @@
                         <input type="radio" name="teeth" value="1" id="teeth5">
                         <p>없어요</p>
                     </label><br>
-                    <button class="prev" type="button" onclick="prev(this);">이전</button>
-                    <button class="next" type="button" onclick="next(this);">다음</button>
+                    <button class="prev" type="button">이전</button>
+                    <button class="next" type="button">다음</button>
                 </div>
                 <div class="survey-item" style="display: none;">
                     <div class="icon-container"><img src="resources/simg/eye.png"></div>
@@ -388,8 +413,8 @@
                         <input type="radio" name="eye" value="1" id="eye5">
                         <p>없어요.</p>
                     </label><br>
-                    <button class="prev" type="button" onclick="prev(this);">이전</button>
-                    <button class="next" type="button" onclick="next(this);">다음</button>
+                    <button class="prev" type="button">이전</button>
+                    <button class="next" type="button">다음</button>
                 </div>
                 <div class="survey-item" style="display: none;">
                     <div class="icon-container"><img src="resources/simg/bone.png"></div>
@@ -414,8 +439,8 @@
                         <input type="radio" name="bone" value="1" id="bone5">
                         <p>없어요</p>
                     </label><br>
-                    <button class="prev" type="button" onclick="prev(this);">이전</button>
-                    <button class="next" type="button" onclick="next(this);">다음</button>
+                    <button class="prev" type="button">이전</button>
+                    <button class="next" type="button">다음</button>
                 </div>
                 <div class="survey-item" style="display: none;">
                     <div class="icon-container"><img src="resources/simg/heart.png"></div>
@@ -440,8 +465,8 @@
                         <input type="radio" name="heart" value="1" id="heart5">
                         <p>없어요.</p>
                     </label><br>
-                    <button class="prev" type="button" onclick="prev(this);">이전</button>
-                    <button class="next" type="button" onclick="next(this);">다음</button>
+                    <button class="prev" type="button">이전</button>
+                    <button class="next" type="button">다음</button>
                 </div>
                 <div class="survey-item" style="display: none;">
                     <div class="icon-container"><img src="resources/simg/immunity.png"></div>
@@ -466,8 +491,8 @@
                         <input type="radio" name="immunity" value="1" id="immunity5">
                         <p>없어요.</p>
                     </label><br>
-                    <button class="prev" type="button" onclick="prev(this);">이전</button>
-                    <button class="next" type="button" onclick="next(this);">다음</button>
+                    <button class="prev" type="button">이전</button>
+                    <button class="next" type="button">다음</button>
                 </div>
                 <div class="survey-item" style="display: none;">
                     <div class="icon-container"><img src="resources/simg/stomach.png"></div>
@@ -492,8 +517,8 @@
                         <input type="radio" name="stomach" value="1" id="stomach5">
                         <p>없어요</p>
                     </label><br>
-                    <button class="prev" type="button" onclick="prev(this);">이전</button>
-                    <button class="next" type="button" onclick="next(this);">다음</button>
+                    <button class="prev" type="button">이전</button>
+                    <button class="next" type="button">다음</button>
                 </div>
                 <div class="survey-item" style="display: none;">
                     <div class="icon-container"><img src="resources/simg/kidney.png"></div>
@@ -518,7 +543,7 @@
                         <input type="radio" name="kidney" value="1" id="kidney5">
                         <p>없어요.</p>
                     </label><br>
-                    <button class="prev" type="button" onclick="prev(this);">이전</button>
+                    <button class="prev" type="button">이전</button>
                     <button type="submit">제출</button>
                 </div>
             </form>
@@ -526,12 +551,8 @@
         <script>
             $(function () {
                 $("label").on("click", function () {
-                    //$(this).css({"opacity": "1", 'background-color': 'rgb(115, 201, 115)'});
-                    //$(this).find("p").css("color", "white");
                     $(this).css("opacity", "0.8");
                     $(this).parent().find("label").not(this).css("opacity", "1");
-                    //$("label").not(this).css({"opacity": "1", 'background-color': 'transparent'});
-                    //$(this).find("p").css("color", "black");
                     $(this).addClass('active');
                     $(this).parent().find("label").not(this).removeClass('active');
                 });
@@ -548,19 +569,30 @@
                     console.log(breedVal);
                     $("input[name=breed]").val(breedVal);
                 });
-
+                //전역변수
+                cat = $(".cat").clone(true);
+                dog = $(".dog").clone(true);
             });
-            let proBar = 0;
-            let b =true;
-            function next(element) {
-                // if문 false 취급 0, "" (빈 문자열), null, undefined, NaN
 
-                if($(element).parent().find("input[type=radio]").length) {
-                    if (!$(element).parent().find("input:checked").length || !($(element).parent().find("input[name=weight]").val() != 0)){  // 라디오는 하나만 체크되도 검사됨
-            			//alertify.alert("알람", "아직 입력하지 않은 항목이 있습니다");
-                        //console.log(!$(element).parent().find("input:checked").length);
-                        // console.log(!$(element).parent().find("input[name=weight]").val());
-                        //console.log("호출1");
+            $(document).on("click", ".prev", function () {
+                let currentItem = $(this).parent();
+                currentItem.css('display', 'none');
+                if (proBar != 0) {
+                    proBar -= 10;
+                    setTimeout(function () {
+                        $(".progress-bar").width(proBar + "%");
+                    }, 10);
+                }
+                currentItem.prev().show();
+		    });
+
+            let proBar = 0;
+            let b = true;
+
+            $(document).on("click", ".next", function () {
+                if($(this).parent().find("input[type=radio]").length) {
+                    if (!$(this).parent().find("input:checked").length || !($(this).parent().find("input[name=weight]").val() != 0)){  // 라디오는 하나만 체크되도 검사됨
+            			
             			alertify.alert().set({
 						    'onshow': function() {
 						        this.elements.dialog.style.width = '400px'; 
@@ -571,7 +603,7 @@
             			return false;
                     }
                 } else {
-                    $(element).parent().find("input").each(function (index, item) {
+                    $(this).parent().find("input").each(function (index, item) {
                         if(!$(item).val()){
                             console.log("호출");
                             alertify.alert().set({
@@ -592,28 +624,29 @@
                 if(!b){
                     return false;
                 }
+                // 품종 페이지 선택
+                if($(this).is($(".next").eq(0))) { //제이쿼리 dom 비교법
+                    if($("input[name=animal]").val() == '강아지') {
+                        $(".cat").detach();
+                        if(!$(".dog").length) { //dog 요소 없을때
+                            $(".bcs").before(dog[0]);
+                        }
+                    } else {
+                        $(".dog").detach();
+                        if(!$(".cat").length) { //cat 요소 없을떄
+                            $(".bcs").before(cat[0]);
+                        }
+                     }
+                } 
                 
-
-                let currentItem = $(element).parent();
+                let currentItem = $(this).parent();
                 currentItem.css('display', 'none'); // 또는 hide(애니메이션);
                 proBar += 10;
                 setTimeout(function () {
                     $(".progress-bar").width(proBar + "%");
                 }, 10);
                 currentItem.next().show();
-            }
-
-            function prev(element) {
-                let currentItem = $(element).parent();
-                currentItem.css('display', 'none');
-                if (proBar != 0) {
-                    proBar -= 10;
-                    setTimeout(function () {
-                        $(".progress-bar").width(proBar + "%");
-                    }, 10);
-                }
-                currentItem.prev().show();
-            }
+            });
 
         </script>
  

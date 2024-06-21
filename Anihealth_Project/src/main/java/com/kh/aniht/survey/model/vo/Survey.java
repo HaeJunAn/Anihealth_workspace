@@ -22,5 +22,6 @@ public class Survey {
 	//추가
 	private String effectName;
 	private String disease;
+	private String effectNameKr;
 
 }
