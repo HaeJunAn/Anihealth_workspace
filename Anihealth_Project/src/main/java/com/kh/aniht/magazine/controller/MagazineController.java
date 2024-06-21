@@ -59,7 +59,7 @@ public class MagazineController {
 			// System.out.println(m);
 			
 			List<Magazine> lm = magazineService.selectMagaDeList1(mno);
-			System.out.println(lm);
+			//System.out.println(lm);
 			mv.addObject("lm",lm);
 			mv.addObject("m", m);
 			mv.setViewName("magazine/magazineDetailView");
