@@ -109,8 +109,6 @@ public class MemberController {
 		
 		session.setAttribute("loginUser", loginUser);
 		
-		session.setAttribute("alertMsg", "성공적으로 로그인이 되었습니다.");
-		
 		mv.setViewName("redirect:/");
 		
 	} else {

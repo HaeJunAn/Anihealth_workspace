@@ -127,6 +127,16 @@
             flex-direction: column;
             justify-content: center;
         }
+        
+        .item-text-name {
+            display: flex;
+            flex-direction: column;
+            justify-content: left;
+            text-align: left;
+            font-weight: bold;
+        }
+        
+        
 
         .item-title {
             font-weight: bold;
@@ -246,8 +256,8 @@
 			                                    <td colspan="2">
 			                                        <div class="item-container">
 			                                            <a href="detail.pd?pno=${ op.productNo }"><img class="img-size" src="${ op.productThumbnailPath }" alt="영양제이미지"></a>
-			                                            <div class="item-text">
-			                                                <p class="item-title">${ op.productName }</p>
+			                                            <div class="item-text-name">
+			                                                <p class="item-title-name">&nbsp; ${ op.productName }</p>
 			                                                <div class="item-details">
 			                                                    <span class="item-subtitle"><fmt:formatNumber value="${ op.orderProductPrice }" type="number" groupingUsed="true" /> &nbsp;원</span>
 			                                                    <span class="item-subtitle">${ op.orderQuantity }개</span>
@@ -258,7 +268,14 @@
 			                                    <td>${ op.orderDate }</td>
 			                                    <td>
 			                                        <div class="item-text">
-			                                            <p class="item-title">${ op.deliveryStatus }</p>
+			                                        	<c:if test="${ op.orderCancle == 'Y' }">
+			                                        		<p class="item-title">${ op.deliveryStatus }</p>
+			                                        	</c:if>
+			                                        	<c:if test="${ op.orderCancle == 'N' }">
+			                                        		환불 완료
+			                                        	</c:if>
+			                                        	
+			                                            
 			                                        </div>
 			                                    </td>
 			                                     
@@ -269,9 +286,13 @@
 			                                    <c:if test="${op.deliveryStatus != '배송완료' && op.orderContent == null}">
 			                                    	배송중
 			                                    </c:if>
-			                                    <c:if test="${ op.orderContent != null }">
-			                                    	환불 요청중
-			                                    </c:if>
+			                                    
+			                                    <c:if test="${op.orderContent != null && op.orderCancle == 'Y'}">
+		                                    		환불 요청중
+		                                    	</c:if>
+		                                    	<c:if test="${op.orderContent != null && op.orderCancle == 'N'}">
+		                                    		환불한 제품은 후기를 쓸 수 없습니다.
+		                                    	</c:if>
 			                                    </td>
 			                                    
 		                               		</tr>

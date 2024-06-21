@@ -54,6 +54,8 @@
 			<mapping path="/insert.re"/>
 			<mapping path="/updateForm.re"/>
 			<mapping path="/delete.re"/>
+			<mapping path="/enrollForm.iq"/>
+			<mapping path="/updateForm.iq"/>
 			<beans:bean class="com.kh.aniht.common.interceptor.LoginInterceptor" id="loginInterceptor" />
 		</interceptor>
 	</interceptors>

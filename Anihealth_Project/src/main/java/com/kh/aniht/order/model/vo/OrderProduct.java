@@ -27,4 +27,5 @@ public class OrderProduct {
 		private String deliveryStatus;
 		private String orderDate;
 		private String orderContent;
+		private String orderCancle;
 }

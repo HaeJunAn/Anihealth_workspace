@@ -268,7 +268,15 @@
 			                                    <td>
 			                                    	<span class="item-subtitle"><fmt:formatNumber value="${ o.orderPrice }" type="number" groupingUsed="true" /> &nbsp;원</span>
 			                                    </td>
-			                                    <td>${ o.deliveryStatus }</td>
+			                                    <td>
+			                                    	<c:if test="${ o.orderCancle == 'Y' }">
+			                                    		${ o.deliveryStatus }
+			                                    	</c:if>
+			                                    	<c:if test="${ o.orderCancle == 'N' }">
+			                                    		주문 취소
+			                                    	</c:if>
+			                                    	
+			                                    </td>
 			                                    <td>
 			                                        <div class="item-text">
 			                                            <p class="item-title">
@@ -277,13 +285,18 @@
 			                                            </p>
 			                                        </div>
 			                                    </td>
-			                                    <td>${ o.orderRequest }</td>
+			                                    <td>
+			                                    	${ o.orderRequest }
+			                                    </td>
 			                                    <td>
 			                                    	<c:if test="${o.orderContent == null}">
 		                                    			<button type="button" class="btn" id="btn-refund" data-toggle="modal" data-target="#refundForm" data-order-no="${ o.orderNo }">환불하기</button>
 			                                    	</c:if>
-			                                    	<c:if test="${o.orderContent != null}">
+			                                    	<c:if test="${o.orderContent != null && o.orderCancle == 'Y'}">
 			                                    		환불 요청중
+			                                    	</c:if>
+			                                    	<c:if test="${o.orderContent != null && o.orderCancle == 'N'}">
+			                                    		환불 완료
 			                                    	</c:if>
 			                                    	
 			                                    </td>

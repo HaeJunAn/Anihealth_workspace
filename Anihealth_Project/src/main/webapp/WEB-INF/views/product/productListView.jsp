@@ -167,7 +167,8 @@
             display: flex;
             flex-direction: column;
             margin-bottom: 30px;
-            height: 400px; 
+            height: 400px;
+            object-fit: cover; 
         }
 
         .card-custom:hover {
@@ -199,7 +200,10 @@
         }
 
         .rounded {border-radius: 10px; }
-        .drug-name {font-weight: bold;}
+        .drug-name {
+        	font-weight: bold;
+        	white-space: nowrap;
+        }
 
         .drug-dose {
             white-space: nowrap;

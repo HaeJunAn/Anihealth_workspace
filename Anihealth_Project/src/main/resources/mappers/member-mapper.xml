@@ -270,6 +270,7 @@
 		     , OP.ORDER_PRODUCT_PRICE
 		     , OP.ORDER_NO
 		     , OP.PRODUCT_NO
+		     , O.ORDER_CANCLE
 		     , P.PRODUCT_THUMBNAIL_PATH
 		     , P.PRODUCT_NAME
 		     , O.DELIVERY_STATUS
@@ -279,7 +280,6 @@
 		  JOIN "ORDER" O ON (OP.ORDER_NO = O.ORDER_NO)
 		  JOIN PRODUCT P ON (OP.PRODUCT_NO = P.PRODUCT_NO)
 		 WHERE O.ORDER_NO = #{ono}
-		   AND ORDER_CANCLE = 'Y'
 	</select>
 	
 	<!-- 배송지 조회 쿼리문 -->
@@ -396,6 +396,7 @@
 			 , USER_NO
 		  FROM INQUIRY
 		 WHERE USER_NO = #{userNo}
+		   AND INQUIRY_STATUS = 'Y'
 	</select>
 	
 	<!-- 닉네임 변경 쿼리문 -->
