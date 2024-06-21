@@ -258,8 +258,11 @@
 		                            		<tr>
 		                                		<div>
 		                                		<td colspan="3" style="text-align: right; padding-bottom: 0; border-bottom-color: lightgray">
-		                                			<a href="detail.iq?ino=${ i.inquiryNo }" style="text-decoration: none; color: black;">문의 상세보기 ></a>
-		                                		</td>
+												    <form action="detail.iq" method="post">
+												        <input type="hidden" value="${i.inquiryNo}" name="ino" id="ino">
+												        <button type="submit" class="btn">문의 상세보기 ></button>
+												    </form>
+												</td>
 		                                		</div>
 		                                	</tr>
 			                                <tr class="cart-table-inner">

@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
@@ -36,8 +37,9 @@
             margin: 0 auto;
             padding-top: 5px;
             padding-bottom: 20px; 
-            padding-right: 40px;
+            padding-right: 30px;
             border-radius: 30px;
+            position: relative;
         }
 
         .info-table {
@@ -46,24 +48,34 @@
             padding-top: 10px; 
             margin-top: 30px; 
             border-collapse: collapse;
+              table-layout: fixed;
         }
+        .image-cell {
+		    width: 50%; /* 절반 고정 */
+		    text-align: center;
+		}
 
         .td-left {
+            width: 50%;
             padding: 10px;
             text-align: left;
             white-space: nowrap; 
         }
   
         .img-thumb {
-            display: block;
-            margin: 0 auto;
-            width: 80%;
-            height: auto;
-            border-radius: 45px;
+           display: block;
+		    margin: 0 auto;
+		    width: 100%; /* 이미지가 셀의 전체 너비를 차지하도록 */
+		    max-width: 440px;
+		    height: 400px;
+		    border-radius: 45px;
+		    overflow: hidden;
+		   	border: 1px solid black;
         }
 
         .quantity-content span {
-            vertical-align: middle;
+            font-size: 1.1em; /* 수량 글자 크기를 설정합니다 */
+           
         }
         .quantity-container {
             display: flex;
@@ -73,41 +85,38 @@
         }
         .quantity-content {
             display: flex;
-            align-items: center;
-        }
-        .quantity-content span{
-            margin-right: 10px;
+            align-items: right;
+            text-align: right;
         }
 
-        .quantity-content button {
+     /*    .quantity-content button {
             margin: 0 5px;
-            padding: 5px 10px;
+            padding: 5px 20px;
             cursor: pointer;
-        }
-        
+        } */
+       	#priceDisplay{
+			margin-left: -20px;
+		
+		}
+		
         .price-row td strong,
 		.quantity-row td.quantity {
 		    font-size: 1.2em; /* 글자 크기를 키웁니다 */
+		     white-space: nowrap; 
 		}
 		
 		.price-row td,
 		.quantity-row td {
 		    font-size: 1.1em; /* 글자 크기를 키웁니다 */
 		}
-		
-		.quantity-content span {
-		    font-size: 1.1em; /* 수량 글자 크기를 키웁니다 */
+      .button-container {
+		   display: flex;
+		    justify-content:space-between;
+		    align-items: center; /* 수직 정렬을 위한 설정 */
 		}
 
-        .button-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 15px;
-        }
         #heart1 {
             font-size: large;
-         	margin-left: 30px;
          	border: 2px solid  rgb(233, 199, 199);
         }
 
@@ -116,6 +125,9 @@
             background-color: rgb(139, 198, 178);
             font-weight: bold;
          	padding: 10px 20px;
+         	position: absolute; /* 절대 위치 설정 */
+		    right: 30px; /* 오른쪽 끝에 배치 */
+		    margin-top: 10px; /* 필요에 따라 상단 여백 추가 */
         }
          #cart1:hover{
             padding: 10px 20px;
@@ -210,7 +222,7 @@
 		    margin-top: 30px;
 		    width: 100%;
 		    max-width: 100%;
-		    height: 300px;
+		  
 		}
 		 .no-side-effect-text {
 	        font-weight: bold;
@@ -276,13 +288,13 @@
 
 
         .btn-list>button {
-            font-size: 120%;
+           font-size: 130%;
             font-weight: bold;
             cursor: pointer; 
             border: 3px solid rgb(82, 166, 121);
             color: rgb(83, 88, 88);
             font-weight: 600;
-            margin-top: 40px;
+             padding: 10px 30px;
         }
         /*목록으로 버튼 영역끝 */
 </style>
@@ -310,12 +322,13 @@
        <div class="parent-info">
           <table class="info-table">
              <tbody>
+          
 	                <form id="addToCartForm">
 		                    <!-- Hidden field for product number -->
 		                      <input type="hidden" name="productNo" value="${product.productNo}">
 		       				 	<input type="hidden" name="price" value="${product.price}">
 		                    <tr>
-			                    <td rowspan="8" style="width: 60%;">
+			                    <td rowspan="8" class="image-cell">
 			                        <img src="${pageContext.request.contextPath}/${product.productThumbnailPath}" 
 			                             alt="${product.productName}"
 			                             class="img-thumb">
@@ -328,33 +341,31 @@
 			                    </td>
 		                    </tr>
 		                    <tr class="price-row" style="border-bottom: 2px solid rgb(198, 196, 196); background-color: rgb(254, 245, 237);">
-			                    <td class="td-left"><strong>구매가</strong></td>
-			                    <td><strong id="priceDisplay">₩ ${product.price}</strong></td>
+			                    <td class="td-left"  colspan="3"><strong>&nbsp;구매가</strong></td>
+			                    <td><strong id="priceDisplay" style="text-align: right; padding-right: 30px; font-size: 1.2em;">₩ ${product.price} 원</strong></td>
+			    
 		                    </tr>
-		                    <tr class="quantity-row" style="background-color: rgb(254, 245, 237);">
-			                    <td class="quantity td-left">수량</td>
-			                    <td colspan="3">
-			                        <div class="quantity-content">
-			                         <span> 총  1   개 </span>
-			                        </div>
+		                    <tr  class="quantity-row" style="background-color: rgb(254, 245, 237);">
+			                    <td class="quantity td-left">&nbsp;수량</td>
+			                    <td colspan="3" style="text-align: right; padding-right: 35px; font-size: 1.2em;"> 
+			                    	총  1   개   
 			                    </td>
 		                    </tr>
 		                    <tr>
-			                    <td colspan="2">
+			                    <td colspan="3" width="200px">
 			                        <div class="button-container">
-			                         <button type="button" id="heart1" class="btn btn-lg heart">${wishlistAdded ? '❤️' : '🤍'}</button>
-			                        <button type="button" id="cart1" class="btn btn-lg cart-btn">장바구니 담기</button> 
+				                        <button type="button" id="heart1" class="btn btn-lg heart">${wishlistAdded ? '❤️' : '🤍'}</button>
+				                        <button type="button" id="cart1" class="btn btn-lg cart-btn">장바구니 담기</button> 
 			                        </div>
 			                    </td>
-		                    </tr>
+			                    
+		                   </tr>
 	                 </form>
                 </tbody>
             </table>
         </div>
          <br><br>
          
-         
-
         <script>
 		    document.getElementById("cart1").addEventListener("click", function() {
 		        $.ajax({
@@ -385,7 +396,6 @@
 		                        error: function() {
 		                            console.log("장바구니 담기 실패");
 		                            alert("장바구니 담기 실패");
-		
 		                        }
 		                    });
 		                } else {
@@ -397,12 +407,12 @@
 		                alert("로그인 상태 확인 실패");
 		            }
 		        });
-		    });
-		    	    
-    </script>
+		    });		    	    
+    </script> 
     
     
-   <script>
+    
+    <script>
 			$(document).ready(function() {
 			    const heartBtn = $("#heart1");
 			    const productNo = ${product.productNo}; // 서버 측에서 할당된 실제 상품 번호로 변경
@@ -480,8 +490,9 @@
 			    }
 			});
   </script>
+    
           
-                  <div class="cont">
+            <div class="cont">
 	                
 	                <ul class="list">
 	                    <li class="tab-button green" data-id="0">상세정보</li>
@@ -523,15 +534,16 @@
 								    <img src="${pageContext.request.contextPath}/${product.productDetailPath}" alt="상세 정보 이미지" style="border: 1px solid;" class="img-detail">
 								</div>				    
 						</div>  		
-							   <div class="tab-content">
+							 <div class="tab-content">
 							   <jsp:include page="../review/productReview.jsp">
                 			<jsp:param name="productNo" value="${product.productNo}" />
 						</jsp:include>
 	                            </div>  
 						              
                     </div>
-	
-			   <br>  <br>
+                    
+                    
+              <br>  <br>
             <div class="btn-list-container" >
                 <div class="btn-list">
                     <button class="btn btn-lg"
@@ -541,9 +553,8 @@
                 </div>
             </div>
              <br>  <br>  
-         
 </div>
-
+         
 
 
 <jsp:include page="../common/footer.jsp" />
@@ -564,9 +575,7 @@
 
 
 
-
 <script>
-
     //탭 전환 버튼 영역
     $('.tab-button').click(function (e) {
         if ($(e.target).hasClass('tab-button')) {
@@ -582,6 +591,8 @@
     }
 </script>
 
-
 </body>
 </html>
+		  
+         
+         

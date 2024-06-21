@@ -194,7 +194,16 @@
         .gray-line {
             border-bottom: 2px solid lightgray;
         }
-			
+        
+        #back {
+        	border: 2px solid rgb(153, 188, 133);
+        }
+        
+
+		#back:hover {
+			background-color: rgb(153, 188, 133);
+			color: white;
+		}			
 		
 
     </style>
@@ -304,6 +313,11 @@
                     </div>
                     <br><br>
                     <div class="gray-line"></div> 
+                    <br><br>
+                    <div align="center">
+                    	<a href="myPageOrder.me" class="btn" id="back">뒤로가기</a>
+                    </div>
+                    <br><br>
                 </div>
         </div>
         <div class="gray-line"></div>
