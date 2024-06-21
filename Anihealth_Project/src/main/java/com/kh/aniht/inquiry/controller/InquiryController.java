@@ -170,7 +170,7 @@ public class InquiryController {
 			// 해당 게시글 상세보기 페이지로 url 재요청
 			session.setAttribute("alertMsg", "성공적으로 문의글이 수정되었습니다.");
 			
-			return "redirect:/detail.iq?ino=" + iq.getInquiryNo();
+			return "redirect:/list.iq";
 			
 		} else { // 실패
 			
