@@ -268,14 +268,18 @@
 				                        </tbody>
 				                    </table>
 				
-				                    <script>
-				                        $(function() {
-				                            $("#cart-table1>tbody>tr").click(function() {
-				                                let ino = $(this).children().eq(0).text();
-				                                location.href = "detail.iq?ino=" + ino;
-				                            });
-				                        });
-				                    </script>
+				                    <form id="postForm" method="post" action="detail.iq" style="display:none;">
+                        <input type="hidden" name="ino" id="ino">
+                    </form>
+                    <script>
+                        $(function() {
+                            $("#cart-table1>tbody>tr").click(function() {
+                                let ino = $(this).children().eq(0).text();
+                                $("#ino").val(ino);
+                                $("#postForm").submit();
+                            });
+                        });
+                    </script>
 			                    
 				                   
 				                    <div align="center" class="paging-area">

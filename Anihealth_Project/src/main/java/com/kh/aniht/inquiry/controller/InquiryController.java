@@ -68,7 +68,7 @@ public class InquiryController {
 	}
 	
 	
-	@GetMapping("detail.iq")
+	@PostMapping("detail.iq")
 	public ModelAndView selectBoard(int ino,
 									ModelAndView mv) {
 		
