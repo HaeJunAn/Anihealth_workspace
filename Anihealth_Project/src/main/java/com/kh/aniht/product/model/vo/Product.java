@@ -34,6 +34,7 @@ public class Product {
     private int userNo;
     //설문조사,별점 정유상
     private int totalWeight;
+	private String totalCount;
     private int rating;
     
 	// 효능, 부작용 - 정민

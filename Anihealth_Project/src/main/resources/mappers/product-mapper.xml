@@ -198,16 +198,13 @@
 			  JOIN EFFECT E ON (SE.EFFECT_NO = E.EFFECT_NO)
 			 WHERE PRODUCT_NO = #{productNo}
 		</select>
-		
-		
-		
-    
-        <!-- 평점 조회 유상 -->
+
+    <!-- 평점 조회 유상 -->
     <select id="selectRating" parameterType="_int" resultType="_double">
     	SELECT AVG(RATING)
 		 FROM REVIEW R
 		 JOIN ORDER_PRODUCT OP ON (R.ORDER_PRODUCT_NO = OP.ORDER_PRODUCT_NO)
-		WHERE OP.PRODUCT_NO = #{productNo}
+		WHERE OP.PRODUCT_NO = #{productNo} AND R.REVIEW_STATUS ='Y'
     </select>
 	
 	<!-- 장바구니 넣기전 상품 중복검사 해준 -->

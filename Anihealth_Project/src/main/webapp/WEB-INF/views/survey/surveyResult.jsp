@@ -362,6 +362,18 @@
 				right: 0px;
 	
 				}
+				.tc {
+					padding-top: 40px;
+
+				}
+				.tc h4{
+					text-align: left;
+				}
+				.efName {
+					display: none;
+					font-size: 16px;
+					color: rgb(97, 97, 97);
+				}
 
 			</style>
 			<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
@@ -542,32 +554,37 @@
 						</div>
 						<table>
 							<c:forEach var="p" items="${pList}" varStatus="status">
-									<tr>
-										<td rowspan="2">
-											<label for="item${status.index + 1}">
-												<input type="checkbox" name="productNo"
-													id="item${status.index + 1}" class="recommendedProduct"
-													value="${p.productNo}">
-												<input type="hidden" name="cartPrice" value="${p.price}">
-											</label>
-										</td>
-										<td rowspan="2">
-											<img src="${p.productThumbnailPath}">
-											<!-- <img src="${p.productThumbnailPath}"> -->
-										</td>
-										<td class="product-title">
-											<span>${p.productName}</span>
-											<span class="star" >
-												<i class="fa-solid fa-star " style="color: gold;">
-													<span class="rating${p.productNo}"></span>
-												</i>
-											</span> 	
-										</td>
-									</tr>
-									<tr>
-										<td id="effect-icon${p.productNo}" class="effect-icon">
-										</td>
-									</tr>
+										<tr style="display: none;">
+											<td colspan="3" class="totalCount${p.totalCount} tc">
+
+											</td>
+										</tr>
+										<tr>
+											<td rowspan="2">
+												<label for="item${status.index + 1}">
+													<input type="checkbox" name="productNo"
+														id="item${status.index + 1}" class="recommendedProduct"
+														value="${p.productNo}">
+													<input type="hidden" name="cartPrice" value="${p.price}">
+												</label>
+											</td>
+											<td rowspan="2">
+												<img src="${p.productThumbnailPath}">
+												<!-- <img src="${p.productThumbnailPath}"> -->
+											</td>
+											<td class="product-title">
+												<span>${p.productName}</span>
+												<span class="star" >
+													<i class="fa-solid fa-star " style="color: gold;">
+														<span class="rating${p.productNo}"></span>
+													</i>
+												</span> 	
+											</td>
+										</tr>
+										<tr>
+											<td id="effect-icon${p.productNo}" class="effect-icon">
+											</td>
+										</tr>
 							</c:forEach>
 							<style>
 								.product-title {
@@ -655,7 +672,7 @@
 					setTimeout(function() {
 						$("#loading").hide();
 						$("main").show();
-					}, 4000);
+					}, 400);
 
 					
 					// bcs 아이콘
@@ -675,7 +692,18 @@
 					});
 					// 미리체크
 					$("input[type=checkbox]").prop('checked', true);
-
+					// 추천제품 제목
+					$(".totalCount5").eq(0).append("<h4>종합영양제</h4>");
+					$(".totalCount5").eq(0).parent().show();
+					if($(".totalCount2").length != 0) {
+						$(".totalCount2").eq(0).append("<h4>복합영양제</h4>");
+						$(".totalCount2").eq(0).parent().show();
+					} else {
+						$(".totalCount3").eq(0).append("<h4>복합영양제</h4>");
+						$(".totalCount3").eq(0).parent().show();
+					}
+					$(".totalCount1").eq(0).append("<h4>기본영양제</h4>");
+					$(".totalCount1").eq(0).parent().show();
 					let productNoArr = [];
 					//또는 element
 					$(".recommendedProduct").each(function () {
@@ -690,24 +718,29 @@
 						traditional: true, // 요청값이 배열일때
 						success: function (map) {
 							let eList = map.eList;
-							console.log(eList);
+							//console.log(eList);
 							let ratingList = map.ratingList;
-							console.log(ratingList);
-							let effectStr = "<span> </span>";
+							//console.log(ratingList);
+							let effectStr = "";
 							// 일반 for 가능
 							eList.forEach(function (eMap) {
 								eMap.effectArr.forEach(function (effect) {
-									effectStr += "<img src='" + effect.effectFilePath + "'/>";
+									effectStr += "<img src='" + effect.effectFilePath + "'/> <span class='efName'>" + effect.effectName + "에 좋아요!</span>";
 								});
 
 								$("#effect-icon" + eMap.productNo).html(effectStr);
-									effectStr = "<span> </span>";
+									effectStr = "";
 								
 							});
 							ratingList.forEach(function (rMap) {
 								$(".rating" + rMap.productNo).html("(" + (Math.round(rMap.rating *10)/10.0) + ")");
 								//$(".rating" + rMap.productNo).html("(4.2)");
 							})
+
+							$('.totalCount1').parent().next().next().find('.efName').show();
+							//$('.totalCount3').parent().next().next().find('.efName').eq(2).text("여러부위에 좋아요!").show();
+							//$('.totalCount2').parent().next().next().find('.efName').eq(1).text("여러부위에 좋아요!").show();
+							//$('.totalCount5').parent().next().next().find('.efName').eq(4).text("").show();
 						},
 						error: function () {
 							console.log("효과 조회 실패!");

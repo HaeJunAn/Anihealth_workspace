@@ -211,7 +211,7 @@
 	}
 
 	#marker {
-		width:230px;
+		width:210px;
 		padding:5px;
 		font-size:12px; 
 		border: none;
@@ -349,7 +349,8 @@
 		var ps = new kakao.maps.services.Places();
 		// 상세정보창 객체 생성
 		var infowindow = new kakao.maps.InfoWindow({
-			zIndex : 1
+			zIndex : 1, 
+			removable : true
 		});
 		// 화면에 출력할 리스트
 		let mapList = '';
