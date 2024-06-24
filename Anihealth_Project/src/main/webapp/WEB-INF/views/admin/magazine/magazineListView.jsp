@@ -115,7 +115,7 @@
 
      .fixed-img {
          width: 100%;
-         height: 200px; 
+         height: 230px; 
          object-fit: cover;
      }
 
@@ -213,6 +213,10 @@
     #enrollBtn a {
     	padding : 5px 30px;
     }
+    
+    .drug-info {
+        	width: 100%;
+        }
  </style>
 </head>
    
@@ -251,26 +255,26 @@
 	                                <div class="card-footer">
 	                                    <table class="drug-info">
 	                                        <tr>
-	                                            <td>
+	                                            <td style="width : 100%;" colspan="3">
 	                                                <h6 class="drug-name" style="font-weight: bold;">
 	                                                    ${ m.magazineTitle } &nbsp; &nbsp;
 	                                                </h6>
 	                                            </td>
 	                                        </tr>
 	                                        <tr>
-	                                            <td>
+	                                            <td style="width : 150px;">
 	                                                <small class="drug-detail" style="font-weight: bold; color: gray;">
 	                                                    ${ m.magazineCreate }
 	                                                </small>
 	                                            </td>
 	                                            <td class="view-count-cell">
 	                                                <small class="drug-detail" style="font-weight: bold; color: gray;">
-	                                                    	조회수 : ${ m.magazineCount }
+	                                                    	조회수 &nbsp;  ${ m.magazineCount }
 	                                                </small>
 	                                            </td>
 	                                            <td class="view-status-cell">
 	                                                <small class="drug-detail" style="font-weight: bold; color: gray;">
-	                                                    	공개여부 : ${ m.magazineStatus }
+	                                                    	공개여부  &nbsp; ${ m.magazineStatus }
 	                                                </small>
 	                                            </td>
 	                                        </tr>

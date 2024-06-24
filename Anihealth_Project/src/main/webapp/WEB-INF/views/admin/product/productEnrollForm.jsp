@@ -176,13 +176,13 @@
 			        	<tr>
 			        		<th width="200px">대표이미지</th>
 			        		<td colspan="4">
-								<img name="thumbnail" id="thumbnail" width="700px" height="400px" src="">
+								<img name="thumbnail" id="thumbnail" width="700px" height="400px" src="resources/rimg/noImage4.png">
 			        		</td>
 			        	</tr>
 			        	<tr>
 			        		<th>상세이미지</th>
 			        		<td colspan="4">
-			        			<img name="detail" id="detail" width="700px" height="400px" src="">
+			        			<img name="detail" id="detail" width="700px" height="400px" src="resources/rimg/noImage4.png">
 			        		</td>
 			        	</tr>
 		        	</tbody>
@@ -229,8 +229,8 @@
 					};
 				} else { 
 					switch(num){
-						case 0 : $("#thumbnail").attr("src","https://i.ibb.co/fvw1Zv9/image.jpg"); break;
-						case 1 : $("#detail").attr("src","https://i.ibb.co/fvw1Zv9/image.jpg"); break;
+						case 0 : $("#thumbnail").attr("src","resources/rimg/noImage4.png"); break;
+						case 1 : $("#detail").attr("src","resources/rimg/noImage4.png"); break;
 					}
 				}
         	}
@@ -242,7 +242,7 @@
 	                return false;
 	            }
 
-	            if ($('#thumbnail').attr('src') === "" || $('#thumbnail').attr('src') === "https://i.ibb.co/fvw1Zv9/image.jpg" || $('#detail').attr('src') === "" || $('#detail').attr('src') === "https://i.ibb.co/fvw1Zv9/image.jpg") {
+	            if ($('#thumbnail').attr('src') === "" || $('#thumbnail').attr('src') === "resources/rimg/noImage4.png" || $('#detail').attr('src') === "" || $('#detail').attr('src') === "resources/rimg/noImage4.png") {
 	                alert('대표이미지와 상세이미지를 모두 선택해야 합니다.');
 	                return false;
 	            }

@@ -102,9 +102,9 @@ public class ProductController {
         	 mv.addObject("product", product);
         	 
         	   ArrayList<Effect> effects = productService.selectEffectsByProductNo(productNo);
-        	   for(Effect e : effects) {
-        		   System.out.println(e);
-        	   }
+				/*
+				 * for(Effect e : effects) { System.out.println(e); }
+				 */
         	   
                ArrayList<Effect> sideEffects = productService.selectSideEffectsByProductNo(productNo);
                
@@ -114,8 +114,8 @@ public class ProductController {
 
                mv.setViewName("product/productDetailView");
                
-               System.out.println(effects);
-               System.out.println(sideEffects);
+               // System.out.println(effects);
+               // System.out.println(sideEffects);
             
         } else {
            // System.out.println("Controller: Product not found for productNo: " + productNo);

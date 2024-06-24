@@ -124,15 +124,20 @@ public class AdProductController { // 클래스 영역 시작
 		
 		// 부작용 등록
 		int sideEffectResult = 0;
-		for(int i = 0; i < sideEffect.length; i++) {
+		
+		if(sideEffect != null) {
 			
-			int itemSideEffect = Integer.parseInt(sideEffect[i]);
-			
-			sideEffectResult += productService.insertSideEffect(itemSideEffect, productNo);
+			for(int i = 0; i < sideEffect.length; i++) {
+				
+				int itemSideEffect = Integer.parseInt(sideEffect[i]);
+				
+				sideEffectResult += productService.insertSideEffect(itemSideEffect, productNo);
+				
+			}
 			
 		}
 		
-		if(productResult > 0 && effectResult >= effect.length && sideEffectResult >= sideEffect.length) { // 성공
+		if((productResult > 0 && effectResult >= effect.length) || sideEffectResult >= sideEffect.length) { // 성공
 			
 			session.setAttribute("alertMsg", "성공적으로 상품이 등록되었습니다.");
 			mv.setViewName("redirect:/product.ad");

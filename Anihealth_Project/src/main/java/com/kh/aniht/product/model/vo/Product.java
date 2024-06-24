@@ -32,10 +32,12 @@ public class Product {
     private int productCount;             
     private String productStatus;
     private int userNo;
+    private String effectName;
     //설문조사,별점 정유상
     private int totalWeight;
 	private String totalCount;
     private int rating;
+    
     
 	// 효능, 부작용 - 정민
 	private String effect;

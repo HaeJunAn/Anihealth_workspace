@@ -285,6 +285,10 @@
             <h1>장바구니</h1>
         </div>
         <br>
+        
+        <c:choose>
+        	<c:when test="${not empty requestScope.list }">
+        
         <div class="cart-background">
             <div class="cart-table-header">
                 <div class="left-header">
@@ -294,6 +298,7 @@
                     <button class="btn header-text" id="delete-selected">선택삭제</button>
                 </div>
             </div>
+            
             <table class="cart-table">
                 <thead>
                     <tr>
@@ -342,12 +347,20 @@
                     </tr>
                 </tbody>
             </table>
+            
         </div>
         <br>
         <form id="orderForm" method="post" action="order.re">
          <input type="hidden" id="userNo" name="userNo" value="${sessionScope.loginUser.userNo}" />
             <button type="submit" class="btn btn-lg right-button" id="checkout-button">결제하기</button>
         </form>
+        
+        </c:when>
+	       	<c:otherwise>
+	       		<h4 align="center" style="color: gray">장바구니 목록이 존재하지 않습니다.</h4>
+	       	</c:otherwise>
+        </c:choose>
+        
     </div>
 </div>
 
@@ -494,9 +507,7 @@
     });
 </script>
 
-<jsp:include page="../common/footer.jsp" />
-</body>
-    
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 <jsp:include page="../common/footer.jsp" />
 </body>
 </html>

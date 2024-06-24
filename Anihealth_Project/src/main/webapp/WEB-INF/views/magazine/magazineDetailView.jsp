@@ -121,6 +121,7 @@
         <c:forEach var="lm" items="${requestScope.lm}">
             <div class="content-table">
                 <img src="${lm.magazinePath}" alt="${lm.magazinePath}">
+                <br>
                 <p>${lm.magazineContent}</p>
             </div>
         </c:forEach>

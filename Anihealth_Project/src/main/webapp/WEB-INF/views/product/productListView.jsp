@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -380,7 +381,7 @@
 		                                <h6 class="drug-name" style="font-weight: bold;">
 		                                    ${p.productName}
 		                                </h6>
-		                                <h6 class="drug-price">₩ ${p.price}
+		                                <h6 class="drug-price">₩ <fmt:formatNumber value="${ p.price }" type="number" groupingUsed="true" />
 		                                    <div class="stars">
 		                                        <span class="star-rating-container star-rating-container${p.productNo}" style="display: none;">
 		                                            <i class="fa-solid fa-star fa-sm"></i>

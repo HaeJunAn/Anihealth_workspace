@@ -30,7 +30,7 @@ public class CartController {
 	public String selectCartList(Model model,HttpSession session) {
 		 int userNo = ((Member)session.getAttribute("loginUser")).getUserNo();	
 		ArrayList<Cart> list = cartService.selectCartList(userNo);
-		System.out.println("카트리스트 : "  + list);
+		// System.out.println("카트리스트 : "  + list);
 		model.addAttribute("list", list);
 		
 		return "cart/cartListView";
@@ -104,7 +104,7 @@ public class CartController {
 
 		    for (int i = 0; i < productNo.length; i++) {
 		        if (cartService.isProductInCart(productNo[i], userNo)) {
-		            System.out.println("Product " + productNo[i] + " is already in the cart.");
+		            // System.out.println("Product " + productNo[i] + " is already in the cart.");
 		            continue; // Skip adding this product to the cart
 		        }
 
@@ -117,19 +117,19 @@ public class CartController {
 		        cList.add(c);
 		    }
 
-		    System.out.println(cList);
+		    // System.out.println(cList);
 
 		    if (!cList.isEmpty()) {
 		        int result = cartService.insertCart(cList);
 		        if (result > 0) {
-		            System.out.println("성공");
+		            // System.out.println("성공");
 		            return "redirect:/cart.re";
 		        } else {
 		            System.out.println("실패");
 		           
 		        }
 		    } else {
-		        System.out.println("No new products to add to the cart.");
+		        // System.out.println("No new products to add to the cart.");
 		        
 		    }
 		    return "redirect:/";

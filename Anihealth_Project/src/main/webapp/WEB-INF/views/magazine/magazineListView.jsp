@@ -59,7 +59,7 @@
             /* 중앙 정렬을 위한 텍스트 정렬 */
             position: relative;
             /* 검색 폼을 절대 위치로 정렬하기 위해 상대 위치 지정 */
-            margin-bottom: 80px;
+            margin-bottom: 10px;
         }
 
         .container-custom {
@@ -77,7 +77,8 @@
             /* 부모 요소의 너비를 100%로 설정 */
             margin: 0 auto;
             /* 부모 요소를 중앙에 배치 */
-            margin-left: 4%;
+            margin-left: 3%; 
+             padding-bottom: 0; 
         }
 
         .row-custom {
@@ -89,10 +90,12 @@
            /*   width: 29.5%; */
           	width: 400px;
             box-sizing: border-box;
-            margin: 15px;
+            margin: 10px;
             display: flex;
             flex-direction: column;
-            cursor: pointer;
+            height: 360px;
+            object-fit: cover; 
+             margin-bottom: 0;
         }
 
         .card {
@@ -101,23 +104,43 @@
             justify-content: space-between;
             border-radius: 20px !important;
             overflow: hidden;
-            height: 100%;
             border: none;
             border: 2px solid lightgray;
+            cursor: pointer;
         }
 
         .card-footer {
-            text-align: left;
+      /*     display: flex;
+          justify-content: space-between;
+          text-align: left;
             background-color: white;
-            padding-left: 10px;
-             border-top-left-radius: 20px; /* 카드의 둥근 모서리에 맞게 설정 */
+             border-top-left-radius: 20px; 
             border-top-right-radius: 20px;
+             margin: 0;
+             padding: 10px; */
+             
+               display: flex;
+    justify-content: space-between; /* 왼쪽과 오른쪽 여백 정렬 */
+   /*  align-items: center; */
+    text-align: left; /* 텍스트 왼쪽 정렬 */
+    background-color: white; /* 배경 색상 */
+    border-top-left-radius: 20px; /* 상단 왼쪽 모서리 반경 */
+    border-top-right-radius: 20px; /* 상단 오른쪽 모서리 반경 */
+    margin: 0; /* 마진 없애기 */
+/*     padding: 10px; */
+          /*   width: 100%;  */
         }
+        .view-count-cell {
+		   /*  text-align: right; */
+		   /*  width: 100%; */
+		    white-space: nowrap;
+		    /*   flex: 1;  */
+		}
 
         .fixed-img {
             width: 100%;
-            height: 200px; 
-            object-fit: cover;
+            height: 230px; 
+            overflow: hidden;
         }
 
         .rounded {
@@ -126,6 +149,7 @@
 
         .drug-name {
             font-weight: bold;
+            white-space: nowrap;
         }
 
         .drug-dose {
@@ -136,6 +160,8 @@
         .drug-detail {
             font-weight: bold; 
             color: gray;
+              white-space: nowrap; /* 넘치는 텍스트 자동 줄바꿈 방지 */
+         margin-left: auto;
         } 
 
         .drug-price {
@@ -202,6 +228,10 @@
         }
         /* 페이징버튼 끝 */
         /* 메인컨텐츠 영역 끝 */
+        
+        .drug-info {
+        	width: 100%;
+        }
     </style>
 </head>
    
@@ -232,21 +262,15 @@
                                         <table class="drug-info">
                                             <tr>
                                                 <td>
-                                                    <h6 class="drug-name" style="font-weight: bold;">
-                                                        ${ma.magazineTitle} &nbsp; &nbsp;
-                                                    </h6>
+                                                    <h6 class="drug-name" style="font-weight: bold;">${ma.magazineTitle}</h6>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    <small class="drug-detail" style="font-weight: bold; color: gray;">
-                                                        ${ma.magazineCreate}
-                                                    </small>
+                                                    <small class="drug-detail" style="font-weight: bold; color: gray;">${ma.magazineCreate}</small>
                                                 </td>
                                                 <td  class="view-count-cell">
-                                                    <small class="drug-detail" style="font-weight: bold; color: gray;">
-                                                        조회수 : ${ma.magazineCount}
-                                                    </small>
+                                                    <small class="drug-detail" style="font-weight: bold; color: gray;">조회수 &nbsp;  ${ma.magazineCount}</small>
                                                 </td>
                                             </tr>
                                         </table>

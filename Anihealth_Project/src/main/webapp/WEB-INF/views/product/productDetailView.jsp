@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
         <!DOCTYPE html>
         <html>
 
@@ -400,7 +401,9 @@
                                 </tr>
                                 <tr class="price-row">
                                     <td class="td-left" colspan="3"><strong>&nbsp;구매가</strong></td>
-                                    <td class="price-display"><strong>${product.price} 원</strong></td>
+                                    <td class="price-display">
+                                    	<strong><fmt:formatNumber value="${product.price}" type="number" groupingUsed="true" /> 원</strong>
+                                    </td>
                                 </tr>
                                 <tr class="quantity-row">
                                     <td class="quantity td-left">&nbsp;수량</td>
