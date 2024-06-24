@@ -114,6 +114,7 @@
         #product-header {
             padding-left: 150px; 
         }
+        
         #product-count{
             padding-left: 20px;
         }
@@ -134,10 +135,10 @@
             flex-direction: row; 
         }
         .img-size {
-            width: 110%;
-            height: auto;
-            object-fit: cover;
-            max-width: 150px;
+            width: 150px;
+            height: 120px;
+            /* object-fit: cover;
+            max-width: 150px; */
             border-radius: 10px;
         }
 
@@ -239,7 +240,7 @@
 		    text-align: center;
 		}
 		.cart-table th#product-count, .cart-table td#quantity-cell {
-		  width: 120px;  /* 고정 너비 설정 */
+		  width: 200px;  /* 고정 너비 설정 */
 		}
 		
 		.cart-table th:last-child, .cart-table td.total-price {
@@ -286,8 +287,6 @@
         </div>
         <br>
         
-        <c:choose>
-        	<c:when test="${not empty requestScope.list }">
         
         <div class="cart-background">
             <div class="cart-table-header">
@@ -299,6 +298,7 @@
                 </div>
             </div>
             
+	       
             <table class="cart-table">
                 <thead>
                     <tr>
@@ -308,6 +308,8 @@
                         <th>가격</th>
                     </tr>
                 </thead>
+                 <c:choose>
+	        		<c:when test="${not empty requestScope.list }">
                 <tbody class="cart-table-content">
                     <c:forEach var="ca" items="${requestScope.list}">
                         <c:if test="${ca.userNo eq sessionScope.loginUser.userNo}">
@@ -345,25 +347,37 @@
                             </div>
                         </td>
                     </tr>
+                    
+                    </c:when>
+			       	<c:otherwise>
+			       		<tr>
+			       			<td colspan="5" height="120px">
+			       				<h4 align="center" style="color: gray"><br>장바구니 목록이 존재하지 않습니다.<br></h4>
+			       			</td>
+			       		</tr>
+			       	</c:otherwise>
+		        </c:choose>
                 </tbody>
+                
             </table>
             
         </div>
         <br>
+        <c:choose>
+     		<c:when test="${not empty requestScope.list }">
         <form id="orderForm" method="post" action="order.re">
          <input type="hidden" id="userNo" name="userNo" value="${sessionScope.loginUser.userNo}" />
             <button type="submit" class="btn btn-lg right-button" id="checkout-button">결제하기</button>
         </form>
-        
         </c:when>
-	       	<c:otherwise>
-	       		<h4 align="center" style="color: gray">장바구니 목록이 존재하지 않습니다.</h4>
-	       	</c:otherwise>
-        </c:choose>
-        
+        <c:otherwise>
+     		<tr>
+     			<td colspan="5" height="120px"></td>
+     		</tr>
+     	</c:otherwise>
+     	</c:choose>
     </div>
 </div>
-
 <script>
     $(document).ready(function() {
         // 초기 설정: 전체 선택 체크박스와 모든 개별 체크박스 체크

@@ -93,7 +93,7 @@ public class ProductController {
 
     // 영양제 상세조회 
     @GetMapping("detail.pd")
-    public ModelAndView selectProductDetail(@RequestParam("pno") int productNo, ModelAndView mv) {
+    public ModelAndView selectProductDetail(@RequestParam("pno") int productNo, ModelAndView mv, HttpSession session) {
      //   System.out.println("Controller: Fetching product details for productNo: " + productNo);
         Product product = productService.selectProductDetail(productNo);
         
@@ -119,8 +119,9 @@ public class ProductController {
             
         } else {
            // System.out.println("Controller: Product not found for productNo: " + productNo);
-            mv.addObject("errorMsg", "제품 상세조회 실패")
-              .setViewName("common/errorPage");
+            session.setAttribute("alertMsg", "존재하지 않는 페이지입니다.");
+            
+            mv.setViewName("redirect:/list.pd");
         }
         
         return mv;
