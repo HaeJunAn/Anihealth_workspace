@@ -228,6 +228,11 @@
 		cursor: pointer;
 		color: rgba(47, 142, 219, 0.801);
 	}
+	.defmsg {
+		color: rgb(226, 226, 226);
+		margin-top: 200px;
+		font-size: 100;
+	}
 </style>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 </head>
@@ -266,7 +271,7 @@
 				</select>
 			</div> -->
 		<div class="list-content">
-	
+			<h2 class="defmsg" align="center">조회된 결과가 없습니다</h2>
 			<!--  
 				<div class="list-item">
 					<div class="name-category">
