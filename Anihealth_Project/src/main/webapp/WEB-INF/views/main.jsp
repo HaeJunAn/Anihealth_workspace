@@ -248,8 +248,8 @@
         }
 
          .product-rw img {
-            width: 60%;
-            height: auto; 
+            width: 140px;
+            height: 140px; 
             cursor: pointer;
             object-fit: cover;
             border-radius: 50%;

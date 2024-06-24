@@ -115,9 +115,8 @@
         }
 
         .img-size {
-            height: auto;
-            object-fit: cover;
-            max-width: 100px;
+            height: 120px;
+            width: 150px;
             border-radius: 10px;
             margin-right: 5px;
         }
