@@ -98,7 +98,7 @@ public class AdInquiryController { // 클래스 영역 시작
 		
 	}
 	
-	// 문의 삭제
+	// 문의 복구
 	@PostMapping(value="recoverInquiry.ad")
 	public String recoverInquiry(Inquiry inquiry, HttpSession session) {
 		
