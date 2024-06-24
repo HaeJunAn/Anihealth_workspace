@@ -11,7 +11,7 @@
         .parent {
             width: 100%;
             padding-top: 100px;
-            padding-bottom: 80px;
+            padding-bottom:80px;
         }
 
         .parent-content {
@@ -123,16 +123,24 @@
 
 
         /* 각 영양제 영역 시작 */
-        .outer-container {
-            text-align: center;
-            /* 중앙 정렬을 위한 텍스트 정렬 */
-            position: relative;
-            /* 검색 폼을 절대 위치로 정렬하기 위해 상대 위치 지정 */
-        }
-
-        .container-custom {
-            display: inline-block;
-        }
+	     .outer-container {
+		    text-align: center;
+		    /* 중앙 정렬을 위한 텍스트 정렬 */
+		    position: relative;
+		    /* 검색 폼을 절대 위치로 정렬하기 위해 상대 위치 지정 */
+		    display: flex;
+		    justify-content: center;
+		    width: 100%;
+		    margin: 0 auto;
+		    padding-bottom: 0; 
+		}
+		 .container-custom {
+		    display: flex;
+		    justify-content: center;
+		    width: 100%;
+		    margin: 0 auto;
+		    padding-bottom: 0; 
+		}
 
 		.card-custom a {
 		    text-decoration: none; /* 밑줄 제거 */
@@ -142,36 +150,36 @@
 		    text-decoration: none; /* 호버 시에도 밑줄 제거 */
 		    color: inherit; /* 호버 시에도 부모 요소의 색상 상속 */
 		}
-        .row-custom-product-list {
-            display: flex;
-            /* flexbox를 사용하여 자식 요소들을 정렬 */
-            flex-wrap: wrap;
-            /* 여러 줄로 감싸기 */
-            justify-content: flex-start;
-            /* 자식 요소들을 왼쪽 정렬 */
-            width: 1350px;
-            margin: 0 auto;
-            /* 부모 요소를 중앙에 배치 */
-            margin-left: 4%;
-        }
+         .row-custom-product-list {
+        display: flex;
+	        /* flexbox를 사용하여 자식 요소들을 정렬 */
+	        flex-wrap: wrap;
+	        /* 여러 줄로 감싸기 */
+	        justify-content: flex-start;
+	        /* 자식 요소들을 왼쪽 정렬 */
+	        width: 1350px;
+	        margin: 0 auto;
+	        /* 부모 요소를 중앙에 배치 */
+	         padding-bottom: 0; 
+	    }
 
-        .row-custom {
-            width: 100%;
-            overflow: hidden;
-        }
+	    .row-custom {
+	        width: 100%;
+	        overflow: hidden;
+	    }
 
-        .card-custom {
-            width: 21.2%;
-            box-sizing: border-box;
-            margin: 1.1%;
-            display: flex;
-            flex-direction: column;
-            margin-bottom: 30px;
-            height: 400px;
-            object-fit: cover; 
-        }
+	    .card-custom {
+	        width: 22.6%;
+	        box-sizing: border-box;
+	        margin: 1.1%;
+	        display: flex;
+	        flex-direction: column;
+	        height: 368px;
+	        object-fit: cover; 
+	         margin-bottom: 0;
+	    }
 
-        .card-custom:hover {
+        .card:hover {
             cursor: pointer;
         }
 
@@ -191,12 +199,15 @@
            background-color: white !important;
           /*  border:  1px solid #ddd; */
            border-radius: 10px;
+            margin: 0; /* 여백 제거 */
+            padding: 10px;
         }
 
         .fixed-img {
             width: 100%;
             height: 230px; /* 높이 고정 */
-            object-fit: cover;
+           /*  object-fit: contain; */
+           overflow: hidden;
         }
 
         .rounded {border-radius: 10px; }
@@ -229,7 +240,6 @@
             margin-left: 10px; /* 가격과 별점 사이 여백 */
             margin-right: 1px;
         }
-        
         
         /* 영양제 영역 끝 */
 
@@ -356,38 +366,38 @@
         </div>
 
        <div class="outer-container">
-    <div class="container-custom">
-        <div class="row-custom-product-list">
-            <c:forEach var="p" items="${list}">
-                <div class="card-custom">
-                    <a href="detail.pd?pno=${p.productNo}">
-                        <div class="card">
-                            <img class="fixed-img rounded" src="${p.productThumbnailPath}" alt="Product Image">
-                            <div class="card-footer">
-                                <small class="drug-dose" style="font-weight: bold; color: gray;">
-                                    ${p.category} 영양제
-                                </small>
-                                <h6 class="drug-name" style="font-weight: bold;">
-                                    ${p.productName}
-                                </h6>
-                                <h6 class="drug-price">₩ ${p.price}
-                                    <div class="stars">
-                                        <span class="star-rating-container star-rating-container${p.productNo}" style="display: none;">
-                                            <i class="fa-solid fa-star fa-sm"></i>
-                                            <span class="star-score star-score${p.productNo}"></span>
-                                        </span>
-                                        <span class="review-none review-none${p.productNo}" style="display: none;">리뷰 없음</span>
-                                    </div>
-                                </h6>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <input type="hidden" value="${p.productNo}" class="ratingList">
-            </c:forEach>
-        </div>
-    </div>
-</div>
+		    <div class="container-custom">
+		        <div class="row-custom-product-list">
+		            <c:forEach var="p" items="${list}">
+		                <div class="card-custom">
+		                    <a href="detail.pd?pno=${p.productNo}">
+		                        <div class="card">
+		                            <img class="fixed-img rounded" src="${p.productThumbnailPath}" alt="Product Image">
+		                            <div class="card-footer">
+		                                <small class="drug-dose" style="font-weight: bold; color: gray;">
+		                                    ${p.category} 영양제
+		                                </small>
+		                                <h6 class="drug-name" style="font-weight: bold;">
+		                                    ${p.productName}
+		                                </h6>
+		                                <h6 class="drug-price">₩ ${p.price}
+		                                    <div class="stars">
+		                                        <span class="star-rating-container star-rating-container${p.productNo}" style="display: none;">
+		                                            <i class="fa-solid fa-star fa-sm"></i>
+		                                            <span class="star-score star-score${p.productNo}"></span>
+		                                        </span>
+		                                        <span class="review-none review-none${p.productNo}" style="display: none;">리뷰 없음</span>
+		                                    </div>
+		                                </h6>
+		                            </div>
+		                        </div>
+		                    </a>
+		                </div>
+		                <input type="hidden" value="${p.productNo}" class="ratingList">
+		            </c:forEach>
+		        </div>
+		    </div>
+       </div>
 
 
         <!-- 페이징바 -->
