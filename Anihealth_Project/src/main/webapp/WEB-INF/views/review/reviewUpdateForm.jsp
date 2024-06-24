@@ -159,7 +159,7 @@
 			        }
 			
 			    } else {
-			        $(".review-pic>img").attr("src", "resources/rimg/noImage4.png");
+			        $(".review-pic>img").attr("src", "${r.reviewFilePath}");
 			
 			    }
 			

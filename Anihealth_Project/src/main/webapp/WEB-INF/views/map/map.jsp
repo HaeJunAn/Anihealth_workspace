@@ -220,11 +220,11 @@
 		font-size: 13px;
 		color: rgb(179, 179, 179);
 	}
-	.cancle{
+	.cancel{
 		height: 24px;
 		transform: translate(0px, 7px);
 	}
-	.cancle:hover {
+	.cancel:hover {
 		cursor: pointer;
 		color: rgba(47, 142, 219, 0.801);
 	}
@@ -247,11 +247,11 @@
 			</div>
 			<div id="address" align="left">
 				<button type="button" style="background-color: transparent;">
-					<span class="material-symbols-outlined" onclick="searchButton();"
+					<span class="material-symbols-outlined searchSym" onclick="searchButton();"
 						style="color: black;">search</span>
 				</button>
 				<input  type="text" class="form-control" placeholder="장소를 입력해주세요" aria-label="장소를 입력해주세요" aria-describedby="button-addon1">
-				<span class="material-symbols-outlined cancle" onclick="cancel();">close</span>
+				<span class="material-symbols-outlined cancel" onclick="cancel();">close</span>
 			</div>
 			<div id="suggestions" align="left">
 				<table>
@@ -367,7 +367,7 @@
 			let autoList = '';
 			geocoder.addressSearch(keyword, function(result, status) {
 				if(event.keyCode == 13){
-					$(".material-symbols-outlined").click();
+					$(".searchSym").click();
 				}
 				if (status === kakao.maps.services.Status.OK) {
 					
@@ -375,7 +375,7 @@
 						//console.log(result[i]);
 						autoList += "<tr>" + "<td>" + result[i].address_name + "</td>" + "</tr>";
 					}
-					$("#suggestions>table").html(autoList);
+					$("#suggestions>table").html(autoList); //중복
 				} else {
 					$("#suggestions>table").html('');
 				}

@@ -104,7 +104,7 @@ public class SurveyController {
 	
 	// 설문결과 객체화/정렬
 	private String[] effectArr = {"skin", "teeth", "eye", "bone", "heart", "immunity", "stomach", "kidney"};
-	private String[] effectArrKr = {"피부", "치아", "눈", "뼈", "심장", "면역", "소화계", "신장"};
+	private String[] effectArrKr = {"피부", "치아", "눈", "뼈/관절", "심장", "면역력", "위/장", "신장/방광"};
 	public ArrayList<Survey> createSurveyResultList(HttpServletRequest request, int userNo) {
 		ArrayList<Survey> sList = new ArrayList<>();
 		int index = 1;
