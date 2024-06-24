@@ -260,9 +260,10 @@
 					color: #9ac5ab;
 				}
 				
-
-				.product-selected img {
+				.product-selected .pdImg{
 					width: 150px;
+					height: 150px;
+					object-fit: contain;
 				}
 				.product-selected h3 {
 					text-align: center;
@@ -484,7 +485,7 @@
 								</c:when>
 
 								<c:when test="${-10 >= weightInfo.weightRatio and weightInfo.weightRatio > -20}">
-									<td colspan="2" style="color: rgb(226, 192, 0);">표준범위: 표준체중보다 ${weightInfo.weightRatio}% 무겁습니다</td>
+									<td colspan="2" style="color: rgb(226, 192, 0);">표준범위: 표준체중보다 ${weightInfo.weightRatio}% 부족합니다</td>
 								</c:when>
 
 								<c:otherwise>
@@ -569,7 +570,7 @@
 												</label>
 											</td>
 											<td rowspan="2">
-												<img src="${p.productThumbnailPath}">
+												<img src="${p.productThumbnailPath}"class="pdImg">
 												<!-- <img src="${p.productThumbnailPath}"> -->
 											</td>
 											<td class="product-title">
