@@ -672,7 +672,7 @@
 					setTimeout(function() {
 						$("#loading").hide();
 						$("main").show();
-					}, 400);
+					}, 4000);
 
 					
 					// bcs 아이콘
