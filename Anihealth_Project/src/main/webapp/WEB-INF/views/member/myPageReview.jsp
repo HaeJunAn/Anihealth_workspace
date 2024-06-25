@@ -88,7 +88,7 @@
             color: rgb(67, 104, 80);
             text-decoration: none;
         }
-
+	/*  */
         .content-my {
             width: 70%;
             margin: 0 auto;

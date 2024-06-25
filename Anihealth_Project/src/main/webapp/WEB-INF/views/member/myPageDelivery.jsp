@@ -223,7 +223,7 @@
 		    color: white;
 		}
 		
-		.dropdown {
+		.deliverydropdown {
 			width: 60px;
 			height: 35px;
 			border-top-right-radius: 5px;
@@ -232,14 +232,12 @@
 			border-bottom-left-radius: 5px;
 			border-color: lightgray;
 		}
-		
-		
-
+		#header_2{}
     </style>
 </head>
 <body>
-    <!-- 헤더바 -->
     <jsp:include page="../common/header.jsp" />
+    <!-- 헤더바 -->
    
     <div class="mypage-panel-container-my">
         <div class="mypage-panel-my">
@@ -400,7 +398,7 @@
 			                        	<table width="465px" id="updateDeli-form">
 			                        		<tr>
 			                        			<td colspan="4">
-			                        				<select class="dropdown" name="deliveryName">
+			                        				<select class="deliverydropdown" name="deliveryName">
 				                        					<c:forEach var="d" items="${ requestScope.deliList }">
 			                        						<c:set var="sized" value="${ fn:length(deliList) }" />
 					                        				<c:choose>
@@ -595,7 +593,7 @@
 			    }
 		</script>
            
-    <br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br>
     <!-- 푸터바 -->
     <jsp:include page="../common/footer.jsp" />
 </body>
