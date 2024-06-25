@@ -81,9 +81,10 @@
                     display: block;
                     width: 100%;
                     height: 100%;
-                   /*  object-fit: contain; */
-                   over-fit:cover;
-                    overflow: hidden;
+                    object-fit: contain; 
+                 /*   over-fit:cover;
+                    overflow: hidden; */
+                    
                 }
 
                 .product-category-title {
@@ -252,8 +253,8 @@
 
                 .img-detail {
                     margin-top: 30px;
-                    width: 100%;
-                    max-width: 100%;
+                    width: 80%;
+                    max-width: 80%;
                 }
 
                 .no-side-effect-text {

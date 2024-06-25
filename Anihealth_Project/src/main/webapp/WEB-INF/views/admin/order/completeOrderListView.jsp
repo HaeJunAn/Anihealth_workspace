@@ -344,12 +344,6 @@
 		
 					<div class="header-product">
 			            <h1>배송완료</h1>
-			            
-			            <br>
-			            
-			            <div class="btns" align="right">
-			            	<a onclick="changeAlert();">배송상태 변경</a>
-			            </div>
 			        </div>
                 
                 	<table class="table table-hover" id="list-area">
@@ -399,7 +393,7 @@
 					                    <button onclick="" class="disabled">&lt;</button>
 					                </c:when>
 					                <c:otherwise>
-					                    <button onclick="location.href='refund.ad?cpage=${ requestScope.pi.currentPage - 1 }'">&lt;</button>
+					                    <button onclick="location.href='completeOrder.ad?cpage=${ requestScope.pi.currentPage - 1 }'">&lt;</button>
 					                </c:otherwise>
 					            </c:choose>
 					            
@@ -407,7 +401,7 @@
 					                           end="${ requestScope.pi.endPage }" step="1">
 					                <c:choose>
 					                    <c:when test="${ requestScope.pi.currentPage ne p }">
-					                        <button onclick="location.href='refund.ad?cpage=${ p }'">${ p }</button>
+					                        <button onclick="location.href='completeOrder.ad?cpage=${ p }'">${ p }</button>
 					                    </c:when>
 					                    <c:otherwise>
 					                        <button class="page-item active">${ p }</button>
@@ -420,7 +414,7 @@
 					                    <button onclick="" class="disabled">&gt;</button>
 					                </c:when>
 					                <c:otherwise>
-					                    <button onclick="location.href='refund.ad?cpage=${ requestScope.pi.currentPage + 1 }'">&gt;</button>
+					                    <button onclick="location.href='completeOrder.ad?cpage=${ requestScope.pi.currentPage + 1 }'">&gt;</button>
 					                </c:otherwise>
 					            </c:choose>
 					            

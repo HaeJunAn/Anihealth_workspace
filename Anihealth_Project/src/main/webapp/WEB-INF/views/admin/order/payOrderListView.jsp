@@ -461,6 +461,17 @@
 		   		}
 		   		
 		   	}
+		   	
+		   	function changeAlert() {
+				if ($("input[name='orderNos']:checked").length === 0) {
+					alert('선택된 항목이 없습니다.');
+					return false;
+				}
+
+				if (window.confirm('배송 상태를 변경하시겠습니까?')) {
+					$("#postForm").attr("action", "changeStatus.ad").submit();
+				}
+			}
        </script>
        
     </div>

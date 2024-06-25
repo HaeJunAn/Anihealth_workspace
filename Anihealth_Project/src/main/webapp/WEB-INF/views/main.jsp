@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -301,154 +302,161 @@
 <body>
 	
 	<jsp:include page="common/header.jsp" />
-
-	<div class="parent" >
-                <div class="header-background">
-                    <div class="header-btn">
-                        <h2>지켜주고픈 </h2>
-                        <h1>반려동물의 건강</h1>
-                        <h4>댕냥이 전용 맞춤 영양제</h4>
-                        <button class="btn btn-lg"
-                                style="background-color: rgb(153, 188, 133);" onclick="location.href='survey.su'">
-                                건강 설문 조사하기
-                        </button>
-                    </div>
-                </div>
-                <br>
-                <div class="table-container main-section hidden animate__animated animate__slower" data-animate="animate__fadeInLeft">
-    <table class="content-table">
-        <tr>
-            <td>
-                <h3>매거진</h3>
-                <div class="image-text-container">
-                    <a href="maga.re">
-                        <img src="resources/img/cat-megazine_720.png" alt="매거진 이미지" class="content-image">
-                        <div class="image-caption">
-						    <p>반려동물의</p>
-						    <p class="larger-text">모든 건강 정보 보기</p>
-						  <p class="detail-link">자세히 보기 >>></p>
-						</div>
-                    </a>
-                </div>
-            </td>
-            <td>
-                <h3>동물병원 찾기</h3>
-                <div class="image-text-container">
-                    <a href="map.ma">
-                        <img src="resources/img/dog-find_720.png" alt="동물병원 이미지" class="content-image">
-                       <div class="image-caption">
-						    <p>잠깐!!!</p>
-						    <p class="larger-text">전문 수의사와</p>
-						    <p class="larger-text">상담 받았나요?</p>
-						    <p class="detail-link">자세히 보기 >>></p>
-						</div>
-                    </a>
-                </div>
-            </td>
-        </tr>
-    </table>
-</div>
-      <div class="slide-container  main-section hidden animate__animated animate__slower" data-animate="animate__fadeInRight">
-                     <div class="slide-table">
-                <h3>BestPick!</h3>
-                <div class="product-wrapper">
-
-                    <div class="product">
-                        <a href="" id="product-link">
-                            <img src="resources/img/skin-hair.png" alt="Product Image 1">
-                            <span class="pd-name">코텍스 블리스터</span>
-                            <span class="pd-price">25,000원</span>
-                        </a>
-                    </div>
-                    <div class="product">
-                        <a href="" id="product-link">
-                            <img src="resources/img/skin-hair.png" alt="Product Image 1">
-                            <span class="pd-name">코텍스 블리스터</span>
-                            <span class="pd-price">25,000원</span>
-                        </a>
-                    </div>
-                   <div class="product">
-                        <a href="" id="product-link">
-                            <img src="resources/img/skin-hair.png" alt="Product Image 1">
-                            <span class="pd-name">코텍스 블리스터</span>
-                            <span class="pd-price">25,000원</span>
-                        </a>
-                    </div>
-                </div> 
-           </div>
-    </div> 
-    		
-    		
-                <div class="review-title  main-section hidden animate__animated animate__slower" data-animate="animate__fadeInLeft">
-                    <h3>ANIHEALTH 와 함께하는 고객 후기</h3>
-                </div>
-            <div class="review-container main-section hidden animate__animated animate__slower" data-animate="animate__fadeInUp">
-            	<div class="review-row">
-		            
-	          </div>
-	    </div>
-	</div>
-     
-      <script>
-	      $(function() {
-	          $.ajax({
-	              url: "mList.re",
-	              type: "get",
-	              success: function (rList) {
-	                  //console.log(rList);
-	                  	/*
-			            <div class="product-rw">
-		                <a href="">
-		                    <img src="resources/img/review-img.png" alt="Product Image 1">           
-		                    <span class="pd-name1">코텍스 블리스터</span>
-		                    <span class="pd-title1">금방 와요!</span>
-		                </a>
-		           		</div>
-		           		*/
-		           		listStr = '';
-		           		for (let i = 0; i < rList.length; i++) {
-		           			listStr += '<div class="product-rw"> <a href="detail.pd?pno=' + rList[i].productNo + '">';
-		           			listStr += '<img src='+ rList[i].reviewFilePath+ ' alt="Product Image"' + (i+1) + '>';
-		           			listStr += '<span class="pd-name1">'+ rList[i].productName +'</span>';
-		           			listStr += '<span class="pd-title1">' + rList[i].reviewTitle + '</span> </a> </div>';
-						}
-		           		$(".review-row").html(listStr);
-	              },
-	              error: function () {
-	                  
-	              }
-	          });
-			});
-	      
-        document.addEventListener('DOMContentLoaded', function() {
-            const observerOptions = {
-                threshold: 0.1
-            };
-
-            const observerCallback = (entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.remove('hidden');
-                        entry.target.classList.add(entry.target.getAttribute('data-animate'));
-                        observer.unobserve(entry.target);
-                    }
-                });
-            };
-
-            const observer = new IntersectionObserver(observerCallback, observerOptions);
-
-            document.querySelectorAll('.main-section').forEach(elem => {
-                observer.observe(elem);
-            });
-        });
-        
-    </script>
-     
-    <br><br><br>
-    
-    
-    
-    <jsp:include page="common/footer.jsp" />
+	
+	<c:choose>
+		<c:when test="${ not empty sessionScope.loginUser && sessionScope.loginUser.userId eq 'admin' }">
+			<jsp:include page="admin/adMain.jsp" />
+		</c:when>
+		<c:otherwise>
+			<div class="parent" >
+		                <div class="header-background">
+		                    <div class="header-btn">
+		                        <h2>지켜주고픈 </h2>
+		                        <h1>반려동물의 건강</h1>
+		                        <h4>댕냥이 전용 맞춤 영양제</h4>
+		                        <button class="btn btn-lg"
+		                                style="background-color: rgb(153, 188, 133);" onclick="location.href='survey.su'">
+		                                건강 설문 조사하기
+		                        </button>
+		                    </div>
+		                </div>
+		                <br>
+		                <div class="table-container main-section hidden animate__animated animate__slower" data-animate="animate__fadeInLeft">
+		    <table class="content-table">
+		        <tr>
+		            <td>
+		                <h3>매거진</h3>
+		                <div class="image-text-container">
+		                    <a href="maga.re">
+		                        <img src="resources/img/cat-megazine_720.png" alt="매거진 이미지" class="content-image">
+		                        <div class="image-caption">
+								    <p>반려동물의</p>
+								    <p class="larger-text">모든 건강 정보 보기</p>
+								  <p class="detail-link">자세히 보기 >>></p>
+								</div>
+		                    </a>
+		                </div>
+		            </td>
+		            <td>
+		                <h3>동물병원 찾기</h3>
+		                <div class="image-text-container">
+		                    <a href="map.ma">
+		                        <img src="resources/img/dog-find_720.png" alt="동물병원 이미지" class="content-image">
+		                       <div class="image-caption">
+								    <p>잠깐!!!</p>
+								    <p class="larger-text">전문 수의사와</p>
+								    <p class="larger-text">상담 받았나요?</p>
+								    <p class="detail-link">자세히 보기 >>></p>
+								</div>
+		                    </a>
+		                </div>
+		            </td>
+		        </tr>
+		    </table>
+		</div>
+		      <div class="slide-container  main-section hidden animate__animated animate__slower" data-animate="animate__fadeInRight">
+		                     <div class="slide-table">
+		                <h3>BestPick!</h3>
+		                <div class="product-wrapper">
+		
+		                    <div class="product">
+		                        <a href="" id="product-link">
+		                            <img src="resources/img/skin-hair.png" alt="Product Image 1">
+		                            <span class="pd-name">코텍스 블리스터</span>
+		                            <span class="pd-price">25,000원</span>
+		                        </a>
+		                    </div>
+		                    <div class="product">
+		                        <a href="" id="product-link">
+		                            <img src="resources/img/skin-hair.png" alt="Product Image 1">
+		                            <span class="pd-name">코텍스 블리스터</span>
+		                            <span class="pd-price">25,000원</span>
+		                        </a>
+		                    </div>
+		                   <div class="product">
+		                        <a href="" id="product-link">
+		                            <img src="resources/img/skin-hair.png" alt="Product Image 1">
+		                            <span class="pd-name">코텍스 블리스터</span>
+		                            <span class="pd-price">25,000원</span>
+		                        </a>
+		                    </div>
+		                </div> 
+		           </div>
+		    </div> 
+		    		
+		    		
+		                <div class="review-title  main-section hidden animate__animated animate__slower" data-animate="animate__fadeInLeft">
+		                    <h3>ANIHEALTH 와 함께하는 고객 후기</h3>
+		                </div>
+		            <div class="review-container main-section hidden animate__animated animate__slower" data-animate="animate__fadeInUp">
+		            	<div class="review-row">
+				            
+			          </div>
+			    </div>
+			</div>
+		     
+		      <script>
+			      $(function() {
+			          $.ajax({
+			              url: "mList.re",
+			              type: "get",
+			              success: function (rList) {
+			                  //console.log(rList);
+			                  	/*
+					            <div class="product-rw">
+				                <a href="">
+				                    <img src="resources/img/review-img.png" alt="Product Image 1">           
+				                    <span class="pd-name1">코텍스 블리스터</span>
+				                    <span class="pd-title1">금방 와요!</span>
+				                </a>
+				           		</div>
+				           		*/
+				           		listStr = '';
+				           		for (let i = 0; i < rList.length; i++) {
+				           			listStr += '<div class="product-rw"> <a href="detail.pd?pno=' + rList[i].productNo + '">';
+				           			listStr += '<img src='+ rList[i].reviewFilePath+ ' alt="Product Image"' + (i+1) + '>';
+				           			listStr += '<span class="pd-name1">'+ rList[i].productName +'</span>';
+				           			listStr += '<span class="pd-title1">' + rList[i].reviewTitle + '</span> </a> </div>';
+								}
+				           		$(".review-row").html(listStr);
+			              },
+			              error: function () {
+			                  
+			              }
+			          });
+					});
+			      
+		        document.addEventListener('DOMContentLoaded', function() {
+		            const observerOptions = {
+		                threshold: 0.1
+		            };
+		
+		            const observerCallback = (entries, observer) => {
+		                entries.forEach(entry => {
+		                    if (entry.isIntersecting) {
+		                        entry.target.classList.remove('hidden');
+		                        entry.target.classList.add(entry.target.getAttribute('data-animate'));
+		                        observer.unobserve(entry.target);
+		                    }
+		                });
+		            };
+		
+		            const observer = new IntersectionObserver(observerCallback, observerOptions);
+		
+		            document.querySelectorAll('.main-section').forEach(elem => {
+		                observer.observe(elem);
+		            });
+		        });
+		        
+		    </script>
+		     
+		    <br><br><br>
+		    
+		    
+		    
+		    <jsp:include page="common/footer.jsp" />
+		</c:otherwise>
+	</c:choose>
 	
 </body>
 </html>

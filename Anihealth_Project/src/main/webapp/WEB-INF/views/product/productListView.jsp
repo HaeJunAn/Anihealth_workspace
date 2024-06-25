@@ -207,8 +207,8 @@
         .fixed-img {
             width: 100%;
             height: 230px; /* 높이 고정 */
-           /*  object-fit: contain; */
-           overflow: hidden;
+            object-fit: contain; 
+          /*  overflow: hidden; */
         }
 
         .rounded {border-radius: 10px; }
