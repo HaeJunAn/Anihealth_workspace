@@ -17,6 +17,8 @@ public interface OrderService {
 
 	int cartDelete(int cartNo);
 
+	int updateProductQuantity(int productNo, int cartQuantity);
+
 	
 	
 }

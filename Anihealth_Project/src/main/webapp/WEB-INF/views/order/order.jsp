@@ -344,7 +344,7 @@ function payment() {
             pay_method: "card",
             merchant_uid: random2,
             name: "영양제",
-            amount: 100,
+            amount: "${totalPrice}",
             buyer_email: "${requestScope.orderItems[0].email}",
             buyer_name: "${requestScope.orderItems[0].userName}",
             buyer_tel: phone,
@@ -369,7 +369,7 @@ function payment() {
                 const orderData = {
                     orderNo: rsp.merchant_uid,
                     payCode: rsp.pg_tid,
-                    orderPrice: 100,
+                    orderPrice: amount,
                     orderRequest: delivery,
                     orderPhone: phone,
                     orderAddress: address,

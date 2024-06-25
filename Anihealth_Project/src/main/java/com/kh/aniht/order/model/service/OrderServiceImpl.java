@@ -56,6 +56,12 @@ public class OrderServiceImpl implements OrderService{
 		
 		return orderDao.cartDelete(cartNo);
 	}
+	@Override
+	@Transactional
+	public int updateProductQuantity(int productNo, int cartQuantity) {
+		
+		return orderDao.updateProductQuantity(productNo,cartQuantity);
+	}
 
 	
 	 

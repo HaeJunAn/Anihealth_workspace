@@ -45,7 +45,8 @@ public class OrderController {
 	 @ResponseBody
 	 @PostMapping(value="order.in",produces="application/json; charset=UTF-8")
 	 public String orderInsert(@RequestBody Order o,Model model,HttpSession session) {
-		 int userNo = ((Member)session.getAttribute("loginUser")).getUserNo();	
+		 int userNo = ((Member)session.getAttribute("loginUser")).getUserNo();
+		 // 주문정보 저장
 		 int result = orderService.orderInsert(o, userNo);
 		 System.out.println(userNo);
 		 System.out.println(o);
@@ -53,9 +54,14 @@ public class OrderController {
 		 if (result > 0) {
 		        for (Order item : o.getOrderItems()) {
 		            item.setOrderNo(o.getOrderNo());
+		            // 주문상세에 값넣기
 		         int result1 = orderService.orderItemInsert(item);
 		         	if(result1>0) {
+		         		// 결제후 카트 비우기
 		         		int result2 = orderService.cartDelete(item.getCartNo());
+		         		//제품수량 업데이트
+		         		 int result3 = orderService.updateProductQuantity(item.getProductNo(), item.getCartQuantity());
+		                 
 		         	}
 		        }
 		        session.setAttribute("alertMsg", "성공적으로 구매가 완료되었습니다.");

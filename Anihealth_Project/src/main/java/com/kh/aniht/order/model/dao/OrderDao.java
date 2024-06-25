@@ -41,6 +41,12 @@ public class OrderDao {
 		
 		return sqlSession.delete("cartMapper.cartDelete",cartNo);
 	}
+	public int updateProductQuantity(int productNo, int cartQuantity) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("productNo", productNo);
+        params.put("cartQuantity", cartQuantity);
+        return sqlSession.update("orderMapper.updateProductQuantity", params);
+    }
 
 	
 	  

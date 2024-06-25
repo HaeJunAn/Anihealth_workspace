@@ -79,7 +79,12 @@
         #{productNo}
     )
     </insert>
-    
+    <!-- 결제후 상품재고 깍이게하기 -->
+    <update id="updateProductQuantity">
+        UPDATE PRODUCT
+        SET PRODUCT_STOCK = PRODUCT_STOCK - #{cartQuantity}
+        WHERE PRODUCT_NO = #{productNo}
+    </update>
     
     <!-- *********** 정민 : 관리자 ********* -->
     <!-- 주문 총개수 조회용 쿼리문 -->
