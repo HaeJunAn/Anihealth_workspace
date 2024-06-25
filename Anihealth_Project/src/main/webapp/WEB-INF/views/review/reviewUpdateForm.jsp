@@ -111,11 +111,11 @@
 	                <input type="hidden" name="rating" value="${r.rating}">
 	            </div>
 	            <div class="input-group mb-3 review-title">
-	                <input type="text" name="reviewTitle" class="form-control" value="${r.reviewTitle}">
+	                <input type="text" name="reviewTitle" class="form-control" value="${r.reviewTitle}" required>
 	            </div>
 	            <div class="review-content-container">
 	                <div class="input-group review-content">
-	                    <textarea class="form-control" name="reviewContent">${r.reviewContent}</textarea>
+	                    <textarea class="form-control" name="reviewContent" required>${r.reviewContent}</textarea>
 	                </div>
 	                <div class="review-pic" onclick="inputFile();">
 	                    <img src="${r.reviewFilePath}" alt="">
@@ -134,7 +134,6 @@
 	    <script>
 			$(function () {
 			    // 별점부여
-			    
 			    $(".fa").eq(${r.rating}).prevAll().css("color", "#ffd700");
 			    
 			    $(".fa").on("click", function () {

@@ -253,7 +253,7 @@
                 </div>
                 <div class="survey-item dog" align="center" style="display: none;">
                     <h3 style="margin-bottom: 15px;">견종과 나이를 선택해주세요</h3>
-                    나이 <input type="number" name="age" placeholder="나이 입력" required min="1">
+                    나이 <input type="number" name="age" placeholder="나이 입력" min="1" step="1" required >
                     <ul class="breed">
                         <li><img src="resources/simg/닥스훈트.png" alt="닥스훈트"><div>닥스훈트</div></li>
                         <li><img src="resources/simg/포메라니안.png" alt="포메라니안"><div>포메라니안</div></li>
@@ -276,9 +276,9 @@
                     <button class="prev" type="button">이전</button>
                     <button class="next" type="button">다음</button>
                 </div>
-                <div class="survey-item cat" align="center" style="display: none;">
+                <div class="survey-item cat" align="center" style="display: none;"> 
                     <h3 style="margin-bottom: 15px;">품종과 나이를 선택해주세요</h3>
-                    나이 <input type="number" name="age" placeholder="나이 입력" required min="1">
+                    나이 <input type="number" name="age" placeholder="나이 입력" min="1" step="1" required>
                     <ul class="breed">
                         <li><img src="resources/simg/브리티쉬숏헤어.png" alt="브리티쉬숏헤어"><div>브리티쉬숏헤어</div></li>
                         <li><img src="resources/simg/노르웨이숏헤어.png" alt="노르웨이숏헤어"><div>노르웨이숏헤어</div></li>
@@ -304,7 +304,7 @@
                 <div class="survey-item bcs" style="display: none;">
                     <div class="icon-container"><img src="resources/simg/obesity.png"></div>
                     <h3 style="margin-bottom: 15px;">체중/체지방</h3>
-                    몸무게 <input type="number" placeholder="몸무게 입력" name="weight" required style="margin-bottom: 20px;" step="0.1"> Kg
+                    몸무게 <input type="number" placeholder="몸무게 입력" name="weight" required style="margin-bottom: 20px;" step="0.1" min="0.1" required> Kg
                     <label for="bcs1">
                         <input type="radio" name="bcs" value="9" id="bcs1" required>
                         <img src="resources/simg/bcs-icon-dog-9.png">
@@ -566,7 +566,7 @@
                     $(this).addClass("breed-active");
                     $(this).parent().find("li").not(this).removeClass("breed-active");
                     let breedVal = $(this).find("img").attr("alt");
-                    console.log(breedVal);
+                    //console.log(breedVal);
                     $("input[name=breed]").val(breedVal);
                 });
                 //전역변수
@@ -590,9 +590,23 @@
             let b = true;
 
             $(document).on("click", ".next", function () {
-                if($(this).parent().find("input[type=radio]").length) {
-                    if (!$(this).parent().find("input:checked").length || !($(this).parent().find("input[name=weight]").val() != 0)){  // 라디오는 하나만 체크되도 검사됨
-            			
+                if(!!$(this).parent().find("input[type=radio]").length) {
+
+                    //console.log($(this).parent().find("input[name=weight]").val());
+                    if(!!$(this).parent().find("input[name=weight]").length) {
+                        if($(this).parent().find("input[name=weight]").val() <= 0) {
+                            alertify.alert().set({
+                                'onshow': function() {
+                                    this.elements.dialog.style.width = '400px'; 
+                                },
+                                'message': '올바른 무게 형식을 입력해주세요',
+                                'title' : '알람'   
+                            }).show();
+                        return false;
+                        }
+                    }
+
+                    if (!$(this).parent().find("input:checked").length){  // 라디오는 하나만 체크되도 검사됨
             			alertify.alert().set({
 						    'onshow': function() {
 						        this.elements.dialog.style.width = '400px'; 
@@ -603,9 +617,23 @@
             			return false;
                     }
                 } else {
+                    //console.log($(this).parent().find("input[name=age]").val());
+                    if(!!$(this).parent().find("input[name=age]").length) {
+                        //console.log($(this).parent().find("input[name=age]").val() <= 0); // 아무것도 입력안하면 '' 반환 => 0 취급
+                        if($(this).parent().find("input[name=age]").val() <= 0) {
+                            alertify.alert().set({
+                                'onshow': function() {
+                                    this.elements.dialog.style.width = '400px'; 
+                                },
+                                'message': '올바른 나이 형식을 입력해주세요',
+                                'title' : '알람'   
+                            }).show();
+                        return false;
+                        }
+                    }
                     $(this).parent().find("input").each(function (index, item) {
                         if(!$(item).val()){
-                            console.log("호출");
+                            //console.log("호출");
                             alertify.alert().set({
 						    'onshow': function() {
 						        this.elements.dialog.style.width = '400px'; 

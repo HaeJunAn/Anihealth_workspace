@@ -104,6 +104,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+			justify-content: center;
             /* margin: auto; */
             font-size: 1.5em;
 
@@ -122,7 +123,7 @@
             padding: 0 10px;
             width: 50%;
             vertical-align: top;
-            text-align: center;
+            /* text-align: center; */
             /* 텍스트 중앙 정렬 */
         }
 
@@ -321,7 +322,35 @@
 		
 		.current-page {
 		    background-color: #007bff;
-		} 
+		}
+		.star-wrap {
+			width: 230px;
+			margin: auto;
+			position: relative;
+		}
+		.starBack{
+			position: absolute;
+			width: 100%;
+			overflow: hidden;
+			color: gray;
+			z-index: 1; /* Under the colored stars */
+
+		}
+
+		.starCon{
+			/* width: 49.2% !important; */
+			position: absolute;
+			overflow: hidden;
+			white-space: nowrap;
+			color: rgb(255, 222, 36); /* Filled stars color */
+			z-index: 2; /* On top of base stars */
+	
+		}
+
+
+		
+
+
 
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -331,6 +360,11 @@
 		<div class="inner-container-rw">
 			<div>
 				<!-- <h1>영양제 후기</h1>-->
+				<!-- <i class="fa-solid fa-star "></i>
+				<span class="star"><i class="fa-solid fa-star "></i></span> 
+				<span class="star"><i class="fa-solid fa-star "></i></span> 
+				<span class="star"><i class="fa-solid fa-star "></i></span> 
+				<span class="star"><i class="fa-solid fa-star decimal"></i></span> -->
 			</div>
 			<div class="container-star-avg">
 				<table>
@@ -339,14 +373,22 @@
 							<div class="rating">
 								<p>총점 평균</p>
 								<p></p>
-								<!-- 게시글 리스트에서 받아올거임-->
-								<p class="rating-stars">
-									<span class="star"><i class="fa-solid fa-star "></i></span> 
-									<span class="star"><i class="fa-solid fa-star "></i></span> 
-									<span class="star"><i class="fa-solid fa-star "></i></span> 
-									<span class="star"><i class="fa-solid fa-star "></i></span> 
-									<span class="star"><i class="fa-solid fa-star "></i></span>
-								</p>
+								<div class="star-wrap">
+									<div class="starBack">
+										<i class="fa fa-star" style="font-size:36px; "></i>
+										<i class="fa fa-star" style="font-size:36px; "></i>
+										<i class="fa fa-star" style="font-size:36px; "></i>
+										<i class="fa fa-star" style="font-size:36px; "></i>
+										<i class="fa fa-star" style="font-size:36px; "></i>
+									</div>
+									<div class="starCon">
+										<i class="fa fa-star" style="font-size:36px; "></i>
+										<i class="fa fa-star" style="font-size:36px; "></i>
+										<i class="fa fa-star" style="font-size:36px; "></i>
+										<i class="fa fa-star" style="font-size:36px; "></i>
+										<i class="fa fa-star" style="font-size:36px; "></i>
+									</div>
+								</div>
 							</div>
 						</td>
 						<td class="progress-container">
@@ -527,35 +569,28 @@
        				let rpi = result.pi;
        				let ratingMap = result.ratingMap;
        				//console.log(ratingMap);
-       				
-       				//console.log(ratinglist[0].COUNT);
-       				//console.log(result);
-       				
-       				
+       							
        				let ratingStr = "";
        				let sumRating = 0;
        				let countRating = 0;
        				let avgRating = 0;
        				
-       					
-       				/*
-       				for (let i  = ratingList.length; i > 0 ; i--) {
-       					ratingStr += "<div class='progress-wrapper'> <div class='progress'>";
-       					ratingStr += "<span class='progress-text'>" + i + "점 </span>";
-       					ratingStr += "<div class='progress-bar star-pgr' style='width:" + 20 * (i-1) + "%;'></div>"
-       					ratingStr +=  "<span class='progress-label'>" + ratingList[5-i].COUNT + "개 </span> </div> </div>"
-       					//console.log(ratinglist[i].COUNT);
-       					sumRating += ratingList[5-i].RATING * ratingList[5-i].COUNT;
-       					countRating += ratingList[5-i].COUNT;
-					}
-    				*/
-       				
+
        				for ( var key in ratingMap) { // 객체 반복문
        					let ratingStr = "";
        					ratingStr += "<div class='progress'>"
-    					ratingStr += "<span class='progress-text'>" + key + " 점 </span>";
+						if(key != 1) {
+							ratingStr += "<span class='progress-text'>" + key + " 점 </span>";
+						} else {
+							ratingStr += " <span class='progress-text' style='letter-spacing: 1px; padding-left: 2px;'>" + key + " 점 </span>";
+						}
+    					
     					ratingStr += "<div class='progress-bar star-pgr' style='width:" + 15 * (key) + "%;'></div>"
-    					ratingStr += "<span class='progress-label'>" + ratingMap[key] + "개 </span>"
+						if(ratingMap[key] != 1){
+							ratingStr += "<span class='progress-label'>" + ratingMap[key] + "개 </span>"
+						} else {
+							ratingStr += "<span class='progress-label' style='letter-spacing: 2px; padding-left: 1px;'>" + ratingMap[key] + "개 </span>"
+						}
     					ratingStr += "</div>";
     					sumRating += key * ratingMap[key];
     					countRating += ratingMap[key];
@@ -615,6 +650,7 @@
 					}
        					
        				$(".rating>p").eq(1).html(roundedRating);
+					$(".starCon").css("width", (roundedRating * 20) * 0.984 + "%");
    					//$(".progress-container").html(ratingStr);
        				$(".info-table-rw").html(listStr);
        				$(".pagination").html(pageStr);

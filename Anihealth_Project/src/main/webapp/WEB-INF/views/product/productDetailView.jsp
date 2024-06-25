@@ -597,8 +597,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <img src="${pageContext.request.contextPath}/${product.productDetailPath}" alt="상세 정보 이미지"
-                                style="border: 1px solid grey;" class="img-detail">
+                            <img src="${pageContext.request.contextPath}/${product.productDetailPath}" alt="상세 정보 이미지" class="img-detail">
                         </div>
                     </div>
 

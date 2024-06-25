@@ -272,6 +272,9 @@
             margin-top: 0;
             font-weight: bold;
             font-size: large;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         
         /* 앵커 태그에 호버했을 때 모든 자식 요소에 적용되는 효과 */

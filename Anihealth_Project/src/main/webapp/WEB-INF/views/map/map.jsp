@@ -289,6 +289,7 @@
 	<br>
 	<script>
 		// 동적요소에 대한 이벤트 부여
+
 		$(document).on("click", "#nextBtn", function () {
 			if (pagination && pagination.hasNextPage) {
 				$(this).remove(); // 버튼 생성전 기존 버튼 삭제
@@ -299,16 +300,13 @@
 		$(document).on("click", "#next-div-btn", function () {
 			$("#nextBtn").click();
 		});
-
+		// 자동완성 클릭시
 		$(document).on("click", "#suggestions tr", function() {
 			let str = $(this).children().eq(0).text();
 			$("#address>input").val(str);
 			$(this).parent().children().remove();
 		});
 
-		$("#address input").on("focus", function (event) {
-			suggest(this.value, event);
-		});
 		// 디바운스 함수정의
 		function debounce(func, delay) {
 			let debounceTimer;
@@ -323,11 +321,20 @@
 		$("#address input").on("keyup", debounce(function(event) {
 			suggest(this.value, event);
 		}, 200));
+		// 클릭 이벤트
+		$("#address input").on("click", function (event) {
+			suggest(this.value, event);
+		});
+		// 포커스 아웃시
+		$("#address input").on("focusout", function () {
+			$("#suggestions>table").children().remove();
+		});
 		
 		// 삭제버튼
 		function cancel() {
 			$("#address input").val('');
 		}
+
 
 		
 		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
@@ -365,30 +372,45 @@
 		// 자동완성 함수
 		function suggest(keyword, event) {
 			let autoList = '';
+			// 엔터 입력시 자동완성 삭제
+
 			geocoder.addressSearch(keyword, function(result, status) {
 				if(event.keyCode == 13){
 					$(".searchSym").click();
+					return false;
 				}
 				if (status === kakao.maps.services.Status.OK) {
-					
+
 					for (let i = 0; i < 6; i++) {
-						//console.log(result[i]);
-						autoList += "<tr>" + "<td>" + result[i].address_name + "</td>" + "</tr>";
+						// console.log(result[i]);
+						// console.log(result.length);
+						// console.log(!!result[i]	)
+						if(!!result[i]){ // !!: undefined, null, 0에 대해서 false 반환, 나머지는 모두 true
+							autoList += "<tr>" + "<td>" + result[i].address_name + "</td>" + "</tr>";	
+						}
+						// result가 6개 이하면 콘솔에 오류뜸
 					}
 					$("#suggestions>table").html(autoList); //중복
 				} else {
 					$("#suggestions>table").html('');
 				}
 			});
-			ps.keywordSearch(keyword, function (data, status, pagination) {
-				if (status === kakao.maps.services.Status.OK) { 
-					for (var i = 0; i < 6; i++) {
-						console.log(data[i].place_name);
-						autoList += "<tr>" + "<td>" + data[i].place_name + " / <span class='kwAuto'>" + data[i].address_name  + "</span> </td>" + "</tr>";
+
+			if(event.keyCode !== 13) {
+				ps.keywordSearch(keyword, function (data, status, pagination) {
+					if (status === kakao.maps.services.Status.OK) { 
+						for (var i = 0; i < 6; i++) {
+							//console.log(data[i].place_name);
+							if(!!data[i]){
+								autoList += "<tr>" + "<td>" + data[i].place_name + " / <span class='kwAuto'>" + data[i].address_name  + "</span> </td>" + "</tr>";
+							}
+						}
+						$("#suggestions>table").html(autoList);
+					} else {
+						$("#suggestions>table").html('');
 					}
-					$("#suggestions>table").html(autoList);
-				}
-			});
+				});
+			}
 		}
 
 		// 키워드 검색
@@ -398,7 +420,7 @@
 			if(address.includes('/')){
 				address = address.split('/', 2)[1];
 			}
-			console.log(address);
+			//console.log(address);
 			geocoder.addressSearch(address,
 					function(result, status) {
 						// 정상적으로 검색이 완료됐으면 

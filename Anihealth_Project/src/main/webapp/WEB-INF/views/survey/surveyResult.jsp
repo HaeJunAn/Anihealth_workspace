@@ -497,10 +497,10 @@
 							<tr>
 								<c:choose>
 									<c:when test="${weightInfo.calorieNeed > 0}">
-										<td colspan="2"> 현재 강아지의 일일 표준 섭취량은 ${weightInfo.staRer} kcal 입니다. 현재 섭취량에서 약 ${weightInfo.calorieNeed} kcal 줄여주세요 </td>
+										<td colspan="2"> 현재 ${animal}의 일일 표준 섭취량은 ${weightInfo.staRer} kcal 입니다. 현재 섭취량에서 약 ${weightInfo.calorieNeed} kcal 줄여주세요 </td>
 									</c:when>
 									<c:otherwise>
-										<td colspan="2"> 현재 강아지의 일일 표준 섭취량은 ${weightInfo.staRer} kcal 입니다. 현재 섭취량에서 약 ${-weightInfo.calorieNeed} kcal 늘려주세요</td>
+										<td colspan="2"> 현재 ${animal}의 일일 표준 섭취량은 ${weightInfo.staRer} kcal 입니다. 현재 섭취량에서 약 ${-weightInfo.calorieNeed} kcal 늘려주세요</td>
 									</c:otherwise>
 								</c:choose>
 							</tr>

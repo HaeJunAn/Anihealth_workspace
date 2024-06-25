@@ -120,9 +120,9 @@
 	                    <img src="resources/rimg/noImage4.png" alt="">
 	                </div>
 	            </div>
-	            <input type="file" name="upfile" class="inputFile" style="display: none;" onchange="loadImg(this);" required>
+	            <input type="file" name="upfile" class="inputFile" style="display: none;" onchange="loadImg(this);">
 	            <div class="button-area"><button type="submit">리뷰등록</button> 
-	            <button type="button" onclick="location.href='myPageOrder.me'">작성취소</button> </div>
+	            <button type="button" onclick="history.back();">작성취소</button> </div>
 	            <input type="hidden" name="orderProductNo" value="${orderProductNo}"> 
 	        </form>
 	    </main>
@@ -136,11 +136,11 @@
 	                    $(this).nextAll().css("color", "black");
 	                    $("input[name=rating]").val($(this).index() + 1);
 	            });
-	            
+	            // 제출전 유효성 검사(별점, 이미지)
 	            $("form").on("submit", function() {
-					if (!$("#rating").val()) {
-						//alertify.alert("알람", "별점을 입력해주세요");
 
+					console.log(!$("#rating").val());
+					if (!$("#rating").val()) {
 						alertify.alert().set({
 						    'onshow': function() {
 						        this.elements.dialog.style.width = '400px'; 
@@ -149,13 +149,24 @@
 						    'title' : '알람'
 						    
 						}).show();
-				
-						    //this.elements.content.style.textAlign = 'left';
-						    //this.elements.content.style.verticalAlign = 'top';
-		
-						// 세션 객체 다루기 위해 차후 ajax 사용
+	
 						return false
 					}
+
+					console.log(!$(".inputFile").val());
+					if (!$(".inputFile").val()) {
+						alertify.alert().set({
+						    'onshow': function() {
+						        this.elements.dialog.style.width = '400px'; 
+						    },
+						    'message': '사진을 첨부해주세요',
+						    'title' : '알람'
+						    
+						}).show();
+
+						return false;
+					}
+
 				});
 	
 	        });
@@ -163,19 +174,18 @@
 	        function inputFile() {
 	            $(".inputFile").click();
 	        }
-	
+			// 파일 첨부/제거시 미리보기 이미지 동기화
 	        function loadImg(inputFile) {
-	            if (inputFile.files.length == 1) {
+	            if (inputFile.files.length == 1) { // 파일 변경이 0 -> 1
 	                let reader = new FileReader();
 	                reader.readAsDataURL(inputFile.files[0]);
 	                reader.onload = function (e) {
 	                    $(".review-pic>img").attr("src", e.target.result);
-	
 	                }
 	
-	            } else {
+	            } else { // 파일 변경이 1 -> 0
 	                $(".review-pic>img").attr("src", "resources/rimg/noImage4.png");
-	
+
 	            }
 	
 	        }

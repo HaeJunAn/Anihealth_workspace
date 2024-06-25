@@ -289,7 +289,7 @@
 			                                     
 			                                    <td style="text-align: center;">
 			                                    <c:if test="${op.deliveryStatus == '배송완료' && op.orderContent == null}">
-			                                        <button class="btn btn-sm" onclick="location.href='insertForm.re?orderProductNo=${op.orderProductNo}'">후기작성</button>
+			                                        <button class="btn btn-sm" onclick="location.href='insertForm.re?orderProductNo=${op.orderProductNo}&orderNo=${op.orderNo}'">후기작성</button>
 			                                    </c:if>
 			                                    <c:if test="${op.deliveryStatus != '배송완료' && op.orderContent == null}">
 			                                    	배송중

@@ -88,7 +88,7 @@ public class ReviewController {
 	}
 	
 	@GetMapping("insertForm.re")
-	public String reviewInsertForm(int orderProductNo, Model model, HttpSession session) {
+	public String reviewInsertForm(int orderProductNo, String orderNo, Model model, HttpSession session) {
 		
 		//int count = reviewService.
 		int count = reviewService.selectReviewCount(orderProductNo);
@@ -102,7 +102,7 @@ public class ReviewController {
 			
 			session.setAttribute("alertMsg", "이미 작성한 리뷰가 존재합니다.");
 			
-			return "redirect:/myPageOrder.me";
+			return "redirect:/myPageOrderDetail.me?ono=" + orderNo;
 		}		
 	}
 	
