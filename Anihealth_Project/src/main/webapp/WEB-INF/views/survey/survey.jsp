@@ -240,11 +240,11 @@
                     <p>우리 아이는 강아지인가요? 고양이인가요?</p>
                     <div class="animal">
                         <div>
-                            <img src="resources/simg/dog2.png" alt="강아지">
+                            <img src="resources/simg/dog_780258_2.png" alt="강아지">
                             <br><span>강아지</span>
                         </div>
                         <div>
-                            <img src="resources/simg/cat2.png" alt="고양이">
+                            <img src="resources/simg/black-cat_5868714_2.png" alt="고양이">
                             <br><span>고양이</span>
                         </div>
                     </div>
