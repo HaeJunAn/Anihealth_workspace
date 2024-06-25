@@ -69,6 +69,13 @@ public class AdInquiryServiceImpl implements AdInquiryService { // 클래스 영
 		
 		return inquiryDao.recoverInquiry(sqlSession, inquiryNo);
 		
+	}
+
+	// 미처리 문의글 수 조회
+	@Override
+	public int selectIncompleteInquiryCount() {
+		
+		return inquiryDao.selectIncompleteInquiryCount(sqlSession);
 	} 
 
 } // 클래스 영역 끝

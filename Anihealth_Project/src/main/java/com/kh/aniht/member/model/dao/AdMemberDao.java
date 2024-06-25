@@ -51,6 +51,13 @@ public class AdMemberDao { // 클래스 영역 시작
 		
 		return sqlSession.update("memberMapper.updateAdMember", m);
 		
+	}
+
+	// 활동 회원수 조회
+	public int selectActiveMember(SqlSessionTemplate sqlSession) {
+		
+		return sqlSession.selectOne("memberMapper.selectAdActiveMember");
+		
 	} 
 	
 } // 클래스 영역 끝

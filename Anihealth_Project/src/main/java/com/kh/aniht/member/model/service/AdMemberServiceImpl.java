@@ -60,6 +60,14 @@ public class AdMemberServiceImpl implements AdMemberService{ // 클래스 영역
 		
 		return memberDao.updateMember(sqlSession, m);
 		
+	}
+
+	// 활동 회원수 조회
+	@Override
+	public int selectActiveMember() {
+		
+		return memberDao.selectActiveMember(sqlSession);
+		
 	} 
 
 } // 클래스 영역 끝

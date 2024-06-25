@@ -45,4 +45,10 @@ public class AdReviewDao { // 클래스 영역 시작
 		
 	} 
 
+	// 대시보드 리뷰 개수 조회
+	public ArrayList<Review> selectReviewCount(SqlSessionTemplate sqlSession) {
+		
+		return (ArrayList)sqlSession.selectList("reviewMapper.selectAdReviewCount");
+		
+	} 
 }

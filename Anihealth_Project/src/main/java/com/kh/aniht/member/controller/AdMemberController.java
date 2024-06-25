@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
 import com.kh.aniht.common.movel.vo.PageInfo;
 import com.kh.aniht.common.template.Pagination;
 import com.kh.aniht.member.model.service.AdMemberService;
@@ -92,16 +94,20 @@ public class AdMemberController { // 클래스 영역 시작
 			
 	}
 	
-//	// 회원 수 조회
-//	@ResponseBody
-//	@PostMapping(value="countMember.ad", produces="application/json; charset=UTF-8") 
-//	public String selectCountMember() {
-//		
-//		
-//		
-//	}
-//		
+	// 회원 수 조회
+	@ResponseBody
+	@PostMapping(value="countMember.ad", produces="application/json; charset=UTF-8") 
+	public String selectCountMember() {
 		
-	
-	
+		int member = memberService.selectMemberListCount();
+		int activeMember = memberService.selectActiveMember();
+		
+		JSONObject jObj = new JSONObject();
+		jObj.put("member", member);
+		jObj.put("activeMember", activeMember);
+		
+		return new Gson().toJson(jObj);
+		
+	}
+		
 } // 클래스 영역 끝

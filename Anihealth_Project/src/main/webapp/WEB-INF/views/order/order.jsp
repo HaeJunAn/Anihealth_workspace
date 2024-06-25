@@ -300,6 +300,7 @@
                             <div class="total-price-container">
                                 <div class="text-grand-total">총 가격</div>
                                 <div class="grand-total">&#8361; <fmt:formatNumber value="${totalPrice}" type="number" groupingUsed="true"/> 원</div>
+                                <input type="hidden" id="totalPrice" value="${totalPrice}" />
                             </div>
                         </td>
                     </tr>
@@ -324,6 +325,7 @@ function payment() {
     var address = document.getElementById("address-details").value;
     var zipCode = document.getElementById("zipCode").value;
     var phone = document.getElementById("phone").value;
+    var totalPrice = document.getElementById("totalPrice").value;
 
     if (!address || !zipCode || !phone) {
         alert("배송지 정보를 입력해야합니다.");
@@ -344,7 +346,7 @@ function payment() {
             pay_method: "card",
             merchant_uid: random2,
             name: "영양제",
-            amount: "${totalPrice}",
+            amount: totalPrice,
             buyer_email: "${requestScope.orderItems[0].email}",
             buyer_name: "${requestScope.orderItems[0].userName}",
             buyer_tel: phone,
@@ -369,7 +371,7 @@ function payment() {
                 const orderData = {
                     orderNo: rsp.merchant_uid,
                     payCode: rsp.pg_tid,
-                    orderPrice: amount,
+                    orderPrice: totalPrice,
                     orderRequest: delivery,
                     orderPhone: phone,
                     orderAddress: address,

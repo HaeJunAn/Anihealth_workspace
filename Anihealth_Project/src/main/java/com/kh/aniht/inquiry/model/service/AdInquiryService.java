@@ -23,6 +23,9 @@ public interface AdInquiryService { // 인터페이스 영역 시작
 	int deleteInquiry(int inquiryNo);
 
 	// 문의 복구 - 상태값 변경
-	int recoverInquiry(int inquiryNo); 
+	int recoverInquiry(int inquiryNo);
+
+	// 미처리 문의글 수 조회
+	int selectIncompleteInquiryCount(); 
 	
 } // 인터페이스 영역 끝

@@ -19,6 +19,8 @@
         <!-- <result column="EFFECT_NAME" property="effectName"/> --> <!-- 주석 처리된 부분 -->
         <!-- <result column="RATING" property="r  
         ating"/> --> <!-- 주석 처리된 부분 -->
+        <!-- 베스트 제품 조회용 - 정민 -->
+        <result column="WISH_COUNT" property="wishCount"/>
     </resultMap>
     
     <resultMap type="effect" id="effectResultSet">
@@ -74,8 +76,7 @@
        P.PRODUCT_THUMBNAIL_PATH,
        P.PRODUCT_DETAIL_PATH,
        P.PRODUCT_COUNT,
-       P.PRODUCT_STATUS,
-       E.EFFECT_NAME
+       P.PRODUCT_STATUS
        FROM PRODUCT P
 	   JOIN PRODUCT_EFFECT PE ON P.PRODUCT_NO = PE.PRODUCT_NO
 	   JOIN EFFECT E ON PE.EFFECT_NO = E.EFFECT_NO
@@ -86,7 +87,7 @@
       <if test="keyword != null and keyword != ''">
           AND (P.PRODUCT_NAME LIKE '%' || #{keyword} || '%' OR E.EFFECT_NAME LIKE '%' || #{keyword} || '%')
       </if>
-    GROUP BY P.PRODUCT_NO, P.PRODUCT_NAME, P.PRICE, P.CATEGORY, P.PRODUCT_THUMBNAIL_PATH, P.PRODUCT_DETAIL_PATH, P.PRODUCT_COUNT, P.PRODUCT_STATUS, E.EFFECT_NAME
+    GROUP BY P.PRODUCT_NO, P.PRODUCT_NAME, P.PRICE, P.CATEGORY, P.PRODUCT_THUMBNAIL_PATH, P.PRODUCT_DETAIL_PATH, P.PRODUCT_COUNT, P.PRODUCT_STATUS
     ORDER BY P.CATEGORY,
     <choose>
         <when test="order == 'newest'">
@@ -215,6 +216,17 @@
     SELECT COUNT(*)
     FROM CART
     WHERE PRODUCT_NO = #{productNo} AND USER_NO = #{userNo}
+	</select>
+	
+	<!-- 메인페이지 좋아요 TOP9 제품 조회용 쿼리문 - 해준 -->
+      <select id="selectBestProduct" resultMap="productResultSet">
+		SELECT *
+		FROM ( SELECT P.PRODUCT_NO, P.PRODUCT_NAME, P.PRODUCT_THUMBNAIL_PATH, COUNT(W.USER_NO) AS WISH_COUNT,P.PRICE
+			     FROM WISHLIST W
+			     JOIN PRODUCT P ON W.PRODUCT_NO = P.PRODUCT_NO
+			    GROUP BY P.PRODUCT_NO, P.PRODUCT_NAME, P.PRODUCT_THUMBNAIL_PATH,P.PRICE
+			    ORDER BY WISH_COUNT DESC)
+	     WHERE ROWNUM &lt;= 9
 	</select>
 	
 	<!-- *********** 정민 : 관리자 ********* -->

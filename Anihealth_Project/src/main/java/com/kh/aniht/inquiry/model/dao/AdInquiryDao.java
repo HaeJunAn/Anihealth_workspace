@@ -38,6 +38,7 @@ public class AdInquiryDao { // 클래스 영역 시작
 
 	// 문의 답변 작성 및 수정
 	public int insertInquiryAnswer(SqlSessionTemplate sqlSession, Inquiry inquiry) {
+		
 		return sqlSession.update("inquiryMapper.insertAdInquiryAnswer", inquiry);
 		
 	}
@@ -53,6 +54,13 @@ public class AdInquiryDao { // 클래스 영역 시작
 	public int recoverInquiry(SqlSessionTemplate sqlSession, int inquiryNo) {
 		
 		return sqlSession.update("inquiryMapper.recoverAdInquiry", inquiryNo);
+		
+	}
+
+	// 미처리 문의글 수 조회
+	public int selectIncompleteInquiryCount(SqlSessionTemplate sqlSession) {
+		
+		return sqlSession.selectOne("inquiryMapper.selectAdIncompleteInquiryCount");
 		
 	} 
 

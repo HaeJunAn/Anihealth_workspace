@@ -45,13 +45,20 @@ public class AdReviewServiceImpl implements AdReviewService { // 클래스 영�
 		
 	}
 
-	
 	// 리뷰 복구
 	@Transactional
 	@Override
 	public int recoverReview(int reviewNo) {
 		
 		return reviewDao.recoverReview(sqlSession, reviewNo);
+		
+	}
+	
+	// 대시보드 리뷰 개수 조회
+	@Override
+	public ArrayList<Review> selectReviewCount() {
+		
+		return reviewDao.selectReviewCount(sqlSession);
 		
 	}
 

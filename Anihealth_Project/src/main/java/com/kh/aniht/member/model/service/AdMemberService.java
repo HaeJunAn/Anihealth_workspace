@@ -22,5 +22,8 @@ public interface AdMemberService { // 인터페이스 영역 시작
 
 	// 회원 정보 수정
 	int updateMember(Member m);
+
+	// 활동 회원수 조회
+	int selectActiveMember();
 	
 } // 인터페이스 영역 끝

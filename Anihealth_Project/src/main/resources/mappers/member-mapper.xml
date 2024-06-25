@@ -491,6 +491,13 @@
 		   	 , STATUS = #{status}
 		 WHERE USER_NO = #{userNo}
 	</update>
+	
+	<!-- 활동 회원 수 조회 -->
+	<select id="selectAdActiveMember" resultType="_int">
+		SELECT COUNT(*)
+		  FROM MEMBER
+		 WHERE STATUS = 'Y'
+	</select>
 	<!-- *********** 정민 : 관리자 ********* -->
 	
 </mapper>

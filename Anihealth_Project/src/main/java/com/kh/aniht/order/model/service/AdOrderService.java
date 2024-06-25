@@ -1,6 +1,8 @@
 package com.kh.aniht.order.model.service;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import com.kh.aniht.common.movel.vo.PageInfo;
 import com.kh.aniht.order.model.vo.Order;
@@ -69,5 +71,14 @@ public interface AdOrderService { // 인터페이스 영역 시작
 
 	// 배송중 -> 배송완료
 	int changeDeliverStatus(String[] orderNos);
+
+	// 미처리 환불 건 수 조회 - 대시보드
+	int selectIncompleteRefundCount();
+
+	// 배송상태 별 수 조회 - 대시보드
+	List<Map<String, Object>> selectDeliveryCount();
+
+	// 현재 월의 매출액 조회
+	int selectSales(int year, int month);
 	
 } // 인터페이스 영역 끝

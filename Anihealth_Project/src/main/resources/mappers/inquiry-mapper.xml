@@ -149,6 +149,13 @@
 		 WHERE INQUIRY_NO = #{inquiryNo}
 		   AND INQUIRY_STATUS = 'N'
 	</update>
+	
+	<!-- 미처리 문의글 수 조회용 쿼리문 -->
+	<select id="selectAdIncompleteInquiryCount" resultType="_int">
+		SELECT COUNT(*)
+		  FROM INQUIRY
+	     WHERE INQUIRY_ANSWER IS NULL
+	</select>
 
 	<!-- *********** 정민 : 관리자 ********* -->
 </mapper>

@@ -200,7 +200,16 @@ public class ProductController {
 		    return "{\"inWishlist\": " + inWishlist + "}";
 		}
 
-    
+    // 메인페이지 베스트 9 제품 조회용  - 정민
+	@ResponseBody
+	@GetMapping(value="selectBest.ad", produces="application/json; charset=UTF-8")
+	public String selectBestProduct() {
+		
+		ArrayList<Product> list = productService.selectBestProduct();
+		
+		return new Gson().toJson(list);
+		
+	}
 
     
     

@@ -112,6 +112,14 @@ public class ProductServiceImpl implements ProductService {
 	        return productDao.selectSideEffectsByProductNo(sqlSession, productNo);
 	    }
 
+	    // 메인페이지 베스트 9 제품 조회용  - 정민
+		@Override
+		public ArrayList<Product> selectBestProduct() {
+			
+			return productDao.selectBestProduct(sqlSession);
+			
+		}
+
 	
 	
 	

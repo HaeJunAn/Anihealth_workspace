@@ -4,14 +4,17 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
 import com.kh.aniht.common.movel.vo.PageInfo;
 import com.kh.aniht.common.template.Pagination;
 import com.kh.aniht.inquiry.model.service.AdInquiryService;
@@ -117,6 +120,20 @@ public class AdInquiryController { // 클래스 영역 시작
 		}
 		
 		return "redirect:/inquiry.ad";
+		
+	}
+	
+	// 미처리 문의글 수 조회
+	@ResponseBody
+	@PostMapping(value="countInquiry.ad", produces="application/json; charset=UTF-8") 
+	public String selectCountMember() {
+		
+		int inquiry = inquiryService.selectIncompleteInquiryCount();
+		
+		JSONObject jObj = new JSONObject();
+		jObj.put("inquiry", inquiry);
+		
+		return new Gson().toJson(jObj);
 		
 	}
 	

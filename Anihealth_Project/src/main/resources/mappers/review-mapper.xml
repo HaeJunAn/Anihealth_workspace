@@ -151,6 +151,14 @@
 		 WHERE REVIEW_NO = #{reviewNo}
 		   AND REVIEW_STATUS = 'N'
 	</update>
+	
+	<!-- 대시보드 리뷰 총 개수 조회용 쿼리문 -->
+	<select id="selectAdReviewCount" resultMap="reviewResultSet">
+		SELECT  RATING, COUNT(*) AS COUNT
+		   FROM REVIEW
+	   GROUP BY RATING
+	   ORDER BY RATING DESC
+	</select>
 	<!-- ******** 정민 : 관리자 ********** -->
   
 </mapper>

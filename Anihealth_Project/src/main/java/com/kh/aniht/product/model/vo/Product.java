@@ -42,5 +42,8 @@ public class Product {
 	// 효능, 부작용 - 정민
 	private String effect;
 	private String sideEffect;
+	
+	// 베스트 상품 조회용 - 정민
+	private int wishCount;
  
 }

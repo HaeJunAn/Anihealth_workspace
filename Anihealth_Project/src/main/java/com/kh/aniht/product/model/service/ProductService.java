@@ -32,6 +32,9 @@ public interface ProductService {
     ArrayList<Effect> selectEffectsByProductNo(int productNo);
 
 	ArrayList<Effect> selectSideEffectsByProductNo(int productNo);
+
+	// 메인페이지 베스트 9 제품 조회용  - 정민
+	ArrayList<Product> selectBestProduct();
     
 }
 

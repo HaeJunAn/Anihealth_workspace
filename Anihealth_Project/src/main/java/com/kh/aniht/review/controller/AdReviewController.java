@@ -10,7 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
 import com.kh.aniht.common.movel.vo.PageInfo;
 import com.kh.aniht.common.template.Pagination;
 import com.kh.aniht.review.model.service.AdReviewService;
@@ -80,6 +82,17 @@ public class AdReviewController { // 클래스 영역 시작
 		}
 		
 		return "redirect:/review.ad";
+		
+	}
+	
+	// 대시보드 리뷰 개수 조회
+	@ResponseBody
+	@PostMapping(value="selectReview.ad", produces="application/json; charset=UTF-8")
+	public String selectReviewCount() {
+		
+		ArrayList<Review> list = reviewService.selectReviewCount();
+		
+		return new Gson().toJson(list);
 		
 	}
 	

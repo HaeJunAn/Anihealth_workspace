@@ -1,6 +1,9 @@
 package com.kh.aniht.order.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -181,6 +184,34 @@ public class AdOrderDao { // 클래스 영역 시작
 	public int changeDeliverStatus(SqlSessionTemplate sqlSession, String[] orderNos) {
 		
 		return sqlSession.update("orderMapper.changeAdDeliverStatus", orderNos);
+		
+	}
+
+	// 미처리 환불 건 수 조회
+	public int selectIncompleteRefundCount(SqlSessionTemplate sqlSession) {
+		
+		return sqlSession.selectOne("orderMapper.selectAdIncompleteRefundCount");
+		
+	}
+
+	// 배송상태 별 수 조회
+	public List<Map<String, Object>> selectDeliveryCount(SqlSessionTemplate sqlSession) {
+		
+		List<Map<String, Object>> list = sqlSession.selectList("orderMapper.selectAdDeliveryCount");
+		
+		return list;
+		
+	}
+
+	// 현재 월의 매출액 조회
+	public int selectSales(SqlSessionTemplate sqlSession, int year, int month) {
+		
+		Map<String, Object> params = new HashMap<>();
+		
+		params.put("year", year);
+		params.put("month", month);
+		
+		return sqlSession.selectOne("orderMapper.selectAdSales", params);
 		
 	} 
 

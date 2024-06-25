@@ -327,5 +327,39 @@
 		        #{orderNo}
 		    </foreach>
 	</update>
+	
+	<!-- 미처리 환불 건 수 조회 -->
+	<select id="selectAdIncompleteRefundCount" resultType="_int">
+		SELECT COUNT(*)
+		  FROM "ORDER"
+		  WHERE ORDER_CONTENT IS NOT NULL
+		    AND ORDER_CANCLE = 'Y'
+	</select>
+	
+	<!-- 배송상태 별 건수 조회 -->
+	<select id="selectAdDeliveryCount" resultType="hashmap">
+		SELECT PS.DELIVERY_STATUS
+			 , COALESCE(COUNT(o.DELIVERY_STATUS), 0) AS STATUS_COUNT
+		FROM ( SELECT '결제완료' AS DELIVERY_STATUS FROM dual
+		       UNION ALL
+		       SELECT '배송준비중' FROM dual
+		       UNION ALL
+		       SELECT '배송중' FROM dual
+		       UNION ALL
+		       SELECT '배송완료' FROM dual
+		     ) PS
+		LEFT JOIN "ORDER" O ON PS.DELIVERY_STATUS = O.DELIVERY_STATUS
+		GROUP BY PS.DELIVERY_STATUS
+		ORDER BY PS.DELIVERY_STATUS
+	</select>
+	
+	<!-- 현재 월의 매출액 조회 -->
+	<select id="selectAdSales" parameterType="map" resultType="_int">
+		SELECT SUM(ORDER_PRODUCT_PRICE)
+		  FROM ORDER_PRODUCT
+		  JOIN "ORDER" USING (ORDER_NO)
+		 WHERE #{year} = TO_NUMBER(TO_CHAR(ORDER_DATE, 'YYYY')) 
+		   AND #{month} = TO_NUMBER(TO_CHAR(ORDER_DATE, 'MM'))
+	</select>
     <!-- *********** 정민 : 관리자 ********* -->
 </mapper>

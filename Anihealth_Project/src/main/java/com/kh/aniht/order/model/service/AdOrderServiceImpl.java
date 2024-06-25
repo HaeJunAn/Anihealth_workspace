@@ -1,6 +1,8 @@
 package com.kh.aniht.order.model.service;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -182,6 +184,30 @@ public class AdOrderServiceImpl implements AdOrderService { // 클래스 영역 
 	public int changeDeliverStatus(String[] orderNos) {
 		
 		return orderDao.changeDeliverStatus(sqlSession, orderNos);
+		
+	}
+
+	// 미처리 환불 건 수 조회
+	@Override
+	public int selectIncompleteRefundCount() {
+		
+		return orderDao.selectIncompleteRefundCount(sqlSession);
+		
+	}
+
+	// 배송상태 별 수 조회
+	@Override
+	public List<Map<String, Object>> selectDeliveryCount() {
+		
+		return orderDao.selectDeliveryCount(sqlSession);
+		
+	}
+
+	// 현재 월의 매출액 조회
+	@Override
+	public int selectSales(int year, int month) {
+		
+		return orderDao.selectSales(sqlSession, year, month);
 		
 	}
 

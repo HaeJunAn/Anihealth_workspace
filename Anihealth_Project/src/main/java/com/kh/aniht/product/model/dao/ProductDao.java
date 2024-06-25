@@ -109,6 +109,13 @@ public class ProductDao {
  		
  		return  (ArrayList)sqlSession.selectList("productMapper.selectSideEffectsByProductNo", productNo);
  	}
+
+ 	// 메인페이지 베스트 9 제품 조회용  - 정민
+	public ArrayList<Product> selectBestProduct(SqlSessionTemplate sqlSession) {
+		
+		return (ArrayList)sqlSession.selectList("productMapper.selectBestProduct");
+		
+	}
     
     
 }

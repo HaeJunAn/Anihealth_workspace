@@ -6,7 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
+	<!-- swiper.js 라이브러리추가 (cdn) -->
+<link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
+<script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
     <style>
       
         .header-background {
@@ -160,7 +162,7 @@
             border: 1px solid rgb(141, 174, 157);
             height: 460px;   
             /* 전체 칸의 높이 */
-            margin-bottom: 80px;
+            margin-bottom: 70px;
         }
 
         .product-wrapper a{
@@ -180,10 +182,11 @@
         }
 
         .product img {
-            width: 55%; 
-            height: 55%; 
+        	margin-top: 20px;
+            width: 200px;
+            height: 200px; 
             cursor: pointer;
-            object-fit: cover; /* 이미지 비율을 유지하면서 크기 조정 */
+            object-fit: cover; 
             border-radius: 50%;
         }
 
@@ -196,10 +199,12 @@
         }
         .pd-name{
             font-weight: bold;
-            padding-top: 10px;
+            padding-top: 20px;
+           
         }
         .pd-price{
             margin-top: 0;
+             margin-bottom: 99px;
         }
 
 
@@ -253,6 +258,7 @@
             height: 140px; 
             cursor: pointer;
             object-fit: cover;
+             /* object-fit: contain; */
             border-radius: 50%;
         }
 
@@ -298,6 +304,13 @@
          .hidden {
             opacity: 0;
         }
+        
+        div[class^=swiper-button] {
+                color:  rgb(228, 236, 232);
+                /* display : none; */
+                /* 아니면 안보이게 숨기기도 가능 */
+                --swiper-navigation-size: 55px;
+            }
     </style>
     
 </head>
@@ -305,6 +318,7 @@
 <body>
 	
 	<jsp:include page="common/header.jsp" />
+	
 	
 	<c:choose>
 		<c:when test="${ not empty sessionScope.loginUser && sessionScope.loginUser.userId eq 'admin' }">
@@ -358,34 +372,25 @@
 		    </table>
 		</div>
 		      <div class="slide-container  main-section hidden animate__animated animate__slower" data-animate="animate__fadeInRight">
-		                     <div class="slide-table">
+		            <div class="slide-table">
 		                <h3>BestPick!</h3>
-		                <div class="product-wrapper">
-		
-		                    <div class="product">
-		                        <a href="" id="product-link">
-		                            <img src="resources/img/skin-hair.png" alt="Product Image 1">
-		                            <span class="pd-name">코텍스 블리스터</span>
-		                            <span class="pd-price">25,000원</span>
-		                        </a>
-		                    </div>
-		                    <div class="product">
-		                        <a href="" id="product-link">
-		                            <img src="resources/img/skin-hair.png" alt="Product Image 1">
-		                            <span class="pd-name">코텍스 블리스터</span>
-		                            <span class="pd-price">25,000원</span>
-		                        </a>
-		                    </div>
-		                   <div class="product">
-		                        <a href="" id="product-link">
-		                            <img src="resources/img/skin-hair.png" alt="Product Image 1">
-		                            <span class="pd-name">코텍스 블리스터</span>
-		                            <span class="pd-price">25,000원</span>
-		                        </a>
-		                    </div>
-		                </div> 
-		           </div>
-		    </div> 
+				           <div class="product-wrapper">
+								<div class="swiper">
+			                        <!-- Additional required wrapper -->
+			                        <div class="swiper-wrapper">
+			                            <!--  해당 슬라이드 이미지에  href 하기 -->
+			                        </div>
+			                        
+			                        <!-- If we need pagination -->
+			                        <div class="swiper-pagination"></div>
+			                        <!-- If we need navigation buttons -->
+			                        <div class="swiper-button-prev"></div>
+			                        <div class="swiper-button-next"></div>
+			                        <!-- If we need scrollbar -->
+			                        <div class="swiper-scrollbar"></div>
+			                    </div>
+				           </div>
+				    </div> 
 		    		
 		    		
 		                <div class="review-title  main-section hidden animate__animated animate__slower" data-animate="animate__fadeInLeft">
@@ -396,67 +401,106 @@
 				            
 			          </div>
 			    </div>
+			    
+			    
 			</div>
-		     
+			
+	</div>		
 		      <script>
-			      $(function() {
-			          $.ajax({
-			              url: "mList.re",
-			              type: "get",
-			              success: function (rList) {
-			                  //console.log(rList);
-			                  	/*
-					            <div class="product-rw">
-				                <a href="">
-				                    <img src="resources/img/review-img.png" alt="Product Image 1">           
-				                    <span class="pd-name1">코텍스 블리스터</span>
-				                    <span class="pd-title1">금방 와요!</span>
-				                </a>
-				           		</div>
-				           		*/
-				           		listStr = '';
-				           		for (let i = 0; i < rList.length; i++) {
-				           			listStr += '<div class="product-rw"> <a href="detail.pd?pno=' + rList[i].productNo + '">';
-				           			listStr += '<img src='+ rList[i].reviewFilePath+ ' alt="Product Image"' + (i+1) + '>';
-				           			listStr += '<span class="pd-name1">'+ rList[i].productName +'</span>';
-				           			listStr += '<span class="pd-title1">' + rList[i].reviewTitle + '</span> </a> </div>';
-								}
-				           		$(".review-row").html(listStr);
-			              },
-			              error: function () {
-			                  
-			              }
-			          });
-					});
-			      
-		        document.addEventListener('DOMContentLoaded', function() {
-		            const observerOptions = {
-		                threshold: 0.1
-		            };
-		
-		            const observerCallback = (entries, observer) => {
-		                entries.forEach(entry => {
-		                    if (entry.isIntersecting) {
-		                        entry.target.classList.remove('hidden');
-		                        entry.target.classList.add(entry.target.getAttribute('data-animate'));
-		                        observer.unobserve(entry.target);
-		                    }
-		                });
-		            };
-		
-		            const observer = new IntersectionObserver(observerCallback, observerOptions);
-		
-		            document.querySelectorAll('.main-section').forEach(elem => {
-		                observer.observe(elem);
-		            });
-		        });
-		        
-		    </script>
-		     
+                $(function() {
+                    $.ajax({
+                        url: "mList.re",
+                        type: "get",
+                        success: function (rList) {
+                            listStr = '';
+                            for (let i = 0; i < rList.length; i++) {
+                                listStr += '<div class="product-rw"> <a href="detail.pd?pno=' + rList[i].productNo + '">';
+                                listStr += '<img src='+ rList[i].reviewFilePath+ ' alt="Product Image"' + (i+1) + '>';
+                                listStr += '<span class="pd-name1">'+ rList[i].productName +'</span>';
+                                listStr += '<span class="pd-title1">' + rList[i].reviewTitle + '</span> </a> </div>';
+                            }
+                            $(".review-row").html(listStr);
+                        },
+                        error: function () {
+                            console.log("리뷰 목록 AJAX 통신 실패!");
+                        }
+                    });
+                });
+
+                $(function() {
+                    $.ajax({
+                        url: "selectBest.ad",
+                        type: "get",
+                        success: function(list) {
+                        	
+                            let str = "";
+                            
+                            for (let i in list) {
+                                // 가격을 포맷팅
+                                let formattedPrice = parseFloat(list[i].price).toLocaleString('ko-KR');
+                                
+                                str += "<div class='product swiper-slide'>"
+                                     +   "<a href='detail.pd?pno=" + list[i].productNo + "' id='product-link'>"
+                                     +      "<img src='" + list[i].productThumbnailPath + "' alt='Product Image 1'>"
+                                     +      "<span class='pd-name'>" + list[i].productName + "</span>"
+                                     +      "<span class='pd-price'>" + formattedPrice + " 원</span>"
+                                     +   "</a>"
+                                     + "</div>";
+                            }
+
+                            $(".swiper-wrapper").html(str);
+
+                            // 슬라이더 동작 정의
+                            const swiper = new Swiper('.swiper', {
+                                slidesPerView: 3,
+                                slidesPerGroup: 3,
+                                spaceBetween: 20,
+                                centeredSlides: false,
+                                autoplay: {
+                                    delay: 4000,
+                                    disableOnInteraction: false,
+                                },
+                                pagination: {
+                                    el: ".swiper-pagination",
+                                    clickable: true,
+                                },
+                                navigation: {
+                                    nextEl: ".swiper-button-next",
+                                    prevEl: ".swiper-button-prev",
+                                },
+                            });
+                        },
+                        error: function() {
+                            console.log("베스트 상품 AJAX 통신 실패!");
+                        }
+                    });
+                });
+
+                document.addEventListener('DOMContentLoaded', function() {
+                    const observerOptions = {
+                        threshold: 0.1
+                    };
+
+                    const observerCallback = (entries, observer) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                entry.target.classList.remove('hidden');
+                                entry.target.classList.add(entry.target.getAttribute('data-animate'));
+                                observer.unobserve(entry.target);
+                            }
+                        });
+                    };
+
+                    const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+                    document.querySelectorAll('.main-section').forEach(elem => {
+                        observer.observe(elem);
+                    });
+                });
+            </script>
+
 		    <br><br><br>
-		    
-		    
-		    
+		   
 		    <jsp:include page="common/footer.jsp" />
 		</c:otherwise>
 	</c:choose>

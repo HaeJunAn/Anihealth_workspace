@@ -19,4 +19,7 @@ public interface AdReviewService { // 언터페이스 영역 시작
 	// 리뷰 복구 : 상태값 변경
 	int recoverReview(int reviewNo);
 	
+	// 대시보드 리뷰 개수 조회
+	ArrayList<Review> selectReviewCount();
+	
 } // 인터페이스 영역 끝

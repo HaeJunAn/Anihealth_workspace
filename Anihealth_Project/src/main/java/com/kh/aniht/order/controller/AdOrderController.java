@@ -1,18 +1,22 @@
 package com.kh.aniht.order.controller;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.ibatis.annotations.Param;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
 import com.kh.aniht.common.movel.vo.PageInfo;
 import com.kh.aniht.common.template.Pagination;
 import com.kh.aniht.order.model.service.AdOrderService;
@@ -246,6 +250,43 @@ public class AdOrderController { // 클래스 영역 시작
 		
 		return "redirect:/payOrder.ad";
 		
+	}
+	
+	// 미처리 문의글 수 조회
+	@ResponseBody
+	@PostMapping(value="countRefund.ad", produces="application/json; charset=UTF-8") 
+	public String selectCountMember() {
+		
+		int refund = orderService.selectIncompleteRefundCount();
+		
+		JSONObject jObj = new JSONObject();
+		jObj.put("refund", refund);
+		
+		return new Gson().toJson(jObj);
+		
+	}
+	
+	// 배송상태 별 수 조회
+	@ResponseBody
+	@PostMapping(value="countDelivery.ad", produces="application/json; charset=UTF-8")
+	public String selectDeliveryCount() {
+		
+		List<Map<String, Object>> list = orderService.selectDeliveryCount();
+		
+		return new Gson().toJson(list);
+	
+		
+	}
+	
+	// 현재 월의 매출액 조회
+	@ResponseBody
+	@PostMapping(value="selectSales.ad", produces="application/json; charset=UTF-8")
+	public String selectSales(int year, int month) {
+		
+		int sales = orderService.selectSales(year, month);
+		
+		return new Gson().toJson(sales);
+	
 	}
 	
 } // 클래스 영역 끝

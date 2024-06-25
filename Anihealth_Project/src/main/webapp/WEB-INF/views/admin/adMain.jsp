@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -58,6 +59,15 @@
 </script>
 <head>
 <style>
+	a {
+		color: #57585c;
+	}
+	
+	a:hover {
+		color: gray;
+		text-decoration: none;
+	}
+	
      div {
         box-sizing: border-box;
         /* border : 1px solid darkblue;  */
@@ -224,7 +234,6 @@
         border-radius: 10px; 
     }
     .custom-size { margin: auto; /* 중앙 정렬 */}
-
 </style>
 </head>
 <body>
@@ -245,7 +254,7 @@
                         <div class="content-center">
                             <i class="fas fa-dollar-sign icon"></i>
                             <div class="total-user">총 이용자수 / 총 회원수</div>
-                            <div class="total-user-count">0 / 0</div>
+                            <div class="total-user-count" id="member"></div>
                         </div>
                     </div>
                 </div>
@@ -254,7 +263,7 @@
                         <div class="content-center">
                             <i class="fas fa-dollar-sign icon"></i>
                             <div class="total-user">미처리 문의글수</div>
-                            <div class="total-user-count">0 명</div>
+                            <div class="total-user-count" id="inquiry"></div>
                         </div>
                     </div>
                 </div>
@@ -263,7 +272,7 @@
                         <div class="content-center">
                             <i class="fas fa-dollar-sign icon"></i>
                             <div class="total-user">환불 미처리건수</div>
-                            <div class="total-user-count">0 명</div>
+                            <div class="total-user-count" id="refund"></div>
                         </div>
                     </div>
                 </div>
@@ -272,7 +281,7 @@
                         <div class="content-center">
                             <i class="fas fa-dollar-sign icon"></i>
                             <div class="total-user">월별 매출액</div>
-                            <div class="total-user-count">0 명</div>
+                            <div class="total-user-count" id="sales"></div>
                         </div>
                     </div>
                 </div>
@@ -286,28 +295,28 @@
                         <div class="content-center-small">
                             <i class="fas fa-shopping-cart icon-small"></i>
                             <div class="total-user-small">주문결제건수</div>
-                            <div class="total-user-count-small">0 건</div>
+                            <div class="total-user-count-small" id="order"></div>
                         </div>
                     </div>
                     <div>
                         <div class="content-center-small">
                             <i class="fas fa-box icon-small"></i>
                             <div class="total-user-small">배송준비건수</div>
-                            <div class="total-user-count-small">0 건</div>
+                            <div class="total-user-count-small" id="prepare"></div>
                         </div>
                     </div>
                     <div>
                         <div class="content-center-small">
                             <i class="fas fa-truck icon-small"></i>
                             <div class="total-user-small">배송중건수</div>
-                            <div class="total-user-count-small">0 건</div>
+                            <div class="total-user-count-small" id="deliver"></div>
                         </div>
                     </div>
                     <div>
                         <div class="content-center-small">
                             <i class="fas fa-check icon-small"></i>
                             <div class="total-user-small">배송완료건수</div>
-                            <div class="total-user-count-small">0 건</div>
+                            <div class="total-user-count-small" id="complete"></div>
                         </div>
                     </div>
                 </div>
@@ -327,10 +336,7 @@
 	                </div>
 	            </div>
 	                <div class="cart1-2">
-	                	<div id="piechart">
-	                        <div>리뷰 별점</div>
-	                        <img src="" alt="">차트넣기
-	                    </div>
+	                	<div id="piechart"></div>
 	                </div>
 	            </div>
 	
@@ -342,6 +348,7 @@
 	</div>
 	
 	<script>
+		// 회원 통계
 		$(function () {
 			
 			$.ajax({
@@ -350,7 +357,10 @@
 				type : "post",
 				success : function(result) {
 					
+					let member = result.member;
+					let activeMember = result.activeMember;
 					
+					$("#member").html("<a href='member.ad'>" + member + " / " + activeMember + "</a>");
 					
 				},
 				error : function() {
@@ -361,6 +371,117 @@
 			
 		}); 
 	
+		// 문의 통계
+		$(function() {
+			
+			$.ajax({
+				
+				url : "countInquiry.ad",
+				type : "post",
+				success : function(result) {
+					
+					let inquiryCount = result.inquiry;
+					
+					$("#inquiry").html("<a href='inquiry.ad'>" + inquiryCount + " 건</a>" );
+					
+				},
+				error : function() {
+					console.log("문의 수 조회 ajax 통신 실패!");
+				}
+				
+			})
+			
+		});
+		
+		// 문의 통계
+		$(function() {
+			
+			$.ajax({
+				
+				url : "countRefund.ad",
+				type : "post",
+				success : function(result) {
+					
+					let refundCount = result.refund;
+					
+					$("#refund").html("<a href='refund.ad'>" + refundCount + " 건</a>" );
+					
+				},
+				error : function() {
+					console.log("환불 수 조회 ajax 통신 실패!");
+				}
+				
+			})
+			
+		});
+		
+		// 배송 통계
+		$(function() {
+			
+			$.ajax({
+				
+				url : "countDelivery.ad",
+				type : "post",
+				success : function(result) {
+					
+					let order = "";
+					let prepare = "";
+					let deliver = "";
+					let complete = "";
+					
+					for(let i = 0; i < result.length; i++) {
+							
+						switch(result[i].DELIVERY_STATUS) {
+						
+						case '결제완료' : order = result[i].STATUS_COUNT; break;
+						case '배송준비중' : prepare = result[i].STATUS_COUNT; break;
+						case '배송중' : deliver = result[i].STATUS_COUNT; break;
+						case '배송완료' : complete = result[i].STATUS_COUNT; break;
+						
+						}
+					}
+					
+					$("#order").html("<a href='payOrder.ad'>" + order + " 건</a>");
+					$("#prepare").html("<a href='prepareOrder.ad'>" + prepare + " 건</a>");
+					$("#deliver").html("<a href='deliverOrder.ad'>" + deliver + " 건</a>");
+					$("#complete").html("<a href='completeOrder.ad'>" + complete + " 건</a>");
+					
+				},
+				error : function() {
+					console.log("환불 수 조회 ajax 통신 실패!");
+				}
+				
+			})
+			
+		});
+		
+		// 월 매출 통계
+		$(function() {
+			
+			var date = new Date(); // 현재 날짜
+			var year = date.getFullYear(); // 연도
+			var month = date.getMonth() + 1; // 월
+			
+			$.ajax({
+				
+				url : "selectSales.ad",
+				type : "post",
+				data : {"year" : year, "month" : month},
+				success : function(result) {
+					
+					// 가격을 포맷팅
+                    let formattedPrice = parseFloat(result).toLocaleString('ko-KR');
+					
+					$("#sales").html(formattedPrice + " 원");
+					
+				},
+				error : function() {
+					console.log( "매출 조회 ajax 통신 실패!");
+				}
+				
+			})
+			
+		});
 	</script>
 
 </body>
