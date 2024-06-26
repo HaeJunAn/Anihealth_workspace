@@ -115,6 +115,7 @@
         .img-size {
             height: 80px;
             width: 120px;
+            object-fit: cover; 
             border-radius: 10px;
             margin-right: 5px;
         }
