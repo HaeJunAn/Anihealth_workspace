@@ -107,22 +107,21 @@
 
     <!-- 제품 목록의 개수를 조회하는 쿼리 -->
     <select id="selectProductListCount" parameterType="map" resultType="int">
-        SELECT COUNT(*)
+    SELECT COUNT(*)
+    FROM (
+        SELECT DISTINCT P.PRODUCT_NO
         FROM PRODUCT P
-        <!--
-        LEFT JOIN EFFECT E ON P.PRODUCT_NO = E.EFFECT_NO
-        LEFT JOIN ORDER_PRODUCT OP ON P.PRODUCT_NO = OP.PRODUCT_NO
-        LEFT JOIN REVIEW R ON OP.ORDER_PRODUCT_NO = R.ORDER_PRODUCT_NO
-        -->
+        JOIN PRODUCT_EFFECT PE ON P.PRODUCT_NO = PE.PRODUCT_NO
+        JOIN EFFECT E ON PE.EFFECT_NO = E.EFFECT_NO
         WHERE P.PRODUCT_STATUS = 'Y'
-          <if test="category != null and category != ''">
-              AND P.CATEGORY = #{category}
-          </if>
-          <if test="keyword != null and keyword != ''">
-              AND (P.PRODUCT_NAME LIKE '%' || #{keyword} || '%')
-                   <!-- OR E.EFFECT_NAME LIKE '%' || #{keyword} || '%' --> <!-- 조건 수정 -->
-          </if>
-    </select>
+        <if test="category != null and category != ''">
+            AND P.CATEGORY = #{category}
+        </if>
+        <if test="keyword != null and keyword != ''">
+            AND (P.PRODUCT_NAME LIKE '%' || #{keyword} || '%' OR E.EFFECT_NAME LIKE '%' || #{keyword} || '%')
+        </if>
+    ) DISTINCT_PRODUCTS
+</select>
 
 
  <!-- 제품 상세 정보를 조회하는 쿼리 -->
