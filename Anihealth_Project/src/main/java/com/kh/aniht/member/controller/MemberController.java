@@ -631,7 +631,7 @@ public class MemberController {
 	
 	
 	// 마이페이지 상세 주문내역 이동
-	@GetMapping("myPageOrderDetail.me")
+	@PostMapping("myPageOrderDetail.me")
 	public String myPageOrderDetail(String ono,
 							        HttpSession session,
 							        Model model) {

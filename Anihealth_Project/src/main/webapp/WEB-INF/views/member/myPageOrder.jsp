@@ -252,7 +252,7 @@
 		                                		<div>
 		                                		<td colspan="3" style="text-align: left; padding-bottom: 0; border-bottom-color: lightgray">주문번호 : ${ o.orderNo }</td>
 		                                		<td colspan="4" style="text-align: right; padding-bottom: 0; border-bottom-color: lightgray">
-		                                			<a href="myPageOrderDetail.me?ono=${ o.orderNo }" style="text-decoration: none; color: black;">주문 상세보기 ></a>
+		                                			<a href="javascript:void(0);" onclick="postOrderDetail('${o.orderNo}');" style="text-decoration: none; color: black;">주문 상세보기 ></a>
 		                                		</td>
 		                                		</div>
 		                                	</tr>
@@ -333,7 +333,6 @@
 										    </div>
 							                            
 							                <script>
-
 										    	$(function() {
 										            $("tbody>tr>td>button").click(function() {
 										            	// console.log($(this)[0].dataset.orderNo);
@@ -341,7 +340,7 @@
 										               $(".modal-body>input[name=orderNo]").val($(this)[0].dataset.orderNo);
 										            });
 			
-										                })
+										        })
 									    	</script>   		
 		                               		
 										    
@@ -368,5 +367,18 @@
     <br><br><br><br><br><br><br>
     <!-- 푸터바 -->
     <jsp:include page="../common/footer.jsp" />
+
+    <!-- 주문 상세보기 폼 -->
+    <form id="orderDetailForm" action="myPageOrderDetail.me" method="post" style="display: none;">
+        <input type="hidden" name="ono" id="ono">
+    </form>
+
+    <script>
+        function postOrderDetail(orderNo) {
+            document.getElementById('ono').value = orderNo;
+            document.getElementById('orderDetailForm').submit();
+        }
+    </script>
+
 </body>
 </html>
