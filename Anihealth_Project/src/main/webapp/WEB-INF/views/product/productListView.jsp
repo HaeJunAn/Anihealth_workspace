@@ -346,23 +346,37 @@
 					        });
 					    });
 					</script>
+		             <div class="search-container">
+					    <nav class="navbar">
+					        <form class="form-inline" action="list.pd" method="get">
+					            <select class="form-control" name="category" required>
+					                <option value="공통" ${selectedCategory == '공통' ? 'selected' : ''}>공통</option>
+					                <option value="강아지" ${selectedCategory == '강아지' ? 'selected' : ''}>강아지</option>
+					                <option value="고양이" ${selectedCategory == '고양이' ? 'selected' : ''}>고양이</option>
+					            </select>
+					            <input class="form-control" 
+					                   type="text"
+					                   placeholder="검색어를 입력해주세요" 
+					                   name="keyword"
+					                   value="${searchKeyword}" required>
+					            <button class="btn btn-search" id="btn-search" type="submit">검색</button>
+					        </form>
+					    </nav>
+					</div>
 					
-		                <div class="search-container">
-		                    <nav class="navbar">
-		                        <form class="form-inline" action="list.pd" method="get">
-		                            <select class="form-control" name="category" required>
-		                                <option value="공통">공통</option>
-		                                <option value="강아지">강아지</option>
-		                                <option value="고양이">고양이</option>
-		                            </select>
-		                            <input class="form-control" 
-		                                   type="text"
-		                                   placeholder="검색어를 입력해주세요" 
-		                                   name="keyword" required>
-		                            <button class="btn btn-search" id="btn-search" type="submit">검색</button>
-		                        </form>
-		                    </nav>
-		                </div>
+					<script>
+					$(function() {
+					    var selectedCategory = '${selectedCategory}';
+					    var searchKeyword = '${searchKeyword}';
+					
+					    if (selectedCategory) {
+					        $('select[name="category"]').val(selectedCategory);
+					    }
+					    if (searchKeyword) {
+					        $('input[name="keyword"]').val(searchKeyword);
+					    }
+					});
+					</script>	
             </div>
         </div>
 
@@ -483,6 +497,8 @@
             }
         });
     });
+    
+    
 </script>
 
 

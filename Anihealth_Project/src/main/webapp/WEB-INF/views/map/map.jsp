@@ -326,9 +326,9 @@
 			suggest(this.value, event);
 		});
 		// 포커스 아웃시
-		$("#address input").on("focusout", function () {
-			$("#suggestions>table").children().remove();
-		});
+		// $("#address input").on("focusout", function () {
+		// 	$("#suggestions>table").children().remove();
+		// });
 		
 		// 삭제버튼
 		function cancel() {

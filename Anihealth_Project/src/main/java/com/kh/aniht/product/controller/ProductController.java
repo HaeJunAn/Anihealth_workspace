@@ -37,13 +37,9 @@ public class ProductController {
                               @RequestParam(value="keyword", required=false) String keyword,
                               Model model) {
 
-       // System.out.println("Category: " + category);
-        //System.out.println("Keyword: " + keyword);
-
         PageInfo pi = Pagination.getPageInfo(productService.selectProductListCount(category, keyword), currentPage, 10, 8);
         ArrayList<Product> list;
 
-        // 검색 조건이 없을 경우 전체 제품 목록 조회
         if ((category == null || category.isEmpty()) && (keyword == null || keyword.isEmpty())) {
             list = productService.selectProductList(pi, order);
         } else {
@@ -61,7 +57,6 @@ public class ProductController {
 
         return "product/productListView";
     }
-
     @GetMapping("search.pd")
     public String searchProduct(@RequestParam(value="cpage", defaultValue="1") int currentPage, 
                                 @RequestParam(value="order", defaultValue="newest") String order,
