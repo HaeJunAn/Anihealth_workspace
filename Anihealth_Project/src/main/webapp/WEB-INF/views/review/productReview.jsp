@@ -650,7 +650,7 @@
 					}
        					
        				$(".rating>p").eq(1).html(roundedRating);
-					$(".starCon").css("width", (roundedRating * 20) * 0.984 + "%");
+					$(".starCon").css("width", (roundedRating * 20) + "%"); //* 0.984
    					//$(".progress-container").html(ratingStr);
        				$(".info-table-rw").html(listStr);
        				$(".pagination").html(pageStr);

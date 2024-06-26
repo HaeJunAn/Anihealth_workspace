@@ -388,7 +388,7 @@
 				<div class="outline" align="center">
 					<!-- 종합결과 -->
 					<h2>검진개요</h2>
-					<div>24년 06월 13일</div>
+					<div></div>
 					<div class="outline-container">
 						<table>
 							<tr height="30">
@@ -710,6 +710,13 @@
 					$(".recommendedProduct").each(function () {
 						productNoArr.push($(this).val());
 					});
+					//날짜 
+					let today = new Date();   
+					let year = today.getFullYear(); 
+					let month = today.getMonth() + 1;  
+					let date = today.getDate();  
+
+					$(".outline").children().eq(1).text(year + "년 " + month + "월 " + date + "일");
 					
 					// 상품별 효과 아이콘
 					$.ajax({
