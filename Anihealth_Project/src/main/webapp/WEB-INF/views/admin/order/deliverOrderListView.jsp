@@ -313,6 +313,10 @@
     	padding-top : 50px;
     	font-size : 20px;
     }
+    
+    .allCheck * {
+		margin: 0 auto;
+    }
 </style>
 </head>
 <body>
@@ -355,7 +359,7 @@
                 	<table class="table table-hover" id="list-area">
 			        	<thead>
 			        		<tr>
-			        			<th></th>
+			        			<th class="allCheck"><label for="allCheck">전체 선택</label> &nbsp; <input type="checkbox" id="allCheck"></th>
 			        			<th>주문 번호</th>
 			        			<th>주문 날짜</th>
 			        			<th>회원 아이디</th>
@@ -454,6 +458,7 @@
 	          	
 	       });
 	       
+	       	// 선택 항목 검사
 		   	function changeAlert() {
 				if ($("input[name='orderNos']:checked").length === 0) {
 					alert('선택된 항목이 없습니다.');
@@ -464,6 +469,13 @@
 					$("#postForm").attr("action", "changeStatus.ad").submit();
 				}
 			}
+	       	
+		 	// 전체선택 체크박스 클릭 시
+	        $('#allCheck').click(function() {
+	            $('input:checkbox').not(this).prop('checked', this.checked);
+	            updateTotalPrice();
+	            toggleCheckoutButton();
+	        });
        </script>
        
     </div>
