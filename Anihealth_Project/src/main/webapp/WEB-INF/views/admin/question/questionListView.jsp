@@ -267,7 +267,17 @@
 		                        <br>
 		                        <div class="changeBtn">
 		                            <input type="button" value="수정" class="updateBtn" onclick="updateFormQuestion(${ q.faqNo });">
-		                            <input type="button" value="삭제" class="deleteBtn" onclick="deleteQuestion();"> 
+		                            
+		                            <c:choose>
+			 							<c:when test="${ q.faqStatus eq 'Y' }">
+			 								<input type="button" value="삭제" class="deleteBtn" onclick="deleteAlert();"> 
+				 						</c:when>
+				 						<c:otherwise>
+				 							<input type="button" value="복구" class="deleteBtn" onclick="recoverAlert();"> 
+				 						</c:otherwise>
+								    </c:choose>
+		                            
+		                            	
 		                        </div>
 		                     </div>
 		                </div>
@@ -351,12 +361,22 @@
 	        $(target).next().css("display", "none");
 	    }
 	    
-	    // FAQ 삭제
-	    function deleteQuestion() {
-	    	
-	    	$("#postForm").attr("action", "deleteFAQ.ad").submit();
-	    	
-	    }
+	    // FAQ 삭제 및 복구
+	    function deleteAlert() {
+	   		
+	   		if (window.confirm('FAQ를 삭제하시겠습니까?')) {
+	   			$("#postForm").attr("action", "deleteFAQ.ad").submit();
+	   		}
+	   		
+	   	}
+	   	
+		function recoverAlert() {
+	   		
+	   		if (window.confirm('FAQ를 복구하시겠습니까?')) {
+	   			$("#postForm").attr("action", "recoverFAQ.ad").submit();
+	   		}
+	   		
+	   	}
 	</script>
 	
 	 <!-- FAQ 작성 모달 -->

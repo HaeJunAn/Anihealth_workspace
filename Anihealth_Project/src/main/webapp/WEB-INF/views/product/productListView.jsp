@@ -254,7 +254,7 @@
             margin: 0 5px;
             cursor: pointer;
             border-radius: 10px;
-            margin-right: 6%;
+            margin-right: 15px;
             border: 1px solid  rgb(82, 166, 121);
         }
 

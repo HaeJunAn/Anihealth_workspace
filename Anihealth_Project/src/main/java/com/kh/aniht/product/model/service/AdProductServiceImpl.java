@@ -142,6 +142,14 @@ public class AdProductServiceImpl implements AdProductService { // 클래스 영
 		
 	}
 
+	// 영양제 복구
+	@Override
+	public int recoverProduct(int productNo) {
+		
+		return productDao.recoverProduct(sqlSession, productNo);
+		
+	}
+
 	
 
 

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>ANIHEALTH</title>itle>
+<title>ANIHEALTH</title>
   <style>     
         div {
             box-sizing: border-box;

@@ -22,4 +22,7 @@ public interface AdQuestionService { // 인터페이스 영역 시작
 	// FAQ 삭제 - UPDATE 문으로 상태값 'N' 으로 변경
 	int deleteQuestion(Question question);
 
+	// FAQ 복구 - UPDATE 문으로 상태값 'Y' 으로 변경
+	int recoverQuestion(Question question);
+
 } // 인터페이스 영역 끝

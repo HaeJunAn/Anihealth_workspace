@@ -124,6 +124,7 @@
 	         , USER_ID
 	  	  FROM INQUIRY
 		  JOIN MEMBER USING (USER_NO)
+		 WHERE INQUIRY_NO = #{inquiryNo}
 	</select>
 	
 	<!-- 문의 답변 작성용 쿼리문 - UPDATE 문 -->

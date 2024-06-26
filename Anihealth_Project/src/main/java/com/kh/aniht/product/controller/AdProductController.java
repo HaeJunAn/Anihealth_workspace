@@ -277,6 +277,26 @@ public class AdProductController { // 클래스 영역 시작
 		
 	}
 	
+	// 영양제 삭제
+	@PostMapping(value="recoverProduct.ad")
+	public String recoverProduct(int pno, Model model, HttpSession session) {
+		
+		int result = productService.recoverProduct(pno);
+		
+		if(result > 0) { // 성공
+			
+			session.setAttribute("alertMsg", "성공적으로 상품이 복구되었습니다.");
+			
+		} else { // 삭제
+			
+			session.setAttribute("alertMsg", "상품 복구에 실패하였습니다.");
+			
+		}
+		
+		return "redirect:/product.ad";
+		
+	}
+	
 	// 카테고비별 재고 순위 조회
 	@ResponseBody
 	@PostMapping(value="rankStock.ad", produces="application/json; charset=UTF-8")

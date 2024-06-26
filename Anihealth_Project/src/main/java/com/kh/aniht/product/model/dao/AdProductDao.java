@@ -129,4 +129,11 @@ public class AdProductDao { // 클래스 영역 시작
 		
 	}
 
+	// 영양제 복구
+	public int recoverProduct(SqlSessionTemplate sqlSession, int productNo) {
+		
+		return sqlSession.update("productMapper.recoverAdProduct", productNo);
+		
+	}
+
 } // 클래스 영역 끝

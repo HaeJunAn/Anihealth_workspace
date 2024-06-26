@@ -334,6 +334,14 @@
 	       AND PRODUCT_STATUS = 'Y'
 	</update>
 	
+	<!-- 영양제 복구용 쿼리문 -->
+	<update id="recoverAdProduct" parameterType="_int">
+		UPDATE PRODUCT
+	       SET PRODUCT_STATUS = 'Y'
+	     WHERE PRODUCT_NO = #{productNo}
+	       AND PRODUCT_STATUS = 'N'
+	</update>
+	
 	<!-- 영양제 수정용 쿼리문 -->
 	<update id="updateAdProduct" parameterType="product">
 		UPDATE PRODUCT

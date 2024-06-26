@@ -51,5 +51,8 @@ public interface AdProductService { // 인터페이스 영역 시작
 
 	// 카테고비별 재고 순위 조회
 	List<Map<String, Object>> selectStockRank();
+
+	// 영양제 복구 - UPDATE 문으로 상태값 변경 
+	int recoverProduct(int pno);
 	
 } // 인터페이스 영역 끝

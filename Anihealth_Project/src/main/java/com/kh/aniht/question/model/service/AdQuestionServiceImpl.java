@@ -62,4 +62,12 @@ public class AdQuestionServiceImpl implements AdQuestionService { // 클래스 �
 		
 	}
 
+	// FAQ 복구
+	@Transactional
+	@Override
+	public int recoverQuestion(Question question) {
+		
+		return questionDao.recoverQuestion(sqlSession, question);
+	}
+
 } // 클래스 영역 끝

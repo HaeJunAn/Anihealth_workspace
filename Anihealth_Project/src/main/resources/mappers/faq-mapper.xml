@@ -67,6 +67,14 @@
 	     WHERE FAQ_NO = #{faqNo}
 	       AND FAQ_STATUS = 'Y'
 	</update>
+	
+	<!-- FAQ 복구용 쿼리문 -->
+	<update id="recoverAdQuestion" parameterType="faq">
+		UPDATE FAQ
+	       SET FAQ_STATUS = 'Y'
+	     WHERE FAQ_NO = #{faqNo}
+	       AND FAQ_STATUS = 'N'
+	</update>
 	<!-- *********** 정민 : 관리자 ********* -->
 	
 </mapper>

@@ -52,4 +52,11 @@ public class AdQuestionDao { // 클래스 영역 시작
 		
 	}
 
+	// FAQ 복구
+	public int recoverQuestion(SqlSessionTemplate sqlSession, Question question) {
+		
+		return sqlSession.update("faqMapper.recoverAdQuestion", question);
+		
+	}
+
 } // 클래스 영역 끝

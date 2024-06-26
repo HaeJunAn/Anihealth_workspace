@@ -131,10 +131,16 @@
         </div>
         
         <div class="btns" align="center">
-        	<a class="btn btn-lg" onclick="postFormSubmit(1);">수정</a>
+        	<a class="btn btn-lg" onclick="postFormSubmit();">수정</a>
         	<a class="btn btn-lg" href="product.ad">목록</a>
-        	<a class="btn btn-lg" onclick="postFormSubmit(2);">품절</a>
-        	<a class="btn btn-lg" onclick="deleteAlert();">삭제</a>
+        	<c:choose>
+        		<c:when test="${ requestScope.p.productStatus eq 'Y' }">
+        			<a class="btn btn-lg" onclick="deleteAlert();">삭제</a>
+        		</c:when>
+        		<c:otherwise>
+        			<a class="btn btn-lg" onclick="recoverAlert();">복구</a>
+        		</c:otherwise>
+        	</c:choose>
         </div>
         
         <form id="postForm" action="" method="post">
@@ -142,21 +148,26 @@
         </form>
         
         <script>
-        	function postFormSubmit(num) {
+        	function postFormSubmit() {
         		
-        		switch(num) {
-        		
-        			case 1 : $("#postForm").attr("action", "updateFormProduct.ad").submit(); break; 
-        			case 2 : $("#postForm").attr("action", "soldOutProduct.ad").submit(); break; 
+        		$("#postForm").attr("action", "updateFormProduct.ad").submit();
         			
+        	}
+        	
+        	// 삭제 클릭 시 alert 로 한번 더 확인
+        	function deleteAlert() {
+        		
+        		if (window.confirm('제품을 삭제하시겠습니까?')) {
+        			$("#postForm").attr("action", "deleteProduct.ad").submit();
         		}
         		
         	}
         	
-        	function deleteAlert() {
+        	// 복구 클릭 시 alert 로 한번 더 확인
+        	function recoverAlert() {
         		
-        		if (window.confirm('제품을 공개하지 않으시겠습니까?')) {
-        			$("#postForm").attr("action", "deleteProduct.ad").submit();
+        		if (window.confirm('제품을 복구하시겠습니까?')) {
+        			$("#postForm").attr("action", "recoverProduct.ad").submit();
         		}
         		
         	}

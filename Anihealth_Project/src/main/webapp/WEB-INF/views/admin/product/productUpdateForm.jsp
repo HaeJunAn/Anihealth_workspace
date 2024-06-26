@@ -213,10 +213,8 @@
 	        </div>
         </form>
         <div class="btns" align="center">
-        	<a class="btn btn-lg" onclick="postFormSubmit(1);">수정</a>
+        	<a class="btn btn-lg" onclick="postFormSubmit();">수정</a>
         	<a class="btn btn-lg" href="product.ad">목록</a>
-        	<a class="btn btn-lg" onclick="postFormSubmit(2);">품절</a>
-        	
         	<c:choose>
         		<c:when test="${ requestScope.p.productStatus eq 'Y' }">
         			<a class="btn btn-lg" onclick="deleteAlert();">삭제</a>
@@ -229,7 +227,7 @@
         
        <script>
 	     // postMapping 으로 요청
-	        function postFormSubmit(num) {
+	        function postFormSubmit() {
 	            // Check if at least one checkbox is selected in the "효능" section
 	            if ($('.effect input:checked').length === 0) {
 	                alert('효능 중 최소한 하나를 선택해야 합니다.');
@@ -248,20 +246,14 @@
 	                return false;
 	            }
 	            
-	            switch (num) {
-	                case 1:
-	                    $("#postForm").attr("action", "updateProduct.ad").submit();
-	                    break;
-	                case 2:
-	                    $("#postForm").attr("action", "soldOutProduct.ad").submit();
-	                    break;
-	            }
+	            $("#postForm").attr("action", "updateProduct.ad").submit();
+	            
 	        }
 	        	
 	        	// 삭제 클릭 시 alert 로 한번 더 확인
 	        	function deleteAlert() {
 	        		
-	        		if (window.confirm('제품을 공개하지 않으시겠습니까?')) {
+	        		if (window.confirm('제품을 삭제하시겠습니까?')) {
 	        			$("#postForm").attr("action", "deleteProduct.ad").submit();
 	        		}
 	        		
@@ -270,7 +262,7 @@
 	        	// 복구 클릭 시 alert 로 한번 더 확인
 	        	function recoverAlert() {
 	        		
-	        		if (window.confirm('제품을 공개하시겠습니까?')) {
+	        		if (window.confirm('제품을 복구하시겠습니까?')) {
 	        			$("#postForm").attr("action", "recoverProduct.ad").submit();
 	        		}
 	        		

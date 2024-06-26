@@ -104,5 +104,25 @@ public class AdQuestionController { // 클래스 영역 시작
 		return "redirect:/faq.ad";
 		
 	}
+	
+	// 리뷰 복구
+	@PostMapping(value="recoverFAQ.ad")
+	public String recoverReview(Question question, HttpSession session) {
+		
+		int result = questionService.recoverQuestion(question);
+		
+		if(result > 0) { // 성공
+			
+			session.setAttribute("alertMsg", "성공적으로 FAQ가 복구되었습니다.");
+			
+		} else {
+			
+			session.setAttribute("alertMsg", "FAQ 복구에 실패하였습니다.");
+			
+		}
+		
+		return "redirect:/faq.ad";
+		
+	}
 
 } // 클래스 영역 끝
