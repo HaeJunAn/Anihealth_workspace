@@ -11,8 +11,10 @@
 <meta name="author" content="" />
 <title>Dashboard - SB Admin</title>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script src="https://www.gstatic.com/charts/loader.js"></script>
 <!-- 별점 총 비율 조회  -->
 <script type="text/javascript">
+  // 리뷰 비율 조회
   google.charts.load('current', {'packages':['corechart']});
   google.charts.setOnLoadCallback(drawChart);
 
@@ -39,8 +41,7 @@
 			  var data = google.visualization.arrayToDataTable(dataArray);
 			  
 			  var options = {
-				  width: 700,
-				  height: 500,
+				  height: 350,
 				  title: '리뷰 별점별 비율',
 			  }; 
 	
@@ -57,6 +58,54 @@
 
   }
 </script>
+<script>
+	// 6개월간 상품 매출액 조회
+	google.charts.load('current', {packages:['corechart']});
+	google.charts.setOnLoadCallback(drawChart);
+	
+	function drawChart() {
+		
+		$.ajax({
+			url: "selectTotal.ad",
+			type: "post",
+			success: function(result) {
+				
+				console.log(result);
+				
+				// 헤더를 추가
+				var dataArray = [
+					['Month', 'Total Sales']
+				];
+				
+				for(let i = 0; i < result.length; i++) {
+					dataArray.push([result[i].MONTH, parseFloat(result[i].TOTAL_SALES)]);
+				}
+				
+				var data = google.visualization.arrayToDataTable(dataArray);
+				
+				const options = {
+				  title: '6개월 간 상품 매출액',
+				  hAxis: {title: 'Month'},
+				  vAxis: {title: 'Total Sales (원)'},
+				  legend: 'none',
+				  format: 'currency',
+				  height : 350,
+				  formatType: 'long'
+				};
+				
+				const chart = new google.visualization.LineChart(document.getElementById('myChart'));
+				chart.draw(data, options);
+				
+			},
+			error: function() {
+				console.log("매출조회 ajax 통신 실패!");
+			}
+			
+		});
+	
+	}
+</script>
+
 <head>
 <style>
 	a {
@@ -337,28 +386,25 @@
                     </div> 
                  </div>
                  
-            </div>
+           	</div>
 
             <br>  <br>
             <div id="chart2">
                 <div class="cart1-2">
                     <div>
-                        <div>재고가 제일없는 top5 제품 재고량</div>
-                        <img src="" alt="">차트넣기
+                        <div id="myChart" style="width:100%;  height:100%;"></div>
 	                </div>
-	            </div>
-	                <div class="cart1-2">
-	                	<div id="piechart"></div>
-	                </div>
-	            </div>
+		        </div>
+                <div class="cart1-2">
+                	<div id="piechart"  style="width:100%;  height:100%;"></div>
+                </div>
+            </div>
 	
-	            <br><br>
+	       	<br><br>
 	
-	        </div>
-	    </div>
+        </div>
+    </div>
 
-	</div>
-	
 	<script>
 		// 회원 통계
 		$(function () {
@@ -521,8 +567,6 @@
 						}
 						
 					}
-					
-					console.log(dog);
 					
 					let str = "";
 					

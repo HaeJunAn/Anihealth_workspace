@@ -220,4 +220,12 @@ public class AdOrderServiceImpl implements AdOrderService { // 클래스 영역 
 		
 	}
 
+	// 6개월간 매출액 조회
+	@Override
+	public List<Map<String, Object>> selectTotalSales() {
+		
+		return orderDao.selectTotalSales(sqlSession);
+		
+	}
+
 } // 클래스 영역 끝

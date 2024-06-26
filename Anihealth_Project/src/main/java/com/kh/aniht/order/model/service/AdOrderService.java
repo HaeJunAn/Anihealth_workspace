@@ -83,5 +83,8 @@ public interface AdOrderService { // 인터페이스 영역 시작
 
 	// 환불시 상품 재고 변경
 	int updateStock(int productNo, int orderQuantity);
+
+	// 6개월간 매출액 조회
+	List<Map<String, Object>> selectTotalSales();
 	
 } // 인터페이스 영역 끝

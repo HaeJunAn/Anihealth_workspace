@@ -225,6 +225,13 @@ public class AdOrderDao { // 클래스 영역 시작
 		
 		return sqlSession.update("orderMapper.updateAdStock", params);
 		
+	}
+
+	// 6개월간 매출액 조회
+	public List<Map<String, Object>> selectTotalSales(SqlSessionTemplate sqlSession) {
+		
+		return sqlSession.selectList("orderMapper.selectAdTotalSales");
+		
 	} 
 
 } // 클래스 영역 끝

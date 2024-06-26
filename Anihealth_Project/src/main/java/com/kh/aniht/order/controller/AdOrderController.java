@@ -295,4 +295,15 @@ public class AdOrderController { // 클래스 영역 시작
 	
 	}
 	
+	// 6개월간 매출액 조회
+	@ResponseBody
+	@PostMapping(value="selectTotal.ad", produces="application/json; charset=UTF-8")
+	public String selectTotalSales() {
+		
+		List<Map<String, Object>> list = orderService.selectTotalSales();
+		
+		return new Gson().toJson(list);
+	
+	}
+	
 } // 클래스 영역 끝

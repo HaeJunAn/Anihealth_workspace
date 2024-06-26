@@ -369,5 +369,16 @@
 		    SET PRODUCT_STOCK = PRODUCT_STOCK + #{orderQuantity}
 		  WHERE PRODUCT_NO = #{productNo}
 	</update>
+	
+	<!-- 6개월간 매출액 조회 -->
+	<select id="selectAdTotalSales" resultType="hashmap">
+		SELECT TO_CHAR(ORDER_DATE, 'YYYY-MM') AS MONTH
+             , SUM(ORDER_PRODUCT_PRICE)AS TOTAL_SALES
+		  FROM "ORDER"
+		  JOIN ORDER_PRODUCT USING (ORDER_NO)
+		 WHERE ORDER_DATE >= ADD_MONTHS(SYSDATE, -6)
+		 GROUP BY TO_CHAR(ORDER_DATE, 'YYYY-MM')
+		 ORDER BY MONTH
+	</select>
     <!-- *********** 정민 : 관리자 ********* -->
 </mapper>

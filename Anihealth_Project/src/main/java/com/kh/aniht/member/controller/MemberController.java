@@ -722,7 +722,7 @@ public class MemberController {
 			session.setAttribute("alertMsg", "삭제되지 않았습니다. 다시 시도해주세요.");
 		}
 		
-		return "member/myPageWish";
+		return "redirect:/myPageWish.me";
 	}
 	
 	// 마이페이지 문의 이동
