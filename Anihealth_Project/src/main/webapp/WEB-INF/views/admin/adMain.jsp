@@ -280,7 +280,7 @@
                     <div class="card-body">
                         <div class="content-center">
                             <i class="fas fa-dollar-sign icon"></i>
-                            <div class="total-user">월별 매출액</div>
+                            <div class="total-user sales"></div>
                             <div class="total-user-count" id="sales"></div>
                         </div>
                     </div>
@@ -321,8 +321,20 @@
                     </div>
                 </div>
                 <div class="cart1-2 custom-size">
-                    <div class="">월별매출액</div> 
-                    <img src="" alt="">차트넣기
+                    <div class="">
+                    	<h5>카테고리별 재고순위</h5>
+                    	<table class="table">
+                    		<thead>
+	                    		<tr>
+	                    			<th>순위</th>
+	                    			<th>강아지</th>
+	                    			<th>고양이</th>
+	                    			<th>공통</th>
+	                    		</tr>
+	                    	</thead>
+	                    	<tbody class="stockRank"></tbody>
+                    	</table>
+                    </div> 
                  </div>
                  
             </div>
@@ -472,11 +484,64 @@
 					// 가격을 포맷팅
                     let formattedPrice = parseFloat(result).toLocaleString('ko-KR');
 					
+					$(".sales").html(year + "년 " + month + "월 매출액");
+					
 					$("#sales").html(formattedPrice + " 원");
 					
 				},
 				error : function() {
 					console.log( "매출 조회 ajax 통신 실패!");
+				}
+				
+			})
+			
+		});
+		
+		// 카테고리별 재고순위 통계
+		$(function() {
+			
+			$.ajax({
+				
+				url : "rankStock.ad",
+				type : "post",
+				success : function(result) {
+					
+					let dog = [];
+					let cat = [];
+					let common = [];
+					
+					for(let i = 0; i < result.length; i++) {
+						
+						switch(result[i].CATEGORY) {
+						
+						case '강아지' : dog.push(result[i]); break;
+						case '고양이' : cat.push(result[i]); break;
+						case '공통' : common.push(result[i]); break;
+						
+						}
+						
+					}
+					
+					console.log(dog);
+					
+					let str = "";
+					
+					for(let i = 0; i < 5; i++) {
+						
+						str += "<tr>"
+							 +		"<td>" + (i + 1) + "순위 </td>"
+							 + 		"<td>" + dog[i].PRODUCT_NAME + "  |  " + dog[i].PRODUCT_STOCK + " 개</td>"
+							 + 		"<td>" + cat[i].PRODUCT_NAME + "  |  " + cat[i].PRODUCT_STOCK + " 개</td>"
+							 + 		"<td>" + common[i].PRODUCT_NAME + "  |  " + common[i].PRODUCT_STOCK + " 개</td>"
+							 + "<tr>"
+						
+					}
+					
+					$(".stockRank").html(str);
+					
+				},
+				error : function() {
+					console.log( "재고순위 조회 ajax 통신 실패!");
 				}
 				
 			})

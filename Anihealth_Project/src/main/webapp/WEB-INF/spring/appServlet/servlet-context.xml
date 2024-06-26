@@ -57,8 +57,30 @@
 			<mapping path="/enrollForm.iq"/>
 			<mapping path="/updateForm.iq"/>
 			<mapping path="/detail.iq"/>
+			<mapping path="/order.re"/>
 			
 			<beans:bean class="com.kh.aniht.common.interceptor.LoginInterceptor" id="loginInterceptor" />
+		</interceptor>
+		
+		<interceptor>
+			<mapping path="/member.ad" />
+			<mapping path="/product.ad" />
+			<mapping path="/order.ad" />
+			<mapping path="/magazine.ad" />
+			<mapping path="/review.ad" />
+			<mapping path="/faq.ad" />
+			<mapping path="/inquiry.ad" />
+			<mapping path="/refund.ad" />
+			<mapping path="/refund.ad" />
+			<mapping path="/refund.ad" />
+			<mapping path="/refund.ad" />
+			<mapping path="/refund.ad" />
+			<mapping path="/refund.ad" />
+			<mapping path="/refund.ad" />
+			<mapping path="/refund.ad" />
+			<mapping path="/refund.ad" />
+
+			<beans:bean class="com.kh.aniht.common.interceptor.AdminInterceptor" id="AdminInterceptor" />
 		</interceptor>
 	</interceptors>
 	 

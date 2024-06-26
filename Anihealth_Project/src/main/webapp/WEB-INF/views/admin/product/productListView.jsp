@@ -44,11 +44,13 @@
     }
     
     #enrollBtn {
-    	width : 85%;
+    	width : 70%;
+    	margin: 0 auto; 
     }
     
     #enrollBtn a {
     	padding : 5px 30px;
+    	margin-top : 15px;
     }
     
     /* 페이징버튼 영역 시작 */
@@ -102,7 +104,46 @@
    }
    /* 페이징버튼 끌 */
 
+	.search-container {
+        margin-left: auto;
+        /* 오른쪽 끝으로 이동 */
+        float: right;
+        margin-bottom : 10px;
+    }
     
+    .search-container .navbar {
+        display: flex;
+        justify-content: flex-end;
+        /* 오른쪽 정렬 */
+    }
+
+    .search-container .navbar .form-control,
+    .search-container .navbar .btn {
+        font-size: 110%;
+        /* 글자 크기 10% 증가 */
+    }
+    
+    .form-control{
+    	 margin-left: 5px;
+    }
+
+    .search-container .navbar {
+        display: flex;
+        justify-content: flex-end;
+        /* 오른쪽 정렬 */
+    }
+
+
+    #btn-search {
+        border: 3px solid rgb(82, 166, 121);
+        color: rgb(83, 88, 88);
+        font-weight: 600;
+        margin-left: 5px;
+    }
+      #btn-search:hover {
+   	  background-color:rgb(82, 166, 121);
+   	  color: white;
+    }
 </style>
 </head>
 <body>
@@ -118,8 +159,25 @@
         <c:if test="${ not empty sessionScope.loginUser && sessionScope.loginUser.userId eq 'admin'}">
         	<div id="enrollBtn">
 		        <!-- 로그인 후 상태일 경우만 보여지는 글쓰기 버튼 -->
-		        <a class="btn btn-secondary" style="float:right;" href="enrollFormProduct.ad">작성</a>
-		   		<br><br>
+		        <a class="btn btn-secondary" style="float:left;" href="enrollFormProduct.ad">작성</a>
+		        
+		        <div class="search-container">
+                   <nav class="navbar">
+                       <form class="form-inline" action="list.pd" method="get">
+                           <select class="form-control" name="category" required>
+                               <option value="공통">공통</option>
+                               <option value="강아지">강아지</option>
+                               <option value="고양이">고양이</option>
+                           </select>
+                           <input class="form-control" 
+                                  type="text"
+                                  placeholder="검색어를 입력해주세요" 
+                                  name="keyword" required>
+                           <button class="btn btn-search" id="btn-search" type="submit">검색</button>
+                       </form>
+                   </nav>
+               </div>
+		        
 		   	</div>
         </c:if>
 	

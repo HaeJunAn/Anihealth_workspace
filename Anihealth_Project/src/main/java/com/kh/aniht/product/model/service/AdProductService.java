@@ -1,6 +1,8 @@
 package com.kh.aniht.product.model.service;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import com.kh.aniht.common.movel.vo.PageInfo;
 import com.kh.aniht.product.model.vo.Effect;
@@ -46,5 +48,8 @@ public interface AdProductService { // 인터페이스 영역 시작
 
 	// 부작용 삭제
 	int deleteSideEffect(int productNo);
+
+	// 카테고비별 재고 순위 조회
+	List<Map<String, Object>> selectStockRank();
 	
 } // 인터페이스 영역 끝

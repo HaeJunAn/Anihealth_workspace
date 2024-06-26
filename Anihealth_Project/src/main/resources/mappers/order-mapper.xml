@@ -102,6 +102,7 @@
 	         , DELIVERY_STATUS
 	         , USER_NO
 	         , USER_ID
+	         , ORDER_CONTENT
 		  FROM "ORDER"
 		  JOIN MEMBER USING (USER_NO)
 		 ORDER BY ORDER_NO DESC
@@ -361,5 +362,12 @@
 		 WHERE #{year} = TO_NUMBER(TO_CHAR(ORDER_DATE, 'YYYY')) 
 		   AND #{month} = TO_NUMBER(TO_CHAR(ORDER_DATE, 'MM'))
 	</select>
+	
+	<!-- 환불한 주문 상품 재고 수정용 쿼리문 -->
+	<update id="updateAdStock" parameterType="map">
+		 UPDATE PRODUCT
+		    SET PRODUCT_STOCK = PRODUCT_STOCK + #{orderQuantity}
+		  WHERE PRODUCT_NO = #{productNo}
+	</update>
     <!-- *********** 정민 : 관리자 ********* -->
 </mapper>

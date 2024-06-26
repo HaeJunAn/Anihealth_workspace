@@ -211,4 +211,13 @@ public class AdOrderServiceImpl implements AdOrderService { // 클래스 영역 
 		
 	}
 
+	// 환불시 재고 변경
+	@Transactional
+	@Override
+	public int updateStock(int productNo, int orderQuantity) {
+		
+		return orderDao.updateStock(sqlSession, productNo, orderQuantity);
+		
+	}
+
 } // 클래스 영역 끝

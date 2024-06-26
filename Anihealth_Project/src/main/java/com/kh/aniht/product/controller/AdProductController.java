@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -14,9 +16,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
 import com.kh.aniht.common.movel.vo.PageInfo;
 import com.kh.aniht.common.template.Pagination;
 import com.kh.aniht.product.model.service.AdProductService;
@@ -270,6 +274,18 @@ public class AdProductController { // 클래스 영역 시작
 		}
 		
 		return "redirect:/product.ad";
+		
+	}
+	
+	// 카테고비별 재고 순위 조회
+	@ResponseBody
+	@PostMapping(value="rankStock.ad", produces="application/json; charset=UTF-8")
+	public String selectDeliveryCount() {
+		
+		List<Map<String, Object>> list = productService.selectStockRank();
+		
+		return new Gson().toJson(list);
+	
 		
 	}
 	

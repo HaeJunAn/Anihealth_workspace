@@ -1,6 +1,8 @@
 package com.kh.aniht.product.model.service;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -129,6 +131,14 @@ public class AdProductServiceImpl implements AdProductService { // 클래스 영
 	public int deleteSideEffect(int productNo) {
 		
 		return productDao.deleteSideEffect(sqlSession, productNo);
+		
+	}
+
+	// 카테고비별 재고 순위 조회
+	@Override
+	public List<Map<String, Object>> selectStockRank() {
+		
+		return productDao.selectStockRank(sqlSession);
 		
 	}
 

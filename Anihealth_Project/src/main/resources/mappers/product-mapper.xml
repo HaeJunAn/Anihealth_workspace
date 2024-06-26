@@ -361,6 +361,18 @@
            FROM SIDE_EFFECT
           WHERE PRODUCT_NO = #{productNo}
 	</delete>
+	
+	<!-- 카테고비별 재고 순위 조회 -->
+	<select id="selectAdStockRank" resultType="hashmap">
+		SELECT CATEGORY, PRODUCT_NAME, PRODUCT_STOCK, ROW_NUM
+		 FROM (SELECT CATEGORY, 
+			          PRODUCT_NAME, 
+			          PRODUCT_STOCK,
+			          ROW_NUMBER() OVER (PARTITION BY CATEGORY ORDER BY PRODUCT_STOCK ASC) AS ROW_NUM
+		    	 FROM PRODUCT) 
+		WHERE row_num &lt;= 5
+		ORDER BY CATEGORY, ROW_NUM
+	</select>
 	<!-- *********** 정민 : 관리자 ********* -->
 	
 	

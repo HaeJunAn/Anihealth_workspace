@@ -2,6 +2,7 @@ package com.kh.aniht.product.model.dao;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
@@ -116,6 +117,15 @@ public class AdProductDao { // 클래스 영역 시작
 	public int deleteSideEffect(SqlSessionTemplate sqlSession, int productNo) {
 		
 		return sqlSession.delete("productMapper.deleteAdSideEffect", productNo);
+		
+	}
+
+	// 카테고비별 재고 순위 조회
+	public List<Map<String, Object>> selectStockRank(SqlSessionTemplate sqlSession) {
+		
+		List<Map<String, Object>> list = sqlSession.selectList("productMapper.selectAdStockRank");
+		
+		return list;
 		
 	}
 

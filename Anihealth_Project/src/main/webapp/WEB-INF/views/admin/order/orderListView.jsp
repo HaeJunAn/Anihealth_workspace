@@ -330,14 +330,17 @@
 			        				<td>${ o.userId }</td>
 			        				<td>${ o.deliveryStatus }</td>
 			        				<td>
-			        					<c:choose>
-			        						<c:when test="${ o.orderCancle eq 'Y' }">
-			        							신청 X
-			        						</c:when>
-			        						<c:otherwise>
-			        							<span style="color : red;">환불 처리 O</span>
-			        						</c:otherwise>
-			        					</c:choose>
+									    <c:choose>
+										    <c:when test="${ o.orderCancle eq 'Y' && not empty o.orderContent }">
+										              신청 O
+										    </c:when>
+										    <c:when test="${ o.orderCancle eq 'Y' }">
+										              신청 X
+										    </c:when>
+										    <c:otherwise>
+										        <span style="color : red;">환불 처리 O</span>
+										    </c:otherwise>
+										</c:choose>
 			        				</td>
 			        				<td>
 			        					<fmt:formatNumber value="${ o.orderPrice }" type="number" groupingUsed="true" /> &nbsp;원

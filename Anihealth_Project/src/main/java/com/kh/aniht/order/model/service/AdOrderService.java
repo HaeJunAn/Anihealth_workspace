@@ -80,5 +80,8 @@ public interface AdOrderService { // 인터페이스 영역 시작
 
 	// 현재 월의 매출액 조회
 	int selectSales(int year, int month);
+
+	// 환불시 상품 재고 변경
+	int updateStock(int productNo, int orderQuantity);
 	
 } // 인터페이스 영역 끝

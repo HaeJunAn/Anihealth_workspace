@@ -145,6 +145,8 @@
 	        	<input type="hidden" name="orderNo" value="${ requestScope.o.orderNo }">
 	        	<c:forEach var="p" items="${ requestScope.list }">
 	        		<input type="hidden" name="orderProductNos" value="${ p.orderProductNo }">
+	        		<input type="hidden" name="orderQuantity" value="${ p.orderQuantity }">
+	        		<input type="hidden" name="productNo" value="${ p.productNo }">
 	        	</c:forEach>
 	        </form>
         	

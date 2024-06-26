@@ -213,6 +213,18 @@ public class AdOrderDao { // 클래스 영역 시작
 		
 		return sqlSession.selectOne("orderMapper.selectAdSales", params);
 		
+	}
+
+	// 환불시 재고 변경
+	public int updateStock(SqlSessionTemplate sqlSession, int productNo, int orderQuantity) {
+		
+		Map<String, Object> params = new HashMap<>();
+		
+		params.put("productNo", productNo);
+		params.put("orderQuantity", orderQuantity);
+		
+		return sqlSession.update("orderMapper.updateAdStock", params);
+		
 	} 
 
 } // 클래스 영역 끝

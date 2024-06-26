@@ -120,13 +120,19 @@ public class AdOrderController { // 클래스 영역 시작
 	
 	// 환불 상태 변경
 	@PostMapping(value="refundOrder.ad")
-	public String refundOrder(String orderNo, int[] orderProductNos , HttpSession session) {
+	public String refundOrder(String orderNo, int[] orderProductNos, int[] orderQuantity, int[] productNo, HttpSession session) {
 		
 		int result = orderService.refundOrder(orderNo);
 		
 		if(result > 0) { // 성공
 			
-			int updateResult = orderService.updateOrderProductStatus(orderProductNos);
+			int updateResult1 = orderService.updateOrderProductStatus(orderProductNos);
+			
+			for(int i = 0; i < productNo.length; i++) {
+				
+				int updateResult2 = orderService.updateStock(productNo[i], orderQuantity[i]);
+				
+			}
 			
 			session.setAttribute("alertMsg", "성공적으로 환불 처리가되었습니다.");
 			
