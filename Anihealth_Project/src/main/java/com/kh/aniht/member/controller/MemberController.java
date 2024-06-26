@@ -638,6 +638,12 @@ public class MemberController {
 		
 		// System.out.println(ono);
 		
+		// int check = 0;
+		
+		// for(int i =0; list. > i ; i++ ){
+		// if(list[i] == ono){check = check+1 }
+		//}
+		
 		ArrayList<OrderProduct> list = memberService.selectOrderDetailList(ono);
 		
 		/*

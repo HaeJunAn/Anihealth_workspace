@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>헤더 페이지</title>
+    <title>ANIHEALTH</title>
     <!-- jQuery 연동 : 모든 페이지 상단에 menubar.jsp 가 include 되므로 -->
     <!-- 부트스트랩 연동도 마찬가지 -->
 
@@ -46,8 +46,6 @@
 	<!-- 부트스트랩 연동 - 정민 -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 	<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 	
     <style>
         @font-face {

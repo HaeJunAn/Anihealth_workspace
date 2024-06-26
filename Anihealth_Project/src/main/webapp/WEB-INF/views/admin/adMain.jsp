@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<title>Dashboard - SB Admin</title>
+<title>애니헬스</title>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script src="https://www.gstatic.com/charts/loader.js"></script>
 <!-- 별점 총 비율 조회  -->
@@ -212,7 +212,7 @@
     #chart1, #chart2 {
         display: flex; /* 플렉스박스 */
         justify-content: center; /* 가로 중앙 정렬 */
-        border: 1px solid black; /* 검은색 테두리 */
+        /* border: 1px solid black; */ /* 검은색 테두리 */
         margin: 10px; /* 주변 여백 */
         height: 400px; /* 높이 */
         width: 100%; /* 너비 */
@@ -283,6 +283,11 @@
         border-radius: 10px; 
     }
     .custom-size { margin: auto; /* 중앙 정렬 */}
+    
+    .rank {
+    	border-bottom : 1px solid white;
+    	border-top : 1px solid white;
+    }
 </style>
 </head>
 <body>

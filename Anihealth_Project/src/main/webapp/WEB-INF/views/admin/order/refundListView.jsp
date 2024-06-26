@@ -21,7 +21,7 @@
  <!-- Font Awesome CSS 포함 -->
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
- <title>마이페이지 메인</title>
+<title>ANIHEALTH</title>
  <style>
       /* 공통 스타일 */
       div {

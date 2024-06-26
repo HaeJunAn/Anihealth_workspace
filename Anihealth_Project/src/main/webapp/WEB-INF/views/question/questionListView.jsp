@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>FAQ 리스트</title>
+<title>ANIHEALTH</title>
 <style>
   /* 메인 faq 영역 시작 */
         .parent{

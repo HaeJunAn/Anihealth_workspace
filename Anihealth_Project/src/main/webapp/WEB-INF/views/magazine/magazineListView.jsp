@@ -6,7 +6,7 @@
 <head>
  
 <meta charset="UTF-8">
-<title>매거진</title>
+<title>ANIHEALTH</title>
  <style>
         /* 헤더 시작 */
         div {

@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>ANIHEALTH</title>
 <style>
  /* 메인컨테츠영역 시작 */
         .parent {

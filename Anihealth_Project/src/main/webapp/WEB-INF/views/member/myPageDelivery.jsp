@@ -24,7 +24,7 @@
     <!-- 다음 주소 API -->
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
-    <title>마이페이지 메인</title>
+    <title>ANIHEALTH</title>
     <style>
         /* 공통 스타일 */
         div {
