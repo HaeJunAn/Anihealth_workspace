@@ -173,6 +173,7 @@
                 opacity: 100%;
                 border-radius: 25px;
                 overflow: hidden;
+                transform: scale(1.1);
             }
             /* 체중 */
             .bcs>label>div {
