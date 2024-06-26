@@ -159,7 +159,7 @@
             justify-content: space-around;
             align-items: center;
             padding: 20px;
-            border: 1px solid rgb(141, 174, 157);
+            /* border: 1px solid rgb(141, 174, 157); */
             height: 460px;   
             /* 전체 칸의 높이 */
             margin-bottom: 70px;
@@ -387,7 +387,7 @@
 			                        <div class="swiper-button-prev"></div>
 			                        <div class="swiper-button-next"></div>
 			                        <!-- If we need scrollbar -->
-			                        <div class="swiper-scrollbar"></div>
+			                        <!-- <div class="swiper-scrollbar"></div> -->
 			                    </div>
 				           </div>
 				    </div> 

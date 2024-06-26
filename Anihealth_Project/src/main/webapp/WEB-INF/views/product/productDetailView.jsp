@@ -173,7 +173,7 @@
 
                 /* 영양제 상세설명 시작 */
                 .detail-list-container {
-                    width: 85%;
+                    width: 80%;
                     margin: 0 auto;
                     margin-top: 10px;
                     text-align: center;

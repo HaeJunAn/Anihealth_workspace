@@ -282,6 +282,15 @@
         background-color: #d4e5f7;
         border-radius: 10px; 
     }
+    
+    #chart2>div {
+    width: 150%;
+    max-width: 800px;  /* 기존 크기 유지 */
+    margin: 0px 10px;
+    height: 150%;
+    border: 1px solid black;
+}
+
     .custom-size { margin: auto; /* 중앙 정렬 */}
     
     .rank {
