@@ -221,10 +221,9 @@
             .icon-container {
                 margin-bottom: 0px !important;
             }
-           
-
+      
             /*background-color: rgb(115, 201, 115);  */
-        </style>
+        </style>    
     </head>
 
     <body>
@@ -253,7 +252,7 @@
                     <button class="next" type="button">다음</button>
                 </div>
                 <div class="survey-item dog" align="center" style="display: none;">
-                    <h3 style="margin-bottom: 15px;">견종과 나이를 선택해주세요</h3>
+                    <h3 style="margin-bottom: 15px;">품종과 나이를 선택해주세요</h3>
                     나이 <input type="number" name="age" placeholder="나이 입력" min="1" step="1" required >
                     <ul class="breed">
                         <li><img src="resources/simg/닥스훈트.png" alt="닥스훈트"><div>닥스훈트</div></li>
@@ -304,8 +303,8 @@
                 </div>
                 <div class="survey-item bcs" style="display: none;">
                     <div class="icon-container"><img src="resources/simg/obesity.png"></div>
-                    <h3 style="margin-bottom: 15px;">체중/체지방</h3>
-                    몸무게 <input type="number" placeholder="몸무게 입력" name="weight" required style="margin-bottom: 20px;" step="0.1" min="0.1" required> Kg
+                    <h3 style="margin-bottom: 15px;">체중/체형</h3>
+                    체중 <input type="number" placeholder="몸무게 입력" name="weight" required style="margin-bottom: 20px;" step="0.1" min="0.1" required> Kg
                     <label for="bcs1">
                         <input type="radio" name="bcs" value="9" id="bcs1" required>
                         <img src="resources/simg/bcs-icon-dog-9.png">
@@ -422,7 +421,7 @@
                     <h3>뼈/관절</h3>
                     <label for="bone1">
                         <input type="radio" name="bone" value="5" id="bone1" required>
-                        <p>다리에서 뚝뚝거리는 느낌을 받은 적이 있어요.</p>
+                        <p>한쪽 다리를 잘 딛지 못해요.</p>
                     </label><br>
                     <label for="bone2">
                         <input type="radio" name="bone" value="4" id="bone2">
@@ -471,10 +470,10 @@
                 </div>
                 <div class="survey-item" style="display: none;">
                     <div class="icon-container"><img src="resources/simg/immunity.png"></div>
-                    <h3>호흡기/면역</h3>
+                    <h3>면역/호흡기</h3>
                     <label for="immunity1">
                         <input type="radio" name="immunity" value="5" id="immunity1" required>
-                        <p>켁켁거리는 기침을 자주 해요.</p>
+                        <p>흥분했을때 켁켁거리는 기침을 자주 해요.</p>
                     </label><br>
                     <label for="immunity2">
                         <input type="radio" name="immunity" value="4" id="immunity2">
@@ -497,7 +496,7 @@
                 </div>
                 <div class="survey-item" style="display: none;">
                     <div class="icon-container"><img src="resources/simg/stomach.png"></div>
-                    <h3>소화기계</h3>
+                    <h3>위/장</h3>
                     <label for="stomach1">
                         <input type="radio" name="stomach" value="5" id="stomach1" required>
                         <p>음식물이나 위액을 토하는 경우가 있어요.</p>
@@ -526,15 +525,15 @@
                     <h3>신장/방광</h3>
                     <label for="kidney1">
                         <input type="radio" name="kidney" value="5" id="kidney1" required>
-                        <p>평소와 다른 장소에 소변을 보는 경우가 있어요.</p>
+                        <p>혈액이 섞인 소변을 보는 경우가 있어요.</p>
                     </label><br>
                     <label for="kidney2">
                         <input type="radio" name="kidney" value="4" id="kidney2">
-                        <p>식욕이 줄고 체중이 감소했어요.</p>
+                        <p>물을 평소보다 많이 마시는 것 같아요.</p>
                     </label><br>
                     <label for="kidney3">
                         <input type="radio" name="kidney" value="3" id="kidney3">
-                        <p>혈액이 섞인 소변을 보는 경우가 있어요.</p>
+                        <p>소변을 보는 횟수가 늘었어요.</p>
                     </label><br>
                     <label for="kidney4">
                         <input type="radio" name="kidney" value="2" id="kidney4">

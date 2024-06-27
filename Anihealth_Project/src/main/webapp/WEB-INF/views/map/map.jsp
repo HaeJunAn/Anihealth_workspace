@@ -464,7 +464,8 @@
 				//mapList += "<button id='nextBtn' type='button'>더보기..</button>";
 				
 				$(".list-content").html(mapList);
-				if(data.length >=  10) {
+				//console.log(pagination.totalCount);
+				if(pagination.hasNextPage) {
 					$(".list-content").append("<div align='center' id='next-div-btn'><button id='nextBtn' type='button'>더보기..</button></div>");
 				}
 			}

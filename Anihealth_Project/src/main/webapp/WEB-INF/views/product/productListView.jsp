@@ -350,9 +350,9 @@
 					    <nav class="navbar">
 					        <form class="form-inline" action="list.pd" method="get">
 					            <select class="form-control" name="category" required>
-					                 <option value="공통" ${selectedCategory != null && selectedCategory.equals('공통') ? 'selected' : ''}>공통</option>
-									 <option value="강아지" ${selectedCategory != null && selectedCategory.equals('강아지') ? 'selected' : ''}>강아지</option>
-									 <option value="고양이" ${selectedCategory != null && selectedCategory.equals('고양이') ? 'selected' : ''}>고양이</option>
+					                  <option value="공통" ${selectedCategory != null && selectedCategory.equals('공통') ? 'selected' : ''}>공통</option>
+									  <option value="강아지" ${selectedCategory != null && selectedCategory.equals('강아지') ? 'selected' : ''}>강아지</option>
+									  <option value="고양이" ${selectedCategory != null && selectedCategory.equals('고양이') ? 'selected' : ''}>고양이</option>
 					            </select>
 					            <input class="form-control" 
 					                   type="text"

@@ -318,7 +318,7 @@
 					flex-direction: column;
 					align-items: center;
 					gap: 40px;
-					padding-top: 100px;
+					padding-top: 150px;
 					background-color: #fafafa;
 				}
 				.progress {
@@ -376,6 +376,21 @@
 					color: rgb(97, 97, 97);
 				}
 
+				@keyframes custom-spin {
+				to { transform: rotate(360deg); }
+				}
+
+				#loading .custom-spinner {
+					animation: custom-spin 1.5s linear infinite;
+					border-left-color: rgba(47, 142, 219, 0.801);
+					border-top-color: rgba(47, 142, 219, 0.801);
+					border-bottom-color: rgba(47, 142, 219, 0.801);
+				}
+				#loading .progress-bar  {
+					background-color: rgba(47, 142, 219, 0.801);
+				}
+
+
 			</style>
 			<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -384,7 +399,7 @@
 		<body>
 			<jsp:include page="../common/header.jsp" />
 			<main class="surveyResult-wrap" style="display: none;">
-				<section><button onclick="downloadSurvey();">설문결과 저장하기</button></section>
+				<section><button onclick="downloadSurvey();">검진결과 저장하기</button></section>
 				<div class="outline" align="center">
 					<!-- 종합결과 -->
 					<h2>검진개요</h2>
@@ -481,7 +496,7 @@
 								</c:when>
 
 								<c:when test="${10 > weightInfo.weightRatio and weightInfo.weightRatio > -10}">
-									<td colspan="2">정상범위: 표준체중보다 ${weightInfo.weightRatio}% 무겁습니다</td>
+									<td colspan="2">정상범위: 표준체중과 ${weightInfo.weightRatio}% 차이가 납니다</td>
 								</c:when>
 
 								<c:when test="${-10 >= weightInfo.weightRatio and weightInfo.weightRatio > -20}">
@@ -618,7 +633,7 @@
                         aria-valuemax="100"></div>
                 </div>
 				<div class="text-center">
-					<div class="spinner-border" role="status">
+					<div class="spinner-border text-info custom-spinner" role="status" style='width: 6rem; height: 6rem'>
 					  <span class="visually-hidden"></span>
 					</div>
 				</div>
