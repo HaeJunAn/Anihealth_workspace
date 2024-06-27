@@ -311,6 +311,12 @@
                 /* 아니면 안보이게 숨기기도 가능 */
                 --swiper-navigation-size: 55px;
             }
+            
+        .product-rw a:hover{
+        	text-decoration: none;
+            color: inherit;
+            transform: scale(1.1);
+        }
     </style>
     
 </head>

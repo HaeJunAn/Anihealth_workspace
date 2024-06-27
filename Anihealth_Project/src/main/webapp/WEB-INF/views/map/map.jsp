@@ -426,7 +426,7 @@
 		// 	}
 		// }
 
-		// 키워드 검색
+		// 주소검색 -> 키워드 검색
 		function searchButton() {
 			let address = $("#address>input").val();
 			// 주소검색 or 키워드 검색 검사
@@ -434,25 +434,34 @@
 				address = address.split('/', 2)[1];
 			}
 			//console.log(address);
-			geocoder.addressSearch(address,
-					function(result, status) {
+			geocoder.addressSearch(address, function(result, status) {
 						// 정상적으로 검색이 완료됐으면 
 						//console.log(result);
+						mapList = ''; // 검색할떄마다 리스트 비우기
+						$("#suggestions>table").children().remove(); //자동완성 지우기
+						hideMarkers();
 						if (status === kakao.maps.services.Status.OK) {
-							console.log("호출");
-							mapList = ''; // 검색할떄마다 리스트 비우기
-							$("#suggestions>table").children().remove(); //자동완성 지우기
-							hideMarkers();
 							var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-
 							// 지도의 중심을 결과값으로 받은 위치로 이동
 							map.panTo(coords);
 							// 키워드로 장소를 검색합니다, 매개변수 location 추가
 							//hideMarkers();
-							ps.keywordSearch('동물병원', placesSearchCB, {location : coords, radius : 2000, size: 10, sort : kakao.maps.services.SortBy.DISTANCE}); //size : 5, page : 1	결과 최대 45개 지원
+							ps.keywordSearch('동물병원', placesSearchCB, {location : coords, radius : 3000, size: 10, sort : kakao.maps.services.SortBy.DISTANCE}); //size : 5, page : 1	결과 최대 45개 지원
 							//ps.categorySearch('PK6', categorySearchCB, {location : coords, radius : 2000});
-						} else {
-
+						} else { // 주소검색 없을시 키워드 검색
+							//console.log(address + '동물병원');
+							ps.keywordSearch(address + ' 동물병원', (result, status) => {
+								if (status === kakao.maps.services.Status.OK) { 
+									var newCoords = new kakao.maps.LatLng(result[0].y, result[0].x);
+									map.panTo(newCoords);
+									//console.log(newCoords);
+									ps.keywordSearch(address + '동물병원', placesSearchCB, {location : newCoords, radius : 4000, size: 10, sort : kakao.maps.services.SortBy.DISTANCE});
+								} else { 
+									$(".list-content").html(mapList);
+									$(".list-content").append("<h2 class='defmsg' align='center'>조회된 결과가 없습니다</h2>");
+									alert("조회된 결과가 없습니다. 주소정보를 기준으로 검색해주세요!");
+								}
+							});	
 						}
 					});
 		}
@@ -460,11 +469,12 @@
 		function searchButton2() {
 			mapList = '';
 			hideMarkers();
+			$("#suggestions>table").children().remove(); 
 			var center = map.getCenter();
-			ps.keywordSearch('동물병원', placesSearchCB, {location : center, radius : 2000, size: 10, sort : kakao.maps.services.SortBy.DISTANCE});
+			ps.keywordSearch('동물병원', placesSearchCB, {location : center, radius : 4000, size: 10, sort : kakao.maps.services.SortBy.DISTANCE});
 		}
 
-		// data[i] 에 장소 정보 객체 저장
+		// 키워드 검색 함수
 		function placesSearchCB(data, status, pagination) {
 			window.pagination = pagination;
 			if (status === kakao.maps.services.Status.OK) {
@@ -487,6 +497,11 @@
 				if(pagination.hasNextPage) {
 					$(".list-content").append("<div align='center' id='next-div-btn'><button id='nextBtn' type='button'>더보기..</button></div>");
 				}
+			} else {
+				//console.log("호출");
+				$(".list-content").html(mapList);
+				$(".list-content").append("<h2 class='defmsg' align='center'>조회된 결과가 없습니다</h2>");
+				alert("조회된 결과가 없습니다. 주소정보를 기준으로 검색해주세요!");
 			}
 
 		}
