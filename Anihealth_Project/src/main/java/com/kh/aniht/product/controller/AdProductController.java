@@ -240,15 +240,19 @@ public class AdProductController { // 클래스 영역 시작
 		
 		int resultSE = productService.deleteSideEffect(p.getProductNo());
 		
-		for(int i = 0; i < sideEffect.length; i++) {
+		if(sideEffect != null) {
 			
-			int itemSideEffect = Integer.parseInt(sideEffect[i]);
-			
-			sideEffectResult += productService.insertSideEffect(itemSideEffect, p.getProductNo());
+			for(int i = 0; i < sideEffect.length; i++) {
+				
+				int itemSideEffect = Integer.parseInt(sideEffect[i]);
+				
+				sideEffectResult += productService.insertSideEffect(itemSideEffect, p.getProductNo());
+				
+			}
 			
 		}
 		
-		if(result > 0 && effectResult >= effect.length && sideEffectResult >= sideEffect.length) { // 성공
+		if((result > 0 && effectResult >= effect.length) || sideEffectResult >= sideEffect.length) { // 성공
 			
 			session.setAttribute("alertMsg", "성공적으로 상품이 수정되었습니다.");
 			mv.setViewName("redirect:/detailProduct.ad?pno=" + p.getProductNo());

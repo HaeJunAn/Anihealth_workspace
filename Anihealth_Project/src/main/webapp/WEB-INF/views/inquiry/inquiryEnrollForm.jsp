@@ -228,7 +228,7 @@
 		                            <br><br>
 		            
 		                            <div align="center">
-		                                <button type="submit"  onclick = "location.href='insert.iq'" id="btn-update" class="btn btn-update">등록하기</button>
+		                                <button type="submit" id="btn-update" class="btn btn-update">등록하기</button>
 		                                <button type="reset" id="btn-delete"  
 		                                      onclick="javascript:history.go(-1);" 
 		                                      class="btn btn-delete">뒤로가기</button>

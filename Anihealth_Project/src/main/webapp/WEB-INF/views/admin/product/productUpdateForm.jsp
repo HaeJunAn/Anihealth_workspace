@@ -181,7 +181,7 @@
 				        			<input type="checkbox" name="sideEffect" value="6" id="side-immunity" class="form-check-inline">
 				        			<label for="side-immunity">면역력</label>
 				        			<input type="checkbox" name="sideEffect" value="7" id="side-stomach" class="form-check-inline">
-				        			<label for="side-stomach">위장</label>
+				        			<label for="side-stomach">위/장</label>
 				        			<input type="checkbox" name="sideEffect" value="8" id="side-kidney" class="form-check-inline">
 				        			<label for="side-kidney">신장/방광</label>
 				        		</td>
@@ -234,12 +234,6 @@
 	                return false;
 	            }
 	
-	            // Check if at least one checkbox is selected in the "부작용" section
-	            if ($('.sideEffect input:checked').length === 0) {
-	                alert('부작용 중 최소한 하나를 선택해야 합니다.');
-	                return false;
-	            }
-				
 	            // Check if both images are present
 	            if ($('#thumbnail').attr('src') === "" || $('#detail').attr('src') === "") {
 	                alert('대표이미지와 상세이미지를 모두 선택해야 합니다.');
