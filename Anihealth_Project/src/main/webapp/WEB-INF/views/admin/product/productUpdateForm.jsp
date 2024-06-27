@@ -115,7 +115,7 @@
 			        		<td width="800px">${ requestScope.p.productNo }</td>
 			        		<th width="150px" class="area-middle">카테고리</th>
 			        		<td width="250px" class="area-middle">
-			        			<select class="form-control col-sm-9" name="category">
+			        			<select class="form-control col-sm-9" name="category" id="categorySelect">
 			        				<option>공통</option>
 			        				<option>강아지</option>
 			        				<option>고양이</option>
@@ -335,6 +335,14 @@
 		                
 		            }
 	       		})
+	        	
+	        	// 조회된 카테고리 표시
+	        	$(function() {
+	        		
+	        		var selectElement = document.getElementById('categorySelect');
+	                selectElement.value = '${ requestScope.p.category }';
+	        		
+	        	})
 	        </script>
         
 	</div>

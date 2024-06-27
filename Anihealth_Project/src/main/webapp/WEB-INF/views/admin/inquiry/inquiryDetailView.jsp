@@ -124,7 +124,7 @@
 	        			
 	        			<div class="btns" align="center">
 	        				<input type="button" value="답변 수정" class="insertAnswer" onclick="updateAnswer(${ requestScope.iq.inquiryNo });">
-	        				<input type="button" value="목록 가기" class="insertAnswer" onclick="location.href='inquiry.ad'">
+	        				<input type="button" value="문의 목록" class="insertAnswer" onclick="location.href='inquiry.ad'">
 	        				<c:choose>
 	        					<c:when test="${ requestScope.iq.inquiryStatus eq 'Y' }">
 	        						<input type="button" value="문의 삭제" class="insertAnswer" onclick="deleteAlert();">
@@ -139,6 +139,7 @@
 	        			<br>
 	        			<div class="btns" align="center">
 	        				<input type="button" value="답변 등록" class="insertAnswer" onclick="insertAnswer();">
+	        				<input type="button" value="문의 목록" class="insertAnswer" onclick="location.href='inquiry.ad'">
 	        			</div>
 	        		</c:otherwise>
 	        	</c:choose>

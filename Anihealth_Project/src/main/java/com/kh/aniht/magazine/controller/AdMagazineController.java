@@ -57,6 +57,8 @@ public class AdMagazineController { // 클래스 영역 시작
 		
 		ArrayList<Magazine> list = magazineService.selectAttachmentList(mno);
 		
+		System.out.println(list);
+		
 		mv.addObject("ma", ma).addObject("list", list).setViewName("admin/magazine/magazineDetailView");
 		
 		return mv;
