@@ -270,7 +270,8 @@
 				}
 
 				.product-selected table {
-					width: 100%;	
+					margin: auto;
+					width: 90%;	
 					border-top: 1px solid #d3d3d3;		
 				}
 				.product-selected tr {

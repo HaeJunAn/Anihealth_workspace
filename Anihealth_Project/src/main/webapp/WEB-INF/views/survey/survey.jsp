@@ -307,31 +307,31 @@
                     체중 <input type="number" placeholder="몸무게 입력" name="weight" required style="margin-bottom: 20px;" step="0.1" min="0.1" required> Kg
                     <label for="bcs1">
                         <input type="radio" name="bcs" value="9" id="bcs1" required>
-                        <img src="resources/simg/bcs-icon-dog-9.png">
+                        <img src="resources/simg/bcs-icon-dog-9_2.png">
                         <h5>비만이에요</h5>
                         <p>매우 많은 지방이 몸 전체에 축적되어 있어요. 목, 가슴, 허리의 구분이 어렵고 몸 어디에서도 뼈를 만지기가 힘들어요..</p>
                     </label><br>
                     <label for="bcs2">
                         <input type="radio" name="bcs" value="7" id="bcs2">
-                        <img src="resources/simg/bcs-icon-dog-7.png">
+                        <img src="resources/simg/bcs-icon-dog-7_2.png">
                         <h5>무거워요</h5>
                         <p>갈비뼈의 굴곡이 거의 느껴지지 않아요. 허리와 복부에 지방이 많아 위에서 보았을 때 허리를 구분하기 힘들어요.</p>
                     </label><br>
                     <label for="bcs3">
                         <input type="radio" name="bcs" value="5" id="bcs3">
-                        <img src="resources/simg/bcs-icon-dog-5.png">
+                        <img src="resources/simg/bcs-icon-dog-5_2.png">
                         <h5>이상적이에요</h5>
                         <p>갈비뼈 사이사이가 적당한 양의 지방으로 덮여 있어요. 허리가 구분되고 복부는 약간 들어가 있어요.</p>
                     </label><br>
                     <label for="bcs4">
                         <input type="radio" name="bcs" value="3" id="bcs4">
-                        <img src="resources/simg/bcs-icon-dog-3.png">
+                        <img src="resources/simg/bcs-icon-dog-3_2.png">
                         <h5>말랐어요</h5>
                         <p>갈비뼈를 만졌을 때 뼈 사이사이가 매우 잘 느껴져요. 허리가 잘 구분되고 복부가 잘록해요.</p>
                     </label><br>
                     <label for="bcs5">
                         <input type="radio" name="bcs" value="1" id="bcs5">
-                        <img src="resources/simg/bcs-icon-dog-1.png">
+                        <img src="resources/simg/bcs-icon-dog-1_2.png">
                         <h5>수척해요</h5>
                         <p>모든 뼈의 돌출부가 뚜렷하게 보여요. 몸 어디에서도 체지방과 근육을 확인할 수 없어요.</p>
                     </label><br>
