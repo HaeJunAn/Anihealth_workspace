@@ -194,7 +194,7 @@
 					<td>
 					<div id="id-check-container">
 						<input type="text" id="userId" name="userId" class="form-control" minlength="5" maxlength="11"
-							placeholder="아이디(5~11자 영문,숫자 조합)" required >
+							placeholder="아이디(5~11자)" required >
 						<div id="idCheckResult" class="result"
 							 style="font-size: 0.8em;" display : none;"></div>
 					</div> <br>
@@ -331,7 +331,7 @@
 					<td>
 					<div id="nick-check-container">
 						<input type="text" id="userNick" name="userNick" class="form-control" minlength="2" maxlength="11"
-							placeholder="닉네임(2~11자 한글/영문) " required >
+							placeholder="닉네임(2~11자) " required >
 						<div id="nickCheckResult"
 							 style="font-size: 0.8em;" display : none;"></div>
 					</div>
