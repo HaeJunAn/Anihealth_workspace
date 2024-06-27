@@ -14,21 +14,21 @@ import com.kh.aniht.member.model.vo.Member;
 public class AdMemberDao { // 클래스 영역 시작
 
 	// 회원 총 인원수 조회 : 
-	public int selectMemberListCount(SqlSessionTemplate sqlSession) {
+	public int selectMemberListCount(SqlSessionTemplate sqlSession, String keyword) {
 		
-		return sqlSession.selectOne("memberMapper.selectAdMemberListCount");
+		return sqlSession.selectOne("memberMapper.selectAdMemberListCount", keyword);
 		
 	}
 
 	// 회원 목록 조회
-	public ArrayList<Member> selectMemberList(SqlSessionTemplate sqlSession, PageInfo pi) {
+	public ArrayList<Member> selectMemberList(SqlSessionTemplate sqlSession, PageInfo pi, String keyword) {
 		
 		int limit = pi.getBoardLimit();
 		int offset = (pi.getCurrentPage() - 1) * limit;
 		
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		
-		return (ArrayList)sqlSession.selectList("memberMapper.selectAdMemberList", null, rowBounds);
+		return (ArrayList)sqlSession.selectList("memberMapper.selectAdMemberList", keyword, rowBounds);
 		
 	}
 

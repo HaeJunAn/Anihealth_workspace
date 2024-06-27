@@ -11,10 +11,10 @@ import com.kh.aniht.product.model.vo.Product;
 public interface AdProductService { // 인터페이스 영역 시작
 	
 	// 영양제 총 개수 조회 : 페이징 처리
-	int selectProductListCount();
+	int selectProductListCount(String keyword);
 	
 	// 영양제 목록 조회
-	ArrayList<Product> selectProductList(PageInfo pi);
+	ArrayList<Product> selectProductList(PageInfo pi, String keyword);
 	
 	// 영양제 상세조회 
 	Product selectProduct(int productNo);

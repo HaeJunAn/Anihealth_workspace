@@ -144,10 +144,10 @@
 	 					<td class="btns" height="30px">
 	 						<c:choose>
 	 							<c:when test="${ r.reviewStatus eq 'Y' }">
-		 							<a class="btn btn-lg" onclick="deleteAlert();">삭제</a>
+		 							<a class="btn btn-lg" onclick="deleteAlert(${ r.reviewNo });">삭제</a>
 		 						</c:when>
 		 						<c:otherwise>
-		 							<a class="btn btn-lg" onclick="recoverAlert();">복구</a>
+		 							<a class="btn btn-lg" onclick="recoverAlert(${ r.reviewNo });">복구</a>
 		 						</c:otherwise>
 						    </c:choose>
 						    <form id="postForm" action="" method="post">
@@ -213,7 +213,9 @@
 	</div>
 	
 	<script>
-	   	function deleteAlert() {
+	   	function deleteAlert(reviewNo) {
+	   		
+	   		$("input[name=reviewNo]").val(reviewNo);
 	   		
 	   		if (window.confirm('리뷰를 삭제하시겠습니까?')) {
 	   			$("#postForm").attr("action", "deleteReview.ad").submit();
@@ -221,7 +223,9 @@
 	   		
 	   	}
 	   	
-		function recoverAlert() {
+		function recoverAlert(reviewNo) {
+			
+			$("input[name=reviewNo]").val(reviewNo);
 	   		
 	   		if (window.confirm('리뷰를 복구하시겠습니까?')) {
 	   			$("#postForm").attr("action", "recoverReview.ad").submit();

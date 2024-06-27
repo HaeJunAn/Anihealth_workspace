@@ -23,17 +23,17 @@ public class AdMemberServiceImpl implements AdMemberService{ // 클래스 영역
 	
 	// 회원 총 인원수 조회 : 페이징 처리
 	@Override
-	public int selectMemberListCount() {
+	public int selectMemberListCount(String keyword) {
 		
-		return memberDao.selectMemberListCount(sqlSession);
+		return memberDao.selectMemberListCount(sqlSession, keyword);
 		
 	}
 
 	// 회원 목록 조회
 	@Override
-	public ArrayList<Member> selectMemberList(PageInfo pi) {
+	public ArrayList<Member> selectMemberList(PageInfo pi, String keyword) {
 		
-		return memberDao.selectMemberList(sqlSession, pi);
+		return memberDao.selectMemberList(sqlSession, pi, keyword);
 		
 	}
 

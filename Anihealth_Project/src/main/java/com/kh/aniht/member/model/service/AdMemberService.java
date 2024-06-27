@@ -9,10 +9,10 @@ import com.kh.aniht.member.model.vo.Member;
 public interface AdMemberService { // 인터페이스 영역 시작
 
 	// 회원 총 인원수 조회 : 페이징 처리
-	int selectMemberListCount();
+	int selectMemberListCount(String keyword);
 	
 	// 회원 목록 조회
-	ArrayList<Member> selectMemberList(PageInfo pi);
+	ArrayList<Member> selectMemberList(PageInfo pi, String keyword);
 	
 	// 회원 상세 조회
 	Member selectMember(int userNo);

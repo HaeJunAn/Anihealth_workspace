@@ -25,17 +25,17 @@ public class AdProductServiceImpl implements AdProductService { // 클래스 영
 	
 	// 영양제 총 개수 조회 : 페이징 처리
 	@Override
-	public int selectProductListCount() {
+	public int selectProductListCount(String keyword) {
 		
-		return productDao.selectProductListCount(sqlSession);
+		return productDao.selectProductListCount(sqlSession, keyword);
 		
 	}
 
 	// 영양제 목록 조회
 	@Override
-	public ArrayList<Product> selectProductList(PageInfo pi) {
+	public ArrayList<Product> selectProductList(PageInfo pi, String keyword) {
 		
-		return productDao.selectProductList(sqlSession, pi);
+		return productDao.selectProductList(sqlSession, pi, keyword);
 		
 	}
 

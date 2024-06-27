@@ -89,6 +89,9 @@ public class AdQuestionController { // 클래스 영역 시작
 	@PostMapping(value="deleteFAQ.ad")
 	public String deleteQuestion(Question question, HttpSession session) {
 		
+		
+		System.out.println(question.getFaqNo());
+		
 		int result = questionService.deleteQuestion(question);
 		
 		if(result > 0) {

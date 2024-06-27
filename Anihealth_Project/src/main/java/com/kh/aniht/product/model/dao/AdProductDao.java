@@ -17,21 +17,21 @@ import com.kh.aniht.product.model.vo.Product;
 public class AdProductDao { // 클래스 영역 시작
 
 	// 영양제 총 개수 조회 : 페이징 처리
-	public int selectProductListCount(SqlSessionTemplate sqlSession) {
+	public int selectProductListCount(SqlSessionTemplate sqlSession, String keyword) {
 		
-		return sqlSession.selectOne("productMapper.selectAdProductListCount") ;
+		return sqlSession.selectOne("productMapper.selectAdProductListCount", keyword);
 		
 	}
 
 	// 영양제 목록 조회
-	public ArrayList<Product> selectProductList(SqlSessionTemplate sqlSession, PageInfo pi) {
+	public ArrayList<Product> selectProductList(SqlSessionTemplate sqlSession, PageInfo pi, String keyword) {
 		
 		int limit = pi.getBoardLimit();
 		int offset = (pi.getCurrentPage() - 1) * limit;
 		
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		
-		return (ArrayList)sqlSession.selectList("productMapper.selectAdProductList", null, rowBounds);
+		return (ArrayList)sqlSession.selectList("productMapper.selectAdProductList", keyword, rowBounds);
 		
 	}
 

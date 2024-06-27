@@ -35,20 +35,27 @@ public class AdProductController { // 클래스 영역 시작
 
 	// 영양제 목록조회 (+ 페이징처리)
 	@GetMapping(value="product.ad")
-	public String selectProductList(@RequestParam(value="cpage", defaultValue="1") int currentPage, Model model ) {
+	public String selectProductList(@RequestParam(value="cpage", defaultValue="1") int currentPage, 
+									@RequestParam(value="keyword", required=false) String keyword,
+									Model model ) {
 		
 		// 페이징 처리
-		int listCount = productService.selectProductListCount();
+		int listCount = productService.selectProductListCount(keyword);
 		int pageLimit = 10;
 		int boardLimit = 10;
 		
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
 		
 		// 영양제 목록조회
-		ArrayList<Product> list = productService.selectProductList(pi);
+		ArrayList<Product> list = productService.selectProductList(pi, keyword);
 		
 		model.addAttribute("pi", pi);
 		model.addAttribute("list", list);
+		model.addAttribute("keyword", keyword);
+		
+		if (list.isEmpty()) {
+            model.addAttribute("noResults", true);
+        }
 		
 		return "admin/product/productListView";
 		

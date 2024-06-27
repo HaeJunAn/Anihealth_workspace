@@ -163,16 +163,11 @@
 		        
 		        <div class="search-container">
                    <nav class="navbar">
-                       <form class="form-inline" action="list.pd" method="get">
-                           <select class="form-control" name="category" required>
-                               <option value="공통">공통</option>
-                               <option value="강아지">강아지</option>
-                               <option value="고양이">고양이</option>
-                           </select>
+                       <form class="form-inline" action="product.ad" method="get">
                            <input class="form-control" 
                                   type="text"
                                   placeholder="검색어를 입력해주세요" 
-                                  name="keyword" required>
+                                  name="keyword" value="${ requestScope.keyword }">
                            <button class="btn btn-search" id="btn-search" type="submit">검색</button>
                        </form>
                    </nav>
@@ -225,7 +220,7 @@
                     <button onclick="" class="disabled">&lt;</button>
                 </c:when>
                 <c:otherwise>
-                    <button onclick="location.href='product.ad?cpage=${ requestScope.pi.currentPage - 1 }'">&lt;</button>
+                    <button onclick="location.href='product.ad?cpage=${ requestScope.pi.currentPage - 1 }&keyword=${ requestScope.keyword != null ? requestScope.keyword : ''}'">&lt;</button>
                 </c:otherwise>
             </c:choose>
             
@@ -233,7 +228,7 @@
                            end="${ requestScope.pi.endPage }" step="1">
                 <c:choose>
                     <c:when test="${ requestScope.pi.currentPage ne p }">
-                        <button onclick="location.href='product.ad?cpage=${ p }'">${ p }</button>
+                        <button onclick="location.href='product.ad?cpage=${ p }&keyword=${ requestScope.keyword != null ? requestScope.keyword : ''}'">${ p }</button>
                     </c:when>
                     <c:otherwise>
                         <button class="page-item active">${ p }</button>
@@ -246,12 +241,20 @@
                     <button onclick="" class="disabled">&gt;</button>
                 </c:when>
                 <c:otherwise>
-                    <button onclick="location.href='product.ad?cpage=${ requestScope.pi.currentPage + 1 }'">&gt;</button>
+                    <button onclick="location.href='product.ad?cpage=${ requestScope.pi.currentPage + 1 }&keyword=${ requestScope.keyword != null ? requestScope.keyword : ''}'">&gt;</button>
                 </c:otherwise>
             </c:choose>
             
            </div>
        </div>
+       
+       <!-- 검색 결과가 없는 경우 알림 표시 -->
+	   <c:if test="${not empty noResults}">
+	   		<script>
+		        alert("검색 결과가 없습니다. 다른 검색어를 입력해주세요.");
+		        window.location.href = 'product.ad';
+		    </script>
+		</c:if>
        
        <script>
        // 상세조회 function

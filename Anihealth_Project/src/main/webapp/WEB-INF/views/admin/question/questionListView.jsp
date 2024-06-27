@@ -228,6 +228,10 @@
         /* 페이징버튼 끌 */
 
         /* 메인 faq 영역 끝 */
+        
+        .updateBtn {
+        	margin-right : 10px;
+        }
     </style>
 </head>
 <body>
@@ -250,7 +254,7 @@
 	        
 	        	<form method="post" action="updateFAQ.ad" id="postForm">
 		            <c:forEach var="q" items="${ requestScope.list }">
-		            
+		            	
 		            	<input type="hidden" name="faqNo" value="${ q.faqNo }">
 		            	
 		                <div class="faq-item">
@@ -270,10 +274,10 @@
 		                            
 		                            <c:choose>
 			 							<c:when test="${ q.faqStatus eq 'Y' }">
-			 								<input type="button" value="삭제" class="deleteBtn" onclick="deleteAlert();"> 
+			 								<input type="button" value="삭제" class="deleteBtn" onclick="deleteAlert(${ q.faqNo });"> 
 				 						</c:when>
 				 						<c:otherwise>
-				 							<input type="button" value="복구" class="deleteBtn" onclick="recoverAlert();"> 
+				 							<input type="button" value="복구" class="deleteBtn" onclick="recoverAlert(${ q.faqNo });"> 
 				 						</c:otherwise>
 								    </c:choose>
 		                            
@@ -281,8 +285,10 @@
 		                        </div>
 		                     </div>
 		                </div>
+		               
 		            </c:forEach>
-				</form>
+	            </form>
+				
 			
 	            <!-- 페이징바가 보여질 부분 -->
 	            <div align="center" class="paging-area">
@@ -344,10 +350,13 @@
 	    });
 	
 	    // FAQ 수정폼
-	    function updateFormQuestion(num) {
+	    function updateFormQuestion(faqNo) {
+	    	
 	        let target = window.event.target;
 	        let faqTitle = $(target).closest('.faq-item').find('#questionReadonly').text();
 	        let faqContent = $(target).closest('.faq-answer').find('span').eq(1).text();
+	        
+	        $("input[name=faqNo]").val(faqNo);
 	
 	        // FAQ 제목 수정
 	        $(target).closest('.faq-item').find('#questionReadonly').html("<textarea id='faqTitle' name='faqTitle' style='resize : none;'>" + faqTitle + "</textarea>");
@@ -362,16 +371,20 @@
 	    }
 	    
 	    // FAQ 삭제 및 복구
-	    function deleteAlert() {
+	    function deleteAlert(faqNo) {
 	   		
+	    	$("input[name=faqNo]").val(faqNo);
+	    	
 	   		if (window.confirm('FAQ를 삭제하시겠습니까?')) {
 	   			$("#postForm").attr("action", "deleteFAQ.ad").submit();
 	   		}
 	   		
 	   	}
 	   	
-		function recoverAlert() {
+		function recoverAlert(faqNo) {
 	   		
+			$("input[name=faqNo]").val(faqNo);
+			
 	   		if (window.confirm('FAQ를 복구하시겠습니까?')) {
 	   			$("#postForm").attr("action", "recoverFAQ.ad").submit();
 	   		}

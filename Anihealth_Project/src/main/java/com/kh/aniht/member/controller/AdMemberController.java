@@ -29,20 +29,27 @@ public class AdMemberController { // 클래스 영역 시작
 
 	// 회원 목록조회 (+ 페이징 처리)
 	@GetMapping(value="member.ad")
-	public String selectMemberList(@RequestParam(value="cpage", defaultValue="1") int currentPage, Model model) {
+	public String selectMemberList(@RequestParam(value="cpage", defaultValue="1") int currentPage,
+								   @RequestParam(value="keyword", required=false) String keyword,
+								   Model model) {
 		
 		// 페이징 처리
-		int listCount = memberService.selectMemberListCount();
+		int listCount = memberService.selectMemberListCount(keyword);
 		int pageLimit = 10;
 		int boardLimit = 10;
 		
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
 		
 		// 회원 목록조회
-		ArrayList<Member> list = memberService.selectMemberList(pi); 
+		ArrayList<Member> list = memberService.selectMemberList(pi, keyword); 
 		
 		model.addAttribute("pi", pi);
 		model.addAttribute("list", list);
+		model.addAttribute("keyword", keyword);
+		
+		if (list.isEmpty()) {
+            model.addAttribute("noResults", true);
+        }
 		
 		return "admin/member/memberListView";
 		
@@ -99,7 +106,8 @@ public class AdMemberController { // 클래스 영역 시작
 	@PostMapping(value="countMember.ad", produces="application/json; charset=UTF-8") 
 	public String selectCountMember() {
 		
-		int member = memberService.selectMemberListCount();
+		int member = memberService.selectMemberListCount(null);
+		
 		int activeMember = memberService.selectActiveMember();
 		
 		JSONObject jObj = new JSONObject();

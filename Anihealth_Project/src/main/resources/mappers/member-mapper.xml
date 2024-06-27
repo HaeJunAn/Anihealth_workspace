@@ -440,19 +440,26 @@
 	
 	<!-- *********** 정민 : 관리자 ********* -->
 	<!-- 회원 총인원수 조회용 쿼리문 -->
-	<select id="selectAdMemberListCount" resultType="_int">
-		SELECT COUNT(*)
-		  FROM MEMBER
+	<select id="selectAdMemberListCount" parameterType="string" resultType="_int">
+	    SELECT COUNT(*)
+	    FROM MEMBER
+	    <if test="keyword != null and keyword != ''">
+	        WHERE USER_ID LIKE '%' || #{keyword} || '%' OR USER_NICK LIKE '%' || #{keyword} || '%' OR USER_NAME LIKE '%' || #{keyword} || '%'
+	    </if>
 	</select>
 	
+	
 	<!-- 회원 목록 조회 -->
-	<select id="selectAdMemberList" resultMap="memberResultSet">
+	<select id="selectAdMemberList" parameterType="string" resultMap="memberResultSet">
 		SELECT USER_NO
 	         , USER_ID
 	         , USER_NICK
 	         , CREATE_DATE
 	         , STATUS
 		  FROM MEMBER
+		  <if test="keyword != null and keyword != ''">
+          	WHERE USER_ID LIKE '%' || #{keyword} || '%' OR USER_NICK LIKE '%' || #{keyword} || '%' OR USER_NAME LIKE '%' || #{keyword} || '%'
+          </if>
 		 ORDER BY USER_NO DESC
 	</select>
 	

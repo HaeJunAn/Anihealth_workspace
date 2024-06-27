@@ -44,7 +44,7 @@
        margin: 0 5px; 
        cursor: pointer;
        border-radius: 10px; 
-       margin-right: 6%;
+       margin-right: 15px;
        border: 1px solid  rgb(82, 166, 121);
    }
 
@@ -93,6 +93,53 @@
     #list-area tbody tr:hover {
     	background-color : #f1f7ee;
     }
+    
+    /* 검색 스타일 */
+    .search-container {
+        margin-left: auto;
+        /* 오른쪽 끝으로 이동 */
+        float: right;
+        margin-bottom : 10px;
+    }
+    
+    .search-container .navbar {
+        display: flex;
+        justify-content: flex-end;
+        /* 오른쪽 정렬 */
+    }
+
+    .search-container .navbar .form-control,
+    .search-container .navbar .btn {
+        font-size: 110%;
+        /* 글자 크기 10% 증가 */
+    }
+    
+    .form-control{
+    	 margin-left: 5px;
+    }
+
+    .sea1rch-container .navbar {
+        display: flex;
+        justify-content: flex-end;
+        /* 오른쪽 정렬 */
+    }
+
+
+    #btn-search {
+        border: 3px solid rgb(82, 166, 121);
+        color: rgb(83, 88, 88);
+        font-weight: 600;
+        margin-left: 5px;
+    }
+      #btn-search:hover {
+   	  background-color:rgb(82, 166, 121);
+   	  color: white;
+    }
+    
+    #search-area {
+    	width : 70%;
+    	margin: 0 auto; 
+    }
 </style>
 </head>
 <body>
@@ -103,6 +150,21 @@
 		
 		<div class="header-product">
             <h1>MEMBER</h1>
+        </div>
+        
+        <div id="search-area">
+        	<div class="search-container">
+	            <nav class="navbar">
+	                <form class="form-inline" action="member.ad" method="get">
+	                    <input class="form-control" 
+	                           type="text"
+	                           placeholder="검색어를 입력해주세요" 
+	                           name="keyword" value="${ requestScope.keyword }">
+	                    <button class="btn btn-search" id="btn-search" type="submit">검색</button>
+	                </form>
+	            </nav>
+	        </div>
+        
         </div>
         
         <table class="table table-hover" id="list-area">
@@ -137,7 +199,7 @@
                     <button onclick="" class="disabled">&lt;</button>
                 </c:when>
                 <c:otherwise>
-                    <button onclick="location.href='member.ad?cpage=${ requestScope.pi.currentPage - 1 }'">&lt;</button>
+                    <button onclick="location.href='member.ad?cpage=${ requestScope.pi.currentPage - 1 }&keyword=${ requestScope.keyword != null ? requestScope.keyword : ''}'">&lt;</button>
                 </c:otherwise>
             </c:choose>
             
@@ -145,7 +207,7 @@
                            end="${ requestScope.pi.endPage }" step="1">
                 <c:choose>
                     <c:when test="${ requestScope.pi.currentPage ne p }">
-                        <button onclick="location.href='member.ad?cpage=${ p }'">${ p }</button>
+                        <button onclick="location.href='member.ad?cpage=${ p }&keyword=${ requestScope.keyword != null ? requestScope.keyword : ''}'">${ p }</button>
                     </c:when>
                     <c:otherwise>
                         <button class="page-item active">${ p }</button>
@@ -158,12 +220,20 @@
                     <button onclick="" class="disabled">&gt;</button>
                 </c:when>
                 <c:otherwise>
-                    <button onclick="location.href='member.ad?cpage=${ requestScope.pi.currentPage + 1 }'">&gt;</button>
+                    <button onclick="location.href='member.ad?cpage=${ requestScope.pi.currentPage + 1 }&keyword=${ requestScope.keyword != null ? requestScope.keyword : ''}'">&gt;</button>
                 </c:otherwise>
             </c:choose>
             
            </div>
        </div>
+       
+       <!-- 검색 결과가 없는 경우 알림 표시 -->
+	   <c:if test="${not empty noResults}">
+	   		<script>
+		        alert("검색 결과가 없습니다. 다른 검색어를 입력해주세요.");
+		        window.location.href = 'member.ad';
+		    </script>
+		</c:if>
        
        <script>
        // 상세조회 function

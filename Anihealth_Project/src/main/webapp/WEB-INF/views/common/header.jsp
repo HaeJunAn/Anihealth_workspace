@@ -252,7 +252,7 @@
                       </li>
   
                       <li class="nav-item dropdown">
-                          <a class="nav-link dropdown-toggle" data-toggle="dropdown">CUSTOMER SERVICE</a>
+                          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">CUSTOMER SERVICE</a>
                           <div class="dropdown-menu">
                               <a class="dropdown-item" href="faq.ad">FAQ</a>
                               <a class="dropdown-item" href="inquiry.ad">INQUIRY</a>

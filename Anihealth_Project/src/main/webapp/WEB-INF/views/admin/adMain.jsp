@@ -271,7 +271,7 @@
         max-width: 600px; /* 최대 너비를 600px로 제한 */
         margin: 0px 10px;
         height: 100%;
-        border: 1px solid black;
+       /*  border: 1px solid black; */
     }
     /* 차트 2의 항목 스타일링 */
     #chart2 .cart1-2 {
@@ -284,18 +284,28 @@
     }
     
     #chart2>div {
-    width: 150%;
-    max-width: 800px;  /* 기존 크기 유지 */
-    margin: 0px 10px;
-    height: 150%;
-    border: 1px solid black;
-}
+	    width: 150%;
+	    max-width: 800px;  /* 기존 크기 유지 */
+	    margin: 0px 10px;
+	    height: 150%;
+	    /* border: 1px solid black; */
+	}
 
     .custom-size { margin: auto; /* 중앙 정렬 */}
     
     .rank {
     	border-bottom : 1px solid white;
     	border-top : 1px solid white;
+    }
+    
+    /* 부트스트랩 테이블 선의 색 변경 */
+    .rankTh {
+        border-bottom: 2px solid white !important;
+        border-top: 2px solid white !important;
+    }
+    
+    .rankTd {
+        border-bottom: 2px solid white !important;
     }
 </style>
 </head>
@@ -389,10 +399,10 @@
                     	<table class="table">
                     		<thead>
 	                    		<tr>
-	                    			<th>순위</th>
-	                    			<th>강아지</th>
-	                    			<th>고양이</th>
-	                    			<th>공통</th>
+	                    			<th class="rankTh">순위</th>
+	                    			<th class="rankTh">강아지</th>
+	                    			<th class="rankTh">고양이</th>
+	                    			<th class="rankTh">공통</th>
 	                    		</tr>
 	                    	</thead>
 	                    	<tbody class="stockRank"></tbody>
@@ -587,10 +597,10 @@
 					for(let i = 0; i < 5; i++) {
 						
 						str += "<tr>"
-							 +		"<td>" + (i + 1) + "순위 </td>"
-							 + 		"<td>" + dog[i].PRODUCT_NAME + "  |  " + dog[i].PRODUCT_STOCK + " 개</td>"
-							 + 		"<td>" + cat[i].PRODUCT_NAME + "  |  " + cat[i].PRODUCT_STOCK + " 개</td>"
-							 + 		"<td>" + common[i].PRODUCT_NAME + "  |  " + common[i].PRODUCT_STOCK + " 개</td>"
+							 +		"<td class='rankTd'>" + (i + 1) + "순위 </td>"
+							 + 		"<td class='rankTd'>" + dog[i].PRODUCT_NAME + "  |  " + dog[i].PRODUCT_STOCK + " 개</td>"
+							 + 		"<td class='rankTd'>" + cat[i].PRODUCT_NAME + "  |  " + cat[i].PRODUCT_STOCK + " 개</td>"
+							 + 		"<td class='rankTd'>" + common[i].PRODUCT_NAME + "  |  " + common[i].PRODUCT_STOCK + " 개</td>"
 							 + "<tr>"
 						
 					}
