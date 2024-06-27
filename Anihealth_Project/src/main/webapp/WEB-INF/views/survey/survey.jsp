@@ -253,7 +253,7 @@
                 </div>
                 <div class="survey-item dog" align="center" style="display: none;">
                     <h3 style="margin-bottom: 15px;">품종과 나이를 선택해주세요</h3>
-                    나이 <input type="number" name="age" placeholder="나이 입력" min="1" step="1" required >
+                    나이 <input type="number" name="age" placeholder="나이 입력" min="1" max="50" step="1" required >
                     <ul class="breed">
                         <li><img src="resources/simg/닥스훈트.png" alt="닥스훈트"><div>닥스훈트</div></li>
                         <li><img src="resources/simg/포메라니안.png" alt="포메라니안"><div>포메라니안</div></li>
@@ -278,7 +278,7 @@
                 </div>
                 <div class="survey-item cat" align="center" style="display: none;"> 
                     <h3 style="margin-bottom: 15px;">품종과 나이를 선택해주세요</h3>
-                    나이 <input type="number" name="age" placeholder="나이 입력" min="1" step="1" required>
+                    나이 <input type="number" name="age" placeholder="나이 입력" min="1" max="50" step="1" required>
                     <ul class="breed">
                         <li><img src="resources/simg/브리티쉬숏헤어.png" alt="브리티쉬숏헤어"><div>브리티쉬숏헤어</div></li>
                         <li><img src="resources/simg/노르웨이숏헤어.png" alt="노르웨이숏헤어"><div>노르웨이숏헤어</div></li>
@@ -304,7 +304,7 @@
                 <div class="survey-item bcs" style="display: none;">
                     <div class="icon-container"><img src="resources/simg/obesity.png"></div>
                     <h3 style="margin-bottom: 15px;">체중/체형</h3>
-                    체중 <input type="number" placeholder="몸무게 입력" name="weight" required style="margin-bottom: 20px;" step="0.1" min="0.1" required> Kg
+                    체중 <input type="number" placeholder="몸무게 입력" name="weight" required style="margin-bottom: 20px;" step="0.1" min="0.1" max="150" required> Kg
                     <label for="bcs1">
                         <input type="radio" name="bcs" value="9" id="bcs1" required>
                         <img src="resources/simg/bcs-icon-dog-9_2.png">
@@ -594,7 +594,9 @@
 
                     //console.log($(this).parent().find("input[name=weight]").val());
                     if(!!$(this).parent().find("input[name=weight]").length) {
-                        if($(this).parent().find("input[name=weight]").val() <= 0) {
+                        let weight = $(this).parent().find("input[name=weight]").val();
+                        //console.log(weight);
+                        if( isNaN(weight) || weight < 0.1 || weight > 150) {
                             alertify.alert().set({
                                 'onshow': function() {
                                     this.elements.dialog.style.width = '400px'; 
@@ -604,6 +606,9 @@
                             }).show();
                         return false;
                         }
+                        let weightRounded = Math.round(weight * 10) / 10;
+                        $(this).parent().find("input[name=weight]").val(weightRounded);
+                        //console.log($(this).parent().find("input[name=weight]").val());
                     }
 
                     if (!$(this).parent().find("input:checked").length){  // 라디오는 하나만 체크되도 검사됨
@@ -620,7 +625,8 @@
                     //console.log($(this).parent().find("input[name=age]").val());
                     if(!!$(this).parent().find("input[name=age]").length) {
                         //console.log($(this).parent().find("input[name=age]").val() <= 0); // 아무것도 입력안하면 '' 반환 => 0 취급
-                        if($(this).parent().find("input[name=age]").val() <= 0) {
+                        let age = $(this).parent().find("input[name=age]").val();
+                        if(isNaN(age) || age < 1 || age > 50 || age % 1 !== 0) {
                             alertify.alert().set({
                                 'onshow': function() {
                                     this.elements.dialog.style.width = '400px'; 

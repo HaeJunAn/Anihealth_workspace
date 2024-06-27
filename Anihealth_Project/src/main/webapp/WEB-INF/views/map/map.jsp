@@ -412,6 +412,19 @@
 				});
 			}
 		}
+		// function categorySearchCB(result, status) {
+		// 	if (status === kakao.maps.services.Status.OK) {
+
+		// 	// 정상적으로 검색이 완료됐으면 지도에 마커를 표출합니다
+		// 	displayMarker(result);
+		// 	} else if (status === kakao.maps.services.Status.ZERO_RESULT) {
+			
+
+		// 	} else if (status === kakao.maps.services.Status.ERROR) {
+			
+
+		// 	}
+		// }
 
 		// 키워드 검색
 		function searchButton() {
@@ -424,7 +437,9 @@
 			geocoder.addressSearch(address,
 					function(result, status) {
 						// 정상적으로 검색이 완료됐으면 
+						//console.log(result);
 						if (status === kakao.maps.services.Status.OK) {
+							console.log("호출");
 							mapList = ''; // 검색할떄마다 리스트 비우기
 							$("#suggestions>table").children().remove(); //자동완성 지우기
 							hideMarkers();
@@ -435,6 +450,9 @@
 							// 키워드로 장소를 검색합니다, 매개변수 location 추가
 							//hideMarkers();
 							ps.keywordSearch('동물병원', placesSearchCB, {location : coords, radius : 2000, size: 10, sort : kakao.maps.services.SortBy.DISTANCE}); //size : 5, page : 1	결과 최대 45개 지원
+							//ps.categorySearch('PK6', categorySearchCB, {location : coords, radius : 2000});
+						} else {
+
 						}
 					});
 		}
@@ -445,6 +463,7 @@
 			var center = map.getCenter();
 			ps.keywordSearch('동물병원', placesSearchCB, {location : center, radius : 2000, size: 10, sort : kakao.maps.services.SortBy.DISTANCE});
 		}
+
 		// data[i] 에 장소 정보 객체 저장
 		function placesSearchCB(data, status, pagination) {
 			window.pagination = pagination;
