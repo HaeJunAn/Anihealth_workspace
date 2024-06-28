@@ -2,7 +2,6 @@
 	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 		<!DOCTYPE html>
 		<html>
-
 		<head>
 			<meta charset="UTF-8">
 			<title>Insert title here</title>
@@ -642,18 +641,15 @@
 			<br> <br>
 			<jsp:include page="../common/footer.jsp" />
 			<script>
-				// 체크박스 히든 밸류변경
+				// 추천제품 체크박스 히든 밸류변경
 				$(document).on("click", ".recommendedProduct", function () {
-					console.log($(this).prop('checked'));
-					console.log($(this).next());
-
 					if($(this).prop('checked')) {
 						$(this).next().attr("disabled", false);
 					} else {
 						$(this).next().attr("disabled", true);
 					}
 				});
-
+				// 검진 다운
 				function downloadSurvey() {
 					// 그림자 렌더링 이슈 제거
 					$(".surveyResult-wrap>div").css("box-shadow", "none");
@@ -680,7 +676,6 @@
 				}
 
 				$(function () {
-
 					// 로딩바
 					$(".progress-bar").animate({
 						width: "100%"
@@ -692,7 +687,7 @@
 					}, 4000);
 
 					
-					// bcs 아이콘
+					// bcs 아이콘 선택
 					$(".weight section").eq(0).find("img").each(function (index) {
 						if(index != ${(weightInfo.bcsNo - 1) / 2}) {
 							$(this).addClass("bcsInactive");
@@ -700,16 +695,16 @@
 							$(this).addClass("bcsActive");
 						}
 					});
-					//모달
+					// 도움말 모달
 					$(".help").on("click", function () {
 						$("#helpModal").show();
 					});
 					$(".close").on("click", function(){ 
 						$("#helpModal").hide();
 					});
-					// 미리체크
+					// 추천제품 미리체크
 					$("input[type=checkbox]").prop('checked', true);
-					// 추천제품 제목
+					// 추천제품 분류
 					$(".totalCount5").eq(0).append("<h4>종합영양제</h4>");
 					$(".totalCount5").eq(0).parent().show();
 					if($(".totalCount2").length != 0) {
@@ -731,7 +726,6 @@
 					let year = today.getFullYear(); 
 					let month = today.getMonth() + 1;  
 					let date = today.getDate();  
-
 					$(".outline").children().eq(1).text(year + "년 " + month + "월 " + date + "일");
 					
 					// 상품별 효과 아이콘

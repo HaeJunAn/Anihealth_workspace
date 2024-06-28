@@ -541,14 +541,13 @@
 	}
 </style>		
 	<script>
-       	$(function() {
-       		
-       		selectReviewList(1);
-       		//setInterval(selectReplyList, 1000);
-       	});
-       	
+       	$(function() { 		
+     		selectReviewList(1);
+       		//setInterval(selectReplyList, 1000); 실시간 반영코드
+       	});	
+
        	function selectReviewList(pageNum) {
-			console.log($(".custom-select option:selected").val());
+			//console.log($(".custom-select option:selected").val());
        		$.ajax({
        			url : "plist.re",
        			type : "get",
@@ -575,7 +574,7 @@
        				let countRating = 0;
        				let avgRating = 0;
        				
-
+					// 별점 개수 항목 출력
        				for ( var key in ratingMap) { // 객체 반복문
        					let ratingStr = "";
        					ratingStr += "<div class='progress'>"
@@ -596,18 +595,16 @@
     					countRating += ratingMap[key];
     					$(".no"+ key).html(ratingStr);
 					}
-       				
-       				
+					$(".left-header-rw>span").text(rpi.listCount);
 
+					// 평균평점 계산 
        				avgRating = sumRating/countRating;
 					let roundedRating = Math.round(avgRating*10)/ 10;
-       				
-       				$(".left-header-rw>span").text(rpi.listCount);
-    				
+
+    				// 후기 리스트 입력
        				let listStr = "";
        				let pageStr = "";
        				if (rlist.length != 0) {
-       					
 						for(let i = 0; i < rlist.length; i++){
 	       					listStr += "<tbody> <tr class='table-line'> <td class='text-column'> <div class='info-content-rw'>" ;
 	       					listStr += "<div> <span class='info-title1'>" + rlist[i].userNick + "</span>";
@@ -624,7 +621,7 @@
 	       				    listStr += "<img src='" + rlist[i].reviewFilePath + "'class='slide-image'> </div> </td> </tr> </tbody>"
 	       				}
 						
-												
+					// 페이지 버튼 입력						
 	   					if(rpi.currentPage != 1){
 	   						pageStr += "<li class='page-item ' onclick='selectReviewList("+ (rpi.currentPage - 1) +");'><</li>";
 	   					} else {
@@ -649,18 +646,15 @@
 						listStr += "<span align='center'><h2>작성된 후기가 없습니다</h2></span>";
 					}
        					
-       				$(".rating>p").eq(1).html(roundedRating);
-					$(".starCon").css("width", (roundedRating * 20) + "%"); //* 0.984
+       				$(".rating>p").eq(1).html(roundedRating); //평균평점 출력
+					$(".starCon").css("width", (roundedRating * 20) + "%"); //* 0.984, 평점 대응 별 찍기
    					//$(".progress-container").html(ratingStr);
-       				$(".info-table-rw").html(listStr);
-       				$(".pagination").html(pageStr);
+       				$(".info-table-rw").html(listStr); // 후기 리스트 출력 
+       				$(".pagination").html(pageStr); // 페이지 버튼 출력
        			},
-       			error : function() {
-       				
+       			error : function() {	
        				console.log("리뷰 조회 실패!");
        			}
-       			
-       			
        		});
 		}
 	</script>

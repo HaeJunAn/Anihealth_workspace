@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
     <!DOCTYPE html>
     <html>
-
     <head>
         <meta charset="UTF-8">
         <title>ANIHEALTH</title>
@@ -225,7 +224,6 @@
             /*background-color: rgb(115, 201, 115);  */
         </style>    
     </head>
-
     <body>
         <jsp:include page="../common/header.jsp" />
         <br> <br>
@@ -385,7 +383,7 @@
                     </label><br>
                     <label for="teeth5">
                         <input type="radio" name="teeth" value="1" id="teeth5">
-                        <p>없어요</p>
+                        <p>없어요.</p>
                     </label><br>
                     <button class="prev" type="button">이전</button>
                     <button class="next" type="button">다음</button>
@@ -437,7 +435,7 @@
                     </label><br>
                     <label for="bone5">
                         <input type="radio" name="bone" value="1" id="bone5">
-                        <p>없어요</p>
+                        <p>없어요.</p>
                     </label><br>
                     <button class="prev" type="button">이전</button>
                     <button class="next" type="button">다음</button>
@@ -515,7 +513,7 @@
                     </label><br>
                     <label for="stomach5">
                         <input type="radio" name="stomach" value="1" id="stomach5">
-                        <p>없어요</p>
+                        <p>없어요.</p>
                     </label><br>
                     <button class="prev" type="button">이전</button>
                     <button class="next" type="button">다음</button>
@@ -550,18 +548,21 @@
         </main>
         <script>
             $(function () {
+                // 선택항목(5단계)
                 $("label").on("click", function () {
                     $(this).css("opacity", "0.8");
                     $(this).parent().find("label").not(this).css("opacity", "1");
                     $(this).addClass('active');
                     $(this).parent().find("label").not(this).removeClass('active');
                 });
+                // 동물선택
                 $(".animal>div").on("click", function () {
                     $(this).addClass("animal-active");
                     $(this).parent().find("div").not(this).removeClass("animal-active");
                     let aniVal = $(this).find("img").attr("alt");
                     $("input[name=animal]").val(aniVal);
                 });
+                // 품종선택
                 $(".breed li").on("click", function () {
                     $(this).addClass("breed-active");
                     $(this).parent().find("li").not(this).removeClass("breed-active");
@@ -573,7 +574,7 @@
                 cat = $(".cat").clone(true);
                 dog = $(".dog").clone(true);
             });
-
+            // 뒤로가기 버튼
             $(document).on("click", ".prev", function () {
                 let currentItem = $(this).parent();
                 currentItem.css('display', 'none');
@@ -588,7 +589,8 @@
 
             let proBar = 0;
             let b = true;
-
+            // 알람 함수 이후 따로 빼기 
+            // 유효성 검사 && 진행 버튼
             $(document).on("click", ".next", function () {
                 if(!!$(this).parent().find("input[type=radio]").length) {
 
@@ -658,7 +660,7 @@
                 if(!b){
                     return false;
                 }
-                // 품종 페이지 선택
+                // 동물 선택에 따른 화면 구성 결정
                 if($(this).is($(".next").eq(0))) { //제이쿼리 dom 비교법
                     if($("input[name=animal]").val() == '강아지') {
                         $(".cat").detach();
@@ -672,7 +674,7 @@
                         }
                      }
                 } 
-                
+                // 화면 넘김 효과
                 let currentItem = $(this).parent();
                 currentItem.css('display', 'none'); // 또는 hide(애니메이션);
                 proBar += 10;
@@ -683,7 +685,5 @@
             });
 
         </script>
- 
     </body>
-
-    </html>
+</html>
