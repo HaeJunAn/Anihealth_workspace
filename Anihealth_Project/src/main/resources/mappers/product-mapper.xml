@@ -231,18 +231,30 @@
 	<!-- *********** 정민 : 관리자 ********* -->
 	<!-- 영양제 총 개수 쿼리문 -->
 	<select id="selectAdProductListCount" resultType="_int" parameterType="string">
-		SELECT COUNT(*)
-		  FROM PRODUCT
-		  <if test="keyword != null and keyword != ''">
-		  	JOIN PRODUCT_EFFECT PE USING (PRODUCT_NO)
-		  	JOIN EFFECT E ON (E.EFFECT_NO = PE.EFFECT_NO)
-          	WHERE PRODUCT_NAME LIKE '%' || #{keyword} || '%' OR CATEGORY LIKE '%' || #{keyword} || '%' OR E.EFFECT_NAME LIKE '%' || #{keyword} || '%'
-          </if>
+		 SELECT COUNT(*)
+	    FROM (
+	        SELECT DISTINCT PRODUCT_NO
+	            , PRODUCT_NAME
+	            , PRODUCT_THUMBNAIL_PATH
+	            , CATEGORY
+	            , PRICE
+	            , PRODUCT_STOCK
+	            , PRODUCT_COUNT
+	            , PRODUCT_STATUS
+	        FROM PRODUCT
+	        <if test="keyword != null and keyword != ''">
+	            JOIN PRODUCT_EFFECT PE USING (PRODUCT_NO)
+	            JOIN EFFECT E ON (E.EFFECT_NO = PE.EFFECT_NO) 
+	            WHERE PRODUCT_NAME LIKE '%' || #{keyword} || '%' 
+	               OR CATEGORY LIKE '%' || #{keyword} || '%' 
+	               OR E.EFFECT_NAME LIKE '%' || #{keyword} || '%'
+	        </if>
+	    ) DISTINCT_PRODUCTS
 	</select>
 	
 	<!-- 영양제 목록조회용 쿼리문 -->
 	<select id="selectAdProductList" parameterType="string" resultMap="productResultSet">
-		SELECT PRODUCT_NO
+		SELECT DISTINCT PRODUCT_NO
 	         , PRODUCT_NAME
 	         , PRODUCT_THUMBNAIL_PATH
 	         , CATEGORY

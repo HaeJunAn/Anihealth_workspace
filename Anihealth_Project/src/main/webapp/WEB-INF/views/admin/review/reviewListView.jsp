@@ -140,7 +140,7 @@
 	 					<td>${ r.reviewDate }</td>
 	 					<th>별점</th>
 	 					<td>${ r.rating }</td>
-	 					<th>삭제 / 복귀</th>
+	 					<th>삭제 / 복구</th>
 	 					<td class="btns" height="30px">
 	 						<c:choose>
 	 							<c:when test="${ r.reviewStatus eq 'Y' }">

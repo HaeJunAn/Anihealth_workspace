@@ -239,7 +239,7 @@
                                 	<th>제품명</th>
                                     <th class="cart-table-item" colspan="2">후기내역</th>
                                     <th width="130px">작성일</th>
-                                    <th>수정  / 삭제</th>
+                                    <th width="120px">수정  / 삭제</th>
                                     
                                 </tr>
                             </thead>

@@ -445,7 +445,7 @@
 						<input type="email" name="email" id="email" name="email" class="form-control" placeholder="이메일 주소를 입력해주세요" required>
 						<button type="button" class="btn" id="emailCheckBtn"
 									onclick="cert();">
-							인증번호 발송
+							인증번호발송
 						</button>
 						</div>
 					</td>
@@ -456,7 +456,7 @@
 							<input type="text" id="emailCheck" name="emailCheck" class="form-control" placeholder="인증번호를 입력해주세요" required disabled>
 							<button type="button" class="btn" id="emailNumberCheckBtn"
 										onclick="validate();" disabled>
-								인증번호 확인
+								인증번호확인
 							</button>
 							
 						</div>
