@@ -223,11 +223,11 @@
 		                            <thead>
 		                                <tr>
 		                                    <th class="cart-table-item" colspan="2" width="100px;">주문 일자</th>
-		                                    <th>결제 금액</th>
-		                                    <th>배송 상태</th>
-		                                    <th>배송지</th>
-		                                    <th>배송 요청사항</th>
-		                                    <th>환불</th>
+		                                    <th width="140px">결제 금액</th>
+		                                    <th width="150px">배송 상태</th>
+		                                    <th width="250px">배송지</th>
+		                                    <th width="200px">배송 요청사항</th>
+		                                    <th width="150px">환불</th>
 		                                </tr>
 		                            </thead>
 		                            
@@ -235,8 +235,8 @@
 		                           		<c:forEach var="o" items="${ requestScope.list }">
 		                                	<tr>
 		                                		<div>
-		                                		<td colspan="3" style="text-align: left; padding-bottom: 0; border-bottom-color: lightgray">주문번호 : ${ o.orderNo }</td>
-		                                		<td colspan="4" style="text-align: right; padding-bottom: 0; border-bottom-color: lightgray">
+		                                		<td colspan="5" style="text-align: left; padding-bottom: 0; border-bottom-color: lightgray">주문번호 : ${ o.orderNo }</td>
+		                                		<td colspan="2" style="text-align: right; padding-bottom: 0; border-bottom-color: lightgray">
 		                                			<a href="javascript:void(0);" onclick="postOrderDetail('${o.orderNo}');" style="text-decoration: none; color: black;">주문 상세보기 ></a>
 		                                		</td>
 		                                		</div>
