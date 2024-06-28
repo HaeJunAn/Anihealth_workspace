@@ -185,7 +185,6 @@
 					<th>카테고리</th>
 					<th>가격</th>
 					<th>재고량</th>
-					<th>조회수</th>
 					<th>공개여부</th>
 				</tr>
 			</thead>
@@ -204,7 +203,6 @@
 						<td>
 							<fmt:formatNumber value="${ p.productStock }" type="number" groupingUsed="true" />
 						</td>
-						<td>${ p.productCount }</td>
 						<td>${ p.productStatus }</td>
 					</tr>
 				</c:forEach>

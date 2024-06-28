@@ -86,9 +86,7 @@
 		        	</tr>
 		        	<tr>
 		        		<th>상품재고</th>
-		        		<td>${ requestScope.p.productStock }</td>
-		        		<th class="area-middle">조회수</th>
-		        		<td class="area-middle">${ requestScope.p.productCount }</td>
+		        		<td colspan="3">${ requestScope.p.productStock }</td>
 		        	</tr>
 		        	<tr>
 		        		<th>가격</th>

@@ -130,11 +130,9 @@
 			        	</tr>
 			        	<tr>
 			        		<th>상품재고</th>
-			        		<td>
+			        		<td colspan="3">
 			        			<input type="number" class="form-control col-sm-3" name="productStock" value="${ requestScope.p.productStock }" required> &nbsp;개
 			        		</td>
-			        		<th class="area-middle">조회수</th>
-			        		<td class="area-middle" style="padding-top : 20px;">${ requestScope.p.productCount }</td>
 			        	</tr>
 			        	<tr>
 			        		<th>가격</th>

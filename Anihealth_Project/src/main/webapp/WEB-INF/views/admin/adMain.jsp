@@ -442,7 +442,7 @@
 					let member = result.member;
 					let activeMember = result.activeMember;
 					
-					$("#member").html("<a href='member.ad'>" + member + " / " + activeMember + "</a>");
+					$("#member").html("<a href='member.ad'>" + activeMember + " / " + member + "</a>");
 					
 				},
 				error : function() {
